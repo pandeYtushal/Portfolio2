@@ -5,7 +5,7 @@ const Hero = () => {
       className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black pb-24"
     >
       {/* Background */}
-<div className="absolute inset-0 bg-linear-to-br from-zinc-950 via-zinc-900 to-black"></div>
+<div className="absolute inset-0 bg- bg-zinc-950/80 backdrop-blur-sm"></div>
 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(139,92,246,0.12),transparent_60%)]"></div>
 
 

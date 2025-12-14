@@ -29,7 +29,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 px-6 py-3 bg-zinc-800/70 rounded-lg hover:bg-zinc-800 hover:border-purple-500/50 border border-zinc-700 transition-all duration-300 transform hover:scale-105"
                 >
-                  <IconComponent className="text-xl text-purple-400" />
+                  <IconComponent className="text-xl text-white" />
                   <span className="text-white font-medium">{social.name}</span>
                 </a>
               );
