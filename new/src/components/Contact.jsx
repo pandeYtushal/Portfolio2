@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram } from 'react-icons/fa';
 const Contact = () => {
   const socialLinks = [
     { name: 'GitHub', icon: FaGithub, url: 'https://github.com/pandeYtushal' },
-    { name: 'LinkedIn', icon: FaLinkedin, url: 'https://linkedin.com/tushalanand-18' },
+    { name: 'LinkedIn', icon: FaLinkedin, url: 'https://www.linkedin.com/in/tushal-anand18' },
     { name: 'Instagram', icon: FaInstagram, url: 'https://instagram.com/_tushal.pandey' },
     { name: 'Email', icon: FaEnvelope, url: 'mailto:your.tushalanand4@gmail.com' },
   ];
