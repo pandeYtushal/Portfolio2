@@ -21,21 +21,21 @@ const Projects = () => {
     },
     {
       title: 'Cab Booking Platform',
-      status: 'Live',
+      status: 'Closed',
       description: 'A full frontend page with payment integration, user management, and admin dashboard. Features include ride booking, fare calculations, driver tracking.',
       tech: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Express', 'JWT'],
       link: 'https://github.com/pandeYtushal',
     },
     {
       title: 'Task Management App',
-      status: 'Live',
+      status: 'Closed',
       description: 'A collaborative task management application with real-time updates and team collaboration features. Organize projects, assign tasks, track progress, and communicate with your team seamlessly.',
       tech: ['React', 'Firebase', 'Tailwind CSS', 'WebSockets', 'TypeScript'],
       link: 'https://github.com/pandeYtushal',
     },
     {
       title: 'Weather Dashboard',
-      status: 'Live',
+      status: 'Closed',
       description: 'A beautiful weather dashboard with location-based forecasts and interactive charts. Get real-time weather data, extended forecasts, and detailed meteorological information with an intuitive interface.',
       tech: ['React', 'API Integration', 'Chart.js', 'Tailwind CSS', 'OpenWeather API'],
       link: 'https://github.com/pandeYtushal',
@@ -60,15 +60,17 @@ const Projects = () => {
               <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:gradient-text transition-all">
                 {project.title}
               </h3>
-              {project.status && (
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  project.status === 'Live' 
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                    : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                }`}>
-                  {project.status}
-                </span>
-              )}
+           {project.status && (<span className={`px-3 py-1 rounded-full text-xs font-semibold border ${
+           project.status === "Live"
+           ? "bg-green-500/20 text-green-400 border-green-500/30"
+           : project.status === "In Progress"
+           ? "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+           : project.status === "Closed"
+           ? "bg-red-500/20 text-red-400 border-red-500/30"
+           : "bg-zinc-500/20 text-zinc-400 border-zinc-500/30"}`}>
+         {project.status}
+        </span>)}
+
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed text-lg">{project.description}</p>
             <div className="flex flex-wrap gap-2 mb-4">
