@@ -1,18 +1,30 @@
 import { LiaCodeBranchSolid } from "react-icons/lia";
 import { FaCertificate } from "react-icons/fa";
+import { IoGameController } from "react-icons/io5";
 
 const Achievements = () => {
   const achievements = [
     {
       title: "Open Source Contributor",
-      description: "Contributed to 20+ open source projects",
+      description: "Contributed to open source projects",
       icon: LiaCodeBranchSolid,
     },
     {
       title: "Certified Developer",
-      description: "AWS, Google Cloud, and Azure certified",
+      description: "Metacrafter JSPROOF:BeginnerCourse",
       icon: FaCertificate,
     },
+    {
+      title: "Certified Developer",
+      description: "Metacrafter ETHPROOF:BeginnerEVMCourse",
+      icon: FaCertificate,
+    },
+    {
+      title: "Gameing Competition",
+      description: "Qualified for Quarter Finals for PMIT 2019",
+      icon:IoGameController,
+    }
+
   ];
 
   return (

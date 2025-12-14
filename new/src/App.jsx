@@ -8,13 +8,13 @@ import Achievements from './components/Achievements';
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-black text-white pb-26">
       <Navbar />
       <Hero />
       <Skills />
-      <Achievements/>
+      <Achievements />
       <Projects />
-      <Contact />
+      <Contact/>
       <Footer />
     </div>
   );

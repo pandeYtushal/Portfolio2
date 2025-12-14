@@ -12,7 +12,7 @@ const Contact = () => {
     <section id="contact" className="section-container">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">You Scrolled So far</span>
+          <span className="gradient-text">Let’s Connect</span>
         </h2>
       </div>
 

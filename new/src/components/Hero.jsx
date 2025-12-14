@@ -37,9 +37,11 @@ const Hero = () => {
           </p>
 
           {/* Button */}
-          <button className="mt-4 px-6 py-3 cursor-pointer bg-linear-to-r from-blue-500 to-purple-500 text-white rounded-2xl font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
-            Resume
-          </button>
+          <a href="https://drive.google.com/file/d/1MgVDHzFI4jg_Z8vGTaBrgC6r_be2xtAw/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+          className="inline-block mt-4 px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+  Resume
+</a>
+
 
         </div>
       </div>

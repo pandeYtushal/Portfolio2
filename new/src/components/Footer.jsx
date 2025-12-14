@@ -12,7 +12,7 @@ const Footer = () => {
           </p>
 
           <p className="text-gray-400">
-            Developed by Tushal
+            Developed by Tushal Pandey
           </p>
 
           <p className="text-gray-500 text-sm mt-1">
