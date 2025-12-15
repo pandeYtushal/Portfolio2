@@ -2,6 +2,9 @@ const Skills = () => {
   const skills = [
     "TypeScript",
     "JavaScript",
+    "C++",
+    "HTML",
+    "CSS",
     "React",
     "Next.js",
     "Node.js",
@@ -10,7 +13,6 @@ const Skills = () => {
     "Tailwind CSS",
     "Git",
     "GitHub",
-    "AWS",
     "Vercel",
     "Python",
     "Figma",
@@ -18,17 +20,23 @@ const Skills = () => {
 
   return (
     <section id="skills" className="section-container">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="text-zinc-300">Technology & Tools I Use</span>
+      {/* Heading */}
+      <div className="mb-8 text-center sm:mb-12">
+        <h2 className="font-bold text-2xl sm:text-3xl md:text-5xl leading-tight">
+          <span className="text-zinc-300">
+            Technology & Tools <br className="sm:hidden" />
+            I Use
+          </span>
         </h2>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+      {/* Skills */}
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto">
         {skills.map((skill, index) => (
           <span
             key={index}
-            className="px-4 py-2 text-sm md:text-base font-medium text-zinc-200 bg-zinc-950 border border-zinc-700 rounded-xl hover:border-zinc-500 transition">
+            className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base font-medium text-zinc-200 bg-zinc-950 border border-zinc-700 rounded-lg sm:rounded-xl hover:border-red-500
+              transition-all duration-300">
             {skill}
           </span>
         ))}

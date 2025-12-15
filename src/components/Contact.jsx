@@ -10,32 +10,22 @@ const Contact = () => {
 
   return (
     <section id="contact" className="section-container">
-      <div className="text-center mb-14">
-        <h2 className="text-4xl md:text-5xl font-bold">
+      {/* Heading */}
+      <div className="mb-8 sm:mb-14 text-center">
+        <h2 className="font-bold text-2xl sm:text-3xl md:text-5xl leading-tight">
           <span className="text-zinc-300">Let’s Connect</span>
         </h2>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+      {/* Social links */}
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 max-w-3xl mx-auto">
         {socialLinks.map((social, index) => {
           const Icon = social.icon;
           return (
-            <a
-              key={index}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                group flex items-center gap-3
-                px-5 py-2.5
-                rounded-full
-                bg-zinc-900/80
-                border border-zinc-700
-                text-zinc-300 text-sm font-medium
-                hover:text-white hover:border-zinc-500
-                hover:-translate-y-0.5
-                transition-all duration-300">
-              <Icon className="text-lg text-zinc-400 group-hover:text-white transition" />
+            <a key={index}href={social.url}target="_blank"rel="noopener noreferrer"
+              className="group flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-zinc-900/80 border border-zinc-700 text-zinc-300 text-xs sm:text-sm md:text-base
+                font-medium hover:text-white hover:border-zinc-500 hover:-translate-y-0.5 transition-all duration-300">
+              <Icon className="text-base sm:text-lg text-zinc-400 group-hover:text-white transition" />
               {social.name}
             </a>
           );
