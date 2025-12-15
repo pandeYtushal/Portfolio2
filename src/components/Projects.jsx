@@ -22,7 +22,7 @@ const Projects = () => {
     {
       title: 'Cab Booking Platform',
       status: 'Closed',
-      description: 'A full frontend page with payment integration, user management, and admin dashboard. Features include ride booking, fare calculations, driver tracking.',
+      description: 'A full frontend page with payment integration, user management, and admin dashboard.Features include ride booking, fare calculations, driver tracking.',
       tech: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Express', 'JWT'],
       link: 'https://github.com/pandeYtushal',
     },
@@ -43,10 +43,10 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="section-container bg-zinc-950/80 backdrop-blur-sm">
+    <section id="projects" className="section-container bg-zinc-950 backdrop-blur-sm">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">Projects</span>
+          <span className="text-zinc-300">Projects</span>
         </h2>
       </div>
 
@@ -72,13 +72,14 @@ const Projects = () => {
         </span>)}
 
             </div>
-            <p className="text-gray-400 mb-4 leading-relaxed text-lg">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <p className="text-gray-400/90 text-sm md:text-base leading-7 text-left max-w-prose">{project.description}</p>
+            <div className="flex flex-wrap gap-2 mt-4">
               {project.tech.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="px-3 py-1 bg-zinc-800/70 text-gray-300 rounded-full text-sm"
-                >
+                  className="px-3 py-1.5 text-xs md:text-sm
+                 bg-zinc-800/80 border border-zinc-700
+                 rounded-full text-gray-300 cursor-pointer">
                   {tech}
                 </span>
               ))}

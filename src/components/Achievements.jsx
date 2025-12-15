@@ -28,11 +28,11 @@ const Achievements = () => {
   ];
 
   return (
-    <section id="achievements"className="section-container bg-zinc-950/80 backdrop-blur-sm">
+    <section id="achievements"className="section-container bg-zinc-950">
       {/* Heading */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">Achievements</span>
+          <span className="text-zinc-300">Achievements</span>
         </h2>
 
         {/* Divider */}
@@ -48,10 +48,7 @@ const Achievements = () => {
     }}
   />
 </div>
-
-
-
-        <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
+<p className="text-gray-400 mt-4 max-w-2xl mx-auto">
           Milestones and accomplishments in my journey
         </p>
       </div>
@@ -64,8 +61,7 @@ const Achievements = () => {
           return (
             <div
               key={index}
-              className="bg-zinc-900/80 rounded-xl p-6 border border-zinc-800 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group text-center shadow-xl"
-            >
+              className="bg-zinc-950 backdrop-blur-sm rounded-xl p-6 border hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group text-center shadow-xl">
               {/* Icon */}
               <div className="flex justify-center mb-4 text-purple-500 group-hover:text-purple-400 transition-colors">
                 <Icon size={44} />
@@ -75,7 +71,7 @@ const Achievements = () => {
                 {achievement.title}
               </h3>
 
-              <p className="text-gray font-400 italic text-sm">
+              <p className="text-gray font-400 italic text-sm md:text-base">
                 {achievement.description}
               </p>
             </div>

@@ -1,39 +1,36 @@
 const Hero = () => {
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black pb-24"
-    >
+    <section id="home"className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black pb-24">
       {/* Background */}
-<div className="absolute inset-0 bg- bg-zinc-950/80 backdrop-blur-sm"></div>
+<div className="absolute inset-0 bg-zinc-950 backdrop-blur-sm"></div>
 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(139,92,246,0.12),transparent_60%)]"></div>
 
 
       <div className="relative z-10 w-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
 
-          {/* Profile */}
-          <div className="mb-8 flex justify-center">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br bg-zinc-500 p-1">
-              <div className="w-full h-full rounded-full bg-zinc-900 flex items-center justify-center text-4xl md:text-5xl font-bold gradient-text">
-                TP
-              </div>
-            </div>
-          </div>
+         {/* Profile */}
+        <div className="mb-8 flex justify-start">
+        <div className="relative w-20 h-20 border border-zinc-700 rounded-xl hover:border-white transitionflex items-center justify-center text-xl font-semibold">TP
+        <span className="absolute bottom-1 right-1 w-3 h-3 bg-green-500 border-2 rounded-full border-black" /></div>
+        </div>
+
 
           {/* Heading */}
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="gradient-text">Hi, I&apos;m Tushal</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 flex justify-start">
+            <span className="text-white">Hi, I&apos;m Tushal</span>
           </h2>
 
-          {/* Description */}
-        <div className="max-w-4xl mx-auto p-6 md:p-8 hover:border-white transition-colors duration-300">
-        <p className="text-lg md:text-xl text-gray-300 leading-relaxed">I&apos;m a Computer Science Engineering Student with a strong passion for technology and innovation. My journey in software developmenthas equipped me with expertise in multiple{" "}
-    <span className="text-white font-poppins font-medium italic">
-      languages, frameworks, and development tools
-    </span>.
-  </p>
-</div>
+         {/* Description */}
+         <div className="max-w-4xl p-6 md:p-8 transition-colors duration-300">
+          <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-left">
+           I&apos;m a Computer Science Engineering Student with a strong passion
+           for technology and innovation. My journey in software development has
+           equipped me with expertise in multiple{" "}
+           <span className="text-white font-poppins font-medium italic">
+           languages, frameworks, and development tools</span>.
+           </p>
+           </div>
 
 
           {/* Button */}
