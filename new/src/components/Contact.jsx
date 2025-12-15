@@ -5,7 +5,7 @@ const Contact = () => {
     { name: 'GitHub', icon: FaGithub, url: 'https://github.com/pandeYtushal' },
     { name: 'LinkedIn', icon: FaLinkedin, url: 'https://www.linkedin.com/in/tushal-anand18' },
     { name: 'Instagram', icon: FaInstagram, url: 'https://instagram.com/_tushal.pandey' },
-    { name: 'Email', icon: FaEnvelope, url: 'mailto:your.tushalanand4@gmail.com' },
+    { name: 'Email', icon: FaEnvelope, url: 'mailto:tushalanand4@gmail.com' },
   ];
 
   return (
