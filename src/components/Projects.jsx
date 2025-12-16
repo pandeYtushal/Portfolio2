@@ -35,7 +35,7 @@ const Projects = () => {
       description:
         "A beautiful weather dashboard with real-time data, extended forecasts, and interactive charts.",
       tech: ["React", "API", "Chart.js", "Tailwind CSS"],
-      link: "https://weather-sigma-ruddy.vercel.app/",
+      link: "https://weather-by-tushal.vercel.app/",
     },
     {
       title: "Task Management App",
