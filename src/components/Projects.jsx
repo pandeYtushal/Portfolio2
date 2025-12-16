@@ -29,6 +29,14 @@ const Projects = () => {
       tech: ["React", "Node.js", "MongoDB", "Stripe", "Express", "JWT"],
       link: "https://github.com/pandeYtushal",
     },
+     {
+      title: "Weather Dashboard",
+      status: "Live",
+      description:
+        "A beautiful weather dashboard with real-time data, extended forecasts, and interactive charts.",
+      tech: ["React", "API", "Chart.js", "Tailwind CSS"],
+      link: "https://weather-sigma-ruddy.vercel.app/",
+    },
     {
       title: "Task Management App",
       status: "Closed",
@@ -37,14 +45,7 @@ const Projects = () => {
       tech: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
       link: "https://github.com/pandeYtushal",
     },
-    {
-      title: "Weather Dashboard",
-      status: "Closed",
-      description:
-        "A beautiful weather dashboard with real-time data, extended forecasts, and interactive charts.",
-      tech: ["React", "API", "Chart.js", "Tailwind CSS"],
-      link: "https://github.com/pandeYtushal",
-    },
+   
   ];
 
   return (
