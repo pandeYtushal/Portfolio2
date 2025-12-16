@@ -38,12 +38,12 @@ const Projects = () => {
       link: "https://weather-by-tushal.vercel.app/",
     },
     {
-      title: "Task Management App",
-      status: "Closed",
+      title: "FitTrack",
+      status: "Live",
       description:
-        "A collaborative task management application with real-time updates and team collaboration features.",
-      tech: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
-      link: "https://github.com/pandeYtushal",
+        "FitTrack is a React and Firebase–based fitness tracking web app that helps users manage workouts, diet, and body progress",
+      tech: ["React", "Firebase", "Tailwind CSS", "JavaScript"],
+      link: "https://fittrack-delta-dusky.vercel.app/",
     },
    
   ];
