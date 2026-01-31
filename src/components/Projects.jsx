@@ -110,7 +110,7 @@ const Projects = () => {
           <div className="flex justify-center pt-2">
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-6 py-2.5 text-sm sm:text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold flex items-center gap-2 transition-transform hover:scale-105">
+              className="px-6 py-2.5 text-sm sm:text-base bg-gradient-to-r from-zinc-500 to-orange-600 text-white rounded-lg font-semibold flex items-center gap-2 transition-transform hover:scale-105">
               {showAll ? (
                 <>
                   Show Less <FaChevronUp />
