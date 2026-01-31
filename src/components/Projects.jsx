@@ -29,23 +29,22 @@ const Projects = () => {
       tech: ["React", "Node.js", "MongoDB", "Stripe", "Express", "JWT"],
       link: "https://github.com/pandeYtushal",
     },
-     {
+    {
+      title: "Task Management App",
+      status: "Closed",
+      description:
+        "A collaborative task management application with real-time updates and team collaboration features.",
+      tech: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
+      link: "https://github.com/pandeYtushal",
+    },
+    {
       title: "Weather Dashboard",
-      status: "Live",
+      status: "Closed",
       description:
         "A beautiful weather dashboard with real-time data, extended forecasts, and interactive charts.",
       tech: ["React", "API", "Chart.js", "Tailwind CSS"],
-      link: "https://weather-by-tushal.vercel.app/",
+      link: "https://github.com/pandeYtushal",
     },
-    {
-      title: "FitTrack",
-      status: "Live",
-      description:
-        "FitTrack is a React and Firebase–based fitness tracking web app that helps users manage workouts, diet, and body progress",
-      tech: ["React", "Firebase", "Tailwind CSS", "JavaScript"],
-      link: "https://fittrack-delta-dusky.vercel.app/",
-    },
-   
   ];
 
   return (
@@ -102,7 +101,7 @@ const Projects = () => {
 
             {/* Link */}
             {project.link && (
-              <a href={project.link}target="_blank"rel="noopener noreferrer"className="mt-6 inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-semibold">
+              <a href={project.link}target="_blank"rel="noopener noreferrer"className="mt-6 inline-flex items-center gap-2 text-zinc-400 hover:text-blue-300 text-sm font-semibold">
                 View Project<FaExternalLinkAlt className="w-4 h-4" /></a>)}</div>))}
 
         {/* Show More / Less */}
@@ -110,7 +109,7 @@ const Projects = () => {
           <div className="flex justify-center pt-2">
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-6 py-2.5 text-sm sm:text-base bg-gradient-to-r from-zinc-500 to-orange-600 text-white rounded-lg font-semibold flex items-center gap-2 transition-transform hover:scale-105">
+              className="px-6 py-2.5 text-sm sm:text-base bg-linear-to-r from-zinc-500 to-orange-500 text-white rounded-lg font-semibold flex items-center gap-2 transition-transform hover:scale-105">
               {showAll ? (
                 <>
                   Show Less <FaChevronUp />

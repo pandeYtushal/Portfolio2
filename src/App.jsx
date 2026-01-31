@@ -16,9 +16,10 @@ function App() {
       <Skills />
       <Achievements />
       <Projects />
+      <Blog/>
       <Contact/>
       <Footer />
-      <Blog />
+    
     </div>
   );
 };

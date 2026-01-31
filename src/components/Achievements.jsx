@@ -37,7 +37,7 @@ const Achievements = () => {
 
         {/* Divider */}
         <div className="relative w-32 sm:w-40 overflow-hidden mx-auto mb-4">
-          <motion.div className="w-6 h-1 bg-gradient-to-r from-blue-500 to-purple-600" animate={{ x: [0, 120] }} 
+          <motion.div className="w-6 h-1 bg-linear-to-r from-blue-500 to-red-600" animate={{ x: [0, 120] }} 
             transition={{
             duration: 2,
             repeat: Infinity,
@@ -58,9 +58,9 @@ const Achievements = () => {
           return (
             <div
               key={index}
-              className="bg-zinc-950 rounded-xl p-5 sm:p-6 border border-zinc-800 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1 text-center shadow-lg group">
+              className="bg-zinc-950 rounded-xl p-5 sm:p-6 border border-zinc-800 hover:border-red-500 to-blue-400 transition-all duration-300 hover:-translate-y-1 text-center shadow-lg group">
               {/* Icon */}
-              <div className="flex justify-center mb-3 text-purple-500 group-hover:text-purple-400 transition">
+              <div className="flex justify-center mb-3 text-green-500 group-hover:text-purple-400 transition">
                 <Icon size={36} className="sm:hidden" />
                 <Icon size={44} className="hidden sm:block" />
               </div>

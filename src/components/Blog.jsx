@@ -8,20 +8,21 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-   fetch(
-  `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`)
-  .then((res) => res.json())
-  .then((data) => {
-    setPosts(data.items.slice(0, 3));
-    setLoading(false);
-  })
-  .catch(() => setLoading(false));
-
+    fetch(
+      `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data.items.slice(0, 3));
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
   return (
     <section
       id="blog"
-      className="min-h-screen px-6 py-20 bg-zinc-950 text-white">
+      className="min-h-screen px-6 py-20 bg-black text-white">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +34,7 @@ const Blog = () => {
       {loading ? (
         <p className="text-center text-gray-400">Loading posts...</p>
       ) : (
-        <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+        <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <motion.a
               key={post.guid}

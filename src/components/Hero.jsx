@@ -15,7 +15,7 @@ const Hero = () => {
           <div className="mb-6 flex justify-start">
             <div className="relative w-26 h-26 sm:w-20 sm:h-20 border border-zinc-700 rounded-xl hover:border-white transition
                             flex items-center justify-center overflow-hidden">
-              <img src="/IMG_20260122_172216.jpg"alt="Tushal Pandey"className="w-full h-full object-cover"/>
+              <img src="/avtar.png"alt="Tushal Pandey"className="w-full h-full object-cover"/>
               <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 border border-black rounded-full" />
             </div>
           </div>
@@ -38,10 +38,10 @@ const Hero = () => {
           {/* Button */}
           <div className="mt-6">
             <a
-              href="https://drive.google.com/file/d/1yxypi65Sfk0UJZaGyWjlRptqXVhQWdxJ/view?usp=sharing"
+              href="https://drive.google.com/file/d/1MgVDHzFI4jg_Z8vGTaBrgC6r_be2xtAw/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-zinc-500 to-zinc-800 text-white rounded-xl font-semibold transition-transform duration-300 hover:scale-105">
+              className="inline-block px-6 py-3 bg-linear-to-r from-zinc-500 to-zinc-800 text-white rounded-xl font-semibold transition-transform duration-300 hover:scale-105">
               Resume
             </a>
           </div>
