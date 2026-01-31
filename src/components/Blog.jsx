@@ -8,14 +8,15 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(
-      `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${tushalpandey}`).then((res) => res.json())
-      .then((data) => {
-        setPosts(data.items.slice(0, 3));
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+   fetch(
+  `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`)
+  .then((res) => res.json())
+  .then((data) => {
+    setPosts(data.items.slice(0, 3));
+    setLoading(false);
+  })
+  .catch(() => setLoading(false));
+
 
   return (
     <section
