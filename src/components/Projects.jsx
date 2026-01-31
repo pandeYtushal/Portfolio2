@@ -62,7 +62,7 @@ const Projects = () => {
         {(showAll ? projects : projects.slice(0, 2)).map((project, index) => (
           <div
             key={index}
-            className=" bg-zinc-900/80 rounded-xl p-5 sm:p-6 md:p-8 border border-zinc-800 hover:border-purple-500/50  transition-all duration-300 shadow-lg group">
+            className=" bg-zinc-900/80 rounded-xl p-5 sm:p-6 md:p-8 border border-zinc-800 hover:border-red-500  transition-all duration-300 shadow-lg group">
             {/* Header */}
             <div className="flex items-start justify-between gap-3 mb-3">
               <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
