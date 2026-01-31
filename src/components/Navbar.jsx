@@ -56,7 +56,7 @@ const Navbar = () => {
               {activeIndex === index && (
                 <motion.span
                   layoutId="dock-active"
-                  className="absolute -top-4 left-1/2-translate-x-1/2 h-10 w-10 rounded-full bg-purple-500/40 blur-xl"
+                  className="absolute -top-4 left-1/2-translate-x-1/2 h-10 w-10 rounded-full bg-orange-500 blur-xl"
                   transition={{
                     type: "spring",
                     stiffness: 500,
@@ -66,7 +66,7 @@ const Navbar = () => {
               )}
 
               {/* HOVER GLOW */}
-              <motion.span className="absolute -top-3 left-1/2-translate-x-1/2 h-8 w-8 rounded-full bg-purple-400/30 blur-lg"
+              <motion.span className="absolute -top-3 left-1/2-translate-x-1/2 h-8 w-8 rounded-full bg-red-400/30 blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity:
