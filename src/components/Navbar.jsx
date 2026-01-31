@@ -44,38 +44,47 @@ const Navbar = () => {
     return () => observerRef.current.disconnect();
   }, []);
 
-  const radius = 60; // Adjust for circle size
-  const angleStep = 360 / navLinks.length;
-
   return (
-    <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-      <div className="relative w-32 h-32 bg-zinc-900/90 backdrop-blur-md rounded-full border border-zinc-800 shadow-xl flex items-center justify-center">
-        {navLinks.map((link, index) => {
-          const Icon = link.icon;
-          const angle = index * angleStep;
-          const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
-          const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
-          const isActive = activeIndex === index;
-          const isHovered = hoverIndex === index;
+    <nav className="fixed left-0 top-1/2 -translate-y-1/2 z-50">
+      <div className="bg-zinc-900/90 backdrop-blur-md p-2 rounded-r-lg border-r border-zinc-800 shadow-xl">
+        <div className="flex flex-col gap-4">
+          {navLinks.map((link, index) => {
+            const Icon = link.icon;
+            const isActive = activeIndex === index;
+            const isHovered = hoverIndex === index;
 
-          return (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(null)}
-              className="absolute flex items-center justify-center w-10 h-10 text-gray-300 hover:text-white transition"
-              style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)`, transform: 'translate(-50%, -50%)' }}
-              animate={{
-                rotate: isActive || isHovered ? 360 : 0,
-                scale: isActive || isHovered ? 1.2 : 1,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <Icon className="text-lg" />
-            </motion.a>
-          );
-        })}
+            return (
+              <motion.a
+                key={link.name}
+                href={link.href}
+                onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(null)}
+                className="relative flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white transition font-medium rounded-lg overflow-hidden"
+                animate={{ width: isHovered ? 150 : 50 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Active background */}
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-active-bg"
+                    className="absolute inset-0 bg-purple-500/20 rounded-lg"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
+                )}
+
+                <Icon className="text-lg flex-shrink-0" />
+                <motion.span
+                  className="text-sm whitespace-nowrap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {link.name}
+                </motion.span>
+              </motion.a>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
