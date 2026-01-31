@@ -6,6 +6,7 @@ import {
   FaTrophy,
   FaProjectDiagram,
   FaEnvelope,
+  FaBlog,
 } from "react-icons/fa";
 
 const navLinks = [
@@ -14,6 +15,7 @@ const navLinks = [
   { name: "Achievements", href: "#achievements", icon: FaTrophy },
   { name: "Projects", href: "#projects", icon: FaProjectDiagram },
   { name: "Contact", href: "#contact", icon: FaEnvelope },
+  { name: "Blog", href: "#blog", icon: FaBlog },
 ];
 
 const Navbar = () => {
