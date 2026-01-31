@@ -79,13 +79,16 @@ const Navbar = () => {
                   />
                 )}
 
-                {/* HOVER glow (always works now) */}
-                {hoverIndex === index && activeIndex !== index && (
-                  <span
-                    className="absolute -top-2 left-1/2 -translate-x-1/2
-                               h-5 w-8 rounded-b-full bg-purple-400/40 blur-sm"
-                  />
-                )}
+                {/* HOVER glow (animated opacity for smooth in/out) */}
+                <motion.span
+                  className="absolute -top-2 left-1/2 -translate-x-1/2
+                             h-5 w-8 rounded-b-full bg-purple-400/40 blur-sm"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: hoverIndex === index && activeIndex !== index ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.2 }}
+                />
 
                 {/* Icon (mobile) */}
                 <Icon className="text-lg sm:hidden" />
