@@ -57,20 +57,11 @@ const Navbar = () => {
             const Icon = link.icon;
 
             return (
-              <a
-                key={link.name}
-                href={link.href}
-                onMouseEnter={() => setHoverIndex(index)}
-                onMouseLeave={() => setHoverIndex(null)}
-                className="relative flex items-center justify-center px-2 py-1
-                           text-gray-300 hover:text-white transition font-medium"
-              >
+              <a key={link.name}href={link.href}onMouseEnter={() => setHoverIndex(index)}onMouseLeave={() => setHoverIndex(null)}
+                className="relative flex items-center justify-center px-2 py-1 text-gray-300 hover:text-white transition font-medium">
                 {/* ACTIVE glow */}
                 {activeIndex === index && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute -top-3 left-1/2 -translate-x-1/2
-                               h-8 w-12 rounded-b-full bg-purple-500 blur-md"
+                  <motion.span layoutId="nav-active"className="absolute -top-3 left-1/2 -translate-x-1/2 h-8 w-12 rounded-b-full bg-green-500 blur-md"
                     transition={{
                       type: "spring",
                       stiffness: 500,
@@ -81,14 +72,11 @@ const Navbar = () => {
 
                 {/* HOVER glow (animated opacity for smooth in/out) */}
                 <motion.span
-                  className="absolute -top-2 left-1/2 -translate-x-1/2
-                             h-5 w-8 rounded-b-full bg-purple-400/40 blur-sm"
+                  className="absolute -top-2 left-1/2 -translate-x-1/2 h-5 w-8 rounded-b-full bg-purple-green-500 blur-sm"
                   initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: hoverIndex === index && activeIndex !== index ? 1 : 0,
+                  animate={{opacity: hoverIndex === index && activeIndex !== index ? 1 : 0,
                   }}
-                  transition={{ duration: 0.2 }}
-                />
+                  transition={{ duration: 0.2 }} />
 
                 {/* Icon (mobile) */}
                 <Icon className="text-lg sm:hidden" />
