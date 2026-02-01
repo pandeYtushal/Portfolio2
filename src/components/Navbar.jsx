@@ -14,9 +14,10 @@ const navLinks = [
   { name: "Skills", href: "#skills", icon: FaTools },
   { name: "Achievements", href: "#achievements", icon: FaTrophy },
   { name: "Projects", href: "#projects", icon: FaProjectDiagram },
-  { name: "Contact", href: "#contact", icon: FaEnvelope },
   { name: "Blog", href: "#blog", icon: FaBlog },
-];
+  { name: "Contact", href: "#contact", icon: FaEnvelope },
+  ];
+  
 
 const Navbar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
