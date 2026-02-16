@@ -14,7 +14,12 @@ const navLinks = [
   { name: "Projects", href: "#projects", icon: FaProjectDiagram },
   { name: "Blog", href: "#blog", icon: FaBlog },
   { name: "Contact", href: "#contact", icon: FaEnvelope },
+<<<<<<< HEAD
 ];
+=======
+  ];
+  
+>>>>>>> 055093a801948ff87f176a4b8e13b16205cf6a90
 
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState("Home");
