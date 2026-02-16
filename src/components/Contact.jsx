@@ -1,35 +1,63 @@
-import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram } from "react-icons/fa";
+import React from "react";
+import { Mail, Github, Linkedin, Instagram } from "lucide-react";
 
 const Contact = () => {
-  const socialLinks = [
-    { name: "GitHub", icon: FaGithub, url: "https://github.com/pandeYtushal" },
-    { name: "LinkedIn", icon: FaLinkedin, url: "https://www.linkedin.com/in/tushal-anand18" },
-    { name: "Instagram", icon: FaInstagram, url: "https://instagram.com/_tushal.pandey" },
-    { name: "Email", icon: FaEnvelope, url: "mailto:tushalanand4@gmail.com" },
-  ];
-
   return (
-    <section id="contact" className="section-container">
-      {/* Heading */}
-      <div className="mb-8 sm:mb-14 text-center">
-        <h2 className="font-bold text-2xl sm:text-3xl md:text-5xl leading-tight">
-          <span className="text-zinc-300">Let’s Connect</span>
-        </h2>
-      </div>
+    <section id="contact" className="py-24 bg-black text-white px-4 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Social links */}
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 max-w-3xl mx-auto">
-        {socialLinks.map((social, index) => {
-          const Icon = social.icon;
-          return (
-            <a key={index}href={social.url}target="_blank"rel="noopener noreferrer"
-              className="group flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-zinc-900/80 border border-zinc-700 text-zinc-300 text-xs sm:text-sm md:text-base
-                font-medium hover:text-white hover:border-zinc-500 hover:-translate-y-0.5 transition-all duration-300">
-              <Icon className="text-base sm:text-lg text-zinc-400 group-hover:text-white transition" />
-              {social.name}
+      <div className="max-w-4xl mx-auto relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Let&apos;s work <span className="text-emerald-500">together</span>
+          </h2>
+          <p className="text-zinc-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+            I&apos;m always interested in hearing about new projects and opportunities.
+            Whether you have a question or just want to say hi, feel free to drop me a line.
+          </p>
+        </div>
+
+        <div className="flex justify-center max-w-2xl mx-auto">
+          {/* Email Card */}
+          <a href="mailto:tushalanand4@gmail.com"
+            className="group w-full sm:w-auto min-w-[300px] p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all duration-300 flex flex-col items-center text-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-zinc-950 flex items-center justify-center border border-zinc-800 group-hover:scale-110 transition-transform duration-300">
+              <Mail className="w-8 h-8 text-emerald-500" />
+            </div>
+            <div>
+              <p className="text-sm text-zinc-500 font-medium uppercase tracking-wider mb-2">Email Me</p>
+              <span className="text-lg md:text-xl font-semibold text-white group-hover:text-emerald-400 transition-colors">
+                tushalanand4@gmail.com
+              </span>
+            </div>
+          </a>
+        </div>
+
+        {/* Social Links */}
+        <div className="mt-16 text-center">
+          <p className="text-zinc-500 mb-6 font-medium">Connect on Socials</p>
+          <div className="flex justify-center gap-6">
+            <a href="https://github.com/pandeYtushal" target="_blank" rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-2">
+              <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-emerald-500 transition-all duration-300">
+                <Github className="w-6 h-6" />
+              </div>
             </a>
-          );
-        })}
+            <a href="https://www.linkedin.com/in/tushal-anand18" target="_blank" rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-2">
+              <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-300">
+                <Linkedin className="w-6 h-6" />
+              </div>
+            </a>
+            <a href="https://instagram.com/_tushal.pandey" target="_blank" rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-2">
+              <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 group-hover:bg-pink-600 group-hover:text-white group-hover:border-pink-600 transition-all duration-300">
+                <Instagram className="w-6 h-6" />
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

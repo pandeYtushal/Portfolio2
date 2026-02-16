@@ -4,7 +4,6 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import Achievements from './components/Achievements';
 import Blog from './components/Blog';
 import "./App.css";
 
@@ -14,12 +13,12 @@ function App() {
       <Navbar />
       <Hero />
       <Skills />
-      <Achievements />
+
       <Projects />
-      <Blog/>
-      <Contact/>
+      <Blog />
+      <Contact />
       <Footer />
-    
+
     </div>
   );
 };

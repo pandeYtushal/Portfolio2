@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const MEDIUM_USERNAME = "tushalpandey"; 
+const MEDIUM_USERNAME = "tushalpandey";
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -9,7 +9,7 @@ const Blog = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`
+      `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}&t=${new Date().getTime()}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -28,7 +28,7 @@ const Blog = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="text-3xl md:text-4xl font-bold mb-10 text-center">
-        Writing on Medium
+        Blogs
       </motion.h2>
 
       {loading ? (
@@ -43,8 +43,8 @@ const Blog = () => {
               rel="noopener noreferrer"
               whileHover={{ y: -6 }}
               className="group bg-zinc-900 border border-zinc-800
-                         rounded-xl p-6 transition hover:border-purple-500">
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-purple-400">
+                         rounded-xl p-6 transition hover:border-red-500">
+              <h3 className="text-lg font-semibold mb-2 group-hover:text-white">
                 {post.title}
               </h3>
 
@@ -56,7 +56,7 @@ const Blog = () => {
                 {new Date(post.pubDate).toDateString()}
               </span>
 
-              <span className="block mt-3 text-sm text-purple-400">
+              <span className="block mt-3 text-sm text-white">
                 Read on Medium →
               </span>
             </motion.a>

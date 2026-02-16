@@ -1,59 +1,36 @@
-import { useEffect, useState } from "react";
-import { FaRegClock } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { Clock } from "lucide-react";
 
-const LiveClock = () => {
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+function LiveClock() {
+  const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
-    const updateDateTime = () => {
-      const now = new Date();
-
-      // Time (IST)
-      setTime(
-        now.toLocaleTimeString("en-IN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Kolkata",
-        })
-      );
-
-      // Date (DD Mon YYYY)
-      setDate(
-        now.toLocaleDateString("en-IN", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          timeZone: "Asia/Kolkata",
-        })
-      );
-    };
-
-    updateDateTime();
-    const interval = setInterval(updateDateTime, 1000);
-    return () => clearInterval(interval);
+    const tick = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(tick);
   }, []);
 
+  const dateStr = now.toLocaleDateString(undefined, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const timeStr = now.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+
   return (
-    <div
-      className="inline-flex items-center gap-3 px-3 py-1 text-[11px] sm:text-xs md:text-sm text-zinc-300">
-      {/* Left: Clock */}
-      <div className="flex items-center gap-1.5">
-        <FaRegClock className="text-zinc-400 text-xl sm:text-sm" />
-        <span>{time}</span>
+    <div className="flex items-center gap-2 bg-card/80 px-4 py-2.5 shadow-sm backdrop-blur-sm">
+      <Clock className="h-4 w-4 shrink-0 text-green-500" />
+      <div className="text-right">
+        <p className="text-xs font-medium text-muted-foreground text-zinc-400">{dateStr}</p>
+        <p className="font-mono text-sm font-semibold tabular-nums text-foreground text-zinc-200">{timeStr}</p>
       </div>
-
-      {/* Divider */}
-      <span className="w-px h-4 bg-blue-700" />
-
-      {/* Right: Date */}
-      <span className="text-zinc-400 whitespace-nowrap text-xs sm:text-sm">
-        {date}
-      </span>
     </div>
   );
-};
+}
 
 export default LiveClock;

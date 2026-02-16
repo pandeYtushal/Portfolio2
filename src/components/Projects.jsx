@@ -25,21 +25,21 @@ const Projects = () => {
       title: "Cab Booking Platform",
       status: "Closed",
       description:
-        "A full frontend page with payment integration, user management, and admin dashboard. Includes ride booking, fare calculation, and driver tracking.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe", "Express", "JWT"],
+        "A full frontend page with user management, and admin dashboard. Includes ride booking, fare calculation, and driver tracking.",
+      tech: ["HTML", "CSS", "JavaScript"],
       link: "https://github.com/pandeYtushal",
     },
     {
-      title: "Task Management App",
+      title: "Fit Gym Tracker",
       status: "Closed",
       description:
-        "A collaborative task management application with real-time updates and team collaboration features.",
+        "A gym task management application with real-time updates.",
       tech: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
       link: "https://github.com/pandeYtushal",
     },
     {
       title: "Weather Dashboard",
-      status: "Closed",
+      status: "Live",
       description:
         "A beautiful weather dashboard with real-time data, extended forecasts, and interactive charts.",
       tech: ["React", "API", "Chart.js", "Tailwind CSS"],
@@ -70,13 +70,12 @@ const Projects = () => {
 
               {project.status && (
                 <span
-                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold border ${
-                    project.status === "Live"
-                      ? "bg-green-500/20 text-green-400 border-green-500/30"
-                      : project.status === "Closed"
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold border ${project.status === "Live"
+                    ? "bg-green-500/20 text-green-400 border-green-500/30"
+                    : project.status === "Closed"
                       ? "bg-red-500/20 text-red-400 border-red-500/30"
                       : "bg-zinc-500/20 text-zinc-400 border-zinc-500/30"
-                  }`}
+                    }`}
                 >
                   {project.status}
                 </span>
@@ -101,7 +100,7 @@ const Projects = () => {
 
             {/* Link */}
             {project.link && (
-              <a href={project.link}target="_blank"rel="noopener noreferrer"className="mt-6 inline-flex items-center gap-2 text-zinc-400 hover:text-blue-300 text-sm font-semibold">
+              <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-zinc-400 hover:text-blue-300 text-sm font-semibold">
                 View Project<FaExternalLinkAlt className="w-4 h-4" /></a>)}</div>))}
 
         {/* Show More / Less */}

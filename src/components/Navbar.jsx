@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaHome,
   FaTools,
-  FaTrophy,
   FaProjectDiagram,
   FaEnvelope,
   FaBlog,
@@ -12,75 +11,93 @@ import {
 const navLinks = [
   { name: "Home", href: "#home", icon: FaHome },
   { name: "Skills", href: "#skills", icon: FaTools },
-  { name: "Achievements", href: "#achievements", icon: FaTrophy },
   { name: "Projects", href: "#projects", icon: FaProjectDiagram },
-  { name: "Contact", href: "#contact", icon: FaEnvelope },
   { name: "Blog", href: "#blog", icon: FaBlog },
+  { name: "Contact", href: "#contact", icon: FaEnvelope },
 ];
 
 const Navbar = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [hoverIndex, setHoverIndex] = useState(null);
-  const observerRef = useRef(null);
+  const [activeTab, setActiveTab] = useState("Home");
+  const [isHovered, setIsHovered] = useState(null);
 
   useEffect(() => {
-    const sections = navLinks.map((link) => document.querySelector(link.href)).filter(Boolean);
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.3,
+    };
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) {
-          const index = navLinks.findIndex(
-            (link) => link.href === `#${visible.target.id}`);
-          if (index !== -1) setActiveIndex(index);}},
-      { threshold: 0.6 });
- sections.forEach((section) =>
-    observerRef.current.observe(section));
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const activeLink = navLinks.find(link => link.href === '#' + entry.target.id);
+          if (activeLink) {
+            setActiveTab(activeLink.name);
+          }
+        }
+      });
+    };
 
-    return () => {
-      if (observerRef.current) observerRef.current.disconnect(); };}, []);
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    navLinks.forEach((link) => {
+      const section = document.querySelector(link.href);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = (e, href, name) => {
+    e.preventDefault();
+    setActiveTab(name);
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <nav className="fixed bottom-4 left-0 right-0 z-50 flex justify-center px-3">
-      <div
-        className="relative flex gap-6 bg-zinc-900/90 backdrop-blur-md
-                   px-6 py-3 md:px-8 md:py-3
-                   rounded-full border border-zinc-800 shadow-xl">
-        {navLinks.map((link, index) => {
-          const Icon = link.icon;
+    <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4">
+      <div className="flex items-center gap-2 sm:gap-4 px-3 py-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-full shadow-lg shadow-black/50">
+        {navLinks.map((link) => {
+          const isActive = activeTab === link.name;
+          const isHovering = isHovered === link.name;
 
           return (
-            <a key={link.name}href={link.href}aria-label={link.name}aria-current={activeIndex === index ? "page" : undefined}
-              onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(null)}
-              onFocus={() => setHoverIndex(index)}
-              onBlur={() => setHoverIndex(null)}className="relative flex flex-col items-center text-gray-400 hover:text-white transition outline-none">
-              {/* ACTIVE GLOW */}
-              {activeIndex === index && (
-                <motion.span layoutId="dock-active"className="absolute -top-4 left-1/2-translate-x-1/2 h-10 w-10 rounded-full bg-orange-500 blur-xl"
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 35,
-                  }}
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(e) => handleClick(e, link.href, link.name)}
+              onMouseEnter={() => setIsHovered(link.name)}
+              onMouseLeave={() => setIsHovered(null)}
+              className="relative flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+              style={{
+                color: isActive || isHovering ? "#ffffff" : "#9ca3af",
+              }}
+            >
+              {(isActive || isHovering) && (
+                <motion.div
+                  layoutId="active-pill"
+                  className="absolute inset-0 bg-white/10 rounded-full"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
 
-              {/* HOVER GLOW */}
-              <motion.span className="absolute -top-3 left-1/2-translate-x-1/2 h-8 w-8 rounded-full bg-red-400/30 blur-lg"
-                initial={{ opacity: 0 }}
-                animate={{opacity:
-                    hoverIndex === index &&
-                    activeIndex !== index
-                      ? 1
-                      : 0,}}transition={{ duration: 0.2 }}/>
-
-              {/* ICON */}
-              <Icon className="relative text-lg md:text-xl" />
-
-              {/* LABEL (desktop only) */}
-              <span className="hidden md:block mt-1 text-[11px]">
-                {link.name}
+              <span className="relative z-10 flex items-center gap-2">
+                <link.icon className={`text-lg transition-transform duration-200 ${isActive || isHovering ? "scale-110" : "scale-100"}`} />
+                <span className={`hidden sm:inline transition-opacity duration-200 ${isActive || isHovering ? "opacity-100" : "opacity-70"}`}>
+                  {link.name}
+                </span>
               </span>
+
+              {isActive && (
+                <motion.div
+                  layoutId="active-dot"
+                  className="absolute -bottom-1 w-1 h-1 bg-white rounded-full sm:hidden"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
             </a>
           );
         })}
