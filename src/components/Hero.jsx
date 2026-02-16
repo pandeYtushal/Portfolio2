@@ -57,7 +57,7 @@ const Hero = () => {
             Student & Developer
           </p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            Hello, I&apos;m <span className="text-transparent bg-clip-text bg-orange-500">Tushal Pandey</span>
+            <span className="text-transparent bg-clip-text bg-orange-500">Tushal Pandey</span>
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg text-zinc-400">
             I&apos;m a student at Chandigarh University, building projects
