@@ -18,29 +18,19 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="flex justify-center max-w-2xl mx-auto">
-          {/* Email Card */}
-          <a href="mailto:tushalanand4@gmail.com"
-            className="group w-full sm:w-auto min-w-[300px] p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-900 transition-all duration-300 flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-zinc-950 flex items-center justify-center border border-zinc-800 group-hover:scale-110 transition-transform duration-300">
-              <Mail className="w-8 h-8 text-emerald-500" />
-            </div>
-            <div>
-              <p className="text-sm text-zinc-500 font-medium uppercase tracking-wider mb-2">Email Me</p>
-              <span className="text-lg md:text-xl font-semibold text-white group-hover:text-emerald-400 transition-colors">
-                tushalanand4@gmail.com
-              </span>
-            </div>
-          </a>
-        </div>
-
         {/* Social Links */}
-        <div className="mt-16 text-center">
+        <div className="mt-4 text-center">
           <p className="text-zinc-500 mb-6 font-medium">Connect on Socials</p>
           <div className="flex justify-center gap-6">
-            <a href="https://github.com/pandeYtushal" target="_blank" rel="noopener noreferrer"
+            <a href="mailto:tushalanand4@gmail.com"
               className="group flex flex-col items-center gap-2">
               <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-emerald-500 transition-all duration-300">
+                <Mail className="w-6 h-6" />
+              </div>
+            </a>
+            <a href="https://github.com/pandeYtushal" target="_blank" rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-2">
+              <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 group-hover:bg-[#24292e] group-hover:text-white group-hover:border-[#24292e] transition-all duration-300">
                 <Github className="w-6 h-6" />
               </div>
             </a>
