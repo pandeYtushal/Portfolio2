@@ -66,12 +66,7 @@ const Hero = () => {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-muted-foreground md:justify-start text-zinc-500">
             <span className="flex items-center gap-1.5">
-              <GraduationCap className="h-4 w-4 text-zinc-400" />
-              Chandigarh University
-            </span>
-            <span className="hidden items-center gap-1.5 sm:flex">
-              <MapPin className="h-4 w-4 text-zinc-400" />
-              India
+              <MapPin className="h-4 w-4 text-zinc-400" />India
             </span>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
