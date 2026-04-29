@@ -8,15 +8,31 @@ A modern and responsive portfolio website showcasing projects and skills.
 
 ## About
 
-Portfolio2 is a personal portfolio website built with JavaScript, CSS, and HTML. It serves as a showcase of web development projects, skills, and experience.
+Portfolio2 is a personal portfolio website built with React and Tailwind CSS. It serves as a showcase of web development projects, skills, and experience.
 
 ---
 
 ## Tech Stack
 
-- **JavaScript**: 95%
-- **CSS**: 3.8%
-- **HTML**: 1.2%
+### Frontend
+- React 18.3.1
+- Tailwind CSS 4.1.18
+- Vite
+- TypeScript
+- Framer Motion
+
+### Libraries and Tools
+- React Router DOM
+- Lucide React
+- React Icons
+- Radix UI
+- Class Variance Authority
+- Tailwind Merge
+
+### Development
+- ESLint
+- PostCSS
+- Autoprefixer
 
 ---
 
@@ -27,6 +43,9 @@ Portfolio2 is a personal portfolio website built with JavaScript, CSS, and HTML.
 - Project showcase section
 - Skills and experience display
 - Contact information
+- Smooth animations with Framer Motion
+- Dark theme with sleek UI
+- Dynamic content from Medium API
 
 ---
 
@@ -34,8 +53,8 @@ Portfolio2 is a personal portfolio website built with JavaScript, CSS, and HTML.
 
 ### Prerequisites
 
-- A modern web browser
-- Node.js (optional, for local development)
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
 ### Installation
 
@@ -45,17 +64,23 @@ git clone https://github.com/pandeYtushal/Portfolio2.git
 cd Portfolio2
 ```
 
-2. Open `index.html` in your web browser or use a local server.
-
-### Local Development
-
-To run a local development server:
-
+2. Install dependencies:
 ```bash
-python -m http.server 8000
+npm install
 ```
 
-Then visit `http://localhost:8000` in your browser.
+3. Start the development server:
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
+```
 
 ---
 
@@ -63,9 +88,23 @@ Then visit `http://localhost:8000` in your browser.
 
 ```
 Portfolio2/
-├── index.html
-├── styles.css
-├── script.js
+├── src/
+│   ├── components/
+│   │   ├── Contact.jsx
+│   │   ├── Projects.jsx
+│   │   ├── Skills.jsx
+│   │   ├── Achievements.jsx
+│   │   ├── Blog.jsx
+│   │   └── ui/
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+│   └── lib/
+├── public/
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── postcss.config.js
 └── README.md
 ```
 
@@ -73,7 +112,7 @@ Portfolio2/
 
 ## Usage
 
-Simply open the website in your browser to view the portfolio. Navigate through different sections to explore projects, skills, and contact information.
+Simply run the development server and navigate through different sections to explore projects, skills, and contact information.
 
 ---
 
@@ -97,7 +136,7 @@ This project is open source and available under the MIT License.
 
 ## Author
 
-**Tushal Pandey**
+Tushal Pandey
 
 - GitHub: https://github.com/pandeYtushal
 - Portfolio: https://tushal-pandey.vercel.app
