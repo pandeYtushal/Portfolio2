@@ -40,7 +40,7 @@ const Contact = () => {
                 <Linkedin className="w-6 h-6" />
               </div>
             </a>
-            <a href="https://instagram.com/_tushal.pandey" target="_blank" rel="noopener noreferrer"
+            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"
               className="group flex flex-col items-center gap-2">
               <div className="w-14 h-14 rounded-full bg-zinc-900 flex items-center justify-center border border-zinc-800 group-hover:bg-pink-600 group-hover:text-white group-hover:border-pink-600 transition-all duration-300">
                 <Instagram className="w-6 h-6" />
