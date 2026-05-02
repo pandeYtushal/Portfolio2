@@ -60,7 +60,7 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-orange-500">Tushal Pandey</span>
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg text-zinc-400">
-            I&apos;m build project that blend design and code. I focus on web development, problem
+            I build project that blend design and code. I focus on web development, problem
             solving, and turning ideas into working software.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-muted-foreground md:justify-start text-zinc-500">
