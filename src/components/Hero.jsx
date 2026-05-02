@@ -73,7 +73,7 @@ const Hero = () => {
             <a href="/Tushal_Resume.pdf" target="_blank" rel="noopener noreferrer">
               <Button size="default" className="gap-2 bg-white text-black hover:bg-gray-200">
                 <Download className="h-4 w-4" />
-                Download Resume
+                Resume
               </Button>
             </a>
             <a href="#contact" onClick={(e) => handleScroll(e, 'contact')}>
