@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
 
 function LiveClock() {
   const [now, setNow] = useState(() => new Date());
@@ -23,11 +22,12 @@ function LiveClock() {
   });
 
   return (
-    <div className="flex items-center gap-2 bg-card/80 px-4 py-2.5 shadow-sm backdrop-blur-sm">
-      <Clock className="h-4 w-4 shrink-0 text-green-500" />
+    <div className="flex items-center gap-2">
+      {/* Blinking dot */}
+      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
       <div className="text-right">
-        <p className="text-xs font-medium text-muted-foreground text-zinc-400">{dateStr}</p>
-        <p className="font-mono text-sm font-semibold tabular-nums text-foreground text-zinc-200">{timeStr}</p>
+        <p className="font-mono text-xs font-semibold tabular-nums text-white">{timeStr}</p>
+        <p className="text-[10px] text-zinc-500">{dateStr}</p>
       </div>
     </div>
   );
