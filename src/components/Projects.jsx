@@ -19,7 +19,7 @@ const Projects = () => {
       description:
         "A comprehensive utility reporting system for urban areas. Track and analyze utility usage, generate reports, and visualize data trends for better urban planning.",
       tech: ["React", "Firebase", "Tailwind CSS", "JavaScript"],
-      link: "https://urban-utiliy-report.vercel.app/",
+      link: "https://urbanreport.vercel.app/",
     },
     {
       title: "Cab Booking Platform",
