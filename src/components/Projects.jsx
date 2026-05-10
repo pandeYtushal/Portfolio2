@@ -48,11 +48,11 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="section-container">
+    <section id="projects" className="section-container bg-zinc-50 transition-colors duration-300 dark:bg-black">
       {/* Heading */}
       <div className="mb-10 sm:mb-16 text-center">
         <h2 className="font-bold text-2xl sm:text-3xl md:text-5xl leading-tight">
-          <span className="text-zinc-300">Projects</span>
+          <span className="text-zinc-500 dark:text-zinc-300">Projects</span>
         </h2>
       </div>
 
@@ -61,26 +61,26 @@ const Projects = () => {
         {(showAll ? projects : projects.slice(0, 2)).map((project, index) => (
           <div
             key={index}
-            className="relative overflow-hidden bg-zinc-900/80 rounded-xl p-5 sm:p-6 md:p-8 border border-zinc-800 hover:border-red-500 transition-all duration-300 shadow-lg group">
+            className="relative overflow-hidden bg-white rounded-xl p-5 sm:p-6 md:p-8 border border-zinc-200 hover:border-orange-500 transition-all duration-300 shadow-lg group dark:bg-zinc-900/80 dark:border-zinc-800 dark:hover:border-red-500">
             {/* Noise texture overlay */}
             <div
-              className="pointer-events-none absolute inset-0 rounded-xl opacity-[0.04] mix-blend-overlay"
+              className="pointer-events-none absolute inset-0 rounded-xl opacity-[0.02] mix-blend-overlay dark:opacity-[0.04]"
               style={{ backgroundImage: "url('/noise.webp')", backgroundSize: "200px 200px" }}
             />
 
             {/* Header */}
             <div className="flex items-start justify-between gap-3 mb-3">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-zinc-900 dark:text-white">
                 {project.title}
               </h3>
 
               {project.status && (
                 <span
                   className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold border ${project.status === "Live"
-                    ? "bg-green-500/20 text-green-400 border-green-500/30"
+                    ? "bg-green-500/10 text-green-600 border-green-500/20 dark:bg-green-500/20 dark:text-green-400 dark:border-green-500/30"
                     : project.status === "Closed"
-                      ? "bg-red-500/20 text-red-400 border-red-500/30"
-                      : "bg-zinc-500/20 text-zinc-400 border-zinc-500/30"
+                      ? "bg-red-500/10 text-red-600 border-red-500/20 dark:bg-red-500/20 dark:text-red-400 dark:border-red-500/30"
+                      : "bg-zinc-500/10 text-zinc-600 border-zinc-500/20 dark:bg-zinc-500/20 dark:text-zinc-400 dark:border-zinc-500/30"
                     }`}
                 >
                   {project.status}
@@ -89,7 +89,7 @@ const Projects = () => {
             </div>
 
             {/* Description */}
-            <p className="text-gray-400 text-sm sm:text-base leading-relaxed text-left max-w-prose">
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed text-left max-w-prose dark:text-gray-400">
               {project.description}
             </p>
 
@@ -98,7 +98,7 @@ const Projects = () => {
               {project.tech.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="px-3 py-1.5 text-xs sm:text-sm bg-zinc-800/80 border border-zinc-700 rounded-full text-gray-300">
+                  className="px-3 py-1.5 text-xs sm:text-sm bg-zinc-100 border border-zinc-200 rounded-full text-zinc-600 dark:bg-zinc-800/80 dark:border-zinc-700 dark:text-gray-300">
                   {tech}
                 </span>
               ))}
@@ -106,7 +106,7 @@ const Projects = () => {
 
             {/* Link */}
             {project.link && (
-              <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-zinc-400 hover:text-blue-300 text-sm font-semibold">
+              <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-zinc-500 hover:text-blue-600 text-sm font-semibold dark:text-zinc-400 dark:hover:text-blue-300">
                 View Project<FaExternalLinkAlt className="w-4 h-4" /></a>)}</div>))}
 
         {/* Show More / Less */}

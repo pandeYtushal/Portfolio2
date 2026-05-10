@@ -9,9 +9,9 @@ const SOCIALS = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative overflow-hidden bg-black py-24 px-4 text-white">
+    <section id="contact" className="relative overflow-hidden bg-zinc-50 py-24 px-4 text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
       {/* Subtle glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-emerald-500/8 blur-[120px]" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[120px] dark:bg-emerald-500/8" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-8">
         {/* Header */}
@@ -21,9 +21,9 @@ const Contact = () => {
           </p>
           <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl">
             Let&apos;s work{" "}
-            <span className="text-emerald-500">together</span>
+            <span className="text-emerald-600 dark:text-emerald-500">together</span>
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-zinc-400">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
             I&apos;m always open to new projects, collaborations, or just a
             friendly chat. Pick any channel below and reach out.
           </p>
@@ -42,7 +42,7 @@ const Contact = () => {
               target={href.startsWith("mailto") ? undefined : "_blank"}
               rel="noopener noreferrer"
               title={label}
-              className={`flex h-12 w-12 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900 text-zinc-400 transition-all duration-200 hover:text-white hover:scale-110 ${hoverBg}`}
+              className={`flex h-12 w-12 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-400 transition-all duration-200 hover:text-white hover:scale-110 dark:border-zinc-700 dark:bg-zinc-900 ${hoverBg}`}
             >
               <Icon className="h-5 w-5" />
             </a>
