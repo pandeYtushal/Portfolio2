@@ -35,7 +35,7 @@ function App() {
 
       {/* Page content — padded for the navbar */}
       <div className="pt-20 md:pt-0">
-        <Hero theme={theme} toggleTheme={toggleTheme} />
+        <Hero theme={theme} />
         <Projects />
         <Blog />
         <Contact />

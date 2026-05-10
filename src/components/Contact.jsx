@@ -1,10 +1,9 @@
-import { Mail, Github, Linkedin, Instagram, MapPin } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin } from "lucide-react";
 
 const SOCIALS = [
   { label: "Email",     icon: Mail,      href: "mailto:tushalanand4@gmail.com",              hoverBg: "hover:bg-emerald-500 hover:border-emerald-500" },
   { label: "GitHub",   icon: Github,    href: "https://github.com/pandeYtushal",           hoverBg: "hover:bg-zinc-600 hover:border-zinc-600" },
   { label: "LinkedIn", icon: Linkedin,  href: "https://www.linkedin.com/in/tushal-anand18", hoverBg: "hover:bg-blue-600 hover:border-blue-600" },
-  { label: "Instagram",icon: Instagram, href: "https://instagram.com/",                     hoverBg: "hover:bg-pink-600 hover:border-pink-600" },
 ];
 
 const Contact = () => {

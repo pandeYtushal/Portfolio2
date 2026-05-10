@@ -26,7 +26,7 @@ function LiveClock() {
       {/* Blinking dot */}
       <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
       <div className="text-right">
-        <p className="font-mono text-xs font-semibold tabular-nums text-white">{timeStr}</p>
+        <p className="font-mono text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">{timeStr}</p>
         <p className="text-[10px] text-zinc-500">{dateStr}</p>
       </div>
     </div>

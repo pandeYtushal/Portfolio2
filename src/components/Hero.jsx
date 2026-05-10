@@ -1,24 +1,23 @@
 import { useState } from "react";
-import LiveClock from "./LiveClock";
 import ResumeModal from "./ResumeModal";
 import { Button } from "@/components/ui/button";
-import { Download, Mail, User, MapPin, Code2, ArrowRight, Database } from "lucide-react";
+import { Download, Mail, User, MapPin, Code2, ArrowRight, Database, Heart, Rocket } from "lucide-react";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss,
   SiJavascript, SiHtml5, SiCss3, SiFramer,
   SiNodedotjs, SiFirebase,
-  SiGit, SiGithub, SiVercel, SiFigma, SiCplusplus,
+  SiGit, SiGithub, SiVercel, SiFigma, SiCplusplus, SiShadcnui,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 
 const FOCUS_AREAS = ["Web Development", "Problem Solving", "Full‑stack Projects"];
-
 const TECH_STACK = [
   // Frontend
   { icon: SiReact,       label: "React",         color: "#61DAFB" },
   { icon: SiNextdotjs,   label: "Next.js",       color: "#ffffff" },
   { icon: SiTypescript,  label: "TypeScript",    color: "#3178C6" },
   { icon: SiTailwindcss, label: "Tailwind CSS",  color: "#06B6D4" },
+  { icon: SiShadcnui,    label: "Shadcn UI",     color: "#ffffff" },
   { icon: SiJavascript,  label: "JavaScript",    color: "#F7DF1E" },
   { icon: SiHtml5,       label: "HTML5",         color: "#E34F26" },
   { icon: SiCss3,        label: "CSS3",          color: "#1572B6" },
@@ -34,12 +33,13 @@ const TECH_STACK = [
   { icon: VscVscode,     label: "VS Code",       color: "#007ACC" },
   { icon: SiVercel,      label: "Vercel",        color: "#ffffff" },
   { icon: SiFigma,       label: "Figma",         color: "#F24E1E" },
-  { icon: Code2,         label: "Antigravity",   color: "#a78bfa" },
+  { icon: Heart,         label: "Lovable",       color: "#ff4d4d" },
+  { icon: Rocket,        label: "Antigravity",   color: "#a78bfa" },
   { icon: ArrowRight,    label: "Cursor",        color: "#ffffff" },
 ];
 
 
-const Hero = ({ theme, toggleTheme }) => {
+const Hero = ({ theme }) => {
   const [showResume, setShowResume] = useState(false);
 
   const scrollTo = (e, id) => {
@@ -136,12 +136,23 @@ const Hero = ({ theme, toggleTheme }) => {
       {/* Tech Stack */}
       <div className="container relative z-10 mx-auto max-w-6xl border-t border-zinc-200 px-12 py-8 md:py-10 dark:border-zinc-800">
         <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Tech Stack</p>
-        <div className="flex flex-wrap gap-5">
+        <div className="flex flex-wrap gap-3 md:gap-6">
           {TECH_STACK.map(({ icon: Icon, label, color }) => (
-            <div key={label} className="group relative flex items-center justify-center transition-transform duration-200 hover:-translate-y-2">
-              <Icon size={28} style={{ color: theme === 'dark' ? color : (color === '#ffffff' ? '#000000' : color) }} />
-              {/* Tooltip */}
-              <span className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 scale-95 -translate-y-0 whitespace-nowrap rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg ring-1 ring-zinc-700 transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:scale-100 dark:bg-zinc-800 dark:ring-zinc-700">
+            <div 
+              key={label} 
+              className="group relative flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white px-3.5 py-2 shadow-sm transition-all duration-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:bg-zinc-800 md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:bg-transparent md:hover:-translate-y-2"
+            >
+              <Icon 
+                size={22} 
+                className="md:h-7 md:w-7"
+                style={{ color: theme === 'dark' ? color : (color === '#ffffff' ? '#000000' : color) }} 
+              />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:hidden">
+                {label}
+              </span>
+              
+              {/* Tooltip (Desktop Only) */}
+              <span className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 scale-95 -translate-y-0 whitespace-nowrap rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg ring-1 ring-zinc-700 transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:scale-100 dark:bg-zinc-800 dark:ring-zinc-700 md:block">
                 {label}
                 <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-zinc-800" />
               </span>
