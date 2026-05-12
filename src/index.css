@@ -8,12 +8,14 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-zinc-950 dark:text-gray-100;
     background-image: none;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
+    overflow-x: hidden;
   }
 
   button, a, [role="button"] {
