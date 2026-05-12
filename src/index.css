@@ -9,20 +9,30 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-zinc-950 dark:text-gray-100;
     background-image: none;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
 
+  button, a, [role="button"] {
+    cursor: pointer;
+  }
 }
 
 @layer components {
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-24;
+    @apply w-full max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-20;
   }
 }
 
 @layer utilities {
+  @keyframes scroll-x {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-scroll-x {
+    animation: scroll-x 25s linear infinite;
+  }
 }

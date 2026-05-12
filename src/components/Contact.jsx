@@ -8,11 +8,11 @@ const SOCIALS = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="relative overflow-hidden bg-zinc-50 py-24 px-4 text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
+    <section id="contact" className="section-container relative overflow-hidden bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
       {/* Subtle glow */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[120px] dark:bg-emerald-500/8" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-8">
+      <div className="relative z-10 w-full">
         {/* Header */}
         <div className="mb-12">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">

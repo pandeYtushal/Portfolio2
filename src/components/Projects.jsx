@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaExternalLinkAlt, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
@@ -50,85 +51,109 @@ const Projects = () => {
   return (
     <section id="projects" className="section-container bg-zinc-50 transition-colors duration-300 dark:bg-black">
       {/* Heading */}
-      <div className="mb-10 sm:mb-16 text-center">
-        <h2 className="font-bold text-2xl sm:text-3xl md:text-5xl leading-tight">
-          <span className="text-zinc-500 dark:text-zinc-300">Projects</span>
+      <div className="mb-12 md:mb-20 text-center md:text-left">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+          Featured <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Work</span>
         </h2>
+        <p className="mt-4 text-sm sm:text-base text-zinc-500 dark:text-zinc-400 max-w-2xl">
+          A selection of projects that showcase my passion for building clean, user-friendly, and performant web applications.
+        </p>
       </div>
 
-      {/* Projects */}
-      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-        {(showAll ? projects : projects.slice(0, 2)).map((project, index) => (
-          <div
-            key={index}
-            className="relative overflow-hidden bg-white rounded-xl p-5 sm:p-6 md:p-8 border border-zinc-200 hover:border-orange-500 transition-all duration-300 shadow-lg group dark:bg-zinc-900/80 dark:border-zinc-800 dark:hover:border-red-500">
-            {/* Noise texture overlay */}
-            <div
-              className="pointer-events-none absolute inset-0 rounded-xl opacity-[0.02] mix-blend-overlay dark:opacity-[0.04]"
-              style={{ backgroundImage: "url('/noise.webp')", backgroundSize: "200px 200px" }}
-            />
+      {/* Grid */}
+      <div className="mx-auto w-full">
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+        >
+          <AnimatePresence>
+            {(showAll ? projects : projects.slice(0, 4)).map((project, index) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                key={project.title}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 sm:p-8 shadow-sm ring-1 ring-zinc-200 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl dark:bg-zinc-900/50 dark:ring-zinc-800 dark:hover:bg-zinc-900 dark:hover:ring-orange-500/50"
+              >
+                {/* Background glow effect */}
+                <div className="absolute -inset-x-4 -top-4 -z-10 h-24 bg-gradient-to-b from-orange-500/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-orange-500/10" />
 
-            {/* Header */}
-            <div className="flex items-start justify-between gap-3 mb-3">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-zinc-900 dark:text-white">
-                {project.title}
-              </h3>
+                <div>
+                  {/* Header: Title & Status */}
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white transition-colors group-hover:text-orange-500 dark:group-hover:text-orange-400">
+                      {project.title}
+                    </h3>
+                    {project.status && (
+                      <span
+                        className={`flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${
+                          project.status === "Live"
+                            ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:border-emerald-500/30 dark:text-emerald-400"
+                            : "border-zinc-500/20 bg-zinc-500/10 text-zinc-500 dark:border-zinc-500/30 dark:text-zinc-400"
+                        }`}
+                      >
+                        <span className={`h-1.5 w-1.5 rounded-full ${project.status === "Live" ? "bg-emerald-500 animate-pulse" : "bg-zinc-400 dark:bg-zinc-500"}`} />
+                        {project.status}
+                      </span>
+                    )}
+                  </div>
 
-              {project.status && (
-                <span
-                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold border ${project.status === "Live"
-                    ? "bg-green-500/10 text-green-600 border-green-500/20 dark:bg-green-500/20 dark:text-green-400 dark:border-green-500/30"
-                    : project.status === "Closed"
-                      ? "bg-red-500/10 text-red-600 border-red-500/20 dark:bg-red-500/20 dark:text-red-400 dark:border-red-500/30"
-                      : "bg-zinc-500/10 text-zinc-600 border-zinc-500/20 dark:bg-zinc-500/20 dark:text-zinc-400 dark:border-zinc-500/30"
-                    }`}
-                >
-                  {project.status}
-                </span>
-              )}
-            </div>
+                  {/* Description */}
+                  <p className="mb-8 text-sm sm:text-base leading-relaxed text-zinc-600 dark:text-zinc-400 max-w-prose">
+                    {project.description}
+                  </p>
+                </div>
 
-            {/* Description */}
-            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed text-left max-w-prose dark:text-gray-400">
-              {project.description}
-            </p>
+                {/* Footer: Tech Stack & Link */}
+                <div className="mt-auto">
+                  <div className="mb-6 flex flex-wrap gap-2">
+                    {project.tech.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="rounded-md bg-zinc-100 px-2.5 py-1 text-[11px] sm:text-xs font-semibold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 border border-zinc-200/50 dark:border-zinc-700/50"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
 
-            {/* Tech stack */}
-            <div className="flex flex-wrap gap-2 mt-4">
-              {project.tech.map((tech, techIndex) => (
-                <span
-                  key={techIndex}
-                  className="px-3 py-1.5 text-xs sm:text-sm bg-zinc-100 border border-zinc-200 rounded-full text-zinc-600 dark:bg-zinc-800/80 dark:border-zinc-700 dark:text-gray-300">
-                  {tech}
-                </span>
-              ))}
-            </div>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-max items-center gap-2 text-sm font-semibold text-zinc-900 transition-colors hover:text-orange-500 dark:text-white dark:hover:text-orange-400"
+                    >
+                      View Project <FaExternalLinkAlt className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-            {/* Link */}
-            {project.link && (
-              <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-zinc-500 hover:text-blue-600 text-sm font-semibold dark:text-zinc-400 dark:hover:text-blue-300">
-                View Project<FaExternalLinkAlt className="w-4 h-4" /></a>)}</div>))}
-
-        {/* Show More / Less */}
-        {projects.length > 2 && (
-          <div className="flex justify-center pt-2">
+        {/* Show More Button */}
+        {projects.length > 4 && (
+          <motion.div layout className="mt-12 flex justify-center">
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-6 py-2.5 text-sm sm:text-base bg-linear-to-r from-zinc-500 to-orange-500 text-white rounded-lg font-semibold flex items-center gap-2 transition-transform hover:scale-105">
+              className="group flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-6 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm transition-all hover:border-zinc-300 hover:bg-zinc-50 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:hover:border-zinc-700 dark:hover:bg-zinc-800"
+            >
+              {showAll ? "Show Less" : "Show More"}
               {showAll ? (
-                <>
-                  Show Less <FaChevronUp />
-                </>
+                <FaChevronUp className="h-3 w-3 transition-transform group-hover:-translate-y-0.5" />
               ) : (
-                <>
-                  Show More <FaChevronDown />
-                </>
+                <FaChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
               )}
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>
   );
 };
+
 export default Projects;

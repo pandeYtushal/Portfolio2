@@ -48,10 +48,10 @@ const Hero = ({ theme }) => {
   };
 
   return (
-    <section id="home" className="relative flex min-h-screen flex-col overflow-hidden bg-white text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
+    <section id="home" className="relative flex flex-col overflow-hidden bg-white text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
 
       {/* Hero */}
-      <div className="container relative z-10 mx-auto flex max-w-6xl flex-col items-start gap-8 px-12 py-24 md:flex-row md:items-center md:justify-between md:gap-12">
+      <div className="container relative z-10 mx-auto flex max-w-6xl flex-col items-start gap-8 px-6 md:px-12 py-16 md:py-20 md:flex-row md:items-center md:justify-between md:gap-12">
         {/* Avatar */}
         <div className="relative flex shrink-0">
           <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-2 border-zinc-200 bg-zinc-100 shadow-xl ring-2 ring-zinc-200/50 sm:h-32 sm:w-32 md:h-36 md:w-36 dark:border-zinc-700 dark:bg-zinc-900 dark:ring-zinc-800/50">
@@ -106,7 +106,7 @@ const Hero = ({ theme }) => {
       </div>
 
       {/* What I do */}
-      <div className="container relative z-10 mx-auto max-w-6xl border-t border-zinc-200 px-12 py-10 md:py-14 dark:border-zinc-800">
+      <div className="container relative z-10 mx-auto max-w-6xl border-t border-zinc-200 px-6 md:px-12 py-10 md:py-14 dark:border-zinc-800">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-10">
           <div>
             <h2 className="flex items-center gap-2 text-lg font-semibold">
@@ -134,30 +134,58 @@ const Hero = ({ theme }) => {
       </div>
 
       {/* Tech Stack */}
-      <div className="container relative z-10 mx-auto max-w-6xl border-t border-zinc-200 px-12 py-8 md:py-10 dark:border-zinc-800">
+      <div className="container relative z-10 mx-auto max-w-6xl border-t border-zinc-200 px-6 md:px-12 py-8 md:py-10 dark:border-zinc-800">
         <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Tech Stack</p>
-        <div className="flex flex-wrap gap-3 md:gap-6">
-          {TECH_STACK.map(({ icon: Icon, label, color }) => (
-            <div 
-              key={label} 
-              className="group relative flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white px-3.5 py-2 shadow-sm transition-all duration-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:bg-zinc-800 md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:bg-transparent md:hover:-translate-y-2"
-            >
-              <Icon 
-                size={22} 
-                className="md:h-7 md:w-7"
-                style={{ color: theme === 'dark' ? color : (color === '#ffffff' ? '#000000' : color) }} 
-              />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:hidden">
-                {label}
-              </span>
-              
-              {/* Tooltip (Desktop Only) */}
-              <span className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 scale-95 -translate-y-0 whitespace-nowrap rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg ring-1 ring-zinc-700 transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:scale-100 dark:bg-zinc-800 dark:ring-zinc-700 md:block">
-                {label}
-                <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-zinc-800" />
-              </span>
+        <div className="relative -mx-6 flex overflow-hidden md:mx-0 md:overflow-visible">
+          <div className="flex gap-3 px-6 max-md:w-max max-md:animate-scroll-x max-md:hover:[animation-play-state:paused] md:flex-wrap md:gap-6 md:px-0">
+            {/* Original Block */}
+            <div className="flex shrink-0 gap-3 md:contents">
+              {TECH_STACK.map(({ icon: Icon, label, color }) => (
+                <div 
+                  key={label} 
+                  className="group relative flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white px-3.5 py-2 shadow-sm transition-all duration-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:bg-zinc-800 md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:bg-transparent md:hover:-translate-y-2"
+                >
+                  <Icon 
+                    size={22} 
+                    className="md:h-7 md:w-7"
+                    style={{ color: theme === 'dark' ? color : (color === '#ffffff' ? '#000000' : color) }} 
+                  />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:hidden">
+                    {label}
+                  </span>
+                  
+                  {/* Tooltip (Desktop Only) */}
+                  <span className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 scale-95 -translate-y-0 whitespace-nowrap rounded-md bg-zinc-800 px-2.5 py-1 text-xs font-medium text-white opacity-0 shadow-lg ring-1 ring-zinc-700 transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:scale-100 dark:bg-zinc-800 dark:ring-zinc-700 md:block">
+                    {label}
+                    <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-zinc-800" />
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
+
+            {/* Duplicated Block for Infinite Scroll (Mobile Only) */}
+            <div className="flex shrink-0 gap-3 md:hidden">
+              {TECH_STACK.map(({ icon: Icon, label, color }) => (
+                <div 
+                  key={`duplicate-${label}`} 
+                  className="group relative flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white px-3.5 py-2 shadow-sm transition-all duration-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:bg-zinc-800 md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:bg-transparent md:hover:-translate-y-2"
+                >
+                  <Icon 
+                    size={22} 
+                    className="md:h-7 md:w-7"
+                    style={{ color: theme === 'dark' ? color : (color === '#ffffff' ? '#000000' : color) }} 
+                  />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 md:hidden">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Fade Gradients for Mobile */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent dark:from-black md:hidden" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent dark:from-black md:hidden" />
         </div>
       </div>
 

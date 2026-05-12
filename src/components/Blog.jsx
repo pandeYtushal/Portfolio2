@@ -22,7 +22,7 @@ const Blog = () => {
   return (
     <section
       id="blog"
-      className="min-h-screen px-6 py-20 bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
+      className="section-container bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
