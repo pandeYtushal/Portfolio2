@@ -23,6 +23,14 @@ const Projects = () => {
       link: "https://urbanreport.vercel.app/",
     },
     {
+      title: "Melody",
+      status: "Live",
+      description:
+        "A premium music streaming platform with a sleek monochrome UI. Features include high-fidelity audio playback, intelligent discovery, persistent state management with Zustand, and full PWA support.",
+      tech: ["React 19", "Tailwind CSS", "Zustand", "Framer Motion", "Firebase", "JioSaavn API"],
+      link: "https://meldmusic.vercel.app/",
+    },
+    {
       title: "Cab Booking Platform",
       status: "Closed",
       description:
@@ -40,7 +48,7 @@ const Projects = () => {
     },
     {
       title: "Weather Dashboard",
-      status: "Live",
+      status: "Closed",
       description:
         "A beautiful weather dashboard with real-time data, extended forecasts, and interactive charts.",
       tech: ["React", "API", "Chart.js", "Tailwind CSS"],
@@ -62,7 +70,7 @@ const Projects = () => {
 
       {/* Grid */}
       <div className="mx-auto w-full">
-        <motion.div 
+        <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
         >
@@ -88,11 +96,10 @@ const Projects = () => {
                     </h3>
                     {project.status && (
                       <span
-                        className={`flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${
-                          project.status === "Live"
-                            ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:border-emerald-500/30 dark:text-emerald-400"
-                            : "border-zinc-500/20 bg-zinc-500/10 text-zinc-500 dark:border-zinc-500/30 dark:text-zinc-400"
-                        }`}
+                        className={`flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${project.status === "Live"
+                          ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:border-emerald-500/30 dark:text-emerald-400"
+                          : "border-zinc-500/20 bg-zinc-500/10 text-zinc-500 dark:border-zinc-500/30 dark:text-zinc-400"
+                          }`}
                       >
                         <span className={`h-1.5 w-1.5 rounded-full ${project.status === "Live" ? "bg-emerald-500 animate-pulse" : "bg-zinc-400 dark:bg-zinc-500"}`} />
                         {project.status}
