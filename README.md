@@ -1,148 +1,103 @@
-# Portfolio2
+# Tushal Pandey | Professional Portfolio
 
-A modern and responsive portfolio website showcasing projects and skills.
+A premium, modern, and responsive portfolio website built with the latest web technologies. This project showcases my technical expertise, creative projects, and latest insights.
 
-**Live Demo**: https://tushal-pandey.vercel.app
+**Live Demo**: [tushal-pandey.vercel.app](https://tushal-pandey.vercel.app)
 
 ---
 
-## About
+## Key Features
 
-Portfolio2 is a personal portfolio website built with React and Tailwind CSS. It serves as a showcase of web development projects, skills, and experience.
+- **Dynamic Design**: Minimalist and high-end "Ambient Monochrome" aesthetics with seamless dark/light mode switching.
+- **Interactive Navbar**: Features a live world clock and smooth theme transitions with audio feedback.
+- **Project Showcase**: Detailed project cards with status indicators (Live/Closed) and modern hover effects.
+- **Technical Blog**: Integrated with Medium RSS feed to display the latest articles automatically.
+- **Mobile Optimized**: Fully responsive layout with custom infinite-scroll tech stack slider for smaller screens.
+- **Premium UX**: Smooth animations with Framer Motion and optimized asset loading.
 
 ---
 
 ## Tech Stack
 
-### Frontend
-- React 18.3.1
-- Tailwind CSS 4.1.18
-- Vite
-- TypeScript
-- Framer Motion
+### Frontend Core
+- **React 19**: Utilizing the latest React features for performance.
+- **Tailwind CSS 4**: Next-gen CSS framework for rapid, efficient styling.
+- **Vite**: Ultra-fast build tool and development server.
+- **Framer Motion**: High-performance animation library.
 
-### Libraries and Tools
-- React Router DOM
-- Lucide React
-- React Icons
-- Radix UI
-- Class Variance Authority
-- Tailwind Merge
-
-### Development
-- ESLint
-- PostCSS
-- Autoprefixer
-
----
-
-## Features
-
-- Responsive design for all devices
-- Modern and clean interface
-- Project showcase section
-- Skills and experience display
-- Contact information
-- Smooth animations with Framer Motion
-- Dark theme with sleek UI
-- Dynamic content from Medium API
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn package manager
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/pandeYtushal/Portfolio2.git
-cd Portfolio2
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:5173`
-
-### Build for Production
-
-```bash
-npm run build
-```
+### Utilities & Tools
+- **Lucide React**: For beautiful, consistent iconography.
+- **Zustand**: Lightweight and scalable state management.
+- **Firebase**: Backend services for real-time data and authentication.
+- **PostCSS**: Advanced CSS transformation.
 
 ---
 
 ## Project Structure
 
 ```
-Portfolio2/
+Portfolio/
 ├── src/
 │   ├── components/
-│   │   ├── Contact.jsx
-│   │   ├── Projects.jsx
-│   │   ├── Skills.jsx
-│   │   ├── Achievements.jsx
-│   │   ├── Blog.jsx
-│   │   └── ui/
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── index.css
-│   └── lib/
-├── public/
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-├── postcss.config.js
-└── README.md
+│   │   ├── Navbar.jsx         # Responsive navigation with LiveClock
+│   │   ├── Hero.jsx           # Main landing section with tech stack
+│   │   ├── Projects.jsx       # Featured work showcase
+│   │   ├── Blog.jsx           # Medium article integration
+│   │   ├── Contact.jsx        # Social links and reach-out section
+│   │   ├── Footer.jsx         # Branding and quotes
+│   │   ├── ResumeModal.jsx    # Interactive resume viewer
+│   │   └── ui/                # Reusable shadcn/ui components
+│   ├── App.jsx                # Core application logic and theme provider
+│   ├── main.jsx               # Entry point with StrictMode
+│   └── index.css              # Global styles and tailwind directives
+├── public/                    # Static assets (images, sounds, icons)
+├── package.json               # Dependency management
+└── vite.config.js             # Build and alias configuration
 ```
 
 ---
 
-## Usage
+## Getting Started
 
-Simply run the development server and navigate through different sections to explore projects, skills, and contact information.
+### Prerequisites
+- **Node.js** (v18 or higher recommended)
+- **npm** or **yarn**
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/pandeYtushal/Portfolio2.git
+   cd Portfolio2
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` to view the site.
+
+### Production Build
+```bash
+npm run build
+```
+The optimized bundle will be generated in the `dist` folder.
 
 ---
 
-## Contributing
+## Contact & Support
 
-Contributions are welcome. To contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/improvement`)
-3. Commit your changes (`git commit -m 'Add some improvement'`)
-4. Push to the branch (`git push origin feature/improvement`)
-5. Open a Pull Request
+If you have any questions or want to collaborate, feel free to reach out:
+- **GitHub**: [@pandeYtushal](https://github.com/pandeYtushal)
+- **LinkedIn**: [Tushal Anand](https://www.linkedin.com/in/tushal-anand18)
+- **Email**: tushalanand4@gmail.com
 
 ---
 
 ## License
-
-This project is open source and available under the MIT License.
-
----
-
-## Author
-
-Tushal Pandey
-
-- GitHub: https://github.com/pandeYtushal
-- Portfolio: https://tushal-pandey.vercel.app
-
----
-
-## Contact
-
-For inquiries or feedback, feel free to reach out through the contact section on the portfolio website or via GitHub.
+This project is open-source and available under the [MIT License](LICENSE).

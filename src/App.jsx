@@ -1,48 +1,58 @@
-import { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Blog from './components/Blog';
+import { useState, useEffect, useMemo } from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import Blog from "./components/Blog";
 
-function App() {
+const App = () => {
   const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'dark';
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || "dark";
     }
-    return 'dark';
+    return "dark";
   });
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      root.classList.remove("dark");
     }
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Preload audio for consistent performance
+  const clickSound = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return new Audio("/click.wav");
+    }
+    return null;
+  }, []);
+
   const toggleTheme = () => {
-    const audio = new Audio('/click.mp3');
-    audio.play().catch(err => console.log("Audio play failed:", err));
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    if (clickSound) {
+      clickSound.currentTime = 0;
+      clickSound.play().catch((err) => console.warn("Audio feedback failed:", err));
+    }
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   return (
-    <div className="bg-white text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
+    <div className="min-h-screen bg-white text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Page content — padded for the navbar */}
-      <div className="pt-20 md:pt-0">
+      <main className="pt-20 md:pt-0">
         <Hero theme={theme} />
         <Projects />
         <Blog />
         <Contact />
         <Footer />
-      </div>
+      </main>
     </div>
   );
-}
+};
 
 export default App;

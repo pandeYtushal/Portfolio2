@@ -1,40 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 const MEDIUM_USERNAME = "tushalpandey";
+const FEED_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`;
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(
-      `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}&t=${new Date().getTime()}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
+  const fetchPosts = useCallback(async () => {
+    try {
+      const response = await fetch(`${FEED_URL}&t=${new Date().getTime()}`);
+      const data = await response.json();
+      if (data.items) {
         setPosts(data.items.slice(0, 3));
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    } catch (error) {
+      console.error("Failed to fetch blog posts:", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
   return (
-    <section
-      id="blog"
-      className="section-container bg-zinc-50 text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
-      <motion.h2
+    <section id="blog" className="section-container bg-zinc-50 transition-colors duration-300 dark:bg-black">
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-3xl md:text-4xl font-bold mb-10 text-center text-zinc-900 dark:text-white">
-        Blogs
-      </motion.h2>
+        className="mb-12 text-center"
+      >
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
+          Latest <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Insights</span>
+        </h2>
+        <p className="mt-4 text-zinc-500 dark:text-zinc-400">Thought leadership and technical articles from Medium.</p>
+      </motion.div>
 
       {loading ? (
-        <p className="text-center text-zinc-500">Loading posts...</p>
+        <div className="flex justify-center py-12">
+          <p className="animate-pulse text-zinc-500">Loading insights...</p>
+        </div>
       ) : (
-        <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <motion.a
               key={post.guid}
@@ -42,23 +53,22 @@ const Blog = () => {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -6 }}
-              className="group bg-white border border-zinc-200
-                         rounded-xl p-6 transition hover:border-orange-500 dark:bg-zinc-900 dark:border-zinc-800 dark:hover:border-red-500">
-              <h3 className="text-lg font-semibold mb-2 text-zinc-900 group-hover:text-zinc-700 dark:text-white dark:group-hover:text-white">
+              className="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:border-orange-500 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-orange-500"
+            >
+              <h3 className="mb-2 text-lg font-bold leading-tight text-zinc-900 transition-colors group-hover:text-orange-500 dark:text-white sm:text-xl">
                 {post.title}
               </h3>
 
-              <p className="text-sm text-zinc-500 line-clamp-3 dark:text-gray-400">
-                {post.description.replace(/<[^>]+>/g, "")}
+              <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                {post.description.replace(/<[^>]+>/g, "").trim()}
               </p>
 
-              <span className="block mt-4 text-xs text-zinc-400 dark:text-gray-500">
-                {new Date(post.pubDate).toDateString()}
-              </span>
-
-              <span className="block mt-3 text-sm font-medium text-zinc-900 dark:text-white">
-                Read on Medium →
-              </span>
+              <div className="mt-auto flex items-center justify-between border-t border-zinc-100 pt-4 dark:border-zinc-800">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                  {new Date(post.pubDate).toLocaleDateString(undefined, { dateStyle: "medium" })}
+                </span>
+                <span className="text-xs font-bold text-zinc-900 dark:text-white">Read on Medium →</span>
+              </div>
             </motion.a>
           ))}
         </div>
