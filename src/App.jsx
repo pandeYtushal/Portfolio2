@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
@@ -14,6 +14,18 @@ const App = () => {
     return "dark";
   });
 
+  const clickSoundRef = useRef(null);
+
+  useEffect(() => {
+    // Preload audio correctly on mount
+    if (typeof window !== "undefined") {
+      const audio = new Audio("/click.wav");
+      audio.preload = "auto";
+      audio.load(); // Force the browser to fetch the file immediately
+      clickSoundRef.current = audio;
+    }
+  }, []);
+
   useEffect(() => {
     const root = window.document.documentElement;
     if (theme === "dark") {
@@ -24,18 +36,11 @@ const App = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Preload audio for consistent performance
-  const clickSound = useMemo(() => {
-    if (typeof window !== "undefined") {
-      return new Audio("/click.wav");
-    }
-    return null;
-  }, []);
-
   const toggleTheme = () => {
-    if (clickSound) {
-      clickSound.currentTime = 0;
-      clickSound.play().catch((err) => console.warn("Audio feedback failed:", err));
+    if (clickSoundRef.current) {
+      clickSoundRef.current.currentTime = 0;
+      // Play sound immediately without waiting for fetch
+      clickSoundRef.current.play().catch((err) => console.warn("Audio feedback failed:", err));
     }
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };

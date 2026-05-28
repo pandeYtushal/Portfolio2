@@ -1,0 +1,10 @@
+# robots.txt for Tushal Pandey Portfolio
+# https://tushalpandey.vercel.app/
+
+User-agent: *
+Allow: /
+
+# Block access to Vite dev internals (irrelevant in prod but harmless)
+Disallow: /node_modules/
+
+Sitemap: https://tushalpandey.vercel.app/sitemap.xml

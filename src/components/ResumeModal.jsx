@@ -20,7 +20,9 @@ const ResumeModal = ({ onClose }) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(window.location.origin + pdfUrl);
-    } catch {}
+    } catch (err) {
+      console.warn("Failed to copy link:", err);
+    }
   };
 
   return (
