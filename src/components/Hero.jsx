@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useCallback } from "react";
 import ResumeModal from "./ResumeModal";
 import { Button } from "@/components/ui/button";

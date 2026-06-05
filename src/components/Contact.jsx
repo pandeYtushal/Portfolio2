@@ -1,4 +1,4 @@
-import { Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SOCIALS = [
@@ -24,32 +24,37 @@ const SOCIALS = [
 
 const Contact = () => {
   return (
-    <section
-      id="contact"
-      className="section-container relative overflow-hidden bg-zinc-50 transition-colors duration-300 dark:bg-black"
-    >
-      {/* Background Ambience */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/5 blur-[120px] dark:bg-emerald-500/10" />
-
+    <section id="contact" className="section-container relative overflow-hidden bg-zinc-50 transition-colors duration-300 dark:bg-black">
       <div className="relative z-10 w-full">
-        {/* Section Heading */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45 }}
+          className="mb-12"
+        >
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Contact</p>
           <h2 className="text-3xl font-bold text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
             Let&apos;s build something <span className="text-emerald-500">together</span>
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-            I&apos;m currently available for freelance projects and full-time opportunities. Let&apos;s talk about your next
-            big idea.
+            I&apos;m open to freelance projects, internships, and full-time opportunities where thoughtful frontend work matters.
           </p>
           <div className="mt-6 flex items-center gap-1.5 text-sm text-zinc-500">
             <MapPin className="h-4 w-4" />
             India
           </div>
-        </div>
+        </motion.div>
 
-        {/* Interaction Channels */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <a
+            href="mailto:tushalanand4@gmail.com"
+            className="inline-flex items-center gap-2 rounded-md bg-zinc-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 dark:bg-white dark:text-black dark:hover:bg-emerald-400"
+          >
+            <Send className="h-4 w-4" />
+            Start a Conversation
+          </a>
+
           {SOCIALS.map(({ label, href, icon: Icon, hoverBg }) => (
             <motion.a
               key={label}
@@ -58,8 +63,9 @@ const Contact = () => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={label}
               title={label}
-              className={`flex h-14 w-14 items-center justify-center rounded-2xl border border-zinc-200 bg-white text-zinc-400 transition-all duration-300 hover:text-white dark:border-zinc-800 dark:bg-zinc-900 ${hoverBg}`}
+              className={`flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-400 transition-all duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 dark:border-zinc-800 dark:bg-zinc-900 ${hoverBg}`}
             >
               <Icon className="h-6 w-6" />
             </motion.a>
