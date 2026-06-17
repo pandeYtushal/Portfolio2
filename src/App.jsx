@@ -62,11 +62,11 @@ const App = () => {
         {/* Written introduction */}
         <About />
 
-        {/* Categorized Tech Capability Cards */}
-        <TechStack />
-
           {/* Startup Case Studies Project List */}
           <Projects />
+
+        {/* Categorized Tech Capability Cards */}
+        <TechStack />
 
         {/* Milestones timeline */}
         <Timeline />
