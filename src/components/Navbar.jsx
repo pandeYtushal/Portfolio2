@@ -5,9 +5,12 @@ import { Sun, Moon } from "lucide-react";
 import LiveClock from "./LiveClock";
 
 const NAV_ITEMS = [
-  { label: "Work", href: "#projects" },
-  { label: "Journey", href: "#journey" },
-  { label: "Blog", href: "#blog" },
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Timeline", href: "#journey" },
+  { label: "Skills", href: "#skills" },
+  { label: "Writing", href: "#writing" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -52,14 +55,13 @@ const Navbar = ({ theme, toggleTheme }) => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed left-1/2 top-4 z-[100] w-[92%] max-w-4xl -translate-x-1/2 rounded-full border backdrop-blur-md transition-all duration-300 ${
-          scrolled
-            ? "border-zinc-200/80 bg-white/70 py-1.5 shadow-sm dark:border-zinc-800/85 dark:bg-zinc-950/70"
-            : "border-zinc-100 bg-zinc-50/30 py-2 dark:border-zinc-900/60 dark:bg-black/20"
-        }`}
+        className={`fixed left-1/2 top-4 z-[100] w-[92%] max-w-4xl -translate-x-1/2 rounded-full border backdrop-blur-md transition-all duration-300 ${scrolled
+          ? "border-zinc-900/15 bg-white/70 py-1.5 shadow-sm dark:border-white/10 dark:bg-zinc-950/70"
+          : "border-zinc-900/10 bg-zinc-50/30 py-2 dark:border-white/10 dark:bg-black/20"
+          }`}
       >
         <div className="relative z-10 mx-auto flex w-full items-center justify-between px-4 sm:px-6">
-          
+
           {/* Logo Button */}
           <button
             onClick={logoClick}

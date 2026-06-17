@@ -15,15 +15,15 @@ const About = () => {
             Engineering with Intent
           </h2>
           
-          <div className="space-y-6 text-sm sm:text-base leading-relaxed text-zinc-650 dark:text-zinc-400">
+          <div className="space-y-5 text-sm sm:text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
             <p>
-              I am a software engineer dedicated to building intelligent systems, robust web architectures, and seamless user experiences. By bridging cognitive AI pipelines with modern frontend design, I create products that operate autonomously and solve tangible problems.
+              I am a software engineer specializing in <strong className="font-semibold text-zinc-900 dark:text-white">AI agents</strong>, <strong className="font-semibold text-zinc-900 dark:text-white">robust full stack systems</strong>, and <strong className="font-semibold text-zinc-900 dark:text-white">responsive web architectures</strong>. I build products that transition cognitive workflows from raw LLM reasoning into dynamic browser execution.
             </p>
             <p>
-              My design philosophy centers on clean architecture, minimal design interfaces, and strict attention to performance details. I believe that developer portfolios and SaaS platforms alike should feel premium, typography-first, and highly responsive. Rather than building generic interfaces, my focus is on engineering self-healing autonomous workflows, clean state stores, and secure integration boundaries.
+              My design philosophy is defined by <strong className="font-semibold text-zinc-900 dark:text-white">clean, decoupled architectures</strong>, minimal interfaces, and strict performance metrics. Instead of generic templates, I prioritize building <strong className="font-semibold text-zinc-900 dark:text-white">self-healing action selectors</strong>, optimized client states, and performant render paths.
             </p>
             <p>
-              Currently, my research is focused on autonomous browser agents—orchestrating multi-model systems that interpret natural language, navigate dynamic SPAs through vision and semantic tree recognition, and recover gracefully from dynamic DOM updates.
+              Currently, I engineer <strong className="font-semibold text-zinc-900 dark:text-white">autonomous browser copilots</strong>—orchestrating multi-model pipelines that interpret natural language, ground UI elements visually, and execute tasks with structured context memory.
             </p>
           </div>
 

@@ -3,11 +3,10 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import TechStack from "./components/TechStack";
-import HunterShowcase from "./components/HunterShowcase";
 import Projects from "./components/Projects";
 import Timeline from "./components/Timeline";
 import Skills from "./components/Skills";
-import Blog from "./components/Blog";
+import Writing from "./components/Writing";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -19,7 +18,7 @@ const App = () => {
     return "dark";
   });
 
-  const [overrideSelectedProject, setOverrideSelectedProject] = useState(null);
+
   const clickSoundRef = useRef(null);
 
   useEffect(() => {
@@ -66,14 +65,8 @@ const App = () => {
         {/* Categorized Tech Capability Cards */}
         <TechStack />
 
-        {/* Dedicated Hunter Spotlight Showcase */}
-        <HunterShowcase onReadCaseStudy={() => setOverrideSelectedProject("Hunter")} />
-
-        {/* Startup Case Studies Project List */}
-        <Projects
-          overrideSelectedProject={overrideSelectedProject}
-          onClearOverride={() => setOverrideSelectedProject(null)}
-        />
+          {/* Startup Case Studies Project List */}
+          <Projects />
 
         {/* Milestones timeline */}
         <Timeline />
@@ -81,8 +74,8 @@ const App = () => {
         {/* Expertise Skills Cards */}
         <Skills />
 
-        {/* RSS Medium feed Blog Section */}
-        <Blog />
+        {/* Medium dynamic feeds Writing section */}
+        <Writing />
 
         {/* Available channels Contact Panel */}
         <Contact />

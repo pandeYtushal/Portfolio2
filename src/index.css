@@ -53,6 +53,26 @@
     background-color: #3f3f46; /* zinc-700 */
   }
 
+  ::selection {
+    background-color: #18181b; /* zinc-900 */
+    color: #ffffff;
+  }
+
+  .dark ::selection {
+    background-color: #ffffff;
+    color: #09090b; /* zinc-950 */
+  }
+
+  *:focus-visible {
+    outline: 2.5px solid #18181b;
+    outline-offset: 2.5px;
+  }
+
+  .dark *:focus-visible {
+    outline: 2.5px solid #ffffff;
+    outline-offset: 2.5px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     ::before,

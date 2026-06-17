@@ -33,10 +33,10 @@ const Contact = () => {
               Get in Touch
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
-              Let&apos;s Build Something Amazing
+              Let&apos;s Build Something Meaningful
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
-              I am open to opportunities where clean code, detailed product execution, and intelligent design matter.
+              Open for Full-Time Opportunities, Software Engineering, and Freelance Projects.
             </p>
           </div>
 
@@ -70,17 +70,23 @@ const Contact = () => {
 
             <div className="space-y-3.5">
               {/* Start conversation button */}
-              <a
+              <motion.a
                 href={`mailto:${email}`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 450, damping: 25 }}
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-zinc-900 py-3 text-sm font-bold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
               >
                 <Send className="h-4 w-4" />
                 Start a Conversation
-              </a>
+              </motion.a>
 
               {/* Copy Email button */}
-              <button
+              <motion.button
                 onClick={handleCopyEmail}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 450, damping: 25 }}
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white py-3 text-sm font-semibold text-zinc-750 transition hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-350 dark:hover:bg-zinc-800"
               >
                 {copied ? (
@@ -94,30 +100,36 @@ const Contact = () => {
                     <span>Copy Email Address</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
 
             {/* Social Grid */}
             <div className="grid grid-cols-2 gap-3 pt-3">
-              <a
+              <motion.a
                 href="https://github.com/pandeYtushal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white py-2.5 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 450, damping: 25 }}
+                className="flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white py-2.5 text-xs font-semibold text-zinc-750 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-350 dark:hover:bg-zinc-800"
               >
                 <Github className="h-4 w-4" />
                 <span>GitHub</span>
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
                 href="https://www.linkedin.com/in/tushal-anand18"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white py-2.5 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 450, damping: 25 }}
+                className="flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white py-2.5 text-xs font-semibold text-zinc-750 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-350 dark:hover:bg-zinc-800"
               >
                 <Linkedin className="h-4 w-4" />
                 <span>LinkedIn</span>
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>

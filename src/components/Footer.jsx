@@ -18,14 +18,22 @@ const Footer = () => {
         {/* Right Side Copyright and Trigger */}
         <div className="flex flex-col sm:flex-row items-center gap-6 text-[11px] text-zinc-400 dark:text-zinc-500">
           <div className="flex items-center gap-2">
-            <p>
-              Built by <span className="font-bold text-zinc-800 dark:text-zinc-200">Tushal Pandey</span>
-            </p>
+            <div className="flex items-center gap-1.5">
+              <motion.span
+                className="h-1.5 w-1.5 rounded-full bg-zinc-800 dark:bg-zinc-200"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              />
+              <p>
+                Built by <span className="font-bold text-zinc-800 dark:text-zinc-200">Tushal Pandey</span>
+              </p>
+            </div>
             <span className="h-3 w-px bg-zinc-200 dark:bg-zinc-800" />
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              whileHover={{ y: -1, color: "var(--color-zinc-900)" }}
+              className="cursor-default select-none transition-colors"
             >
               &copy; {new Date().getFullYear()} All Rights Reserved
             </motion.p>

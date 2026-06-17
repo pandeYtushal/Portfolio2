@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -22,9 +22,7 @@ import {
 } from "lucide-react";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
-/* ═══════════════════════════════════════════════════════════════
-   PROJECT DATA WITH PREMIUM METRICS & METADATA
-   ═══════════════════════════════════════════════════════════════ */
+/*PROJECT DATA WITH PREMIUM METRICS & METADATA*/
 
 const PROJECTS = [
   {
@@ -34,6 +32,9 @@ const PROJECTS = [
     urlDomain: "hunter.ai",
     description: "An autonomous AI browser copilot that transforms natural language goals into intelligent browser actions using a modular agent architecture.",
     highlight: "AI-powered browser automation with planning, vision, and self-healing capabilities.",
+    timeline: "Q1 2026",
+    impact: "92% match score",
+    achievement: "Self-healing selector system",
     metrics: [
       { label: "AI Agents", val: "7+" },
       { label: "Browser Actions", val: "20+" },
@@ -78,6 +79,9 @@ const PROJECTS = [
     urlDomain: "melody.audio",
     description: "A premium music streaming platform with a monochrome UI, high-fidelity playback, intelligent discovery, Zustand state, and PWA support.",
     highlight: "Polished playback experience with persistent state and PWA behavior.",
+    timeline: "Q4 2025",
+    impact: "Instant state sync",
+    achievement: "Zustand audio hoisting",
     metrics: [
       { label: "Track Index", val: "10M+" },
       { label: "State Sync", val: "Zustand" },
@@ -108,6 +112,9 @@ const PROJECTS = [
     urlDomain: "urbanreport.gov",
     description: "A utility reporting system for urban areas with issue submission, tracking, and clear data views for better municipal planning.",
     highlight: "Civic reporting flow with fast submissions and admin-ready issue tracking.",
+    timeline: "Q3 2025",
+    impact: "70% size compression",
+    achievement: "Client-side pre-processing",
     metrics: [
       { label: "Size Compression", val: "70%" },
       { label: "Alert Latency", val: "<50ms" },
@@ -115,7 +122,7 @@ const PROJECTS = [
     ],
     longDescription: "A localized citizen utility reporting system that bridges the gap between urban residents and municipal administrators. Users can document civic issues (e.g., potholes, street light failures, water leakage) with descriptions and photo uploads. The system tracks submissions through statuses (Submitted, In Review, Resolved) and compiles them in a public dashboard to promote transparency and citizen engagement.",
     keyPoints: [
-      "Real-time ticket logging using Firebase Firestore database and email alerts for admins",
+      "React-time ticket logging using Firebase Firestore database and email alerts for admins",
       "Image upload and hosting pipeline to document and verify issue authenticity on-site",
       "Responsive issue tracker with status-based filtering (All, Open, In Progress, Resolved)",
       "Secure client-side validation preventing spam submissions and empty tickets"
@@ -138,6 +145,9 @@ const PROJECTS = [
     urlDomain: "tushal.dev",
     description: "A modern, responsive portfolio website showcasing my projects, skills, and experience with a clean theme system and smooth interactions.",
     highlight: "Personal brand system with dark mode, live resume, and animated sections.",
+    timeline: "Q2 2025",
+    impact: "100 Lighthouse SEO",
+    achievement: "Anti-flash dynamic compile",
     metrics: [
       { label: "SEO Score", val: "100" },
       { label: "Performance", val: "99" },
@@ -168,6 +178,9 @@ const PROJECTS = [
     urlDomain: "ridecab.io",
     description: "A frontend booking experience with user management, fare calculation, ride flow screens, and an admin dashboard.",
     highlight: "Ride booking interface with fare logic and dashboard screens.",
+    timeline: "Q1 2025",
+    impact: "Dynamic fare simulator",
+    achievement: "Pure JS translate routers",
     metrics: [
       { label: "Wizard Steps", val: "4 Screens" },
       { label: "Pricing System", val: "Dynamic" },
@@ -198,6 +211,9 @@ const PROJECTS = [
     urlDomain: "gymfit.app",
     description: "A gym task management application with responsive task views and real-time Firebase updates.",
     highlight: "Workout task tracking with Firebase-backed updates.",
+    timeline: "Q4 2024",
+    impact: "Real-time synchronization",
+    achievement: "Firestore offline cache",
     metrics: [
       { label: "Calendar Log", val: "Streak UI" },
       { label: "Visual Stats", val: "Recharts" },
@@ -228,6 +244,9 @@ const PROJECTS = [
     urlDomain: "skyweather.net",
     description: "A weather dashboard with real-time data, extended forecasts, search states, and interactive charts.",
     highlight: "Forecast cards, charted weather trends, and responsive search states.",
+    timeline: "Q3 2024",
+    impact: "1h TTL endpoint cache",
+    achievement: "Autocomplete queries index",
     metrics: [
       { label: "Cache TTL", val: "1 Hour" },
       { label: "Graph Engine", val: "Chart.js" },
@@ -267,22 +286,22 @@ const ICON_MAP = {
   Brain
 };
 
-/* ═══════════════════════════════════════════════════════════════
+/* ===============================================================
    PREMIUM BROWSER MOCKUP CONTAINER
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 
 const BrowserMockup = ({ src, alt, domain = "github.com" }) => (
-  <div className="relative overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950 shadow-sm transition-all duration-300">
+  <div className="relative overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800/80 dark:bg-zinc-950 shadow-lg dark:shadow-none transition-all duration-300 group-hover:shadow-xl dark:group-hover:border-zinc-700/80">
     {/* Top Header Bar */}
     <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-4 py-2 bg-zinc-50/50 dark:bg-zinc-900/40">
-      {/* 3 Red/Yellow/Green Window Dots */}
+      {/* 3 Window Dots */}
       <div className="flex items-center gap-1.5">
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-200 dark:bg-zinc-800" />
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-200 dark:bg-zinc-800" />
         <span className="h-2.5 w-2.5 rounded-full bg-zinc-200 dark:bg-zinc-800" />
       </div>
       {/* URL Address Box */}
-      <div className="flex items-center gap-1.5 rounded bg-zinc-100 dark:bg-zinc-900 px-3 py-0.5 w-44 sm:w-56 justify-center text-[10px] font-mono text-zinc-400 dark:text-zinc-500 border border-zinc-200/40 dark:border-zinc-850">
+      <div className="flex items-center gap-1.5 rounded bg-zinc-100 dark:bg-zinc-900 px-3 py-0.5 w-44 sm:w-56 justify-center text-[10px] font-mono text-zinc-400 dark:text-zinc-500 border border-zinc-200/40 dark:border-zinc-800">
         <Chrome className="h-2.5 w-2.5" />
         <span className="truncate">{domain}</span>
       </div>
@@ -294,7 +313,7 @@ const BrowserMockup = ({ src, alt, domain = "github.com" }) => (
         src={src}
         alt={alt}
         loading="lazy"
-        className="h-full w-full object-cover transition-all duration-700 group-hover:scale-103"
+        className="h-full w-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
         onError={(e) => {
           e.currentTarget.style.display = "none";
           const fallback = e.currentTarget.nextElementSibling;
@@ -310,9 +329,9 @@ const BrowserMockup = ({ src, alt, domain = "github.com" }) => (
   </div>
 );
 
-/* ═══════════════════════════════════════════════════════════════
+/* ===============================================================
    CASE STUDY SLIDE-OVER DRAWER (Linear-like sub-page state)
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 
 const CaseStudyDrawer = ({ project, onClose }) => {
   useEffect(() => {
@@ -366,7 +385,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
                 href={project.source}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-650 transition hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-350 dark:hover:bg-zinc-800"
+                className="flex h-8 items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-650 transition hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-355 dark:hover:bg-zinc-800"
               >
                 <Github className="h-3.5 w-3.5" />
                 <span>Source</span>
@@ -377,7 +396,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-xs font-bold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+                className="flex h-8 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-xs font-bold text-white transition hover:bg-zinc-850 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span>Live Demo</span>
@@ -394,13 +413,13 @@ const CaseStudyDrawer = ({ project, onClose }) => {
 
         {/* Scrollable contents */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-12">
-          
+
           {/* Main banner image mockup */}
           <BrowserMockup src={project.image} alt={project.title} domain={project.urlDomain} />
 
           {/* Grid Layout: Case study details */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
+
             {/* Left Narrative details (8 cols) */}
             <div className="lg:col-span-8 space-y-8 text-left">
               <div>
@@ -410,20 +429,20 @@ const CaseStudyDrawer = ({ project, onClose }) => {
                 <h1 className="text-3xl font-bold text-zinc-900 dark:text-white mt-1">
                   {project.title}
                 </h1>
-                <p className="mt-4 text-sm sm:text-base leading-relaxed text-zinc-650 dark:text-zinc-450">
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-zinc-655 dark:text-zinc-455">
                   {project.longDescription || project.description}
                 </p>
               </div>
 
               {/* Key point lists */}
               <div className="space-y-4">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-450 dark:text-zinc-500">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500">
                   Core Operations & Accomplishments
                 </h3>
                 <ul className="space-y-3">
                   {project.keyPoints.map((pt, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-zinc-650 dark:text-zinc-400">
-                      <CheckCircle className="h-4 w-4 shrink-0 text-zinc-800 dark:text-white mt-0.5" />
+                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-zinc-655 dark:text-zinc-400">
+                      <CheckCircle className="h-4 w-4 shrink-0 text-zinc-805 dark:text-white mt-0.5" />
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -433,7 +452,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
               {/* Custom specs features */}
               {project.features && (
                 <div className="space-y-4 pt-6 border-t border-zinc-100 dark:border-zinc-900">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-450 dark:text-zinc-500">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500">
                     System Architecture Features
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -446,7 +465,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
                           </div>
                           <div>
                             <h4 className="text-xs font-bold text-zinc-900 dark:text-white">{feat.title}</h4>
-                            <p className="mt-1 text-[11px] leading-relaxed text-zinc-450 dark:text-zinc-550">{feat.desc}</p>
+                            <p className="mt-1 text-[11px] leading-relaxed text-zinc-455 dark:text-zinc-550">{feat.desc}</p>
                           </div>
                         </div>
                       );
@@ -458,10 +477,10 @@ const CaseStudyDrawer = ({ project, onClose }) => {
               {/* Engineering challenges */}
               {project.challenges && (
                 <div className="space-y-4 pt-6 border-t border-zinc-100 dark:border-zinc-900">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-450 dark:text-zinc-500">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500">
                     Engineering Challenges & Resolution
                   </h3>
-                  <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-4 sm:p-5 dark:border-zinc-900 dark:bg-zinc-900/5 text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-4 sm:p-5 dark:border-zinc-900 dark:bg-zinc-900/5 text-xs sm:text-sm leading-relaxed text-zinc-650 dark:text-zinc-400">
                     {project.challenges}
                   </div>
                 </div>
@@ -470,10 +489,31 @@ const CaseStudyDrawer = ({ project, onClose }) => {
 
             {/* Right Meta details (4 cols) */}
             <div className="lg:col-span-4 space-y-6">
-              
-              {/* Tech Stack list */}
+
+              {/* Project Stats (Timeline, Impact, Achievement) */}
               <div className="rounded-xl border border-zinc-200 bg-zinc-50/50 p-5 dark:border-zinc-900 dark:bg-zinc-900/10 space-y-4 text-left">
                 <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-450 dark:text-zinc-500 pb-2 border-b border-zinc-200/60 dark:border-zinc-800/40">
+                  Key Indicators
+                </h4>
+                <div className="space-y-3 text-xs leading-relaxed text-zinc-650 dark:text-zinc-400">
+                  <div>
+                    <span className="block text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Timeline</span>
+                    <span className="font-mono font-medium text-zinc-900 dark:text-white">{project.timeline}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Impact</span>
+                    <span className="font-mono font-semibold text-emerald-650 dark:text-emerald-400">{project.impact}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Achievement</span>
+                    <span className="font-medium text-zinc-800 dark:text-zinc-200">{project.achievement}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tech Stack list */}
+              <div className="rounded-xl border border-zinc-200 bg-zinc-50/50 p-5 dark:border-zinc-900 dark:bg-zinc-900/10 space-y-4 text-left">
+                <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500 pb-2 border-b border-zinc-200/60 dark:border-zinc-800/40">
                   Core Technologies
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
@@ -487,7 +527,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
 
               {/* Metrics list */}
               <div className="rounded-xl border border-zinc-200 bg-zinc-50/50 p-5 dark:border-zinc-900 dark:bg-zinc-900/10 space-y-4 text-left">
-                <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-450 dark:text-zinc-500 pb-2 border-b border-zinc-200/60 dark:border-zinc-800/40">
+                <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500 pb-2 border-b border-zinc-200/60 dark:border-zinc-800/40">
                   Project Metrics
                 </h4>
                 <div className="space-y-3.5">
@@ -510,36 +550,27 @@ const CaseStudyDrawer = ({ project, onClose }) => {
   );
 };
 
-/* ═══════════════════════════════════════════════════════════════
+/* ===============================================================
    MAIN PROJECTS LISTING SECTION
-   ═══════════════════════════════════════════════════════════════ */
+   =============================================================== */
 
-const Projects = ({ overrideSelectedProject = null, onClearOverride = null }) => {
+const Projects = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Synchronize dynamic case study triggers from outside (e.g. HunterShowcase)
-  useEffect(() => {
-    if (overrideSelectedProject) {
-      const found = PROJECTS.find(p => p.title.toLowerCase() === overrideSelectedProject.toLowerCase());
-      if (found) {
-        setSelectedProject(found);
-      }
-      if (onClearOverride) onClearOverride();
-    }
-  }, [overrideSelectedProject, onClearOverride]);
+  const featuredProject = PROJECTS[0];
 
-  const displayedProjects = useMemo(() => {
-    return showAll ? PROJECTS : PROJECTS.slice(0, 4);
+  const otherProjects = useMemo(() => {
+    return showAll ? PROJECTS.slice(1) : PROJECTS.slice(1, 5);
   }, [showAll]);
 
   return (
     <>
       <section id="projects" className="section-container border-t border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black">
-        
+
         {/* Section Header */}
         <div className="mb-16 md:mb-24 text-left max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-450 dark:text-zinc-500 mb-3">
             Case Studies
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
@@ -554,7 +585,94 @@ const Projects = ({ overrideSelectedProject = null, onClearOverride = null }) =>
         <div className="mx-auto w-full">
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
             <AnimatePresence>
-              {displayedProjects.map((project, index) => (
+              {/* Featured Project: Hunter (spans full-width on desktop, first on mobile) */}
+              <motion.article
+                key={featuredProject.title}
+                layout
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="col-span-1 md:col-span-2 group relative flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-10 rounded-2xl border border-zinc-200/80 bg-zinc-50/20 p-6 sm:p-8 dark:border-zinc-800/85 dark:bg-zinc-900/5 hover:border-zinc-350 dark:hover:border-zinc-700 transition-colors duration-300"
+              >
+                {/* Left Side: Browser Mockup (7 cols) */}
+                <div className="lg:col-span-7 flex flex-col justify-center">
+                  <BrowserMockup src={featuredProject.image} alt={featuredProject.title} domain={featuredProject.urlDomain} />
+                </div>
+
+                {/* Right Side: Featured Details (5 cols) */}
+                <div className="lg:col-span-5 flex flex-col justify-between text-left">
+                  <div>
+                    {/* Badge header */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-bold text-zinc-450 dark:text-zinc-500 flex items-center gap-1.5 select-none">
+                        <span>⭐</span>
+                        <span className="uppercase tracking-wider">Featured Project</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-amber-650 dark:text-amber-400">
+                        <span className="h-1 w-1 rounded-full bg-amber-500 animate-pulse" />
+                        {featuredProject.status}
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-white group-hover:text-zinc-650 dark:group-hover:text-zinc-300 transition-colors">
+                      {featuredProject.title} — Autonomous AI Browser Copilot
+                    </h3>
+
+                    <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                      {featuredProject.description}
+                    </p>
+
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap gap-1.5 mt-4">
+                      {featuredProject.tech.map((t) => (
+                        <span key={t} className="rounded border border-zinc-200 bg-white px-2 py-0.5 text-[10px] font-medium text-zinc-650 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Elegant Metrics Grid */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3.5 py-4 my-5 border-t border-b border-zinc-100 dark:border-zinc-900">
+                      {featuredProject.metrics.map((m) => (
+                        <div key={m.label}>
+                          <span className="block text-[8px] uppercase tracking-wider font-bold text-zinc-400 dark:text-zinc-500">{m.label}</span>
+                          <span className="font-mono text-xs font-bold text-zinc-850 dark:text-zinc-200 mt-0.5">{m.val}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions footer */}
+                  <div className="mt-6 flex flex-wrap gap-3 items-center justify-between">
+                    <button
+                      onClick={() => setSelectedProject(featuredProject)}
+                      className="group inline-flex items-center gap-1 text-xs font-bold text-zinc-900 hover:text-zinc-700 dark:text-white dark:hover:text-zinc-300 transition-colors"
+                    >
+                      <span>Read Case Study</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </button>
+
+                    <div className="flex gap-2">
+                      {featuredProject.source && (
+                        <a href={featuredProject.source} target="_blank" rel="noopener noreferrer" title="GitHub Source"
+                          className="flex h-8 w-8 items-center justify-center rounded border border-zinc-200 bg-white text-zinc-450 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors">
+                          <FaGithub className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                      {featuredProject.link && (
+                        <a href={featuredProject.link} target="_blank" rel="noopener noreferrer" title="Live Demo"
+                          className="flex h-8 w-8 items-center justify-center rounded border border-zinc-200 bg-white text-zinc-450 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors">
+                          <FaExternalLinkAlt className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+
+              {/* Other Projects Grid */}
+              {otherProjects.map((project, index) => (
                 <motion.article
                   key={project.title}
                   layout
@@ -572,25 +690,23 @@ const Projects = ({ overrideSelectedProject = null, onClearOverride = null }) =>
                     {/* Meta rows */}
                     <div className="flex justify-between items-start gap-4">
                       <div>
-                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500">
                           {project.tech.join(" · ")}
                         </span>
                         <h3 className="text-xl font-bold text-zinc-900 dark:text-white mt-0.5 group-hover:text-zinc-650 dark:group-hover:text-zinc-300 transition-colors">
                           {project.title}
                         </h3>
                       </div>
-                      
+
                       {/* Pulse Status indicator */}
-                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider ${
-                        project.status === "Live"
+                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider ${project.status === "Live"
                           ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                           : project.status === "In Development"
                             ? "border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400"
                             : "border-zinc-300 bg-zinc-100 text-zinc-550 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400"
-                      }`}>
-                        <span className={`h-1 w-1 rounded-full ${
-                          project.status === "Live" ? "animate-pulse bg-emerald-500" : project.status === "In Development" ? "animate-pulse bg-amber-500" : "bg-zinc-400"
-                        }`} />
+                        }`}>
+                        <span className={`h-1 w-1 rounded-full ${project.status === "Live" ? "animate-pulse bg-emerald-500" : project.status === "In Development" ? "animate-pulse bg-amber-500" : "bg-zinc-400"
+                          }`} />
                         {project.status}
                       </span>
                     </div>
@@ -598,6 +714,22 @@ const Projects = ({ overrideSelectedProject = null, onClearOverride = null }) =>
                     <p className="text-xs sm:text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
                       {project.description}
                     </p>
+
+                    {/* Timeline, Impact & Achievement Row */}
+                    <div className="flex flex-col gap-2 rounded-lg bg-zinc-50 dark:bg-zinc-900/30 p-3.5 text-xs border border-zinc-100 dark:border-zinc-900/50">
+                      <div className="flex justify-between items-center text-[11px]">
+                        <span className="text-zinc-455 dark:text-zinc-500">Timeline</span>
+                        <span className="font-mono font-medium text-zinc-700 dark:text-zinc-350">{project.timeline}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-[11px]">
+                        <span className="text-zinc-455 dark:text-zinc-500">Impact</span>
+                        <span className="font-mono font-semibold text-emerald-655 dark:text-emerald-400">{project.impact}</span>
+                      </div>
+                      <div className="flex flex-col gap-0.5 text-[11px] pt-1.5 border-t border-zinc-100 dark:border-zinc-800/60 text-left">
+                        <span className="text-zinc-455 dark:text-zinc-500">Key Achievement</span>
+                        <span className="text-zinc-800 dark:text-zinc-200 font-medium leading-relaxed">{project.achievement}</span>
+                      </div>
+                    </div>
 
                     {/* Metrics grid */}
                     <div className="grid grid-cols-3 gap-2 py-3 border-t border-b border-zinc-100 dark:border-zinc-900">
@@ -623,7 +755,7 @@ const Projects = ({ overrideSelectedProject = null, onClearOverride = null }) =>
                       <span>Read Case Study</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                     </button>
-                    
+
                     <div className="flex gap-2">
                       {project.source && (
                         <a href={project.source} target="_blank" rel="noopener noreferrer" title="GitHub Source"
@@ -633,7 +765,7 @@ const Projects = ({ overrideSelectedProject = null, onClearOverride = null }) =>
                       )}
                       {project.link && (
                         <a href={project.link} target="_blank" rel="noopener noreferrer" title="Live Demo"
-                          className="flex h-7 w-7 items-center justify-center rounded border border-zinc-200 bg-white text-zinc-450 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors">
+                          className="flex h-7 w-7 items-center justify-center rounded border border-zinc-200 bg-white text-zinc-455 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors">
                           <FaExternalLinkAlt className="h-3 w-3" />
                         </a>
                       )}
