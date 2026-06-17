@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import About from "./components/About";
+import TechStack from "./components/TechStack";
+import HunterShowcase from "./components/HunterShowcase";
 import Projects from "./components/Projects";
+import Timeline from "./components/Timeline";
+import Skills from "./components/Skills";
+import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Blog from "./components/Blog";
 
 const App = () => {
   const [theme, setTheme] = useState(() => {
@@ -14,14 +19,15 @@ const App = () => {
     return "dark";
   });
 
+  const [overrideSelectedProject, setOverrideSelectedProject] = useState(null);
   const clickSoundRef = useRef(null);
 
   useEffect(() => {
-    // Preload audio correctly on mount
+    // Preload audio feedback feedbacks
     if (typeof window !== "undefined") {
       const audio = new Audio("/click.wav");
       audio.preload = "auto";
-      audio.load(); // Force the browser to fetch the file immediately
+      audio.load();
       clickSoundRef.current = audio;
     }
   }, []);
@@ -39,23 +45,52 @@ const App = () => {
   const toggleTheme = () => {
     if (clickSoundRef.current) {
       clickSoundRef.current.currentTime = 0;
-      // Play sound immediately without waiting for fetch
       clickSoundRef.current.play().catch((err) => console.warn("Audio feedback failed:", err));
     }
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 transition-colors duration-300 dark:bg-black dark:text-white">
+    <div className="min-h-screen bg-white text-zinc-900 transition-colors duration-350 dark:bg-black dark:text-zinc-100">
+      
+      {/* Scroll Progress & Sticky Navbar */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      <main className="pt-20 md:pt-0">
+      <main className="w-full">
+        {/* Spotlight Hero Section */}
         <Hero theme={theme} />
-        <Projects />
+
+        {/* Written introduction */}
+        <About />
+
+        {/* Categorized Tech Capability Cards */}
+        <TechStack />
+
+        {/* Dedicated Hunter Spotlight Showcase */}
+        <HunterShowcase onReadCaseStudy={() => setOverrideSelectedProject("Hunter")} />
+
+        {/* Startup Case Studies Project List */}
+        <Projects
+          overrideSelectedProject={overrideSelectedProject}
+          onClearOverride={() => setOverrideSelectedProject(null)}
+        />
+
+        {/* Milestones timeline */}
+        <Timeline />
+
+        {/* Expertise Skills Cards */}
+        <Skills />
+
+        {/* RSS Medium feed Blog Section */}
         <Blog />
+
+        {/* Available channels Contact Panel */}
         <Contact />
+
+        {/* Minimal Footer */}
         <Footer />
       </main>
+
     </div>
   );
 };
