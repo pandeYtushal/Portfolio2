@@ -340,32 +340,21 @@ const ICON_MAP = {
    =============================================================== */
 
 const getStatusStyles = (status) => {
-  switch (status) {
-    case "Production":
-      return "border-emerald-500/15 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400";
-    case "Active Development":
-      return "border-amber-500/15 bg-amber-500/5 text-amber-600 dark:text-amber-400";
-    case "Open Source":
-      return "border-blue-500/15 bg-blue-500/5 text-blue-600 dark:text-blue-400";
-    case "Archived":
-      return "border-zinc-500/15 bg-zinc-500/5 text-zinc-500 dark:text-zinc-450";
-    default:
-      return "border-zinc-300 bg-zinc-100 text-zinc-550 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400";
-  }
+  return "border-app-border bg-app-surface-secondary text-app-text-secondary";
 };
 
 const getStatusDotColor = (status) => {
   switch (status) {
     case "Production":
-      return "bg-emerald-500";
+    case "Live":
+      return "bg-app-accent";
     case "Active Development":
-      return "bg-amber-500";
+      return "bg-app-text-primary";
     case "Open Source":
-      return "bg-blue-500";
+      return "bg-app-text-secondary";
     case "Archived":
-      return "bg-zinc-400 dark:bg-zinc-500";
     default:
-      return "bg-zinc-400";
+      return "bg-app-text-muted";
   }
 };
 
@@ -374,29 +363,31 @@ const getStatusDotColor = (status) => {
    =============================================================== */
 
 const BrowserMockup = ({ src, alt, domain = "github.com" }) => (
-  <div className="relative overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800/80 dark:bg-zinc-950 shadow-md transition-all duration-350 group-hover:shadow-lg group-hover:border-zinc-300 dark:group-hover:border-zinc-700/90">
+  <div className="relative overflow-hidden rounded-xl border border-app-border bg-app-surface shadow-none transition-all duration-300">
     {/* Top Header Bar */}
-    <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-850 px-4 py-2 bg-zinc-50/50 dark:bg-zinc-900/40">
+    <div className="flex items-center justify-between border-b border-app-border px-4 py-2 bg-app-surface-secondary">
       {/* 3 Window Dots */}
       <div className="flex items-center gap-1.5">
-        <span className="h-2 w-2 rounded-full bg-red-400/90 dark:bg-red-500/70" />
-        <span className="h-2 w-2 rounded-full bg-yellow-400/90 dark:bg-yellow-500/70" />
-        <span className="h-2 w-2 rounded-full bg-green-400/90 dark:bg-green-500/70" />
+        <span className="h-2 w-2 rounded-full bg-app-border" />
+        <span className="h-2 w-2 rounded-full bg-app-border" />
+        <span className="h-2 w-2 rounded-full bg-app-border" />
       </div>
       {/* URL Address Box */}
-      <div className="flex items-center gap-1.5 rounded-md bg-zinc-100 dark:bg-zinc-900 px-3 py-1 w-44 sm:w-56 justify-center text-[10px] font-mono text-zinc-450 dark:text-zinc-500 border border-zinc-200/40 dark:border-zinc-805/60 select-none">
-        <Chrome className="h-3 w-3 text-zinc-400 dark:text-zinc-500" />
-        <span className="truncate">{domain}</span>
-      </div>
+      {domain && (
+        <div className="flex items-center gap-1.5 rounded-md bg-app-bg px-3 py-1 w-44 sm:w-56 justify-center text-[10px] font-mono text-app-text-muted border border-app-border select-none">
+          <Chrome className="h-3 w-3 text-app-text-muted" />
+          <span className="truncate">{domain}</span>
+        </div>
+      )}
       <div className="w-10" />
     </div>
     {/* Body image container */}
-    <div className="aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900 relative">
+    <div className="aspect-[16/10] w-full overflow-hidden bg-app-surface relative">
       <img
         src={src}
         alt={alt}
         loading="lazy"
-        className="h-full w-full object-cover transition-all duration-750 group-hover:scale-[1.03]"
+        className="h-full w-full object-cover transition-all duration-300 group-hover:scale-[1.01]"
         onError={(e) => {
           e.currentTarget.style.display = "none";
           const fallback = e.currentTarget.nextElementSibling;
@@ -404,7 +395,7 @@ const BrowserMockup = ({ src, alt, domain = "github.com" }) => (
         }}
       />
       {/* Fallback image cover */}
-      <div className="absolute inset-0 hidden flex-col items-center justify-center bg-zinc-50 text-zinc-400 dark:bg-zinc-900/60 dark:text-zinc-500">
+      <div className="absolute inset-0 hidden flex-col items-center justify-center bg-app-surface text-app-text-muted">
         <FileText className="h-8 w-8 animate-pulse" />
         <span className="text-[10px] font-mono mt-1">Asset loading...</span>
       </div>
@@ -443,21 +434,21 @@ const CaseStudyDrawer = ({ project, onClose }) => {
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 32, stiffness: 240 }}
-        className="relative flex h-full w-full max-w-5xl flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 border-l border-zinc-200 dark:border-zinc-900 shadow-2xl overflow-hidden"
+        className="relative flex h-full w-full max-w-5xl flex-col bg-app-bg text-app-text-primary border-l border-app-border shadow-none overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top sticky action header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-zinc-150 dark:border-zinc-900 bg-white/95 dark:bg-zinc-950/95 px-6 py-4 backdrop-blur-md">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-app-border bg-app-bg/95 px-6 py-4 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
-              className="group flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 active:scale-95"
+              className="group flex items-center gap-1.5 rounded-lg border border-app-border bg-app-surface px-3 py-1.5 text-xs font-semibold text-app-text-secondary transition hover:bg-app-surface-secondary hover:text-app-text-primary active:scale-95"
             >
               <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
               <span>Back to Portfolio</span>
             </button>
-            <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800" />
-            <span className="text-[10px] font-mono tracking-wider text-zinc-450 dark:text-zinc-500 uppercase select-none">
+            <div className="h-4 w-px bg-app-border" />
+            <span className="text-[10px] font-mono tracking-wider text-app-text-muted uppercase select-none">
               Case Study / {project.title}
             </span>
           </div>
@@ -468,7 +459,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
                 href={project.source}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-755 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-all active:scale-95"
+                className="flex h-8 items-center gap-1.5 rounded-lg border border-app-border bg-app-surface px-3 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95"
               >
                 <Github className="h-3.5 w-3.5" />
                 <span>GitHub</span>
@@ -479,7 +470,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-xs font-bold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-100 transition-all active:scale-95"
+                className="flex h-8 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-xs font-bold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-100 transition-all active:scale-95 shadow-none"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span>Live Demo</span>
@@ -487,7 +478,7 @@ const CaseStudyDrawer = ({ project, onClose }) => {
             )}
             <button
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-455 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-all active:scale-95"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-app-surface text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95"
             >
               <X className="h-4 w-4" />
             </button>
@@ -497,20 +488,20 @@ const CaseStudyDrawer = ({ project, onClose }) => {
         {/* Outer scrollable page area */}
         <div className="flex-1 overflow-y-auto">
           {/* Top Banner layout */}
-          <div className="p-6 sm:p-8 bg-zinc-50/50 dark:bg-zinc-900/10 border-b border-zinc-150 dark:border-zinc-900">
+          <div className="p-6 sm:p-8 bg-app-surface/40 border-b border-app-border">
             <div className="max-w-4xl mx-auto space-y-6">
               <div className="flex items-center gap-3">
                 <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-wide ${getStatusStyles(project.status)}`}>
                   <span className={`h-1.5 w-1.5 rounded-full ${getStatusDotColor(project.status)} ${project.status !== "Archived" ? "animate-pulse" : ""}`} />
                   {project.status}
                 </span>
-                <span className="text-xs text-zinc-400 dark:text-zinc-500 font-mono">Released {project.timeline}</span>
+                <span className="text-xs text-app-text-muted font-mono">Released {project.timeline}</span>
               </div>
               <div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-app-text-primary">
                   {project.title}
                 </h1>
-                <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-zinc-550 dark:text-zinc-400 max-w-2xl">
+                <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-app-text-secondary max-w-2xl">
                   {project.description}
                 </p>
               </div>
@@ -526,29 +517,29 @@ const CaseStudyDrawer = ({ project, onClose }) => {
 
               {/* Section 1: Overview */}
               <section className="space-y-3">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Project Overview</h2>
-                <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900" />
-                <p className="text-sm leading-relaxed text-zinc-650 dark:text-zinc-400">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">Project Overview</h2>
+                <div className="h-[1px] w-full bg-app-border" />
+                <p className="text-sm leading-relaxed text-app-text-secondary">
                   {project.longDescription}
                 </p>
               </section>
 
               {/* Section 2: Problem vs Solution */}
               <section className="space-y-4">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Problem & Solution</h2>
-                <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900" />
+                <h2 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">Problem & Solution</h2>
+                <div className="h-[1px] w-full bg-app-border" />
                 <div className="grid grid-cols-1 gap-4">
                   {/* Problem */}
-                  <div className="p-4 border-l-2 border-red-500 bg-red-50/20 dark:bg-red-950/5 rounded-r-xl space-y-1">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-red-650 dark:text-red-400">Problem Statement</h3>
-                    <p className="text-xs leading-relaxed text-zinc-655 dark:text-zinc-400">
+                  <div className="p-4 border-l-2 border-app-border bg-app-surface rounded-r-xl space-y-1">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">Problem Statement</h3>
+                    <p className="text-xs leading-relaxed text-app-text-secondary">
                       {project.problemStatement}
                     </p>
                   </div>
                   {/* Solution */}
-                  <div className="p-4 border-l-2 border-emerald-500 bg-emerald-50/20 dark:bg-emerald-950/5 rounded-r-xl space-y-1">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-650 dark:text-emerald-400">The Solution</h3>
-                    <p className="text-xs leading-relaxed text-zinc-655 dark:text-zinc-400">
+                  <div className="p-4 border-l-2 border-app-accent bg-app-surface rounded-r-xl space-y-1">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-app-accent">The Solution</h3>
+                    <p className="text-xs leading-relaxed text-app-text-secondary">
                       {project.solution}
                     </p>
                   </div>
@@ -558,24 +549,24 @@ const CaseStudyDrawer = ({ project, onClose }) => {
               {/* Section 3: Architecture Diagram */}
               {project.architectureSteps && (
                 <section className="space-y-4">
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">System Architecture</h2>
-                  <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900" />
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">System Architecture</h2>
+                  <div className="h-[1px] w-full bg-app-border" />
 
                   {/* Architecture Diagram blocks */}
                   <div className="flex flex-col sm:flex-row items-stretch gap-3 justify-between relative py-2">
                     {project.architectureSteps.map((step, idx) => (
-                      <div key={step} className="flex-1 flex flex-col items-center justify-center p-3.5 border border-zinc-200 dark:border-zinc-900 bg-zinc-50/30 dark:bg-zinc-900/10 rounded-xl relative select-none">
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-bold text-white dark:bg-white dark:text-black mb-2">
+                      <div key={step} className="flex-1 flex flex-col items-center justify-center p-3.5 border border-app-border bg-app-surface rounded-xl relative select-none">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-app-text-primary text-[10px] font-bold text-app-bg mb-2">
                           {idx + 1}
                         </div>
-                        <span className="text-[11px] font-semibold tracking-tight text-zinc-900 dark:text-white text-center">
+                        <span className="text-[11px] font-semibold tracking-tight text-app-text-primary text-center">
                           {step}
                         </span>
                         {/* Connecting arrows for layout */}
                         {idx < project.architectureSteps.length - 1 && (
                           <>
-                            <div className="hidden sm:block absolute top-1/2 -right-2 w-4 h-[1px] bg-zinc-300 dark:bg-zinc-800 -translate-y-1/2 z-10" />
-                            <div className="block sm:hidden absolute -bottom-2.5 left-1/2 w-[1px] h-2.5 bg-zinc-300 dark:bg-zinc-800 -translate-x-1/2 z-10" />
+                            <div className="hidden sm:block absolute top-1/2 -right-2 w-4 h-[1px] bg-app-border -translate-y-1/2 z-10" />
+                            <div className="block sm:hidden absolute -bottom-2.5 left-1/2 w-[1px] h-2.5 bg-app-border -translate-x-1/2 z-10" />
                           </>
                         )}
                       </div>
@@ -587,19 +578,19 @@ const CaseStudyDrawer = ({ project, onClose }) => {
               {/* Section 4: Key Features */}
               {project.features && (
                 <section className="space-y-4">
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Key Features</h2>
-                  <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900" />
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">Key Features</h2>
+                  <div className="h-[1px] w-full bg-app-border" />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {project.features.map((feat) => {
                       const Icon = ICON_MAP[feat.iconName] || Sparkles;
                       return (
-                        <div key={feat.title} className="flex gap-3.5 border border-zinc-200/50 rounded-xl bg-zinc-50/20 p-4 dark:border-zinc-900/50 dark:bg-zinc-900/5 hover:border-zinc-300 dark:hover:border-zinc-800 transition-colors duration-250">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-white dark:bg-zinc-900 border border-zinc-250 dark:border-zinc-800 shadow-sm">
-                            <Icon className="h-4 w-4 text-zinc-650 dark:text-zinc-350" />
+                        <div key={feat.title} className="flex gap-3.5 border border-app-border rounded-xl bg-app-surface p-4 hover:border-app-accent/40 transition-colors duration-250">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-app-surface-secondary border border-app-border shadow-none">
+                            <Icon className="h-4 w-4 text-app-text-secondary" />
                           </div>
                           <div>
-                            <h4 className="text-xs font-bold text-zinc-900 dark:text-white">{feat.title}</h4>
-                            <p className="mt-1 text-[11px] leading-relaxed text-zinc-450 dark:text-zinc-500">{feat.desc}</p>
+                            <h4 className="text-xs font-bold text-app-text-primary">{feat.title}</h4>
+                            <p className="mt-1 text-[11px] leading-relaxed text-app-text-muted">{feat.desc}</p>
                           </div>
                         </div>
                       );
@@ -611,10 +602,10 @@ const CaseStudyDrawer = ({ project, onClose }) => {
               {/* Section 5: Challenges Faced */}
               {project.challenges && (
                 <section className="space-y-3">
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Challenges & Resolution</h2>
-                  <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900" />
-                  <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/40 dark:border-zinc-900 dark:bg-zinc-900/10 text-xs sm:text-sm leading-relaxed text-zinc-650 dark:text-zinc-400">
-                    <span className="font-semibold text-zinc-900 dark:text-white block mb-2">Technical Challenge:</span>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">Challenges & Resolution</h2>
+                  <div className="h-[1px] w-full bg-app-border" />
+                  <div className="p-4 rounded-xl border border-app-border bg-app-surface text-xs sm:text-sm leading-relaxed text-app-text-secondary">
+                    <span className="font-semibold text-app-text-primary block mb-2">Technical Challenge:</span>
                     {project.challenges}
                   </div>
                 </section>
@@ -623,11 +614,11 @@ const CaseStudyDrawer = ({ project, onClose }) => {
               {/* Section 6: Future Improvements */}
               {project.futureImprovements && (
                 <section className="space-y-3">
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Future Roadmap</h2>
-                  <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900" />
-                  <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/20 dark:bg-zinc-900/5 text-xs text-zinc-655 dark:text-zinc-400">
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-app-text-muted">Future Roadmap</h2>
+                  <div className="h-[1px] w-full bg-app-border" />
+                  <div className="p-4 rounded-xl border border-app-border bg-app-surface text-xs text-app-text-secondary">
                     <div className="flex items-start gap-2.5">
-                      <span className="text-[11px] text-zinc-400 mt-0.5">🚀</span>
+                      <span className="text-[11px] text-app-text-muted mt-0.5">🚀</span>
                       <p>{project.futureImprovements}</p>
                     </div>
                   </div>
@@ -640,42 +631,42 @@ const CaseStudyDrawer = ({ project, onClose }) => {
             <div className="lg:col-span-4 space-y-6">
 
               {/* Box 1: Indicators */}
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50/30 p-5 dark:border-zinc-900 dark:bg-zinc-900/10 space-y-4 text-left">
-                <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 pb-2 border-b border-zinc-200/50 dark:border-zinc-800/40">
+              <div className="rounded-xl border border-app-border bg-app-surface p-5 space-y-4 text-left">
+                <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted pb-2 border-b border-app-border">
                   Key Metrics
                 </h4>
-                <div className="space-y-3.5 text-xs text-zinc-650 dark:text-zinc-400">
+                <div className="space-y-3.5 text-xs text-app-text-secondary">
                   <div>
-                    <span className="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Impact</span>
-                    <span className="font-mono font-semibold text-emerald-655 dark:text-emerald-400">{project.impact}</span>
+                    <span className="block text-[9px] font-bold text-app-text-muted uppercase tracking-wider">Impact</span>
+                    <span className="font-mono font-semibold text-app-accent">{project.impact}</span>
                   </div>
                   <div>
-                    <span className="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Achievement</span>
-                    <span className="font-medium text-zinc-800 dark:text-zinc-200">{project.achievement}</span>
+                    <span className="block text-[9px] font-bold text-app-text-muted uppercase tracking-wider">Achievement</span>
+                    <span className="font-medium text-app-text-primary">{project.achievement}</span>
                   </div>
                 </div>
               </div>
 
               {/* Box 2: Engineering Decisions */}
               {project.engineeringDecisions && (
-                <div className="rounded-xl border border-zinc-200 bg-zinc-50/30 p-5 dark:border-zinc-900 dark:bg-zinc-900/10 space-y-4 text-left">
-                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 pb-2 border-b border-zinc-200/50 dark:border-zinc-800/40">
+                <div className="rounded-xl border border-app-border bg-app-surface p-5 space-y-4 text-left">
+                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted pb-2 border-b border-app-border">
                     Engineering Decisions
                   </h4>
-                  <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-450">
+                  <p className="text-xs leading-relaxed text-app-text-secondary">
                     {project.engineeringDecisions}
                   </p>
                 </div>
               )}
 
               {/* Box 3: Tech Stack */}
-              <div className="rounded-xl border border-zinc-200 bg-zinc-50/30 p-5 dark:border-zinc-900 dark:bg-zinc-900/10 space-y-4 text-left">
-                <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 pb-2 border-b border-zinc-200/50 dark:border-zinc-800/40">
+              <div className="rounded-xl border border-app-border bg-app-surface p-5 space-y-4 text-left">
+                <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted pb-2 border-b border-app-border">
                   Core Technologies
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {(project.fullTech || project.tech).map((t) => (
-                    <span key={t} className="rounded border border-zinc-200 bg-white px-2 py-0.5 text-[10px] font-medium text-zinc-655 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
+                    <span key={t} className="rounded-full border border-app-border bg-app-surface-secondary px-2.5 py-0.5 text-[10px] font-medium text-app-text-secondary">
                       {t}
                     </span>
                   ))}
@@ -701,24 +692,23 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
   const featuredProject = PROJECTS[0];
-
   const otherProjects = useMemo(() => {
     return showAll ? PROJECTS.slice(1) : PROJECTS.slice(1, 5);
   }, [showAll]);
 
   return (
     <>
-      <section id="projects" className="section-container border-t border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black">
+      <section id="projects" className="section-container border-t border-app-border bg-app-bg">
 
         {/* Section Header */}
         <div className="mb-16 md:mb-24 text-left max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-450 dark:text-zinc-500 mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-app-text-muted mb-3">
             Case Studies
           </p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tight text-app-text-primary sm:text-4xl md:text-5xl">
             Selected Work
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-base">
+          <p className="mt-4 text-sm leading-relaxed text-app-text-secondary sm:text-base">
             Detailed project records exploring product metrics, technical stack integration, and architectural decisions. Click on any project to read its case study.
           </p>
         </div>
@@ -736,7 +726,7 @@ const Projects = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
                 whileHover={{ y: -4 }}
-                className="col-span-1 md:col-span-2 group relative flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-10 rounded-2xl border border-zinc-200/80 bg-zinc-50/20 p-6 sm:p-8 dark:border-zinc-800/85 dark:bg-zinc-900/5 hover:border-zinc-350 dark:hover:border-zinc-700 hover:shadow-lg dark:hover:shadow-none transition-all duration-300"
+                className="col-span-1 md:col-span-2 group relative flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-10 rounded-2xl border border-app-border bg-app-surface p-6 sm:p-8 hover:border-app-accent/30 hover:scale-[1.01] transition-all duration-300 shadow-none hover:shadow-none lg:scale-[1.02]"
               >
                 {/* Left Side: Browser Mockup (7 cols) */}
                 <div className="lg:col-span-7 flex flex-col justify-center">
@@ -748,14 +738,14 @@ const Projects = () => {
                   <div>
                     {/* Badge header */}
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 select-none">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-app-border bg-app-surface-secondary px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-app-accent select-none">
                         <span>⭐</span>
-                        <span>Flagship Project</span>
+                        <span>Featured Project</span>
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2.5 mt-1 flex-wrap">
-                      <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-white group-hover:text-zinc-650 dark:group-hover:text-zinc-300 transition-colors">
+                      <h3 className="text-2xl font-bold text-app-text-primary group-hover:text-app-accent transition-colors">
                         {featuredProject.title}
                       </h3>
                       <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-medium tracking-wide ${getStatusStyles(featuredProject.status)}`}>
@@ -764,18 +754,18 @@ const Projects = () => {
                       </span>
                     </div>
 
-                    <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-550 dark:text-zinc-400">
+                    <p className="mt-3 text-xs sm:text-sm leading-relaxed text-app-text-secondary">
                       {featuredProject.description}
                     </p>
 
                     {/* What I Built Section */}
                     {featuredProject.whatIBuilt && (
                       <div className="mt-4 space-y-1.5 text-xs text-left">
-                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">What I Built</h4>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-zinc-700 dark:text-zinc-350 font-medium">
+                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted">What I Built</h4>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-app-text-secondary font-medium">
                           {featuredProject.whatIBuilt.map((item) => (
                             <div key={item} className="flex items-center gap-1.5">
-                              <span className="text-[10px] text-zinc-800 dark:text-zinc-200">✓</span>
+                              <span className="text-[10px] text-app-accent">✓</span>
                               <span className="truncate">{item}</span>
                             </div>
                           ))}
@@ -786,7 +776,7 @@ const Projects = () => {
                     {/* Tech Badges */}
                     <div className="flex flex-wrap gap-1.5 mt-4">
                       {featuredProject.tech.map((t) => (
-                        <span key={t} className="rounded border border-zinc-200 bg-white px-2 py-0.5 text-[10px] font-medium text-zinc-650 dark:border-zinc-850 dark:bg-zinc-900 dark:text-zinc-450">
+                        <span key={t} className="rounded-full border border-app-border bg-app-surface-secondary px-2.5 py-0.5 text-[10px] font-medium text-app-text-secondary">
                           {t}
                         </span>
                       ))}
@@ -794,10 +784,10 @@ const Projects = () => {
 
                     {/* Metric Pills */}
                     {featuredProject.metricPills && (
-                      <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-900/60">
+                      <div className="mt-5 pt-4 border-t border-app-border">
                         <div className="flex flex-wrap gap-1.5">
                           {featuredProject.metricPills.map((m) => (
-                            <span key={m} className="rounded-full bg-zinc-100 dark:bg-zinc-900 px-2.5 py-0.5 text-[9px] font-mono font-semibold text-zinc-650 dark:text-zinc-400 border border-zinc-250/40 dark:border-zinc-800/40">
+                            <span key={m} className="rounded-full border border-app-border bg-app-surface-secondary px-2.5 py-0.5 text-[9px] font-mono font-semibold text-app-text-secondary">
                               {m}
                             </span>
                           ))}
@@ -807,10 +797,10 @@ const Projects = () => {
                   </div>
 
                   {/* Actions footer */}
-                  <div className="mt-6 pt-4 border-t border-zinc-100/60 dark:border-zinc-900/40 flex flex-col sm:flex-row gap-4 items-center justify-between w-full">
+                  <div className="mt-6 pt-4 border-t border-app-border flex flex-col sm:flex-row gap-4 items-center justify-between w-full">
                     <button
                       onClick={() => setSelectedProject(featuredProject)}
-                      className="group inline-flex items-center justify-center gap-1 text-xs font-bold text-zinc-900 hover:text-zinc-750 dark:text-white dark:hover:text-zinc-300 transition-colors w-full sm:w-auto"
+                      className="group inline-flex items-center justify-center gap-1 text-xs font-bold text-app-text-secondary hover:text-app-accent transition-colors w-full sm:w-auto"
                     >
                       <span>Read Case Study</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -819,14 +809,14 @@ const Projects = () => {
                     <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                       {featuredProject.source && (
                         <a href={featuredProject.source} target="_blank" rel="noopener noreferrer" title="GitHub Source"
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-450 dark:hover:bg-zinc-800 transition-all active:scale-95 w-full sm:w-auto">
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-app-border bg-transparent px-4 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 w-full sm:w-auto shadow-none">
                           <FaGithub className="h-3.5 w-3.5" />
                           <span>GitHub</span>
                         </a>
                       )}
                       {featuredProject.link && (
                         <a href={featuredProject.link} target="_blank" rel="noopener noreferrer" title="Live Demo"
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-xs font-bold text-white transition hover:bg-zinc-850 dark:bg-white dark:text-black dark:hover:bg-zinc-200 active:scale-95 w-full sm:w-auto">
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg bg-zinc-900 px-4 text-xs font-bold text-white transition hover:bg-zinc-800/90 dark:bg-zinc-50 dark:text-black dark:hover:bg-zinc-200 active:scale-95 w-full sm:w-auto shadow-none">
                           <FaExternalLinkAlt className="h-3 w-3" />
                           <span>Live Demo</span>
                         </a>
@@ -847,7 +837,7 @@ const Projects = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.45, delay: index * 0.05 }}
                   whileHover={{ y: -4 }}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-zinc-200/80 bg-zinc-50/20 p-5 dark:border-zinc-800/85 dark:bg-zinc-900/5 hover:border-zinc-350 dark:hover:border-zinc-700 hover:shadow-lg dark:hover:shadow-none transition-all duration-300 sm:p-6"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-app-border bg-app-surface p-5 transition-all duration-300 hover:border-app-border hover:scale-[1.01] shadow-none sm:p-6"
                 >
                   <div className="space-y-5">
                     {/* Browser Mockup wrapper */}
@@ -855,11 +845,11 @@ const Projects = () => {
 
                     {/* Title & Status */}
                     <div>
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-zinc-455 dark:text-zinc-500">
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-app-text-muted">
                         {project.tech.join(" · ")}
                       </span>
                       <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <h3 className="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-zinc-650 dark:group-hover:text-zinc-300 transition-colors">
+                        <h3 className="text-xl font-bold text-app-text-primary group-hover:text-app-accent transition-colors">
                           {project.title}
                         </h3>
                         <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-medium tracking-wide ${getStatusStyles(project.status)}`}>
@@ -869,18 +859,18 @@ const Projects = () => {
                       </div>
                     </div>
 
-                    <p className="text-xs sm:text-sm leading-relaxed text-zinc-550 dark:text-zinc-400">
+                    <p className="text-xs sm:text-sm leading-relaxed text-app-text-secondary">
                       {project.description}
                     </p>
 
                     {/* What I Built Section */}
                     {project.whatIBuilt && (
                       <div className="space-y-1.5 text-xs text-left">
-                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">What I Built</h4>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-zinc-700 dark:text-zinc-355 font-medium">
+                        <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted">What I Built</h4>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-app-text-secondary font-medium">
                           {project.whatIBuilt.map((item) => (
                             <div key={item} className="flex items-center gap-1.5">
-                              <span className="text-[10px] text-zinc-800 dark:text-zinc-200">✓</span>
+                              <span className="text-[10px] text-app-accent">✓</span>
                               <span className="truncate">{item}</span>
                             </div>
                           ))}
@@ -890,10 +880,10 @@ const Projects = () => {
 
                     {/* Metric Pills */}
                     {project.metricPills && (
-                      <div className="pt-3 border-t border-zinc-100 dark:border-zinc-900/60">
+                      <div className="pt-3 border-t border-app-border">
                         <div className="flex flex-wrap gap-1.5">
                           {project.metricPills.map((m) => (
-                            <span key={m} className="rounded-full bg-zinc-100 dark:bg-zinc-900 px-2 py-0.5 text-[9px] font-mono font-semibold text-zinc-650 dark:text-zinc-450 border border-zinc-250/40 dark:border-zinc-800/40">
+                            <span key={m} className="rounded-full border border-app-border bg-app-surface-secondary px-2.5 py-0.5 text-[9px] font-mono font-semibold text-app-text-secondary">
                               {m}
                             </span>
                           ))}
@@ -903,10 +893,10 @@ const Projects = () => {
                   </div>
 
                   {/* Actions footer */}
-                  <div className="mt-6 pt-4 border-t border-zinc-100/60 dark:border-zinc-900/40 flex flex-col sm:flex-row gap-4 items-center justify-between w-full">
+                  <div className="mt-6 pt-4 border-t border-app-border flex flex-col sm:flex-row gap-4 items-center justify-between w-full">
                     <button
                       onClick={() => setSelectedProject(project)}
-                      className="group inline-flex items-center justify-center gap-1 text-xs font-bold text-zinc-900 hover:text-zinc-750 dark:text-white dark:hover:text-zinc-300 transition-colors w-full sm:w-auto"
+                      className="group inline-flex items-center justify-center gap-1 text-xs font-bold text-app-text-secondary hover:text-app-accent transition-colors w-full sm:w-auto"
                     >
                       <span>Read Case Study</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -915,14 +905,14 @@ const Projects = () => {
                     <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                       {project.source && (
                         <a href={project.source} target="_blank" rel="noopener noreferrer" title="GitHub Source"
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-450 dark:hover:bg-zinc-800 transition-all active:scale-95 w-full sm:w-auto">
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-app-border bg-transparent px-4 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 w-full sm:w-auto shadow-none">
                           <FaGithub className="h-3.5 w-3.5" />
                           <span>GitHub</span>
                         </a>
                       )}
                       {project.link && (
                         <a href={project.link} target="_blank" rel="noopener noreferrer" title="Live Demo"
-                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-xs font-bold text-white transition hover:bg-zinc-850 dark:bg-white dark:text-black dark:hover:bg-zinc-200 active:scale-95 w-full sm:w-auto">
+                          className="flex h-9 items-center justify-center gap-1.5 rounded-lg bg-zinc-900 px-4 text-xs font-bold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 active:scale-95 w-full sm:w-auto shadow-none">
                           <FaExternalLinkAlt className="h-3 w-3" />
                           <span>Live Demo</span>
                         </a>
@@ -939,7 +929,7 @@ const Projects = () => {
             <motion.div layout className="mt-12 flex justify-center">
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="group flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-5 py-2 text-xs font-semibold text-zinc-855 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-350 dark:hover:bg-zinc-800 active:scale-95"
+                className="group flex items-center gap-1.5 rounded-full border border-app-border bg-app-surface px-5 py-2 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary active:scale-95 shadow-none"
               >
                 <span>{showAll ? "Show Less" : "Show All Case Studies"}</span>
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />

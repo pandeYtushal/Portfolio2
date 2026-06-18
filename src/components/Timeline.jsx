@@ -36,22 +36,22 @@ const MILESTONES = [
 
 const Timeline = () => {
   return (
-    <section id="journey" className="section-container border-t border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black">
+    <section id="journey" className="section-container border-t border-app-border bg-app-bg">
       <div className="mb-20 md:mb-28 text-left max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-app-text-muted mb-3">
           Evolution
         </p>
-        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
+        <h2 className="text-3xl font-bold tracking-tight text-app-text-primary sm:text-4xl md:text-5xl">
           Journey Timeline
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-base">
+        <p className="mt-4 text-sm leading-relaxed text-app-text-secondary sm:text-base">
           A progression of my software engineering pathway, charting a transition from procedural C++ coding to complex autonomous AI systems.
         </p>
       </div>
 
       <div className="relative mx-auto max-w-4xl">
         {/* Central Vertical Line */}
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-zinc-200 dark:bg-zinc-800 -translate-x-[0.5px]" />
+        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-app-border -translate-x-[0.5px]" />
 
         <div className="space-y-12 md:space-y-16">
           {MILESTONES.map((stone, index) => {
@@ -61,7 +61,7 @@ const Timeline = () => {
             return (
               <div key={stone.year} className="relative flex flex-col md:flex-row items-start md:items-center">
                 {/* Visual node marker */}
-                <div className="absolute left-4 md:left-1/2 flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 shadow-sm -translate-x-[15.5px] z-10">
+                <div className="absolute left-4 md:left-1/2 flex h-8 w-8 items-center justify-center rounded-full border border-app-border bg-app-surface text-app-text-secondary hover:text-app-accent hover:border-app-accent transition-all duration-300 -translate-x-[15.5px] z-10">
                   <Icon className="h-3.5 w-3.5" />
                 </div>
 
@@ -75,13 +75,13 @@ const Timeline = () => {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
                   >
-                    <span className="font-mono text-sm font-bold text-zinc-400 dark:text-zinc-500">
+                    <span className="font-mono text-sm font-bold text-app-text-muted">
                       {stone.year}
                     </span>
-                    <h3 className="text-lg font-bold text-zinc-900 dark:text-white mt-1">
+                    <h3 className="text-lg font-bold text-app-text-primary mt-1">
                       {stone.title}
                     </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400 max-w-md ml-auto max-md:ml-0 md:mr-0">
+                    <p className="mt-2 text-xs leading-relaxed text-app-text-secondary max-w-md ml-auto max-md:ml-0 md:mr-0">
                       {stone.description}
                     </p>
                   </motion.div>

@@ -34,15 +34,15 @@ const SKILLS = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="section-container border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50/30 dark:bg-zinc-950/20">
+    <section id="skills" className="section-container border-t border-app-border bg-app-bg">
       <div className="mb-16 md:mb-24 text-left max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 mb-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-app-text-muted mb-3">
           Specialization
         </p>
-        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
+        <h2 className="text-3xl font-bold tracking-tight text-app-text-primary sm:text-4xl md:text-5xl">
           Engineering Focus
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-base">
+        <p className="mt-4 text-sm leading-relaxed text-app-text-secondary sm:text-base">
           Beyond general web development, I focus on software systems that merge artificial intelligence with robust, user-centered design.
         </p>
       </div>
@@ -58,33 +58,33 @@ const Skills = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.05 }}
               whileHover={{ y: -4 }}
-              className="flex flex-col justify-between rounded-xl border border-zinc-200/80 bg-white p-6 dark:border-zinc-800/80 dark:bg-zinc-900/10 hover:shadow-lg transition-all duration-300"
+              className="flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 transition-all duration-300 hover:border-app-border hover:scale-[1.01] shadow-none"
             >
               <div>
                 <div className="flex items-center gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 shadow-sm">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-app-border bg-app-surface-secondary text-app-text-secondary">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-app-text-primary">
                     {skill.title}
                   </h3>
                 </div>
 
-                <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                <p className="mt-4 text-sm leading-relaxed text-app-text-secondary">
                   {skill.description}
                 </p>
               </div>
 
-              <div className="mt-8 space-y-4 pt-6 border-t border-zinc-100 dark:border-zinc-800/60">
+              <div className="mt-8 space-y-4 pt-6 border-t border-app-border">
                 <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-2">
+                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted mb-2">
                     Key Tools & Tech
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {skill.tools.map((t) => (
                       <span
                         key={t}
-                        className="rounded bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                        className="rounded-full border border-app-border bg-app-surface-secondary px-2.5 py-0.5 text-[10px] font-medium text-app-text-secondary"
                       >
                         {t}
                       </span>
@@ -93,10 +93,10 @@ const Skills = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-1">
+                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-app-text-muted mb-1">
                     Applied Experience
                   </h4>
-                  <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  <p className="text-xs leading-relaxed text-app-text-secondary">
                     {skill.experience}
                   </p>
                 </div>

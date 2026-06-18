@@ -9,8 +9,8 @@
   --color-app-text-primary: #09090b;
   --color-app-text-secondary: #52525b;
   --color-app-text-muted: #71717a;
-  --color-app-accent: #2563eb;
-  --color-app-accent-hover: #1d4ed8;
+  --color-app-accent: #ea580c;
+  --color-app-accent-hover: #c2410c;
 
   --animate-grid-sweep: grid-sweep 15s linear infinite;
   --animate-beam: beam 8s ease-in-out infinite;
@@ -42,8 +42,8 @@
   --color-app-text-primary: #FAFAFA;
   --color-app-text-secondary: #A1A1AA;
   --color-app-text-muted: #71717A;
-  --color-app-accent: #3b82f6;
-  --color-app-accent-hover: #60a5fa;
+  --color-app-accent: #f97316;
+  --color-app-accent-hover: #fb923c;
 }
 
 @layer base {
@@ -119,6 +119,36 @@
 
 @layer components {
   .section-container {
-    @apply w-full max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32;
+    @apply w-full max-w-6xl mx-auto px-6 md:px-12 py-32 md:py-40;
+  }
+
+  /* Curated/muted code formatting - GitHub Dark Dimmed style */
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    @apply text-app-text-secondary bg-app-surface border border-app-border px-1.5 py-0.5 rounded text-[0.875em];
+  }
+
+  pre {
+    @apply bg-app-surface border border-app-border p-4 rounded-xl overflow-x-auto;
+  }
+
+  pre code {
+    @apply p-0 bg-transparent border-none text-[0.85em];
+  }
+
+  .code-keyword {
+    @apply text-app-text-primary font-semibold;
+  }
+
+  .code-string {
+    @apply text-app-text-secondary;
+  }
+
+  .code-number {
+    @apply text-app-text-secondary;
+  }
+
+  .code-comment {
+    @apply text-app-text-muted italic;
   }
 }

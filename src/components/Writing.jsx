@@ -14,22 +14,22 @@ const MediumIcon = ({ className }) => (
 );
 
 const SkeletonCard = () => (
-  <div className="flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-850 dark:bg-zinc-900/10 h-64 animate-pulse">
+  <div className="flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 h-64 animate-pulse shadow-none">
     <div className="space-y-4">
       <div className="flex justify-between">
-        <div className="h-3.5 w-20 bg-zinc-200 dark:bg-zinc-800 rounded" />
-        <div className="h-3.5 w-16 bg-zinc-200 dark:bg-zinc-800 rounded font-mono" />
+        <div className="h-3.5 w-20 bg-app-surface-secondary rounded" />
+        <div className="h-3.5 w-16 bg-app-surface-secondary rounded font-mono" />
       </div>
-      <div className="h-6 w-full bg-zinc-200 dark:bg-zinc-800 rounded" />
-      <div className="h-6 w-3/4 bg-zinc-200 dark:bg-zinc-800 rounded" />
+      <div className="h-6 w-full bg-app-surface-secondary rounded" />
+      <div className="h-6 w-3/4 bg-app-surface-secondary rounded" />
       <div className="space-y-2 pt-2">
-        <div className="h-3 w-full bg-zinc-150 dark:bg-zinc-800/80 rounded" />
-        <div className="h-3 w-5/6 bg-zinc-150 dark:bg-zinc-800/80 rounded" />
+        <div className="h-3 w-full bg-app-surface-secondary rounded" />
+        <div className="h-3 w-5/6 bg-app-surface-secondary rounded" />
       </div>
     </div>
-    <div className="mt-8 flex items-center justify-between border-t border-zinc-100 pt-4 dark:border-zinc-900/60">
-      <div className="h-4 w-12 bg-zinc-200 dark:bg-zinc-800 rounded" />
-      <div className="h-4 w-24 bg-zinc-200 dark:bg-zinc-800 rounded" />
+    <div className="mt-8 flex items-center justify-between border-t border-app-border pt-4">
+      <div className="h-4 w-12 bg-app-surface-secondary rounded" />
+      <div className="h-4 w-24 bg-app-surface-secondary rounded" />
     </div>
   </div>
 );
@@ -95,17 +95,17 @@ const Writing = () => {
   }
 
   return (
-    <section id="writing" className="section-container border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50/30 transition-colors duration-300 dark:bg-black">
+    <section id="writing" className="section-container border-t border-app-border bg-app-bg">
 
       {/* Section Header */}
       <div className="mb-16 md:mb-20 text-left max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-450 dark:text-zinc-500 mb-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-app-text-muted mb-3">
           Thoughts
         </p>
-        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl md:text-5xl">
+        <h2 className="text-3xl font-bold tracking-tight text-app-text-primary sm:text-4xl md:text-5xl">
           Articles & Insights
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-base">
+        <p className="mt-4 text-sm leading-relaxed text-app-text-secondary sm:text-base">
           Sharing learnings, challenges, and architectural decisions from building software products.
         </p>
       </div>
@@ -126,13 +126,13 @@ const Writing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -4 }}
               onClick={() => window.open(post.link, "_blank", "noopener,noreferrer")}
-              className="group cursor-pointer flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05)] transition-all duration-300 hover:border-zinc-350 hover:shadow-[0_8px_24px_-10px_rgba(0,0,0,0.08)] dark:border-zinc-850 dark:bg-zinc-900/10 dark:hover:border-zinc-700 dark:hover:shadow-none"
+              className="group cursor-pointer flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 transition-all duration-300 hover:border-app-border hover:scale-[1.01] shadow-none"
             >
               <div className="space-y-4 text-left">
                 {/* Top Meta info */}
-                <div className="flex items-center justify-between text-[11px] font-medium text-zinc-400 dark:text-zinc-500">
+                <div className="flex items-center justify-between text-[11px] font-medium text-app-text-muted">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="h-3.5 w-3.5" />
                     <span>{post.pubDate}</span>
@@ -144,24 +144,24 @@ const Writing = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-zinc-900 line-clamp-2 transition-colors group-hover:text-zinc-650 dark:text-white dark:group-hover:text-zinc-300">
+                <h3 className="text-lg font-bold text-app-text-primary line-clamp-2 transition-colors group-hover:text-app-accent">
                   {post.title}
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-xs sm:text-sm leading-relaxed text-zinc-500 line-clamp-3 dark:text-zinc-400">
+                <p className="text-xs sm:text-sm leading-relaxed text-app-text-secondary line-clamp-3">
                   {post.description}
                 </p>
               </div>
 
               {/* Bottom Actions footer */}
-              <div className="mt-8 flex items-center justify-between border-t border-zinc-100 pt-4 dark:border-zinc-900/60">
-                <div className="flex items-center gap-1.5 text-zinc-400 dark:text-zinc-500">
+              <div className="mt-8 flex items-center justify-between border-t border-app-border pt-4">
+                <div className="flex items-center gap-1.5 text-app-text-muted">
                   <MediumIcon className="h-4 w-4" />
                   <span className="text-[10px] font-bold uppercase tracking-wider">Medium</span>
                 </div>
 
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-zinc-900 group-hover:text-zinc-650 dark:text-white dark:group-hover:text-zinc-300 transition-colors">
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-app-text-secondary group-hover:text-app-accent transition-colors">
                   <span>Read on Medium</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </span>

@@ -24,7 +24,7 @@ const ScrollProgress = () => {
         scaleX,
         transformOrigin: "left",
       }}
-      className="fixed left-0 right-0 top-0 z-[200] h-[2px] origin-left bg-zinc-900 dark:bg-white"
+      className="fixed left-0 right-0 top-0 z-[200] h-[2px] origin-left bg-app-accent"
     />
   );
 };
@@ -56,8 +56,8 @@ const Navbar = ({ theme, toggleTheme }) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed left-1/2 top-4 z-[100] w-[92%] max-w-4xl -translate-x-1/2 rounded-full border backdrop-blur-md transition-all duration-300 ${scrolled
-          ? "border-zinc-900/15 bg-white/70 py-1.5 shadow-sm dark:border-white/10 dark:bg-zinc-950/70"
-          : "border-zinc-900/10 bg-zinc-50/30 py-2 dark:border-white/10 dark:bg-black/20"
+          ? "border-app-border bg-app-surface/80 py-1.5 shadow-none"
+          : "border-app-border bg-app-bg/30 py-2"
           }`}
       >
         <div className="relative z-10 mx-auto flex w-full items-center justify-between px-4 sm:px-6">
@@ -68,20 +68,20 @@ const Navbar = ({ theme, toggleTheme }) => {
             className="group flex items-center gap-2 focus-visible:outline-none"
             aria-label="Back to top"
           >
-            <div className="relative h-7 w-7 overflow-hidden rounded-full border border-zinc-200 bg-white shadow-sm transition-all duration-350 group-hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="relative h-7 w-7 overflow-hidden rounded-full border border-app-border bg-app-surface transition-all duration-300 group-hover:scale-105">
               <img src="/sanskrit%20logo.png" alt="Logo" className="h-full w-full object-cover" />
             </div>
-            <span className="text-sm font-bold tracking-tight text-zinc-900 dark:text-white">Tushal</span>
+            <span className="text-sm font-bold tracking-tight text-app-text-primary">Tushal</span>
           </button>
 
           {/* Nav Links */}
-          <div className="hidden items-center gap-1 rounded-full border border-zinc-200/70 bg-white/40 p-0.5 dark:border-zinc-800/70 dark:bg-zinc-900/40 sm:flex">
+          <div className="hidden items-center gap-1 rounded-full border border-app-border bg-app-surface-secondary/40 p-0.5 sm:flex">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(event) => handleNavClick(event, item.href)}
-                className="rounded-full px-3.5 py-1 text-xs font-semibold text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white"
+                className="rounded-full px-3.5 py-1 text-xs font-semibold text-app-text-secondary transition hover:bg-app-surface hover:text-app-text-primary"
               >
                 {item.label}
               </a>
@@ -93,7 +93,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             <div className="hidden min-[460px]:block">
               <LiveClock />
             </div>
-            <div className="h-3 w-px bg-zinc-200 dark:bg-zinc-800" />
+            <div className="h-3 w-px bg-app-border" />
             <ThemeButton theme={theme} onClick={toggleTheme} />
           </div>
         </div>
@@ -105,7 +105,7 @@ const Navbar = ({ theme, toggleTheme }) => {
 const ThemeButton = ({ theme, onClick }) => (
   <button
     onClick={onClick}
-    className="group relative flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 bg-white shadow-sm transition-all hover:border-zinc-300 hover:bg-zinc-50 active:scale-95 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-zinc-700 dark:hover:bg-zinc-800"
+    className="group relative flex h-8 w-8 items-center justify-center rounded-full border border-app-border bg-app-surface text-app-text-secondary transition-all hover:bg-app-surface-secondary hover:text-app-text-primary active:scale-95"
     aria-label="Toggle theme"
   >
     <AnimatePresence mode="wait">
@@ -117,7 +117,7 @@ const ThemeButton = ({ theme, onClick }) => (
           exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
           transition={{ duration: 0.2 }}
         >
-          <Sun className="h-[15px] w-[15px] text-zinc-400 dark:text-zinc-300" />
+          <Sun className="h-[15px] w-[15px]" />
         </motion.span>
       ) : (
         <motion.span
@@ -127,7 +127,7 @@ const ThemeButton = ({ theme, onClick }) => (
           exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
           transition={{ duration: 0.2 }}
         >
-          <Moon className="h-[15px] w-[15px] text-zinc-600" />
+          <Moon className="h-[15px] w-[15px]" />
         </motion.span>
       )}
     </AnimatePresence>

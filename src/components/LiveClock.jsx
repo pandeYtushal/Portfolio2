@@ -24,8 +24,8 @@ function LiveClock() {
   return (
     <div className="relative flex items-center pr-2">
       <div className="text-right">
-        <p className="font-mono text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">{timeStr}</p>
-        <p className="text-[10px] text-zinc-500">{dateStr}</p>
+        <p className="font-mono text-xs font-semibold tabular-nums text-app-text-primary">{timeStr}</p>
+        <p className="text-[10px] text-app-text-muted">{dateStr}</p>
       </div>
       {/* Radar Ping dot as notification badge */}
       <div className="absolute -right-0.5 -top-0.5 flex h-2 w-2 items-center justify-center">

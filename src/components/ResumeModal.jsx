@@ -35,19 +35,19 @@ const ResumeModal = ({ onClose }) => {
       role="presentation"
     >
       <div
-        className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-2xl"
+        className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-app-border bg-app-surface shadow-none"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="resume-title"
       >
-        <div className="flex items-center justify-between gap-3 border-b border-zinc-800 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="flex items-center justify-between gap-3 border-b border-app-border px-4 py-3 sm:px-6 sm:py-4">
           <div className="min-w-0">
-            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-app-text-muted">
               <FileText className="h-3 w-3" />
               Curriculum Vitae
             </p>
-            <h2 id="resume-title" className="mt-0.5 truncate text-base font-bold text-white sm:text-lg">
+            <h2 id="resume-title" className="mt-0.5 truncate text-base font-bold text-app-text-primary sm:text-lg">
               My Resume
             </h2>
           </div>
@@ -57,7 +57,7 @@ const ResumeModal = ({ onClose }) => {
               onClick={handleCopy}
               title="Copy link"
               aria-label="Copy resume link"
-              className="flex h-8 items-center gap-1.5 rounded-md border border-zinc-700 bg-zinc-900 px-2.5 text-xs font-medium text-zinc-300 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 sm:px-3"
+              className="flex h-8 items-center gap-1.5 rounded-lg border border-app-border bg-transparent px-2.5 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none sm:px-3"
             >
               <Copy className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Copy Link</span>
@@ -67,7 +67,7 @@ const ResumeModal = ({ onClose }) => {
               download
               title="Download resume"
               aria-label="Download resume"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-zinc-700 bg-zinc-900 text-zinc-400 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none"
             >
               <Download className="h-4 w-4" />
             </a>
@@ -77,7 +77,7 @@ const ResumeModal = ({ onClose }) => {
               rel="noopener noreferrer"
               title="Open in new tab"
               aria-label="Open resume in new tab"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-zinc-700 bg-zinc-900 text-zinc-400 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none"
             >
               <ExternalLink className="h-4 w-4" />
             </a>
@@ -85,14 +85,14 @@ const ResumeModal = ({ onClose }) => {
               onClick={onClose}
               title="Close"
               aria-label="Close resume preview"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-zinc-700 bg-zinc-900 text-zinc-400 transition hover:bg-zinc-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
         </div>
 
-        <div className="flex-1 overflow-hidden bg-zinc-900">
+        <div className="flex-1 overflow-hidden bg-app-surface">
           <iframe src={pdfUrl} title="Tushal Pandey Resume" className="h-full w-full border-none" />
         </div>
       </div>
