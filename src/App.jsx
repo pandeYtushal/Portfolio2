@@ -50,7 +50,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 transition-colors duration-350 dark:bg-black dark:text-zinc-100">
+    <div className="min-h-screen bg-app-bg text-app-text-primary transition-colors duration-350">
       
       {/* Scroll Progress & Sticky Navbar */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />
