@@ -1,24 +1,50 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Github, Linkedin, FileText, Copy, Check } from "lucide-react";
-import { fadeUpSubtle, easeOut } from "../lib/motion";
+import { fadeUpSubtle } from "../lib/motion";
 import Magnetic from "./ui/Magnetic";
 import ResumeModal from "./ResumeModal";
 
 const SOCIALS = [
-  { label: "Email", val: "tushalanand4@gmail.com", href: "mailto:tushalanand4@gmail.com", icon: Mail, action: "mail" },
-  { label: "GitHub", val: "github.com/pandeYtushal", href: "https://github.com/pandeYtushal", icon: Github },
-  { label: "LinkedIn", val: "linkedin.com/in/tushal-pandey", href: "https://www.linkedin.com/in/tushal-pandey-88229b307/", icon: Linkedin }
+  {
+    label: "Email",
+    val: "tushalanand4@gmail.com",
+    href: "mailto:tushalanand4@gmail.com",
+    icon: Mail,
+    action: "mail",
+    hoverClass: "hover:border-app-accent/40 hover:text-app-accent",
+    iconClass: "text-app-accent",
+  },
+  {
+    label: "GitHub",
+    val: "github.com/pandeYtushal",
+    href: "https://github.com/pandeYtushal",
+    icon: Github,
+    hoverClass: "hover:border-app-text-primary/30 hover:text-app-text-primary",
+    iconClass: "text-app-text-muted group-hover:text-app-text-primary",
+  },
+  {
+    label: "LinkedIn",
+    val: "linkedin.com/in/tushal-anand18",
+    href: "https://www.linkedin.com/in/tushal-anand18/",
+    icon: Linkedin,
+    hoverClass: "hover:border-[#0077b5]/40 hover:text-[#0077b5]",
+    iconClass: "text-app-accent-blue group-hover:text-[#0077b5]",
+  },
 ];
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
   const [showResume, setShowResume] = useState(false);
 
-  const copyEmail = useCallback(() => {
-    navigator.clipboard.writeText("tushalanand4@gmail.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyEmail = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText("tushalanand4@gmail.com");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard may be blocked; fail silently
+    }
   }, []);
 
   return (
@@ -58,9 +84,9 @@ export const Contact = () => {
                     <Magnetic>
                       <a
                         href={soc.href}
-                        className="group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary hover:text-app-text-primary transition-all shadow-none"
+                        className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
                       >
-                        <Icon className="h-4 w-4 text-app-accent" />
+                        <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
                         <span>{soc.label}</span>
                       </a>
                     </Magnetic>
@@ -68,8 +94,9 @@ export const Contact = () => {
                     <Magnetic>
                       <button
                         onClick={copyEmail}
-                        className="group flex h-12 w-12 items-center justify-center rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface text-app-text-secondary hover:text-app-text-primary transition-all shadow-none cursor-pointer"
+                        className="group flex h-12 w-12 items-center justify-center rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface text-app-text-secondary hover:text-app-accent hover:border-app-accent/40 transition-all shadow-none cursor-pointer"
                         title="Copy Email"
+                        aria-label={copied ? "Email copied" : "Copy email address"}
                       >
                         <AnimatePresence mode="wait">
                           {copied ? (
@@ -95,6 +122,9 @@ export const Contact = () => {
                           )}
                         </AnimatePresence>
                       </button>
+                      <span className="sr-only" aria-live="polite">
+                        {copied ? "Email address copied to clipboard" : ""}
+                      </span>
                     </Magnetic>
                   </div>
                 );
@@ -106,9 +136,9 @@ export const Contact = () => {
                     href={soc.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary hover:text-app-text-primary transition-all shadow-none"
+                    className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
                   >
-                    <Icon className="h-4 w-4 text-app-accent-blue" />
+                    <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
                     <span>{soc.label}</span>
                   </a>
                 </Magnetic>
@@ -118,7 +148,7 @@ export const Contact = () => {
             <Magnetic>
               <button
                 onClick={() => setShowResume(true)}
-                className="group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary hover:text-app-text-primary transition-all shadow-none cursor-pointer"
+                className="group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface hover:border-purple-500/40 hover:text-purple-400 px-6 text-sm font-semibold text-app-text-secondary transition-all shadow-none cursor-pointer"
               >
                 <FileText className="h-4 w-4 text-purple-400" />
                 <span>Resume Deck</span>

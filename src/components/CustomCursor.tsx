@@ -11,8 +11,21 @@ export const CustomCursor = () => {
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
+  const [hasFinePointer, setHasFinePointer] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(pointer: fine)").matches;
+  });
+
   useEffect(() => {
-    if (shouldReduce) return () => {};
+    const mq = window.matchMedia("(pointer: fine)");
+    const onChange = () => setHasFinePointer(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduce || !hasFinePointer) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -22,16 +35,16 @@ export const CustomCursor = () => {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
-      
-      const isInteractive = 
-        target.tagName === "A" || 
-        target.tagName === "BUTTON" || 
-        target.closest("a") || 
-        target.closest("button") || 
-        target.closest('[role="button"]') ||
+
+      const isInteractive =
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        !!target.closest("a") ||
+        !!target.closest("button") ||
+        !!target.closest('[role="button"]') ||
         target.classList.contains("cursor-pointer");
-      
-      setIsHovered(!!isInteractive);
+
+      setIsHovered(isInteractive);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -41,9 +54,9 @@ export const CustomCursor = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [mouseX, mouseY, shouldReduce]);
+  }, [mouseX, mouseY, shouldReduce, hasFinePointer]);
 
-  if (shouldReduce) return null;
+  if (shouldReduce || !hasFinePointer) return null;
 
   return (
     <motion.div

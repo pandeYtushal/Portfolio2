@@ -35,7 +35,7 @@ export const Skills = () => {
 
   return (
     <section id="skills" className="border-t border-app-border bg-app-bg relative overflow-hidden">
-      
+
       {/* motion.dev-style header */}
       <div className="max-w-6xl mx-auto px-6 pt-24 pb-12">
         <motion.div
@@ -60,7 +60,7 @@ export const Skills = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 pb-24 relative z-10">
-        
+
         {/* Category switcher - styled like Hero buttons */}
         <div className="flex flex-wrap gap-3 mb-10">
           {SKILL_CATEGORIES.map((cat) => {
@@ -69,11 +69,10 @@ export const Skills = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex h-11 items-center justify-center px-6 text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 active:scale-95 cursor-pointer ${
-                  isActive
+                className={`flex h-11 items-center justify-center px-6 text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 active:scale-95 cursor-pointer ${isActive
                     ? "border-2 bg-black text-[#ff8a00]"
                     : "border-2 border-zinc-800 bg-transparent text-zinc-500 hover:border-zinc-500 hover:text-white"
-                }`}
+                  }`}
                 style={{
                   borderColor: isActive ? active.color : undefined,
                   color: isActive ? active.color : undefined,

@@ -47,7 +47,7 @@ export const playHoverSound = () => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.04);
-  } catch (e) {
+  } catch {
     // Fail silently if browser blocks context
   }
 };
@@ -72,7 +72,7 @@ export const playClickSound = () => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.06);
-  } catch (e) {
+  } catch {
     // Fail silently
   }
 };

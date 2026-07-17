@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X, ExternalLink, Copy, FileText, Download } from "lucide-react";
 
 interface ResumeModalProps {
@@ -31,7 +32,7 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
     }
   };
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[150] flex items-center justify-center bg-black/80 p-3 backdrop-blur-md"
       onClick={onClose}
@@ -99,7 +100,8 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
           <iframe src={pdfUrl} title="Tushal Pandey Resume" className="h-full w-full border-none" />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

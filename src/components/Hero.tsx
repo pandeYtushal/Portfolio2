@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
-import { Download, ArrowRight, MapPin, Code2, Chrome, Sparkles } from "lucide-react";
+import { Download, ArrowRight, MapPin, Code2 } from "lucide-react";
 import ResumeModal from "./ResumeModal";
 import { easeOut } from "../lib/motion";
 import Magnetic from "./ui/Magnetic";
 import CursorSpotlight from "./CursorSpotlight";
-import PlugConnectedIcon from "./ui/PlugConnectedIcon";
 
 const TYPING_ROLES = [
   "AI Agent Developer",

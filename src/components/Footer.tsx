@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { FaGithub, FaLinkedinIn, FaMediumM } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
@@ -15,7 +14,7 @@ const NAV_LINKS = [
 
 const SOCIALS = [
   { label: "GitHub", href: "https://github.com/pandeYtushal", icon: FaGithub },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/tushal-pandey-88229b307/", icon: FaLinkedinIn },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/tushal-anand18/", icon: FaLinkedinIn },
   { label: "Medium", href: "https://medium.com/@tushalpandey", icon: FaMediumM },
   { label: "Email", href: "mailto:tushalanand4@gmail.com", icon: HiOutlineMail },
 ];
