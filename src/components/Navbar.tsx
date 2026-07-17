@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
+import { playClickSound } from "../lib/audio";
 
 import { easeOut } from "../lib/motion";
 
@@ -48,7 +49,6 @@ interface NavbarProps {
 export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,14 +59,17 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleThemeToggle = useCallback(() => {
+    playClickSound();
+    toggleTheme();
+  }, [toggleTheme]);
+
   const logoClick = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setMobileMenuOpen(false);
   }, []);
 
   const handleNavClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
-    setMobileMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -85,7 +88,7 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
             {/* LEFT — Logo Block */}
             <button
               onClick={logoClick}
-              className={`group flex items-center gap-3 backdrop-blur-xl border border-app-border/50 bg-app-surface/80 px-4 py-2 transition-all duration-300 hover:border-app-accent/30 ${
+              className={`hidden sm:flex group items-center gap-3 backdrop-blur-xl border border-app-border/50 bg-app-surface/80 px-4 py-2 transition-all duration-300 hover:border-app-accent/30 ${
                 scrolled ? "rounded-bl-2xl rounded-tl-2xl" : "rounded-2xl"
               }`}
               aria-label="Back to top"
@@ -149,54 +152,16 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
               <div className="w-px h-5 bg-app-border/40 mx-1" />
 
               {/* Theme toggle inside nav block */}
-              <ThemeButton theme={theme} onClick={toggleTheme} />
+              <ThemeButton theme={theme} onClick={handleThemeToggle} />
             </div>
 
             {/* Mobile controls */}
-            <div className="flex items-center gap-2 sm:hidden">
-              <ThemeButton theme={theme} onClick={toggleTheme} />
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-app-border/50 bg-app-surface/80 backdrop-blur-xl text-app-text-secondary transition hover:text-app-text-primary hover:border-app-accent/30 cursor-pointer"
-                aria-label="Toggle menu"
-              >
-                {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-              </button>
+            <div className="flex items-center gap-2 sm:hidden ml-auto">
+              <ThemeButton theme={theme} onClick={handleThemeToggle} />
             </div>
           </div>
         </div>
       </nav>
-
-      {/* Mobile Drawer Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: easeOut }}
-            className="fixed inset-x-4 top-[72px] z-[99] rounded-2xl border border-app-border bg-app-surface/95 p-6 shadow-2xl backdrop-blur-xl sm:hidden text-left"
-          >
-            <div className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item, idx) => {
-                return (
-                  <motion.a
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.04, duration: 0.25 }}
-                    key={item.href}
-                    href={item.href}
-                    onClick={(event) => handleNavClick(event, item.href)}
-                    className="flex items-center gap-3 py-3 px-2 rounded-lg border-b border-app-border/20 text-sm font-bold uppercase tracking-wider text-app-text-secondary transition hover:text-app-text-primary hover:bg-app-surface-secondary/30"
-                  >
-                    <span>{item.label}</span>
-                  </motion.a>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

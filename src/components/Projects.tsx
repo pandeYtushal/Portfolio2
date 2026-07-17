@@ -419,10 +419,12 @@ export const Projects = () => {
                 {/* Screenshot Frame */}
                 <div className="h-44 w-full mb-4">
                   <div className="relative h-full w-full bg-zinc-950 bg-blueprint-grid border border-zinc-950/25 flex items-center justify-center overflow-hidden rounded-none">
-                    <img
+                    <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-[92%] h-[92%] object-cover rounded-none border border-zinc-950/30 opacity-75 group-hover:opacity-100 group-hover:scale-[1.01] transition-all duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                      className="w-[92%] h-[92%] object-cover rounded-none border border-zinc-950/30 opacity-75 group-hover:opacity-100"
                       onError={(e) => {
                         e.currentTarget.style.display = "none";
                         const next = e.currentTarget.nextElementSibling as HTMLElement;
