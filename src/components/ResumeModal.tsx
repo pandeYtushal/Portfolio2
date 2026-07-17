@@ -1,8 +1,11 @@
-/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import { X, ExternalLink, Copy, FileText, Download } from "lucide-react";
 
-const ResumeModal = ({ onClose }) => {
+interface ResumeModalProps {
+  onClose: () => void;
+}
+
+export const ResumeModal = ({ onClose }: ResumeModalProps) => {
   const pdfUrl = "/Tushal_Resume.pdf";
 
   useEffect(() => {
@@ -13,7 +16,7 @@ const ResumeModal = ({ onClose }) => {
   }, []);
 
   useEffect(() => {
-    const handleKey = (event) => {
+    const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKey);
@@ -30,20 +33,20 @@ const ResumeModal = ({ onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[150] flex items-center justify-center bg-black/80 p-3 backdrop-blur-sm"
+      className="fixed inset-0 z-[150] flex items-center justify-center bg-black/80 p-3 backdrop-blur-md"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-app-border bg-app-surface shadow-none"
+        className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-app-border bg-app-surface shadow-2xl"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="resume-title"
       >
         <div className="flex items-center justify-between gap-3 border-b border-app-border px-4 py-3 sm:px-6 sm:py-4">
-          <div className="min-w-0">
-            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-app-text-muted">
+          <div className="min-w-0 text-left">
+            <p className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-app-text-muted">
               <FileText className="h-3 w-3" />
               Curriculum Vitae
             </p>
@@ -57,7 +60,7 @@ const ResumeModal = ({ onClose }) => {
               onClick={handleCopy}
               title="Copy link"
               aria-label="Copy resume link"
-              className="flex h-8 items-center gap-1.5 rounded-lg border border-app-border bg-transparent px-2.5 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none sm:px-3"
+              className="flex h-8 items-center gap-1.5 rounded-lg border border-app-border bg-transparent px-2.5 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none sm:px-3 cursor-pointer"
             >
               <Copy className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Copy Link</span>
@@ -85,7 +88,7 @@ const ResumeModal = ({ onClose }) => {
               onClick={onClose}
               title="Close"
               aria-label="Close resume preview"
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function LiveClock() {
+export const LiveClock = () => {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -14,6 +14,7 @@ function LiveClock() {
     month: "short",
     year: "numeric",
   });
+  
   const timeStr = now.toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
@@ -22,18 +23,18 @@ function LiveClock() {
   });
 
   return (
-    <div className="relative flex items-center pr-2">
+    <div className="relative flex items-center pr-3 select-none">
       <div className="text-right">
-        <p className="font-mono text-xs font-semibold tabular-nums text-app-text-primary">{timeStr}</p>
-        <p className="text-[10px] text-app-text-muted">{dateStr}</p>
+        <p className="font-mono text-[10px] font-bold tabular-nums text-app-text-primary leading-tight">{timeStr}</p>
+        <p className="text-[9px] font-semibold text-app-text-muted mt-0.5 leading-none">{dateStr}</p>
       </div>
-      {/* Radar Ping dot as notification badge */}
-      <div className="absolute -right-0.5 -top-0.5 flex h-2 w-2 items-center justify-center">
+      {/* Radar Ping dot */}
+      <div className="absolute -right-0 top-1.5 flex h-1.5 w-1.5 items-center justify-center">
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
         <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
       </div>
     </div>
   );
-}
+};
 
 export default LiveClock;

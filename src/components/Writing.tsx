@@ -1,13 +1,22 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { fadeUpSubtle, staggerContainer, fadeUp } from "../lib/motion";
 
 // Configurable Medium RSS Feed Endpoint
 const MEDIUM_USERNAME = "tushalpandey";
 const RSS_API_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`;
 
+interface MediumPost {
+  title: string;
+  pubDate: string;
+  readingTime: string;
+  link: string;
+  description: string;
+}
+
 // Custom sleek Medium SVG Icon
-const MediumIcon = ({ className }) => (
+const MediumIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
   </svg>
@@ -34,8 +43,8 @@ const SkeletonCard = () => (
   </div>
 );
 
-const Writing = () => {
-  const [posts, setPosts] = useState([]);
+export const Writing = () => {
+  const [posts, setPosts] = useState<MediumPost[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,7 +55,7 @@ const Writing = () => {
 
         if (data.status === "ok" && data.items && data.items.length > 0) {
           // Format raw Medium posts
-          const formattedPosts = data.items.slice(0, 6).map((item) => {
+          const formattedPosts = data.items.slice(0, 6).map((item: any) => {
             // Strip HTML tags from description for excerpt
             const cleanText = item.description
               ? item.description.replace(/<[^>]*>/g, "").trim()
@@ -95,23 +104,39 @@ const Writing = () => {
   }
 
   return (
-    <section id="writing" className="section-container border-t border-app-border bg-app-bg">
-
+    <section id="writing" className="border-t border-app-border bg-app-bg text-left">
       {/* Section Header */}
-      <div className="mb-16 md:mb-20 text-left max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-app-text-muted mb-3">
-          Thoughts
-        </p>
-        <h2 className="text-3xl font-bold tracking-tight text-app-text-primary sm:text-4xl md:text-5xl">
-          Articles & Insights
-        </h2>
-        <p className="mt-4 text-sm leading-relaxed text-app-text-secondary sm:text-base">
-          Sharing learnings, challenges, and architectural decisions from building software products.
-        </p>
-      </div>
+      <motion.div
+        variants={fadeUpSubtle}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-80px" }}
+        className="max-w-6xl mx-auto px-6 pt-24 pb-12"
+      >
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-app-border pb-8">
+          <div>
+            <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
+              04 / Writing
+            </p>
+            <h2 className="text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-none">
+              Articles & Insights.
+            </h2>
+          </div>
+          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xs md:text-right">
+            Sharing learnings, challenges, and architectural decisions from building software.
+          </p>
+        </div>
+      </motion.div>
 
-      {/* Grid Layout (3 cols desktop, 2 cols tablet, 1 col mobile) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mx-auto w-full">
+      {/* Grid Layout */}
+      <div className="max-w-6xl mx-auto px-6 pb-24">
+      <motion.div
+        variants={staggerContainer(0.05, 0.05)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-80px" }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mx-auto w-full"
+      >
         {loading ? (
           <>
             <SkeletonCard />
@@ -122,23 +147,20 @@ const Writing = () => {
           posts.map((post, idx) => (
             <motion.article
               key={post.link + idx}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              whileHover={{ y: -4 }}
+              variants={fadeUp}
+              whileHover={{ y: -6 }}
               onClick={() => window.open(post.link, "_blank", "noopener,noreferrer")}
-              className="group cursor-pointer flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 transition-all duration-300 hover:border-app-border hover:scale-[1.01] shadow-none"
+              className="group cursor-pointer flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 transition-all duration-300 hover:border-app-accent/30 hover:shadow-[0_8px_40px_rgba(255,138,0,0.08)] shadow-none"
             >
-              <div className="space-y-4 text-left">
+              <div className="space-y-4">
                 {/* Top Meta info */}
                 <div className="flex items-center justify-between text-[11px] font-medium text-app-text-muted">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="h-3.5 w-3.5" />
                     <span>{post.pubDate}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 font-mono">
-                    <Clock className="h-3.5 w-3.5" />
+                  <div className="flex items-center gap-1.5 font-mono rounded-full border border-app-accent/20 bg-app-accent/5 px-2.5 py-0.5 text-app-accent">
+                    <Clock className="h-3 w-3" />
                     <span>{post.readingTime}</span>
                   </div>
                 </div>
@@ -169,6 +191,7 @@ const Writing = () => {
             </motion.article>
           ))
         )}
+      </motion.div>
       </div>
     </section>
   );

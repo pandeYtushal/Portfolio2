@@ -1,16 +1,17 @@
 @import "tailwindcss";
+
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-app-bg: #ffffff;
-  --color-app-surface: #f4f4f5;
-  --color-app-surface-secondary: #e4e4e7;
-  --color-app-border: rgba(9, 9, 11, 0.08);
-  --color-app-text-primary: #09090b;
-  --color-app-text-secondary: #52525b;
-  --color-app-text-muted: #71717a;
-  --color-app-accent: #ea580c;
-  --color-app-accent-hover: #c2410c;
+  --color-app-bg: #030303;
+  --color-app-surface: #0a0a0c;
+  --color-app-surface-secondary: #121216;
+  --color-app-border: rgba(255, 255, 255, 0.06);
+  --color-app-text-primary: #ffffff;
+  --color-app-text-secondary: #a1a1a6;
+  --color-app-text-muted: #6e6e73;
+  --color-app-accent: #ff8a00;
+  --color-app-accent-blue: #0070f3;
 
   --animate-grid-sweep: grid-sweep 15s linear infinite;
   --animate-beam: beam 8s ease-in-out infinite;
@@ -34,16 +35,28 @@
   }
 }
 
+:root {
+  --color-app-bg: #f5f5f7;
+  --color-app-surface: #ffffff;
+  --color-app-surface-secondary: #eef0f3;
+  --color-app-border: rgba(0, 0, 0, 0.08);
+  --color-app-text-primary: #1d1d1f;
+  --color-app-text-secondary: #515154;
+  --color-app-text-muted: #86868b;
+  --color-app-accent: #e06900;
+  --color-app-accent-blue: #0066cc;
+}
+
 .dark {
-  --color-app-bg: #09090B;
-  --color-app-surface: #111113;
-  --color-app-surface-secondary: #18181B;
-  --color-app-border: rgba(255, 255, 255, 0.08);
-  --color-app-text-primary: #FAFAFA;
-  --color-app-text-secondary: #A1A1AA;
-  --color-app-text-muted: #71717A;
-  --color-app-accent: #f97316;
-  --color-app-accent-hover: #fb923c;
+  --color-app-bg: #030303;
+  --color-app-surface: #0a0a0c;
+  --color-app-surface-secondary: #121216;
+  --color-app-border: rgba(255, 255, 255, 0.06);
+  --color-app-text-primary: #ffffff;
+  --color-app-text-secondary: #a1a1a6;
+  --color-app-text-muted: #6e6e73;
+  --color-app-accent: #ff8a00;
+  --color-app-accent-blue: #0070f3;
 }
 
 @layer base {
@@ -57,21 +70,45 @@
   }
 
   body {
-    @apply bg-app-bg text-app-text-primary transition-colors duration-300;
-    font-family: 'Inter', sans-serif;
+    background-color: var(--color-app-bg);
+    color: var(--color-app-text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
-    @apply tracking-tight;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
 
   button, a, [role="button"] {
     cursor: pointer;
   }
 
-  /* Custom minimal scrollbar */
+  /* Lenis Custom Smooth Scrolling integration */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overflow: clip;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  /* Custom minimal hidden scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -92,12 +129,7 @@
 
   ::selection {
     background-color: var(--color-app-accent);
-    color: #ffffff;
-  }
-
-  .dark ::selection {
-    background-color: var(--color-app-text-primary);
-    color: var(--color-app-bg);
+    color: #000000;
   }
 
   *:focus-visible {
@@ -119,36 +151,80 @@
 
 @layer components {
   .section-container {
-    @apply w-full max-w-6xl mx-auto px-6 md:px-12 py-32 md:py-40;
+    width: 100%;
+    max-w: 6xl;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 
-  /* Curated/muted code formatting - GitHub Dark Dimmed style */
+  @media (min-width: 768px) {
+    .section-container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
+  }
+
   code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    @apply text-app-text-secondary bg-app-surface border border-app-border px-1.5 py-0.5 rounded text-[0.875em];
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: var(--color-app-text-secondary);
+    background-color: var(--color-app-surface);
+    border: 1px solid var(--color-app-border);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
   }
 
   pre {
-    @apply bg-app-surface border border-app-border p-4 rounded-xl overflow-x-auto;
+    background-color: var(--color-app-surface);
+    border: 1px solid var(--color-app-border);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
   }
 
   pre code {
-    @apply p-0 bg-transparent border-none text-[0.85em];
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 0.85em;
   }
 
-  .code-keyword {
-    @apply text-app-text-primary font-semibold;
+  /* Infinite marquee keyframe animations */
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
   }
 
-  .code-string {
-    @apply text-app-text-secondary;
+  .animate-marquee-reverse {
+    animation: marquee-reverse 25s linear infinite;
   }
 
-  .code-number {
-    @apply text-app-text-secondary;
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
   }
 
-  .code-comment {
-    @apply text-app-text-muted italic;
+  @keyframes marquee-reverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
+
+  /* Blueprint Grid lines for motion.dev look */
+  .bg-blueprint-grid {
+    background-image: 
+      linear-gradient(rgba(246, 212, 45, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(246, 212, 45, 0.1) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .dark .bg-blueprint-grid {
+    background-image: 
+      linear-gradient(rgba(246, 212, 45, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(246, 212, 45, 0.04) 1px, transparent 1px);
+    background-size: 16px 16px;
   }
 }
