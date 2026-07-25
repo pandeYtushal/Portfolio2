@@ -82,7 +82,7 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
           {/* LEFT ISLAND — Branding */}
           <button
             onClick={logoClick}
-            className={`pointer-events-auto flex items-center gap-2.5 backdrop-blur-md border border-app-border/60 bg-app-bg/75 shadow-sm transition-all duration-300 hover:border-app-accent/30 select-none cursor-pointer ${
+            className={`pointer-events-auto hidden md:flex items-center gap-2.5 backdrop-blur-md border border-app-border/60 bg-app-bg/75 shadow-sm transition-all duration-300 hover:border-app-accent/30 select-none cursor-pointer ${
               scrolled ? "px-4 py-2 rounded-xl" : "px-5 py-2.5 rounded-2xl"
             }`}
             aria-label="Back to top"
@@ -93,8 +93,8 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
 
           {/* RIGHT ISLAND — Navigation links & Theme Button */}
           <div 
-            className={`pointer-events-auto flex items-center backdrop-blur-md border border-app-border/60 bg-app-bg/75 shadow-sm transition-all duration-300 hover:border-app-accent/20 ${
-              scrolled ? "p-1 rounded-xl gap-2" : "p-1.5 rounded-2xl gap-3"
+            className={`pointer-events-auto ml-auto md:ml-0 flex items-center transition-all duration-300 md:backdrop-blur-md md:border md:border-app-border/60 md:bg-app-bg/75 md:shadow-sm md:hover:border-app-accent/20 ${
+              scrolled ? "md:p-1 md:rounded-xl gap-2" : "md:p-1.5 md:rounded-2xl gap-3"
             }`}
           >
             {/* Desktop Nav Items */}

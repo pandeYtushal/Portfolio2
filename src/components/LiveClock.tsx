@@ -12,53 +12,71 @@ export const LiveClock = () => {
   const minutes = now.getMinutes().toString().padStart(2, "0");
   const seconds = now.getSeconds().toString().padStart(2, "0");
 
-  const dateStr = now.toLocaleDateString(undefined, {
-    day: "2-digit",
-    month: "short",
-  }).toUpperCase();
+  const dateStr = now
+    .toLocaleDateString(undefined, { day: "2-digit", month: "short" })
+    .toUpperCase();
+
+  const dayName = now
+    .toLocaleDateString(undefined, { weekday: "short" })
+    .toUpperCase();
 
   const getOffsetStr = () => {
     const offset = -now.getTimezoneOffset();
     const absOffset = Math.abs(offset);
-    const hoursVal = Math.floor(absOffset / 60);
-    const mins = absOffset % 60;
+    const h = Math.floor(absOffset / 60);
+    const m = absOffset % 60;
     const sign = offset >= 0 ? "+" : "-";
-    return `GMT${sign}${hoursVal}${mins > 0 ? `:${mins}` : ""}`;
+    return `UTC${sign}${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
   };
 
+  /* Each digit gets its own segmented cell */
+  const Digit = ({ value, dim }: { value: string; dim?: boolean }) => (
+    <span
+      className={`inline-flex items-center justify-center w-[1.6em] sm:w-[1.8em] h-[2em] sm:h-[2.2em] rounded-md bg-app-bg/80 border border-app-border/30 font-black tabular-nums text-sm sm:text-base leading-none ${
+        dim ? "text-app-text-secondary" : "text-app-text-primary"
+      }`}
+      style={{ fontVariantNumeric: "tabular-nums" }}
+    >
+      {value}
+    </span>
+  );
+
+  const Separator = () => (
+    <span className="flex flex-col items-center justify-center gap-[3px] mx-0.5">
+      <span className="h-[3px] w-[3px] rounded-full bg-app-accent animate-pulse" />
+      <span className="h-[3px] w-[3px] rounded-full bg-app-accent animate-pulse" />
+    </span>
+  );
+
   return (
-    <div className="flex items-center gap-3.5 px-4 py-2 rounded-xl border border-app-border/40 bg-app-surface/30 select-none text-[10px] tracking-wider font-mono shadow-sm">
-      {/* Telemetry Indicator */}
-      <div className="flex items-center gap-2 shrink-0">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-        </span>
-        <span className="text-app-text-muted font-bold text-[9px] uppercase tracking-[0.15em] select-none">
-          SYS.LIVE
-        </span>
+    <div className="flex flex-col items-center gap-2 select-none">
+      {/* Digit Display */}
+      <div className="flex items-center gap-[3px] sm:gap-1">
+        <Digit value={hours[0]} />
+        <Digit value={hours[1]} />
+        <Separator />
+        <Digit value={minutes[0]} />
+        <Digit value={minutes[1]} />
+        <Separator />
+        <Digit value={seconds[0]} dim />
+        <Digit value={seconds[1]} dim />
       </div>
 
-      {/* Vertical divider */}
-      <span className="text-app-border select-none">|</span>
-
-      {/* Clock Readout */}
-      <div className="flex items-center gap-1 font-bold tabular-nums text-app-text-primary text-[11px] drop-shadow-[0_0_3px_rgba(255,138,0,0.15)]">
-        <span>{hours}</span>
-        <span className="animate-pulse text-app-accent">:</span>
-        <span>{minutes}</span>
-        <span className="animate-pulse text-app-accent">:</span>
-        <span className="text-app-text-secondary">{seconds}</span>
-      </div>
-
-      {/* Vertical divider */}
-      <span className="text-app-border select-none">|</span>
-
-      {/* Timezone / Date Badge */}
-      <div className="flex items-center gap-2 text-[9px] font-semibold text-app-text-muted shrink-0">
-        <span className="text-app-text-secondary font-bold select-none">{getOffsetStr()}</span>
-        <span className="select-none">•</span>
+      {/* Metadata strip */}
+      <div className="flex items-center gap-2 sm:gap-3 text-[8px] sm:text-[9px] font-mono font-semibold tracking-[0.12em] text-app-text-muted uppercase">
+        <span className="flex items-center gap-1">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+          </span>
+          <span>LIVE</span>
+        </span>
+        <span className="text-app-border">•</span>
+        <span>{dayName}</span>
+        <span className="text-app-border">•</span>
         <span>{dateStr}</span>
+        <span className="hidden sm:inline text-app-border">•</span>
+        <span className="hidden sm:inline text-app-text-secondary">{getOffsetStr()}</span>
       </div>
     </div>
   );

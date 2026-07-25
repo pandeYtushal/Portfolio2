@@ -17,27 +17,37 @@ export const Footer = () => {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-app-accent/30 to-transparent" />
 
       <div className="container mx-auto max-w-6xl px-6 relative z-10 space-y-12">
-        {/* Main top row: Brand info + Back to Top */}
-        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+        {/* Main top row: Brand info + Clock + Back to Top */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           {/* Brand & Mission column */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4 max-w-sm">
             <Magnetic>
-              <div 
+              <div
                 onClick={scrollToTop}
                 className="group flex items-center cursor-pointer"
               >
                 <div className="flex flex-col items-start text-left">
-                  <h4 className="text-lg font-black tracking-tighter text-app-text-primary leading-none">Tushal Pandey</h4>
+                  <h4 className="text-lg font-black tracking-tighter text-app-text-primary leading-none">
+                    Tushal Pandey
+                  </h4>
                   <div className="flex items-center gap-1.5 mt-1.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[8px] font-mono font-bold text-app-text-muted">CORE ONLINE</span>
+                    <span className="text-[8px] font-mono font-bold text-app-text-muted">
+                      CORE ONLINE
+                    </span>
                   </div>
                 </div>
               </div>
             </Magnetic>
             <p className="text-xs leading-relaxed text-app-text-secondary">
-              Architecting autonomous web automation agents, multi-agent reasoning graphs, and high-fidelity user experiences.
+              Architecting autonomous web automation agents, multi-agent
+              reasoning graphs, and high-fidelity user experiences.
             </p>
+          </div>
+
+          {/* Center: Live Clock */}
+          <div className="flex items-center justify-center">
+            <LiveClock />
           </div>
 
           {/* Magnetic Back to Top button */}
@@ -62,20 +72,11 @@ export const Footer = () => {
           </span>
         </div>
 
-        {/* Bottom Dock-style Copyright + Clock Bar */}
-        <div className="backdrop-blur-md bg-app-surface/30 border border-app-border/60 rounded-3xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-          {/* Copyright text */}
+        {/* Bottom Copyright */}
+        <div className="text-center">
           <span className="text-[10px] font-semibold uppercase tracking-wider text-app-text-secondary select-none">
             © {new Date().getFullYear()} Tushal Pandey · All rights reserved.
           </span>
-
-          {/* Separation line for mobile layout */}
-          <div className="h-px w-12 bg-app-border sm:hidden" />
-
-          {/* Live Clock component */}
-          <div className="flex items-center">
-            <LiveClock />
-          </div>
         </div>
       </div>
     </footer>
