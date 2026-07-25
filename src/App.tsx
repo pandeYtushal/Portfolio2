@@ -1,8 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import CustomCursor from "./components/CustomCursor";
-import { useLenis } from "./hooks/useLenis";
 
 const About = lazy(() => import("./components/About"));
 const Projects = lazy(() => import("./components/Projects"));
@@ -16,7 +15,12 @@ const SectionFallback = () => (
 );
 
 export const App = () => {
-  useLenis();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
@@ -41,22 +45,24 @@ export const App = () => {
 
   return (
     <div className="relative min-h-screen bg-app-bg text-app-text-primary selection:bg-app-accent selection:text-black overflow-hidden font-sans">
+      {/* Global Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-app-accent origin-left z-[9999]"
+        style={{ scaleX }}
+      />
+
       <div
-        className="fixed inset-0 pointer-events-none z-[999] opacity-[0.015] bg-[repeat] bg-[size:180px_180px]"
+        className="fixed inset-0 pointer-events-none z-[998] opacity-[0.015] bg-[repeat] bg-[size:180px_180px]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
       />
 
       <div className="absolute top-0 inset-x-0 h-[800px] pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-app-accent/5 blur-[120px] mix-blend-screen animate-beam" />
-        <div
-          className="absolute top-[-10%] right-[-10%] w-[550px] h-[550px] rounded-full bg-app-accent-blue/5 blur-[120px] mix-blend-screen animate-beam"
-          style={{ animationDelay: "-4s" }}
-        />
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-app-accent/5 blur-[120px] mix-blend-screen" />
+        <div className="absolute top-[-10%] right-[-10%] w-[550px] h-[550px] rounded-full bg-app-accent-blue/5 blur-[120px] mix-blend-screen" />
       </div>
 
-      <CustomCursor />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <main className="relative z-10 w-full flex flex-col">

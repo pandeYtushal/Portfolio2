@@ -52,7 +52,7 @@ export const Projects = () => {
             <span>&gt;</span>
             <span>Project Showcase</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-[-0.04em] text-app-text-primary leading-[1.05]">
+          <h2 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-[-0.04em] text-app-text-primary leading-[1.05]">
             Projects that perform.
           </h2>
           <p className="max-w-2xl text-sm md:text-base leading-relaxed text-app-text-secondary">
@@ -163,7 +163,7 @@ export const Projects = () => {
         <div className="flex justify-center mt-12">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="inline-flex items-center gap-2 border-2 border-[#ffb347] bg-black px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-[#ffb347] hover:bg-[#ffb347] hover:text-black transition-all duration-300 active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 border-2 border-app-accent bg-app-surface px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] text-app-accent hover:bg-app-accent hover:text-black transition-all duration-300 active:scale-95 cursor-pointer"
           >
             <span>{showAll ? "Show Less" : "Show More Projects"}</span>
           </button>
@@ -189,19 +189,19 @@ export const Projects = () => {
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               data-lenis-prevent
-              className="relative w-full max-w-3xl max-h-[85vh] border border-[#ffb347]/30 bg-[#0a0a0a] p-6 md:p-10 shadow-2xl shadow-[#ffb347]/5 overflow-y-auto rounded-2xl z-10 text-left"
+              className="relative w-full max-w-3xl max-h-[85vh] border border-app-border bg-app-surface p-6 md:p-10 shadow-2xl shadow-app-accent/5 overflow-y-auto rounded-2xl z-10 text-left"
             >
               {/* Header close */}
-              <div className="flex justify-between items-center pb-6 border-b border-zinc-800/60">
+              <div className="flex justify-between items-center pb-6 border-b border-app-border">
                 <div className="flex items-center gap-2.5">
-                  <span className="rounded border border-[#ffb347] bg-[#ffb347] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-950">
+                  <span className="rounded border border-app-accent bg-app-accent px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-black">
                     Project Details
                   </span>
-                  <span className="text-[10px] text-zinc-500 font-mono">{selectedProject.timeline}</span>
+                  <span className="text-[10px] text-app-text-muted font-mono">{selectedProject.timeline}</span>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="h-8 w-8 rounded-md border border-zinc-800 bg-zinc-900 flex items-center justify-center text-zinc-500 hover:text-[#ffb347] hover:border-[#ffb347]/40 transition-all cursor-pointer font-bold"
+                  className="h-8 w-8 rounded-md border border-app-border bg-app-surface-secondary flex items-center justify-center text-app-text-secondary hover:text-app-accent hover:border-app-accent/40 transition-all cursor-pointer font-bold"
                 >
                   ✕
                 </button>
@@ -210,40 +210,40 @@ export const Projects = () => {
               {/* Main Body */}
               <div className="mt-8 space-y-8">
                 <div>
-                  <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white">
+                  <h1 className="text-3xl md:text-4xl font-black tracking-tight text-app-text-primary">
                     {selectedProject.title}
                   </h1>
                   {selectedProject.urlDomain && (
-                    <p className="mt-2 text-xs font-mono text-[#ffb347]">{selectedProject.urlDomain}</p>
+                    <p className="mt-2 text-xs font-mono text-app-accent">{selectedProject.urlDomain}</p>
                   )}
-                  <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                  <p className="mt-4 text-sm leading-relaxed text-app-text-secondary">
                     {selectedProject.longDescription}
                   </p>
                 </div>
 
                 {/* Challenges & Solutions */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-[#ffb347] border-b border-zinc-800/60 pb-2">The Architecture Challenge</h3>
-                  <p className="text-xs md:text-sm leading-relaxed text-zinc-400">
+                  <h3 className="text-lg font-bold text-app-accent border-b border-app-border pb-2">The Architecture Challenge</h3>
+                  <p className="text-xs md:text-sm leading-relaxed text-app-text-secondary">
                     {selectedProject.challenges}
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-[#ffb347] border-b border-zinc-800/60 pb-2">The Engineered Solution</h3>
-                  <p className="text-xs md:text-sm leading-relaxed text-zinc-400">
+                  <h3 className="text-lg font-bold text-app-accent border-b border-app-border pb-2">The Engineered Solution</h3>
+                  <p className="text-xs md:text-sm leading-relaxed text-app-text-secondary">
                     {selectedProject.solution}
                   </p>
                 </div>
 
                 {/* Details / What I Built */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-[#ffb347] border-b border-zinc-800/60 pb-2">Technical Contributions</h3>
+                  <h3 className="text-lg font-bold text-app-accent border-b border-app-border pb-2">Technical Contributions</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                     {selectedProject.whatIBuilt.map((point, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl border border-zinc-800/50 bg-zinc-900/30">
-                        <CheckCircle className="h-4 w-4 text-[#ffb347] shrink-0 mt-0.5" />
-                        <span className="text-xs leading-relaxed text-zinc-300">{point}</span>
+                      <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl border border-app-border bg-app-surface-secondary">
+                        <CheckCircle className="h-4 w-4 text-app-accent shrink-0 mt-0.5" />
+                        <span className="text-xs leading-relaxed text-app-text-secondary">{point}</span>
                       </div>
                     ))}
                   </div>
@@ -251,10 +251,10 @@ export const Projects = () => {
 
                 {/* Full Stack Tech stack */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-[#ffb347] border-b border-zinc-800/60 pb-2">Orchestration Tech Stack</h3>
+                  <h3 className="text-lg font-bold text-app-accent border-b border-app-border pb-2">Orchestration Tech Stack</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.fullTech.map((tech, idx) => (
-                      <span key={idx} className="rounded border border-zinc-800/50 bg-zinc-900/40 px-3 py-1 text-xs font-mono text-zinc-400">
+                      <span key={idx} className="rounded border border-app-border bg-app-surface-secondary px-3 py-1 text-xs font-mono text-app-text-secondary">
                         {tech}
                       </span>
                     ))}
@@ -262,13 +262,13 @@ export const Projects = () => {
                 </div>
 
                 {/* Project Links */}
-                <div className="flex items-center gap-4 pt-6 border-t border-zinc-800/60">
+                <div className="flex items-center gap-4 pt-6 border-t border-app-border">
                   {selectedProject.link && (
                     <a
                       href={selectedProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-11 items-center justify-center gap-2 rounded-md bg-[#ffb347] px-5 text-xs font-bold text-zinc-950 transition-all hover:bg-[#ffa726] active:scale-95"
+                      className="flex h-11 items-center justify-center gap-2 rounded-md bg-app-accent px-5 text-xs font-bold text-black transition-all hover:opacity-90 active:scale-95"
                     >
                       <span>Launch Live Demo</span>
                       <ArrowUpRight className="h-4 w-4" />
@@ -279,7 +279,7 @@ export const Projects = () => {
                       href={selectedProject.source}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-11 items-center justify-center gap-2 rounded-md border border-zinc-800 bg-zinc-900 hover:bg-zinc-800/80 px-5 text-xs font-semibold text-zinc-400 hover:text-white transition-all active:scale-95"
+                      className="flex h-11 items-center justify-center gap-2 rounded-md border border-app-border bg-app-surface-secondary hover:bg-app-surface-secondary/80 px-5 text-xs font-semibold text-app-text-secondary hover:text-app-text-primary transition-all active:scale-95"
                     >
                       <FaGithub className="h-4 w-4" />
                       <span>View GitHub Repository</span>

@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { playClickSound } from "../lib/audio";
-
-import { easeOut } from "../lib/motion";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
@@ -34,9 +32,9 @@ const ThemeButton = ({ theme, onClick }: ThemeButtonProps) => (
       }}
       transition={{ type: "spring", stiffness: 350, damping: 25 }}
     />
-    <span className="relative z-10 flex w-full justify-between px-1 pointer-events-none">
-      <Sun className={`h-3.5 w-3.5 transition-colors duration-300 ${theme === "light" ? "text-app-text-primary" : "text-app-text-muted"}`} />
-      <Moon className={`h-3.5 w-3.5 transition-colors duration-300 ${theme === "dark" ? "text-app-text-primary" : "text-app-text-muted"}`} />
+    <span className="relative z-10 flex w-full justify-between px-1.5 pointer-events-none">
+      <Sun className={`h-3 w-3 transition-colors duration-300 ${theme === "light" ? "text-app-text-primary" : "text-app-text-muted"}`} />
+      <Moon className={`h-3 w-3 transition-colors duration-300 ${theme === "dark" ? "text-app-text-primary" : "text-app-text-muted"}`} />
     </span>
   </button>
 );
@@ -77,92 +75,60 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   }, []);
 
   return (
-    <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-[100]"
-      >
-        {/* Main navbar container */}
-        <div className={`mx-auto max-w-6xl px-4 sm:px-6 transition-all duration-500 ${scrolled ? "pt-2" : "pt-5"}`}>
-          <div className="flex items-center justify-between gap-4">
+    <nav className="fixed top-0 left-0 right-0 z-[100] px-4 sm:px-6 pointer-events-none">
+      <div className={`mx-auto max-w-6xl transition-all duration-300 ${scrolled ? "pt-3" : "pt-6"}`}>
+        <div className="flex items-center justify-between gap-4">
+          
+          {/* LEFT ISLAND — Branding */}
+          <button
+            onClick={logoClick}
+            className={`pointer-events-auto flex items-center gap-2.5 backdrop-blur-md border border-app-border/60 bg-app-bg/75 shadow-sm transition-all duration-300 hover:border-app-accent/30 select-none cursor-pointer ${
+              scrolled ? "px-4 py-2 rounded-xl" : "px-5 py-2.5 rounded-2xl"
+            }`}
+            aria-label="Back to top"
+          >
+            <span className="text-xs font-mono font-bold tracking-wider text-app-text-primary uppercase">TP.</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          </button>
 
-            {/* LEFT — Logo Block */}
-            <button
-              onClick={logoClick}
-              className={`hidden sm:flex group items-center gap-3 backdrop-blur-xl border border-app-border/50 bg-app-surface/80 px-4 py-2 transition-all duration-300 hover:border-app-accent/30 ${
-                scrolled ? "rounded-bl-2xl rounded-tl-2xl" : "rounded-2xl"
-              }`}
-              aria-label="Back to top"
-            >
-              <div className="relative h-8 w-8 overflow-hidden rounded-xl border border-app-border bg-app-surface transition-all duration-500 group-hover:rotate-[360deg] group-hover:scale-110">
-                <img src="/sanskrit%20logo.png" alt="Logo" className="h-full w-full object-cover" />
-              </div>
-              <AnimatePresence>
-                {!scrolled && (
-                  <motion.div
-                    initial={{ opacity: 0, width: 0 }}
-                    animate={{ opacity: 1, width: "auto" }}
-                    exit={{ opacity: 0, width: 0 }}
-                    transition={{ duration: 0.3, ease: easeOut }}
-                    className="flex flex-col items-start overflow-hidden whitespace-nowrap"
-                  >
-                    <span className="text-sm font-bold tracking-tight text-app-text-primary leading-none">Tushal</span>
-                    <div className="flex items-center gap-1 mt-0.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[8px] font-mono font-bold text-app-text-muted">CORE ONLINE</span>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </button>
-
-            {/* CENTER — Orange connecting line (visible on scroll) */}
-            <div className={`hidden sm:block flex-1 h-px transition-all duration-500 ${
-              scrolled
-                ? "bg-gradient-to-r from-app-accent/30 via-app-accent/50 to-app-accent/30"
-                : "bg-gradient-to-r from-app-border/20 via-app-border/40 to-app-border/20"
-            }`} />
-
-            {/* RIGHT — Nav Links Block */}
-            <div className={`hidden sm:flex items-center gap-0 backdrop-blur-xl border border-app-border/50 bg-app-surface/80 transition-all duration-300 hover:border-app-accent/20 ${
-              scrolled ? "rounded-br-2xl rounded-tr-2xl p-1" : "rounded-2xl p-1.5"
-            }`}>
-              {NAV_ITEMS.map((item, idx) => {
-                return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(event) => handleNavClick(event, item.href)}
-                    onMouseEnter={() => setHoveredIdx(idx)}
-                    onMouseLeave={() => setHoveredIdx(null)}
-                    className="relative flex items-center rounded-xl px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-app-text-secondary transition hover:text-app-text-primary focus-visible:outline-none"
-                  >
-                    {hoveredIdx === idx && (
-                      <motion.span
-                        layoutId="nav-hover-pill"
-                        className="absolute inset-0 bg-app-surface-secondary rounded-xl -z-10 border border-app-accent/15 shadow-[0_0_20px_rgba(255,138,0,0.06)]"
-                        transition={{ type: "spring", stiffness: 400, damping: 28 }}
-                      />
-                    )}
-                    {item.label}
-                  </a>
-                );
-              })}
-
-              {/* Divider */}
-              <div className="w-px h-5 bg-app-border/40 mx-1" />
-
-              {/* Theme toggle inside nav block */}
-              <ThemeButton theme={theme} onClick={handleThemeToggle} />
+          {/* RIGHT ISLAND — Navigation links & Theme Button */}
+          <div 
+            className={`pointer-events-auto flex items-center backdrop-blur-md border border-app-border/60 bg-app-bg/75 shadow-sm transition-all duration-300 hover:border-app-accent/20 ${
+              scrolled ? "p-1 rounded-xl gap-2" : "p-1.5 rounded-2xl gap-3"
+            }`}
+          >
+            {/* Desktop Nav Items */}
+            <div className="hidden md:flex items-center gap-1">
+              {NAV_ITEMS.map((item, idx) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(event) => handleNavClick(event, item.href)}
+                  onMouseEnter={() => setHoveredIdx(idx)}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                  className="relative rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-app-text-secondary transition-all hover:text-app-text-primary"
+                >
+                  {hoveredIdx === idx && (
+                    <motion.span
+                      layoutId="nav-hover-pill"
+                      className="absolute inset-0 bg-app-surface-secondary border border-app-border rounded-full -z-10 shadow-sm"
+                      transition={{ type: "spring", stiffness: 380, damping: 26 }}
+                    />
+                  )}
+                  {item.label}
+                </a>
+              ))}
             </div>
 
-            {/* Mobile controls */}
-            <div className="flex items-center gap-2 sm:hidden ml-auto">
-              <ThemeButton theme={theme} onClick={handleThemeToggle} />
-            </div>
+            {/* Divider */}
+            <div className="hidden md:block w-px h-4 bg-app-border" />
+
+            {/* Theme Toggle Button */}
+            <ThemeButton theme={theme} onClick={handleThemeToggle} />
           </div>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 };
 

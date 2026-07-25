@@ -55,7 +55,7 @@ export const About = () => {
             <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
               01 / About
             </p>
-            <h2 className="text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-none">
+            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
               Engineering<br />
               <span style={{ color: active.color }} className="transition-colors duration-500">
                 with Intent.
@@ -166,7 +166,7 @@ export const About = () => {
                 className="relative rounded-xl p-8 md:p-10 overflow-hidden"
                 style={{
                   background: `var(--color-app-surface)`,
-                  boxShadow: `0 0 0 1px rgba(255,255,255,0.04), 0 24px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)`,
+                  boxShadow: `0 0 0 1px var(--color-app-border), 0 24px 60px rgba(0,0,0,0.15), inset 0 1px 0 var(--color-app-border)`,
                 }}
               >
                 {/* Soft ambient glow — far corner, very subtle */}
@@ -210,7 +210,7 @@ export const About = () => {
                       initial={{ opacity: 0, x: -12 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: pIdx * 0.1, duration: 0.35 }}
-                      className="flex items-start gap-4 py-4 border-b border-white/[0.04] last:border-0"
+                      className="flex items-start gap-4 py-4 border-b border-app-border last:border-0"
                     >
                       <span
                         className="mt-[6px] font-mono text-[10px] font-bold shrink-0 tabular-nums opacity-60"
@@ -224,7 +224,7 @@ export const About = () => {
                 </div>
 
                 {/* Bottom meta */}
-                <div className="relative z-10 flex items-center justify-between mt-8 pt-6 border-t border-white/[0.04]">
+                <div className="relative z-10 flex items-center justify-between mt-8 pt-6 border-t border-app-border">
                   <span className="text-[10px] font-mono text-app-text-muted uppercase tracking-widest">
                     Milestone / {active.year}
                   </span>

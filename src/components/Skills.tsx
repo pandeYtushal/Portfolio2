@@ -49,7 +49,7 @@ export const Skills = () => {
             <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
               03 / Skills
             </p>
-            <h2 className="text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-none">
+            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
               Core Engine.
             </h2>
           </div>
@@ -70,8 +70,8 @@ export const Skills = () => {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex h-11 items-center justify-center px-6 text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 active:scale-95 cursor-pointer ${isActive
-                    ? "border-2 bg-black text-[#ff8a00]"
-                    : "border-2 border-zinc-800 bg-transparent text-zinc-500 hover:border-zinc-500 hover:text-white"
+                    ? "border-2 bg-app-surface"
+                    : "border-2 border-app-border bg-transparent text-app-text-muted hover:border-app-text-secondary hover:text-app-text-primary"
                   }`}
                 style={{
                   borderColor: isActive ? active.color : undefined,
