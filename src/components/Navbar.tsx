@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { playClickSound } from "../lib/audio";
 
@@ -14,34 +14,46 @@ const NAV_ITEMS = [
 
 interface ThemeButtonProps {
   theme: string;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ThemeButton = ({ theme, onClick }: ThemeButtonProps) => (
   <button
     onClick={onClick}
-    className="group relative flex h-8 w-14 items-center rounded-full border border-app-border bg-app-surface p-1 text-app-text-secondary transition-all hover:text-app-text-primary focus-visible:outline-none cursor-pointer"
+    className="group relative flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-app-surface text-app-text-secondary hover:text-app-text-primary hover:border-app-text-primary/30 transition-all focus-visible:outline-none cursor-pointer shrink-0"
     aria-label="Toggle theme"
   >
-    <motion.span
-      layout
-      layoutId="theme-slider"
-      className="absolute h-6 w-6 rounded-full bg-app-surface-secondary border border-app-border shadow-sm"
-      animate={{
-        x: theme === "light" ? 0 : 22,
-      }}
-      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-    />
-    <span className="relative z-10 flex w-full justify-between px-1.5 pointer-events-none">
-      <Sun className={`h-3 w-3 transition-colors duration-300 ${theme === "light" ? "text-app-text-primary" : "text-app-text-muted"}`} />
-      <Moon className={`h-3 w-3 transition-colors duration-300 ${theme === "dark" ? "text-app-text-primary" : "text-app-text-muted"}`} />
-    </span>
+    <AnimatePresence mode="wait" initial={false}>
+      {theme === "dark" ? (
+        <motion.div
+          key="sun"
+          initial={{ rotate: -90, scale: 0.7, opacity: 0 }}
+          animate={{ rotate: 0, scale: 1, opacity: 1 }}
+          exit={{ rotate: 90, scale: 0.7, opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="flex items-center justify-center"
+        >
+          <Sun className="h-4 w-4" />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="moon"
+          initial={{ rotate: -90, scale: 0.7, opacity: 0 }}
+          animate={{ rotate: 0, scale: 1, opacity: 1 }}
+          exit={{ rotate: 90, scale: 0.7, opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="flex items-center justify-center"
+        >
+          <Moon className="h-4 w-4" />
+        </motion.div>
+      )}
+    </AnimatePresence>
   </button>
 );
 
 interface NavbarProps {
   theme: string;
-  toggleTheme: () => void;
+  toggleTheme: (e?: React.MouseEvent) => void;
 }
 
 export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
@@ -57,9 +69,9 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleThemeToggle = useCallback(() => {
+  const handleThemeToggle = useCallback((e: React.MouseEvent) => {
     playClickSound();
-    toggleTheme();
+    toggleTheme(e);
   }, [toggleTheme]);
 
   const logoClick = useCallback(() => {

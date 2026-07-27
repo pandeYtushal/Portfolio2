@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -16,18 +16,21 @@ const SectionFallback = () => (
 );
 
 export const App = () => {
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch {
+      return "dark";
+    }
+  });
+
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
-  });
-
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "dark";
-    }
-    return "dark";
+    restDelta: 0.001,
   });
 
   useEffect(() => {
@@ -40,20 +43,40 @@ export const App = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (e?: React.MouseEvent) => {
     const overlay = document.getElementById("theme-swipe-overlay");
-    if (!overlay || overlay.classList.contains("animating")) return;
+    if (!overlay || overlay.classList.contains("animating-ripple")) return;
 
-    overlay.classList.add("animating");
+    // Retrieve coordinate points of the trigger click event
+    let x = window.innerWidth - 40; // Default fallback to top right area
+    let y = 40;
 
-    // Switch the theme exactly halfway through the swipe (0.4s)
+    if (e) {
+      x = e.clientX;
+      y = e.clientY;
+    }
+
+    // Set coordinates as CSS custom variables to feed into clip-path keyframe circle() origin center
+    overlay.style.setProperty("--ripple-x", `${x}px`);
+    overlay.style.setProperty("--ripple-y", `${y}px`);
+
+    // Dynamically set background color to target theme bg to prevent flashing
+    if (theme === "dark") {
+      overlay.style.backgroundColor = "#f5f5f7"; // Target light bg
+    } else {
+      overlay.style.backgroundColor = "#030303"; // Target dark bg
+    }
+
+    overlay.classList.add("animating-ripple");
+
+    // Switch the theme exactly halfway through the sweep (0.4s)
     setTimeout(() => {
       setTheme((prev) => (prev === "dark" ? "light" : "dark"));
     }, 400);
 
     // Clean up class after animation finishes (0.8s)
     setTimeout(() => {
-      overlay.classList.remove("animating");
+      overlay.classList.remove("animating-ripple");
     }, 800);
   };
 
@@ -62,7 +85,7 @@ export const App = () => {
       {/* Theme Transition Swipe Overlay (GPU-Accelerated outside React loop) */}
       <div
         id="theme-swipe-overlay"
-        className="fixed inset-y-0 left-0 w-full bg-app-accent z-[100000] translate-x-full pointer-events-none"
+        className="fixed inset-0 w-full h-full z-[100000] pointer-events-none"
       />
 
       {/* Custom Global Cursor */}
