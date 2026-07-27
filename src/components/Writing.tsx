@@ -118,7 +118,7 @@ export const Writing = () => {
             <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
               04 / WRITING
             </p>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
               ARTICLES & INSIGHTS.
             </h2>
           </div>

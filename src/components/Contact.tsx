@@ -64,7 +64,7 @@ export const Contact = () => {
 
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center space-y-6">
             {/* Huge Typographic Headline */}
-            <h2 className="text-3xl sm:text-6xl md:text-8xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
+            <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
               LET&apos;S BUILD <br />
               SOMETHING IMPOSSIBLE.
             </h2>

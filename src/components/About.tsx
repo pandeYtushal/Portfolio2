@@ -146,7 +146,7 @@ export const About = () => {
             <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
               01 / ABOUT
             </p>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
               ENGINEERING<br />
               <span style={{ color: active.color }} className="transition-colors duration-500">
                 WITH INTENT.

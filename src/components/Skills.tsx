@@ -7,7 +7,7 @@ const SKILL_CATEGORIES = [
     id: "languages",
     title: "LANGUAGES",
     color: "#ff8a00",
-    skills: ["TypeScript", "JavaScript", "Python", "C++", "C", "HTML5", "CSS3"],
+    skills: ["TypeScript", "JavaScript", "Python", "SQL", "C++", "C", "HTML5", "CSS3"],
   },
   {
     id: "frameworks",
@@ -19,7 +19,7 @@ const SKILL_CATEGORIES = [
     id: "tools",
     title: "TOOLS & INFRA",
     color: "#3b82f6",
-    skills: ["Git", "GitHub", "Firebase", "Firestore", "REST APIs", "Vercel", "VS Code", "Figma"],
+    skills: ["Git", "GitHub", "PostgreSQL", "Firestore", "IndexedDB", "Firebase", "REST APIs", "Vercel", "VS Code"],
   },
   {
     id: "ai",
