@@ -38,13 +38,14 @@ const MilestoneDiagram = ({ year, color }: { year: string; color: string }) => {
           <div className="text-[10px] uppercase font-bold mb-1" style={{ color }}>
             Zero-Flash Realtime Cache Sync (Melody)
           </div>
-          <div className="grid grid-cols-3 gap-2 text-center items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center items-center">
             <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg">
               <div className="text-zinc-800 dark:text-zinc-200 font-bold">Local UI Store</div>
               <div className="text-zinc-500 dark:text-zinc-400 mt-0.5 text-[9px]">Zustand Cached</div>
             </div>
             <div className="flex flex-col items-center justify-center font-bold" style={{ color }}>
-              <span className="animate-pulse">⇄ Sync ⇄</span>
+              <span className="animate-pulse hidden sm:inline">⇄ Sync ⇄</span>
+              <span className="animate-pulse inline sm:hidden">⇅ Sync ⇅</span>
               <span className="text-[8px] opacity-75">Sub-200ms</span>
             </div>
             <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg">
@@ -83,7 +84,7 @@ const MilestoneDiagram = ({ year, color }: { year: string; color: string }) => {
           <div className="text-[10px] uppercase font-bold mb-1" style={{ color }}>
             Hunter Multi-Agent System Swarm
           </div>
-          <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center">
             <div className="border border-emerald-500/20 bg-emerald-500/5 p-2 rounded-lg flex flex-col justify-center min-h-[45px]">
               <span className="text-emerald-600 dark:text-emerald-400 font-bold">Planning Agent</span>
             </div>
@@ -113,7 +114,7 @@ const AnimatedYear = ({ year }: { year: string }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5 }}
-      className="font-mono text-[60px] md:text-[80px] font-black leading-none tracking-tighter text-app-border select-none pointer-events-none"
+      className="font-mono text-[42px] md:text-[80px] font-black leading-none tracking-tighter text-app-border select-none pointer-events-none"
     >
       {year}
     </motion.div>
@@ -216,7 +217,7 @@ export const About = () => {
           <div className="lg:col-span-8 flex flex-col gap-6">
             
             {/* Year selector tabs (Mobile) */}
-            <div className="flex lg:hidden gap-1 pt-4 pb-12 overflow-x-auto scrollbar-none">
+            <div className="flex lg:hidden gap-1 pt-4 pb-6 overflow-x-auto scrollbar-none">
               {MILESTONES.map((stone, idx) => (
                 <button
                   key={stone.year}
