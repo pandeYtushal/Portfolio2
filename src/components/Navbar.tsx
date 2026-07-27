@@ -110,7 +110,7 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                   onClick={(event) => handleNavClick(event, item.href)}
                   onMouseEnter={() => setHoveredIdx(idx)}
                   onMouseLeave={() => setHoveredIdx(null)}
-                  className="relative rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-app-text-secondary transition-all hover:text-app-text-primary"
+                  className="relative rounded-full px-3.5 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-app-text-secondary transition-all hover:text-app-text-primary"
                 >
                   {hoveredIdx === idx && (
                     <motion.span

@@ -50,10 +50,10 @@ export const Projects = () => {
           <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
             02 / PROJECTS
           </p>
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-[-0.04em] text-app-text-primary leading-[1.05]">
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-sans font-bold tracking-tight text-app-text-primary leading-[1.05]">
             PROJECTS THAT PERFORM.
           </h2>
-          <p className="max-w-2xl text-sm md:text-base leading-relaxed text-app-text-secondary">
+          <p className="max-w-2xl text-xs font-mono leading-relaxed text-app-text-secondary">
             Harnessing low-latency state orchestration, client-side canvas processing, and high-performance physics-based layouts.
           </p>
         </div>
@@ -112,7 +112,7 @@ export const Projects = () => {
                     {project.title}
                   </h3>
 
-                  <p className="text-[11px] text-zinc-800 leading-relaxed line-clamp-3">
+                  <p className="text-[10px] font-mono text-zinc-800 leading-relaxed line-clamp-3">
                     {project.description}
                   </p>
                 </div>

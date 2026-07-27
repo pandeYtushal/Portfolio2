@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import { fadeUpSubtle, staggerContainer, fadeUp } from "../lib/motion";
 
 // Configurable Medium RSS Feed Endpoint
@@ -22,23 +22,16 @@ const MediumIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const SkeletonCard = () => (
-  <div className="flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 h-64 animate-pulse shadow-none">
-    <div className="space-y-4">
-      <div className="flex justify-between">
-        <div className="h-3.5 w-20 bg-app-surface-secondary rounded" />
-        <div className="h-3.5 w-16 bg-app-surface-secondary rounded font-mono" />
-      </div>
-      <div className="h-6 w-full bg-app-surface-secondary rounded" />
-      <div className="h-6 w-3/4 bg-app-surface-secondary rounded" />
-      <div className="space-y-2 pt-2">
-        <div className="h-3 w-full bg-app-surface-secondary rounded" />
-        <div className="h-3 w-5/6 bg-app-surface-secondary rounded" />
-      </div>
+const SkeletonRow = () => (
+  <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-b border-app-border animate-pulse gap-4">
+    <div className="space-y-2.5 flex-1">
+      <div className="h-3 w-16 bg-app-surface rounded font-mono" />
+      <div className="h-5 w-2/3 bg-app-surface rounded" />
+      <div className="h-3.5 w-5/6 bg-app-surface rounded" />
     </div>
-    <div className="mt-8 flex items-center justify-between border-t border-app-border pt-4">
-      <div className="h-4 w-12 bg-app-surface-secondary rounded" />
-      <div className="h-4 w-24 bg-app-surface-secondary rounded" />
+    <div className="flex items-center gap-6">
+      <div className="h-3 w-20 bg-app-surface rounded" />
+      <div className="h-8 w-8 rounded-full bg-app-surface" />
     </div>
   </div>
 );
@@ -104,14 +97,14 @@ export const Writing = () => {
   }
 
   return (
-    <section id="writing" className="border-t border-app-border bg-app-bg text-left">
+    <section id="writing" className="border-t border-app-border bg-app-bg text-left px-6 py-24">
       {/* Section Header */}
       <motion.div
         variants={fadeUpSubtle}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="max-w-6xl mx-auto px-6 pt-24 pb-12"
+        className="max-w-6xl mx-auto pb-12"
       >
         <div className="flex flex-col gap-4 border-b border-app-border pb-8">
           <div>
@@ -122,76 +115,74 @@ export const Writing = () => {
               ARTICLES & INSIGHTS.
             </h2>
           </div>
-          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xl">
+          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xl font-mono text-xs">
             Sharing learnings, challenges, and architectural decisions from building software.
           </p>
         </div>
       </motion.div>
 
-      {/* Grid Layout */}
-      <div className="max-w-6xl mx-auto px-6 pb-24">
-      <motion.div
-        variants={staggerContainer(0.05, 0.05)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mx-auto w-full"
-      >
-        {loading ? (
-          <>
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </>
-        ) : (
-          posts.map((post, idx) => (
-            <motion.article
-              key={post.link + idx}
-              variants={fadeUp}
-              whileHover={{ y: -6 }}
-              onClick={() => window.open(post.link, "_blank", "noopener,noreferrer")}
-              className="group cursor-pointer flex flex-col justify-between rounded-2xl border border-app-border bg-app-surface p-6 transition-all duration-300 hover:border-app-accent/30 hover:shadow-[0_8px_40px_rgba(255,138,0,0.08)] shadow-none"
-            >
-              <div className="space-y-4">
-                {/* Top Meta info */}
-                <div className="flex items-center justify-between text-[11px] font-medium text-app-text-muted">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="h-3.5 w-3.5" />
-                    <span>{post.pubDate}</span>
+      {/* Magazine Style Rows */}
+      <div className="max-w-6xl mx-auto pb-12">
+        <motion.div
+          variants={staggerContainer(0.05, 0.05)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="flex flex-col w-full border-t border-app-border"
+        >
+          {loading ? (
+            <>
+              <SkeletonRow />
+              <SkeletonRow />
+              <SkeletonRow />
+            </>
+          ) : (
+            posts.map((post, idx) => (
+              <motion.article
+                key={post.link + idx}
+                variants={fadeUp}
+                onClick={() => window.open(post.link, "_blank", "noopener,noreferrer")}
+                className="group cursor-pointer flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-app-border/80 hover:bg-app-surface/20 hover:px-4 transition-all duration-300 gap-6"
+              >
+                <div className="space-y-2.5 flex-1 text-left">
+                  {/* Top Meta info */}
+                  <div className="flex items-center gap-4 text-[10px] font-mono font-bold text-app-text-muted">
+                    <div className="flex items-center gap-1.5 uppercase">
+                      <Calendar className="h-3 w-3" />
+                      <span>{post.pubDate}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 uppercase">
+                      <Clock className="h-3 w-3" />
+                      <span>{post.readingTime}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5 font-mono rounded-full border border-app-accent/20 bg-app-accent/5 px-2.5 py-0.5 text-app-accent">
-                    <Clock className="h-3 w-3" />
-                    <span>{post.readingTime}</span>
-                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl md:text-2xl font-black text-app-text-primary tracking-tight transition-colors group-hover:text-app-accent leading-tight">
+                    {post.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="text-xs leading-relaxed text-app-text-secondary font-mono max-w-3xl line-clamp-2">
+                    {post.description}
+                  </p>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-lg font-bold text-app-text-primary line-clamp-2 transition-colors group-hover:text-app-accent">
-                  {post.title}
-                </h3>
+                {/* Bottom Actions footer */}
+                <div className="flex items-center justify-between md:justify-end gap-6 shrink-0">
+                  <div className="flex items-center gap-1.5 text-app-text-muted">
+                    <MediumIcon className="h-3.5 w-3.5" />
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-wider">Medium</span>
+                  </div>
 
-                {/* Excerpt */}
-                <p className="text-xs sm:text-sm leading-relaxed text-app-text-secondary line-clamp-3">
-                  {post.description}
-                </p>
-              </div>
-
-              {/* Bottom Actions footer */}
-              <div className="mt-8 flex items-center justify-between border-t border-app-border pt-4">
-                <div className="flex items-center gap-1.5 text-app-text-muted">
-                  <MediumIcon className="h-4 w-4" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider">Medium</span>
+                  <div className="h-10 w-10 rounded-full border border-app-border bg-app-surface/50 group-hover:bg-app-text-primary group-hover:text-app-bg flex items-center justify-center transition-all duration-300">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </div>
                 </div>
-
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-app-text-secondary group-hover:text-app-accent transition-colors">
-                  <span>Read on Medium</span>
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </div>
-            </motion.article>
-          ))
-        )}
-      </motion.div>
+              </motion.article>
+            ))
+          )}
+        </motion.div>
       </div>
     </section>
   );

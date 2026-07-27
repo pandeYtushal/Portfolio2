@@ -79,7 +79,7 @@ export const Contact = () => {
                       <Magnetic>
                         <a
                           href={soc.href}
-                          className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
+                          className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-[10px] font-mono font-bold uppercase tracking-wider text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
                         >
                           <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
                           <span>{soc.label}</span>
@@ -127,15 +127,15 @@ export const Contact = () => {
 
                 return (
                   <Magnetic key={soc.label}>
-                    <a
-                      href={soc.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-sm font-semibold text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
-                    >
-                      <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
-                      <span>{soc.label}</span>
-                    </a>
+                  <a
+                    href={soc.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-[10px] font-mono font-bold uppercase tracking-wider text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
+                  >
+                    <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
+                    <span>{soc.label}</span>
+                  </a>
                   </Magnetic>
                 );
               })}

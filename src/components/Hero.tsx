@@ -162,7 +162,7 @@ export const Hero = () => {
             </motion.div>
 
             {/* Desktop Headline (sm and up) */}
-            <h1 className="hidden sm:block text-3xl sm:text-5xl lg:text-[72px] font-extrabold tracking-[-0.04em] leading-[1.02] text-app-text-primary max-w-3xl">
+            <h1 className="hidden sm:block text-3xl sm:text-5xl lg:text-[72px] font-sans font-bold tracking-tight leading-[1.02] text-app-text-primary max-w-3xl">
               {headlineLines.map((line, lineIdx) => (
                 <span key={lineIdx} className="block overflow-hidden py-1">
                   {line.split(" ").map((word, wordIdx) => (
@@ -186,7 +186,7 @@ export const Hero = () => {
             </h1>
 
             {/* Mobile Headline (below sm) */}
-            <h1 className="block sm:hidden text-4xl font-extrabold tracking-[-0.04em] leading-[1.1] text-app-text-primary max-w-xl">
+            <h1 className="block sm:hidden text-4xl font-sans font-bold tracking-tight leading-[1.1] text-app-text-primary max-w-xl">
               {"BUILDING AUTONOMOUS AI SYSTEMS THAT ACTUALLY EXECUTE.".split(" ").map((word, idx) => (
                 <span key={idx} className="inline-block overflow-hidden py-0.5 mr-1.5">
                   <motion.span
@@ -210,7 +210,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
-              className="mt-6 text-sm md:text-base leading-relaxed text-app-text-secondary max-w-md"
+              className="mt-6 text-xs font-mono leading-relaxed text-app-text-secondary max-w-xl"
             >
               Turning complex workflows into self-healing autonomous systems. Specializing in AI agents, browser automation, and full-stack products.
             </motion.p>
