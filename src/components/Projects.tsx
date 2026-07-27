@@ -47,13 +47,11 @@ export const Projects = () => {
       <div className="mx-auto max-w-6xl text-left">
         {/* Header Block */}
         <div className="space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full border border-app-border bg-app-surface px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-app-accent">
-            <span>02</span>
-            <span>&gt;</span>
-            <span>Project Showcase</span>
-          </div>
+          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
+            02 / PROJECTS
+          </p>
           <h2 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-[-0.04em] text-app-text-primary leading-[1.05]">
-            Projects that perform.
+            PROJECTS THAT PERFORM.
           </h2>
           <p className="max-w-2xl text-sm md:text-base leading-relaxed text-app-text-secondary">
             Harnessing low-latency state orchestration, client-side canvas processing, and high-performance physics-based layouts.

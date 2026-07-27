@@ -240,3 +240,21 @@
     background-size: 16px 16px;
   }
 }
+
+/* GPU-Accelerated Theme Transition Swipe Overlay */
+#theme-swipe-overlay.animating {
+  animation: theme-swipe 800ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  will-change: transform;
+}
+
+@keyframes theme-swipe {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  50% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}

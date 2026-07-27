@@ -1,9 +1,10 @@
 import { lazy, Suspense, useState, useEffect } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 
 const About = lazy(() => import("./components/About"));
+import CustomCursor from "./components/CustomCursor";
 const Projects = lazy(() => import("./components/Projects"));
 const Skills = lazy(() => import("./components/Skills"));
 const Writing = lazy(() => import("./components/Writing"));
@@ -40,11 +41,33 @@ export const App = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    const overlay = document.getElementById("theme-swipe-overlay");
+    if (!overlay || overlay.classList.contains("animating")) return;
+
+    overlay.classList.add("animating");
+
+    // Switch the theme exactly halfway through the swipe (0.4s)
+    setTimeout(() => {
+      setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    }, 400);
+
+    // Clean up class after animation finishes (0.8s)
+    setTimeout(() => {
+      overlay.classList.remove("animating");
+    }, 800);
   };
 
   return (
     <div className="relative min-h-screen bg-app-bg text-app-text-primary selection:bg-app-accent selection:text-black overflow-hidden font-sans">
+      {/* Theme Transition Swipe Overlay (GPU-Accelerated outside React loop) */}
+      <div
+        id="theme-swipe-overlay"
+        className="fixed inset-y-0 left-0 w-full bg-app-accent z-[100000] translate-x-full pointer-events-none"
+      />
+
+      {/* Custom Global Cursor */}
+      <CustomCursor />
+
       {/* Global Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-app-accent origin-left z-[9999]"

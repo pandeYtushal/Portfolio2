@@ -87,7 +87,11 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
             }`}
             aria-label="Back to top"
           >
-            <span className="text-xs font-mono font-bold tracking-wider text-app-text-primary uppercase">TP.</span>
+            <img
+              src="/sanskrit logo.png"
+              alt="Sanskrit Logo"
+              className="h-5 w-auto object-contain dark:invert"
+            />
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </button>
 

@@ -59,19 +59,15 @@ export const Contact = () => {
           className="relative z-10 w-full text-left"
         >
           <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
-            05 / Contact
+            05 / CONTACT
           </p>
 
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center space-y-6">
             {/* Huge Typographic Headline */}
             <h2 className="text-3xl sm:text-6xl md:text-8xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
-              Let&apos;s Build <br />
-              Something Impossible.
+              LET&apos;S BUILD <br />
+              SOMETHING IMPOSSIBLE.
             </h2>
-
-            <p className="text-sm md:text-base leading-relaxed text-app-text-secondary max-w-md pt-2">
-              Seeking full-time roles, browser automation challenges, and AI agent architectures. Open to conversations.
-            </p>
 
             {/* Interactive Magnetic socials grid */}
             <div className="flex flex-wrap items-center justify-center gap-6 pt-12">

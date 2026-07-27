@@ -43,17 +43,17 @@ export const Skills = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-app-border pb-8"
+          className="relative z-10 flex flex-col gap-4 border-b border-app-border pb-8"
         >
           <div>
             <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
-              03 / Skills
+              03 / SKILLS
             </p>
             <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
-              Core Engine.
+              CORE ENGINE.
             </h2>
           </div>
-          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xs md:text-right">
+          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xl">
             Curated set of models, compilers, infrastructure layers, and state environments.
           </p>
         </motion.div>

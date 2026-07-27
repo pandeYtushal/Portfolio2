@@ -113,16 +113,16 @@ export const Writing = () => {
         viewport={{ once: true, margin: "-80px" }}
         className="max-w-6xl mx-auto px-6 pt-24 pb-12"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-app-border pb-8">
+        <div className="flex flex-col gap-4 border-b border-app-border pb-8">
           <div>
             <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
-              04 / Writing
+              04 / WRITING
             </p>
             <h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
-              Articles & Insights.
+              ARTICLES & INSIGHTS.
             </h2>
           </div>
-          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xs md:text-right">
+          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xl">
             Sharing learnings, challenges, and architectural decisions from building software.
           </p>
         </div>

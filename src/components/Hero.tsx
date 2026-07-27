@@ -16,50 +16,51 @@ const TYPING_ROLES = [
 // 3D Tilt Avatar Card
 const AvatarCard = () => {
   return (
-    <div className="relative w-[280px] md:w-[320px] border border-app-accent/20 bg-app-surface/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-[0_20px_80px_rgba(255,138,0,0.08)]">
-      {/* Top accent bar */}
-      <div className="h-1 w-full bg-gradient-to-r from-[#c8841a] via-[#e8a020] to-[#c8841a]" />
+    <div className="relative w-[280px] md:w-[320px] bg-app-surface/60 backdrop-blur-md rounded-2xl border border-app-border p-3 pb-4 shadow-[0_20px_80px_rgba(0,0,0,0.4)] flex flex-col gap-4">
+      {/* Photo Container with corner brackets */}
+      <div className="relative p-1.5">
+        {/* Retro Focus Brackets */}
+        <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-white/60" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/60" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/60" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-white/60" />
 
-      {/* Avatar image area */}
-      <div className="relative h-48 bg-gradient-to-b from-app-surface to-app-bg overflow-hidden">
-        <img
-          src="/avtar.png"
-          alt="Tushal Pandey"
-          className="w-full h-full object-cover object-top opacity-90 transition-transform duration-500 hover:scale-105"
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        />
-        {/* Avatar fallback overlay with initials */}
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent to-app-bg/60">
-          <div className="absolute bottom-4 left-4 right-4">
-            <div className="text-lg font-black tracking-tight text-white">Tushal Pandey</div>
+        {/* Photo Image Wrapper */}
+        <div className="relative overflow-hidden rounded-xl bg-zinc-950 border border-white/5 aspect-[723/651]">
+          <img
+            src="/avtar.png"
+            alt="Tushal Pandey"
+            className="w-full h-full object-cover opacity-90 transition-transform duration-500 hover:scale-[1.02]"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+          {/* Name tag inside photo */}
+          <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-mono tracking-wider text-white/80 border border-white/5">
+            Tushal Pandey
           </div>
         </div>
       </div>
 
       {/* Card body stats */}
-      <div className="p-4 space-y-3">
-        <div className="flex items-center gap-2 text-xs text-app-text-muted">
+      <div className="space-y-3 px-1">
+        <div className="flex items-center gap-2.5 text-xs text-app-text-secondary font-mono">
           <MapPin className="h-3.5 w-3.5 text-[#e8a020]" />
-          <span>India · Open to Remote</span>
+          <span>India · Open to Work</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-app-text-muted">
+        <div className="flex items-center gap-2.5 text-xs text-app-text-secondary font-mono">
           <Code2 className="h-3.5 w-3.5 text-[#e8a020]" />
           <span>3+ years building</span>
         </div>
 
         {/* Status pill */}
         <div className="flex items-center gap-2 pt-1">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
           <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400">
             Available for Work
           </span>
         </div>
       </div>
-
-      {/* Corner decoration */}
-      <div className="absolute top-3 right-3 text-[10px] font-mono text-app-accent/40">&#9651;</div>
     </div>
   );
 };
@@ -103,7 +104,11 @@ export const Hero = () => {
     return () => clearTimeout(timeout);
   }, [typingText, isDeleting, roleIdx]);
 
-  const headlineWords = "Building Autonomous AI Systems That Actually Execute.".split(" ");
+  const headlineLines = [
+    "BUILDING AUTONOMOUS",
+    "AI SYSTEMS THAT",
+    "ACTUALLY EXECUTE."
+  ];
 
   return (
     <section
@@ -126,25 +131,29 @@ export const Hero = () => {
       <div className="container relative z-10 mx-auto max-w-6xl px-6">
 
         {/* Two-column layout: left = text, right = avatar card */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-16">
 
           {/* LEFT — Main content */}
-          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="flex-1 flex flex-col items-start text-left w-full">
 
             {/* Subtitle pills */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOut }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-6"
-            ></motion.div>
+              className="flex flex-wrap items-center justify-start gap-2.5 mb-6"
+            >
+              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted">
+                00 / HOME
+              </p>
+            </motion.div>
 
             {/* Typing Role Animation */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="mb-4 h-7 flex items-center justify-center lg:justify-start"
+              className="mb-4 h-7 flex items-center justify-start"
             >
               <span className="font-mono text-sm text-app-accent tracking-wide">
                 {typingText}
@@ -152,17 +161,41 @@ export const Hero = () => {
               <span className="ml-0.5 inline-block w-[2px] h-5 bg-app-accent animate-pulse" />
             </motion.div>
 
-            {/* Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[72px] font-extrabold tracking-[-0.04em] leading-[1.02] text-app-text-primary max-w-2xl">
-              {headlineWords.map((word, idx) => (
-                <span key={idx} className="inline-block overflow-hidden py-1 mr-2 lg:mr-3">
+            {/* Desktop Headline (sm and up) */}
+            <h1 className="hidden sm:block text-3xl sm:text-5xl lg:text-[72px] font-extrabold tracking-[-0.04em] leading-[1.02] text-app-text-primary max-w-3xl">
+              {headlineLines.map((line, lineIdx) => (
+                <span key={lineIdx} className="block overflow-hidden py-1">
+                  {line.split(" ").map((word, wordIdx) => (
+                    <span key={wordIdx} className="inline-block overflow-hidden mr-2 lg:mr-3">
+                      <motion.span
+                        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 55, filter: "blur(6px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{
+                          duration: 0.6,
+                          ease: easeOut,
+                          delay: (lineIdx * 3 + wordIdx) * 0.05,
+                        }}
+                        className="inline-block"
+                      >
+                        {word}
+                      </motion.span>
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </h1>
+
+            {/* Mobile Headline (below sm) */}
+            <h1 className="block sm:hidden text-4xl font-extrabold tracking-[-0.04em] leading-[1.1] text-app-text-primary max-w-xl">
+              {"BUILDING AUTONOMOUS AI SYSTEMS THAT ACTUALLY EXECUTE.".split(" ").map((word, idx) => (
+                <span key={idx} className="inline-block overflow-hidden py-0.5 mr-1.5">
                   <motion.span
-                    initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 55, filter: "blur(6px)" }}
+                    initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 30, filter: "blur(4px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{
-                      duration: 0.6,
+                      duration: 0.5,
                       ease: easeOut,
-                      delay: idx * 0.05,
+                      delay: idx * 0.04,
                     }}
                     className="inline-block"
                   >
@@ -187,7 +220,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.75, duration: 0.5, ease: easeOut }}
-              className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start z-20"
+              className="mt-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-start z-20 w-full"
             >
               <Magnetic>
                 <a
