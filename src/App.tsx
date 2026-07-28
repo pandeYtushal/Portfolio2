@@ -47,30 +47,25 @@ export const App = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  /* ── Theme ripple toggle ──  */
+  /* ── Theme wipe toggle ── */
   const toggleTheme = useCallback(
-    (e?: React.MouseEvent) => {
+    () => {
       const overlay = document.getElementById("theme-swipe-overlay");
-      if (!overlay || overlay.classList.contains("animating-ripple")) return;
+      if (!overlay || overlay.classList.contains("animating-swipe")) return;
 
-      const x = e?.clientX ?? window.innerWidth - 40;
-      const y = e?.clientY ?? 40;
-
-      overlay.style.setProperty("--ripple-x", `${x}px`);
-      overlay.style.setProperty("--ripple-y", `${y}px`);
       /* Target bg colour prevents a flash on slow devices */
       overlay.style.backgroundColor =
         theme === "dark" ? "#ffffff" : "#0c0c0c";
 
-      overlay.classList.add("animating-ripple");
+      overlay.classList.add("animating-swipe");
 
       const t1 = setTimeout(
         () => setTheme((p) => (p === "dark" ? "light" : "dark")),
-        400
+        350
       );
       const t2 = setTimeout(
-        () => overlay.classList.remove("animating-ripple"),
-        820
+        () => overlay.classList.remove("animating-swipe"),
+        750
       );
 
       return () => { clearTimeout(t1); clearTimeout(t2); };
@@ -83,7 +78,7 @@ export const App = () => {
       className="relative min-h-screen bg-app-bg text-app-text-primary font-sans antialiased overflow-x-hidden"
       style={{ overflowX: "hidden" }}
     >
-      {/* ── GPU-accelerated theme-transition circular ripple overlay ──
+      {/* ── GPU-accelerated theme-transition vertical wipe overlay ──
            Lives outside the React component tree so it never triggers
            React re-renders during the animation. */}
       <div

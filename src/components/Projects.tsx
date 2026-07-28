@@ -216,8 +216,22 @@ const ProjectModal = ({
 export const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showAll, setShowAll] = useState(false);
-
   const visibleProjects = showAll ? PROJECTS_DATA : PROJECTS_DATA.slice(0, 4);
+
+  const handleToggleShowAll = () => {
+    if (showAll) {
+      // If currently showing all and about to collapse, scroll back to the top of the projects section first
+      const section = document.getElementById("projects");
+      if (section) {
+        const top = section.getBoundingClientRect().top + window.scrollY - 80; // offset for navbar
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+      // Small delay to let the smooth scroll start before removing the DOM elements
+      setTimeout(() => setShowAll(false), 200);
+    } else {
+      setShowAll(true);
+    }
+  };
 
   /* Lock body scroll when modal is open */
   useEffect(() => {
@@ -260,15 +274,17 @@ export const Projects = () => {
         </div>
 
         {/* Show more */}
-        <div className="flex justify-center mt-10">
-          <button
-            id="projects-show-more-btn"
-            onClick={() => setShowAll((p) => !p)}
-            className="inline-flex items-center gap-2 border border-app-border px-7 py-3 text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-app-text-muted hover:border-app-text-secondary hover:text-app-text-primary transition-all duration-200 cursor-pointer"
-          >
-            {showAll ? "Show Less" : "Show More Projects"}
-          </button>
-        </div>
+        {PROJECTS_DATA.length > 4 && (
+          <div className="flex justify-center mt-10">
+            <button
+              id="projects-show-more-btn"
+              onClick={handleToggleShowAll}
+              className="inline-flex items-center gap-2 border border-app-border px-7 py-3 text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-app-text-muted hover:border-app-text-secondary hover:text-app-text-primary transition-all duration-200 cursor-pointer"
+            >
+              {showAll ? "Show Less" : "Show More Projects"}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Modal rendered in portal to escape main stacking context */}
