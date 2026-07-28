@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle, X, ArrowUpRight } from "lucide-react";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
@@ -270,12 +271,15 @@ export const Projects = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        )}
-      </AnimatePresence>
+      {/* Modal rendered in portal to escape main stacking context */}
+      {createPortal(
+        <AnimatePresence>
+          {selectedProject && (
+            <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 };

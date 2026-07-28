@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Download, ArrowRight, MapPin, Code2 } from "lucide-react";
 import ResumeModal from "./ResumeModal";
 import { easeOut } from "../lib/motion";
@@ -52,10 +52,6 @@ export const Hero = () => {
   const [isDeleting, setIsDeleting]   = useState(false);
   const shouldReduceMotion            = useReducedMotion();
 
-  const { scrollY }   = useScroll();
-  const heroOpacity   = useTransform(scrollY, [0, 500], [1, 0]);
-  const heroY         = useTransform(scrollY, [0, 500], [0, -30]);
-
   /* Typewriter effect */
   useEffect(() => {
     const current = TYPING_ROLES[roleIdx];
@@ -99,13 +95,7 @@ export const Hero = () => {
         }}
       />
 
-      <motion.div
-        style={{
-          opacity: shouldReduceMotion ? 1 : heroOpacity,
-          y:       shouldReduceMotion ? 0 : heroY,
-        }}
-        className="relative z-10 mx-auto max-w-5xl w-full px-6 pt-28 pb-20"
-      >
+      <div className="relative z-10 mx-auto max-w-5xl w-full px-6 pt-28 pb-20">
         <div className="flex flex-col lg:flex-row items-start justify-between gap-14 lg:gap-20">
 
           {/* ── LEFT — Copy ── */}
@@ -204,7 +194,7 @@ export const Hero = () => {
             <AvatarCard />
           </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       {showResume && <ResumeModal onClose={() => setShowResume(false)} />}
     </section>
