@@ -4,11 +4,11 @@ import { Sun, Moon, X } from "lucide-react";
 import { playClickSound } from "../lib/audio";
 
 const NAV_ITEMS = [
-  { label: "About",    href: "#about"    },
+  { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Skills",   href: "#skills"   },
-  { label: "Writing",  href: "#writing"  },
-  { label: "Contact",  href: "#contact"  },
+  { label: "Skills", href: "#skills" },
+  { label: "Writing", href: "#writing" },
+  { label: "Contact", href: "#contact" },
 ];
 
 interface NavbarProps {
@@ -31,8 +31,8 @@ const ThemeToggle = ({
   size?: "sm" | "md";
 }) => {
   const isDark = theme === "dark";
-  const w   = size === "md" ? 56 : 44;
-  const h   = size === "md" ? 28 : 22;
+  const w = size === "md" ? 56 : 44;
+  const h = size === "md" ? 28 : 22;
   const thumb = h - 4;
   const travel = w - thumb - 4; // px from left edge to right resting position
 
@@ -87,8 +87,8 @@ const ThemeToggle = ({
             <motion.span
               key="moon-thumb"
               initial={{ rotate: -60, opacity: 0, scale: 0.6 }}
-              animate={{ rotate: 0,   opacity: 1, scale: 1   }}
-              exit={{   rotate:  60, opacity: 0, scale: 0.6 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              exit={{ rotate: 60, opacity: 0, scale: 0.6 }}
               transition={{ duration: 0.18 }}
               className="flex"
             >
@@ -100,8 +100,8 @@ const ThemeToggle = ({
             <motion.span
               key="sun-thumb"
               initial={{ rotate: -60, opacity: 0, scale: 0.6 }}
-              animate={{ rotate: 0,   opacity: 1, scale: 1   }}
-              exit={{   rotate:  60, opacity: 0, scale: 0.6 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              exit={{ rotate: 60, opacity: 0, scale: 0.6 }}
               transition={{ duration: 0.18 }}
               className="flex"
             >
@@ -146,8 +146,8 @@ const HamburgerIcon = ({ open }: { open: boolean }) => (
    MAIN NAVBAR
 ───────────────────────────────────────────────────────────── */
 export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
-  const [scrolled,       setScrolled]      = useState(false);
-  const [mobileOpen,    setMobileOpen]    = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const shouldReduce = useReducedMotion();
 
@@ -223,11 +223,10 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
           TOP BAR
       ════════════════════════════════════════ */}
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-          scrolled
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled
             ? "border-b border-app-border bg-app-bg/95 backdrop-blur-xl shadow-sm dark:shadow-none"
             : "bg-transparent"
-        }`}
+          }`}
         role="banner"
       >
         <div className="mx-auto max-w-5xl px-5 sm:px-6 h-[54px] flex items-center justify-between gap-6">
@@ -405,14 +404,11 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
               })}
             </nav>
 
-            {/* Panel footer — theme toggle row */}
-            <div className="px-5 py-5 border-t border-app-border shrink-0 flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-app-text-muted">
-                  {theme === "dark" ? "Dark mode" : "Light mode"}
-                </p>
-              </div>
-              <ThemeToggle theme={theme} onToggle={(e) => { handleThemeToggle(e); closeMobile(); }} size="md" />
+            {/* Panel footer */}
+            <div className="px-5 py-5 border-t border-app-border shrink-0">
+              <p className="text-[10px] font-mono text-app-text-muted uppercase tracking-widest mb-1">
+                TUSHAL PANDEY
+              </p>
             </div>
           </motion.aside>
         )}
