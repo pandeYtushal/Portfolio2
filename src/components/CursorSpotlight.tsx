@@ -48,16 +48,14 @@ export const CursorSpotlight = () => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+      {/*
+        Dark mode: warm orange glow at 45% opacity — visible and atmospheric.
+        Light mode: very faint glow at 12% opacity — barely-there, not distracting on white.
+      */}
       <motion.div
-        className="absolute inset-0 opacity-80 dark:opacity-40"
+        className="absolute inset-0 opacity-[0.12] dark:opacity-[0.45]"
         style={{
-          background: `radial-gradient(400px circle at ${springX}px ${springY}px, rgba(255, 138, 0, 0.22), transparent 80%)`,
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 hidden dark:block"
-        style={{
-          background: `radial-gradient(300px circle at ${springX}px ${springY}px, rgba(255, 255, 255, 0.02), transparent 85%)`,
+          background: `radial-gradient(450px circle at ${springX}px ${springY}px, rgba(249, 115, 22, 1), transparent 70%)`,
         }}
       />
     </div>

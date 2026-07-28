@@ -5,77 +5,74 @@ import { fadeUpSubtle } from "../lib/motion";
 const SKILL_CATEGORIES = [
   {
     id: "languages",
-    title: "LANGUAGES",
-    color: "#ff8a00",
+    title: "Languages",
     skills: ["TypeScript", "JavaScript", "Python", "SQL", "C++", "C", "HTML5", "CSS3"],
   },
   {
     id: "frameworks",
-    title: "FRAMEWORKS",
-    color: "#a855f7",
+    title: "Frameworks",
     skills: ["React.js", "Tailwind CSS", "Zustand", "Framer Motion", "Vite", "PWA Support"],
   },
   {
     id: "tools",
-    title: "TOOLS & INFRA",
-    color: "#3b82f6",
+    title: "Tools & Infra",
     skills: ["Git", "GitHub", "PostgreSQL", "Firestore", "IndexedDB", "Firebase", "REST APIs", "Vercel", "VS Code"],
   },
   {
     id: "ai",
-    title: "AI & AUTOMATION",
-    color: "#10b981",
+    title: "AI & Automation",
     skills: ["Browser Automation", "LLM Orchestration", "Prompt Engineering", "Multi-Agent Systems", "Puppeteer", "Playwright"],
   },
 ];
 
 export const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState("languages");
-  const active = SKILL_CATEGORIES.find((c) => c.id === activeCategory)!;
+  const [activeId, setActiveId] = useState("languages");
+  const active = SKILL_CATEGORIES.find((c) => c.id === activeId)!;
 
   return (
-    <section id="skills" className="border-t border-app-border bg-app-bg relative overflow-hidden">
+    <section id="skills" className="border-t border-app-border bg-app-bg">
+      <div className="max-w-5xl mx-auto px-6 pt-24 pb-24">
 
-      {/* motion.dev-style header */}
-      <div className="max-w-6xl mx-auto px-6 pt-24 pb-12">
+        {/* Header */}
         <motion.div
           variants={fadeUpSubtle}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="relative z-10 flex flex-col gap-4 border-b border-app-border pb-8"
+          className="mb-12"
         >
-          <div>
-            <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
-              03 / SKILLS
-            </p>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-sans font-bold tracking-tight text-app-text-primary leading-[1.05]">
-              CORE ENGINE.
-            </h2>
-          </div>
-          <p className="text-xs font-mono leading-relaxed text-app-text-secondary max-w-xl">
-            Curated set of models, compilers, infrastructure layers, and state environments.
+          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-4">
+            03 / SKILLS
+          </p>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-app-text-primary leading-[1.0]">
+            THE STACK.
+          </h2>
+          <p className="mt-4 text-sm font-mono leading-relaxed text-app-text-secondary max-w-md">
+            Curated set of languages, frameworks, infrastructure layers, and AI tooling.
           </p>
         </motion.div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-6 pb-24 relative z-10">
-
-        {/* Category switcher - styled like Hero buttons */}
-        <div className="flex flex-wrap gap-3 mb-10">
+        {/* Category tabs */}
+        <div className="flex flex-wrap gap-2 mb-8 border-b border-app-border pb-6">
           {SKILL_CATEGORIES.map((cat) => {
-            const isActive = activeCategory === cat.id;
+            const isActive = activeId === cat.id;
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`flex h-11 items-center justify-center px-6 text-[10px] font-mono font-bold uppercase tracking-[0.15em] transition-all duration-300 active:scale-95 cursor-pointer ${isActive
-                    ? "border-2 bg-app-surface"
-                    : "border-2 border-app-border bg-transparent text-app-text-muted hover:border-app-text-secondary hover:text-app-text-primary"
-                  }`}
+                id={`skill-tab-${cat.id}`}
+                onClick={() => setActiveId(cat.id)}
+                className="h-9 px-4 text-[10px] font-mono font-bold uppercase tracking-[0.15em] border transition-all duration-200 cursor-pointer"
                 style={{
-                  borderColor: isActive ? active.color : undefined,
-                  color: isActive ? active.color : undefined,
+                  borderColor:     isActive
+                    ? "var(--color-app-accent)"
+                    : "var(--color-app-text-muted)",
+                  color:           isActive
+                    ? "var(--color-app-accent)"
+                    : "var(--color-app-text-secondary)",
+                  backgroundColor: isActive
+                    ? "transparent"
+                    : "transparent",
+                  opacity: isActive ? 1 : 0.6,
                 }}
               >
                 {cat.title}
@@ -84,39 +81,32 @@ export const Skills = () => {
           })}
         </div>
 
-        {/* Minimal Grid of Sharp Tags */}
-        <div className="min-h-[220px]">
+        {/* Skill tags */}
+        <div className="min-h-[160px]">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 10 }}
+              key={activeId}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-wrap gap-3"
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+              className="flex flex-wrap gap-2.5"
             >
-              {active.skills.map((skill, idx) => (
+              {active.skills.map((skill, i) => (
                 <motion.div
                   key={skill}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: idx * 0.03, duration: 0.2 }}
-                  className="px-5 py-4 border border-app-border bg-app-surface text-app-text-primary rounded-none flex items-center gap-3 hover:border-white/20 transition-colors cursor-default"
+                  transition={{ delay: i * 0.03, duration: 0.18 }}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 border border-app-border bg-app-surface text-app-text-secondary hover:text-app-text-primary hover:border-app-text-muted transition-colors duration-200 cursor-default"
                 >
-                  <span
-                    className="h-1.5 w-1.5 rounded-full shrink-0"
-                    style={{
-                      backgroundColor: active.color,
-                      boxShadow: `0 0 8px ${active.color}`,
-                    }}
-                  />
-                  <span className="text-xs font-mono font-bold uppercase tracking-[0.15em]">{skill}</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-app-accent shrink-0" />
+                  <span className="text-[11px] font-mono font-semibold tracking-[0.08em]">{skill}</span>
                 </motion.div>
               ))}
             </motion.div>
           </AnimatePresence>
         </div>
-
       </div>
     </section>
   );

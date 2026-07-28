@@ -11,273 +11,162 @@ const ICON_MAP: Record<MilestoneIconName, LucideIcon> = {
   Award,
 };
 
-// Interactive flowchart renderer based on active milestone
-const MilestoneDiagram = ({ year, color }: { year: string; color: string }) => {
-  switch (year) {
-    case "2023":
-      return (
-        <div className="border border-app-border bg-app-surface-secondary/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-[10px] tracking-tight relative overflow-hidden">
-          <div className="text-[10px] uppercase font-bold mb-1" style={{ color }}>
-            Decentralized Web3 Transaction Flow
-          </div>
-          <div className="flex items-center justify-between gap-2 border border-blue-500/20 bg-blue-500/5 p-2 rounded-lg">
-            <span className="text-zinc-700 dark:text-zinc-400">Client App</span>
-            <span className="text-blue-600 dark:text-blue-400 animate-pulse font-bold">──[ RPC Request ]──&gt;</span>
-            <span className="text-zinc-800 dark:text-zinc-200">Ethereum EVM</span>
-          </div>
-          <div className="flex justify-center text-zinc-400 dark:text-zinc-500 text-[8px]">▼</div>
-          <div className="border border-emerald-500/20 bg-emerald-500/5 p-2.5 rounded-lg text-center">
-            <div className="text-emerald-600 dark:text-emerald-400 font-bold">Solidity Smart Contract</div>
-            <div className="text-zinc-600 dark:text-zinc-400 mt-1 text-[9px]">State Mutation & Verified Log Emit</div>
-          </div>
-        </div>
-      );
-    case "2024":
-      return (
-        <div className="border border-app-border bg-app-surface-secondary/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-[10px] tracking-tight">
-          <div className="text-[10px] uppercase font-bold mb-1" style={{ color }}>
-            Zero-Flash Realtime Cache Sync (Melody)
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center items-center">
-            <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg">
-              <div className="text-zinc-800 dark:text-zinc-200 font-bold">Local UI Store</div>
-              <div className="text-zinc-500 dark:text-zinc-400 mt-0.5 text-[9px]">Zustand Cached</div>
-            </div>
-            <div className="flex flex-col items-center justify-center font-bold" style={{ color }}>
-              <span className="animate-pulse hidden sm:inline">⇄ Sync ⇄</span>
-              <span className="animate-pulse inline sm:hidden">⇅ Sync ⇅</span>
-              <span className="text-[8px] opacity-75">Sub-200ms</span>
-            </div>
-            <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg">
-              <div className="text-zinc-800 dark:text-zinc-200 font-bold">Firestore DB</div>
-              <div className="text-zinc-500 dark:text-zinc-400 mt-0.5 text-[9px]">Realtime Cache</div>
-            </div>
-          </div>
-        </div>
-      );
-    case "2025":
-      return (
-        <div className="border border-app-border bg-app-surface-secondary/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-[10px] tracking-tight">
-          <div className="text-[10px] uppercase font-bold mb-1" style={{ color }}>
-            Structured AI Orchestration Flow
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg text-center">
-              <span className="text-zinc-800 dark:text-zinc-300">Client Query Router Hub</span>
-            </div>
-            <div className="flex justify-around font-bold text-zinc-500 dark:text-zinc-400">
-              <span className="hover:text-purple-600 dark:hover:text-purple-400 transition">↙ GPT-4o</span>
-              <span className="hover:text-purple-600 dark:hover:text-purple-400 transition">↓ Claude 3.5</span>
-              <span className="hover:text-purple-600 dark:hover:text-purple-400 transition">↘ Gemini 3.5</span>
-            </div>
-            <div className="border border-emerald-500/20 bg-emerald-500/5 p-2 rounded-lg text-center">
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold">Output Parser</span>
-              <span className="text-zinc-600 dark:text-zinc-400 text-[9px]"> (Validation ➔ Clean JSON Output)</span>
-            </div>
-          </div>
-        </div>
-      );
-    case "2026":
-    default:
-      return (
-        <div className="border border-app-border bg-app-surface-secondary/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-[10px] tracking-tight">
-          <div className="text-[10px] uppercase font-bold mb-1" style={{ color }}>
-            Hunter Multi-Agent System Swarm
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center">
-            <div className="border border-emerald-500/20 bg-emerald-500/5 p-2 rounded-lg flex flex-col justify-center min-h-[45px]">
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold">Planning Agent</span>
-            </div>
-            <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg flex flex-col justify-center min-h-[45px]">
-              <span className="text-zinc-800 dark:text-zinc-300 font-bold">Memory Node</span>
-            </div>
-            <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 p-2 rounded-lg flex flex-col justify-center min-h-[45px]">
-              <span className="text-zinc-800 dark:text-zinc-300 font-bold">Browser Swarm</span>
-            </div>
-          </div>
-          <div className="border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/40 p-2 rounded-lg text-center">
-            <span className="font-bold" style={{ color }}>Self-Healing DOM Loop: </span>
-            <span className="text-zinc-600 dark:text-zinc-400">Scan ➔ Detect Shifts ➔ Auto-Patch Selector XPath</span>
-          </div>
-        </div>
-      );
-  }
-};
-
-// Animated number for year
+/* Animated large year number */
 const AnimatedYear = ({ year }: { year: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   return (
-    <motion.div
+    <motion.span
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5 }}
-      className="font-mono text-[42px] md:text-[80px] font-black leading-none tracking-tighter text-app-border select-none pointer-events-none"
+      className="font-mono text-5xl font-black leading-none tracking-tighter select-none text-app-surface-secondary"
     >
       {year}
-    </motion.div>
+    </motion.span>
   );
 };
 
 export const About = () => {
   const [activeIdx, setActiveIdx] = useState(3);
-  const active = MILESTONES[activeIdx];
+  const active     = MILESTONES[activeIdx];
   const ActiveIcon = ICON_MAP[active.iconName];
 
   return (
-    <section id="about" className="border-t border-app-border bg-app-bg relative overflow-hidden">
-      {/* Background glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] blur-[120px] pointer-events-none opacity-30 transition-colors duration-700"
-        style={{ backgroundColor: active.color }}
-      />
+    <section id="about" className="border-t border-app-border bg-app-bg">
+      <div className="max-w-5xl mx-auto px-6 pt-24 pb-24">
 
-      {/* ── Header ── */}
-      <div className="max-w-6xl mx-auto px-6 pt-24 pb-0">
+        {/* ── Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: easeOut }}
-          className="flex flex-col gap-4 border-b border-app-border pb-8"
+          transition={{ duration: 0.5, ease: easeOut }}
+          className="mb-16 border-b border-app-border pb-10"
         >
-          <div>
-            <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-3">
-              01 / ABOUT
-            </p>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
-              ENGINEERING<br />
-              <span style={{ color: active.color }} className="transition-colors duration-500">
-                WITH INTENT.
-              </span>
-            </h2>
-          </div>
-          <p className="text-sm leading-relaxed text-app-text-secondary max-w-xl font-mono text-xs">
+          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-4">
+            01 / ABOUT
+          </p>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-app-text-primary leading-[1.0]">
+            ENGINEERING<br />
+            <span style={{ color: active.color }} className="transition-colors duration-500">
+              WITH INTENT.
+            </span>
+          </h2>
+          <p className="mt-5 text-sm font-mono text-app-text-secondary max-w-lg leading-relaxed">
             Transitioning computational tasks from raw API logic into self-healing autonomous systems.
           </p>
         </motion.div>
-      </div>
 
-      {/* ── Grid Container ── */}
-      <div className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-10">
-          
-          {/* Left Column: Background & Interests */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
-            {/* Background Info Block */}
-            <div className="border border-app-border bg-app-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-sm flex flex-col gap-4">
-              <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted">
-                01.1 / BACKGROUND
-              </h3>
-              <p className="text-xs leading-relaxed text-app-text-secondary font-mono">
-                I am a systems builder and software engineer. My journey started with cryptography and blockchain protocols, which instilled a deep focus on deterministic logic and execution accuracy.
+        {/* ── Grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+          {/* Left: Bio + Focus */}
+          <div className="lg:col-span-4 flex flex-col gap-5">
+
+            {/* Bio */}
+            <div className="border border-app-border rounded-lg p-5 bg-app-surface flex flex-col gap-3">
+              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted mb-1">
+                Background
               </p>
-              <p className="text-xs leading-relaxed text-app-text-secondary font-mono">
-                Over the years, I transitioned into building full-stack products with a specialized focus on state synchronization, browser automation scrapers, and orchestration systems.
+              <p className="text-[11px] font-mono leading-relaxed text-app-text-secondary">
+                I am a systems builder and software engineer. My journey started with cryptography and
+                blockchain protocols, which instilled a deep focus on deterministic logic and execution accuracy.
               </p>
-              <p className="text-xs leading-relaxed text-app-text-secondary font-mono">
-                Currently, I am architecting autonomous agent models that navigate complex dynamic environments, auto-healing in real-time when the DOM shifts.
+              <p className="text-[11px] font-mono leading-relaxed text-app-text-secondary">
+                I transitioned into full-stack products with a specialized focus on state synchronization,
+                browser automation scrapers, and orchestration systems.
+              </p>
+              <p className="text-[11px] font-mono leading-relaxed text-app-text-secondary">
+                Currently architecting autonomous agent models that navigate complex dynamic environments,
+                auto-healing in real-time when the DOM shifts.
               </p>
             </div>
 
-            {/* Technical Focus Card */}
-            <div className="border border-app-border bg-app-surface/40 backdrop-blur-md rounded-2xl p-6 shadow-sm flex flex-col gap-4">
-              <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted">
-                01.2 / AREAS OF FOCUS
-              </h3>
-              <ul className="space-y-4 text-xs text-app-text-secondary font-mono">
-                <li className="flex items-start gap-3">
-                  <Cpu className="h-4 w-4 text-[#ff8a00] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-app-text-primary block font-semibold mb-0.5">Autonomous Systems</strong>
-                    Multi-model orchestration, browser control loops, self-healing browser automation nodes.
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Globe className="h-4 w-4 text-[#3b82f6] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-app-text-primary block font-semibold mb-0.5">Distributed Networks</strong>
-                    Decentralized nodes, blockchain state machines, realtime Firestore replication pipelines.
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Zap className="h-4 w-4 text-[#a855f7] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-app-text-primary block font-semibold mb-0.5">High-Performance UI</strong>
-                    Route-level cache states, zero-flash views, dynamic client-side layouts.
-                  </div>
-                </li>
+            {/* Areas of Focus */}
+            <div className="border border-app-border rounded-lg p-5 bg-app-surface flex flex-col gap-4">
+              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted mb-1">
+                Areas of Focus
+              </p>
+              <ul className="space-y-4">
+                {[
+                  { icon: Cpu,   color: "#f97316", title: "Autonomous Systems",   desc: "Multi-model orchestration, browser control loops, self-healing automation nodes." },
+                  { icon: Globe, color: "#6b7280", title: "Distributed Networks",  desc: "Decentralized nodes, blockchain state machines, realtime replication pipelines." },
+                  { icon: Zap,   color: "#9ca3af", title: "High-Performance UI",  desc: "Route-level cache states, zero-flash views, dynamic client-side layouts." },
+                ].map(({ icon: Icon, color, title, desc }) => (
+                  <li key={title} className="flex items-start gap-3">
+                    <div
+                      className="h-6 w-6 rounded flex items-center justify-center shrink-0 mt-0.5"
+                      style={{ backgroundColor: `${color}12`, color }}
+                    >
+                      <Icon className="h-3 w-3" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-app-text-primary mb-0.5">{title}</p>
+                      <p className="text-[11px] font-mono text-app-text-secondary leading-relaxed">{desc}</p>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
-          {/* Right Column: Milestones Timeline */}
+          {/* Right: Timeline */}
           <div className="lg:col-span-8 flex flex-col gap-6">
-            
-            {/* Year selector tabs (Mobile) */}
-            <div className="flex lg:hidden gap-1 pt-4 pb-6 overflow-x-auto scrollbar-none">
+
+            {/* Mobile year tabs */}
+            <div className="flex lg:hidden gap-1.5 overflow-x-auto pb-1">
               {MILESTONES.map((stone, idx) => (
                 <button
                   key={stone.year}
                   onClick={() => setActiveIdx(idx)}
-                  className="relative shrink-0 px-5 py-2 text-xs font-mono font-bold uppercase tracking-widest focus-visible:outline-none cursor-pointer transition-colors duration-200"
+                  className="shrink-0 px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest rounded-full border transition-all duration-200 cursor-pointer"
                   style={{
-                    color: activeIdx === idx ? active.color : "var(--color-app-text-muted)",
+                    borderColor:     activeIdx === idx ? `${stone.color}40` : "var(--color-app-border)",
+                    color:           activeIdx === idx ? stone.color : "var(--color-app-text-muted)",
+                    backgroundColor: activeIdx === idx ? `${stone.color}0e` : "transparent",
                   }}
                 >
-                  {activeIdx === idx && (
-                    <motion.span
-                      layoutId="tab-pill"
-                      className="absolute inset-0 rounded-full"
-                      style={{ backgroundColor: `${active.color}15`, border: `1px solid ${active.color}30` }}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{stone.year}</span>
+                  {stone.year}
                 </button>
               ))}
             </div>
 
-            {/* Content sub-grid */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIdx}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.3, ease: easeOut }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8"
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.22, ease: easeOut }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-6"
               >
-                {/* Left — Desktop Vertical milestones list */}
-                <div className="lg:col-span-4 hidden lg:flex flex-col gap-px border-l border-app-border pl-4">
+                {/* Desktop year list */}
+                <div className="hidden lg:flex lg:col-span-4 flex-col gap-px border-l border-app-border pl-4">
                   {MILESTONES.map((stone, idx) => (
                     <button
                       key={stone.year}
                       onClick={() => setActiveIdx(idx)}
-                      className="group flex items-center gap-3 py-3 text-left transition-colors duration-200 focus-visible:outline-none cursor-pointer"
+                      className="group flex items-center gap-3 py-3 text-left cursor-pointer transition-all duration-200"
                     >
                       <span
                         className="h-1.5 w-1.5 rounded-full shrink-0 transition-all duration-300"
                         style={{
-                          backgroundColor: activeIdx === idx ? stone.color : "var(--color-app-border)",
-                          boxShadow: activeIdx === idx ? `0 0 8px ${stone.color}` : "none",
+                          backgroundColor: activeIdx === idx ? stone.color : "var(--color-app-text-muted)",
+                          opacity:         activeIdx === idx ? 1 : 0.4,
+                          boxShadow:       activeIdx === idx ? `0 0 5px ${stone.color}` : "none",
                         }}
                       />
                       <span
-                        className="font-mono text-xs font-bold transition-colors duration-200"
+                        className="font-mono text-[11px] font-bold transition-colors duration-200 w-10 shrink-0"
                         style={{ color: activeIdx === idx ? stone.color : "var(--color-app-text-muted)" }}
                       >
                         {stone.year}
                       </span>
                       <span
-                        className="text-xs font-medium font-mono transition-colors duration-200"
-                        style={{
-                          color: activeIdx === idx
-                            ? "var(--color-app-text-primary)"
-                            : "var(--color-app-text-muted)",
-                        }}
+                        className="text-[11px] font-mono transition-colors duration-200 truncate"
+                        style={{ color: activeIdx === idx ? "var(--color-app-text-primary)" : "var(--color-app-text-muted)" }}
                       >
                         {stone.title}
                       </span>
@@ -285,29 +174,23 @@ export const About = () => {
                   ))}
                 </div>
 
-                {/* Right — Detail card */}
-                <div className="lg:col-span-8 col-span-12">
-                  <div
-                    className="relative rounded-xl p-6 md:p-8 overflow-hidden flex flex-col gap-6"
-                    style={{
-                      background: `var(--color-app-surface)`,
-                      boxShadow: `0 0 0 1px var(--color-app-border), 0 24px 60px rgba(0,0,0,0.15), inset 0 1px 0 var(--color-app-border)`,
-                    }}
-                  >
-                    {/* Soft ambient glow */}
+                {/* Detail card */}
+                <div className="lg:col-span-8">
+                  <div className="relative border border-app-border rounded-lg bg-app-surface overflow-hidden flex flex-col gap-5 p-6">
+                    {/* Ambient glow */}
                     <div
-                      className="absolute -top-20 -right-20 h-64 w-64 rounded-full blur-[100px] pointer-events-none"
-                      style={{ backgroundColor: active.color, opacity: 0.08 }}
+                      className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-[80px] pointer-events-none transition-colors duration-500"
+                      style={{ backgroundColor: active.color, opacity: 0.06 }}
                     />
 
-                    {/* Title block */}
+                    {/* Header */}
                     <div className="relative z-10">
-                      <div className="flex items-center gap-3 mb-2">
+                      <div className="flex items-center gap-2 mb-3">
                         <div
-                          className="h-7 w-7 flex items-center justify-center rounded-lg shrink-0"
-                          style={{ backgroundColor: `${active.color}15`, color: active.color }}
+                          className="h-6 w-6 rounded flex items-center justify-center shrink-0"
+                          style={{ backgroundColor: `${active.color}14`, color: active.color }}
                         >
-                          <ActiveIcon className="h-3.5 w-3.5" />
+                          <ActiveIcon className="h-3 w-3" />
                         </div>
                         <span
                           className="text-[10px] font-mono font-bold uppercase tracking-[0.2em]"
@@ -316,59 +199,54 @@ export const About = () => {
                           {active.tag}
                         </span>
                       </div>
-                      <div className="flex items-baseline justify-between flex-wrap gap-2">
-                        <h3 className="text-xl md:text-2xl font-black tracking-tight text-app-text-primary">
+
+                      <div className="flex items-baseline justify-between gap-2 flex-wrap">
+                        <h3 className="text-xl font-black tracking-tight text-app-text-primary">
                           {active.title}
                         </h3>
                         <AnimatedYear year={active.year} />
                       </div>
                       <p
-                        className="text-xs font-mono opacity-80 mt-1"
+                        className="text-[11px] font-mono mt-1 opacity-60"
                         style={{ color: active.color }}
                       >
                         {active.subtitle}
                       </p>
                     </div>
 
-                    {/* Detail points */}
-                    <div className="relative z-10 flex flex-col gap-3">
-                      {active.details.map((point, pIdx) => (
+                    {/* Points */}
+                    <div className="relative z-10 flex flex-col">
+                      {active.details.map((point, i) => (
                         <motion.div
-                          key={pIdx}
-                          initial={{ opacity: 0, x: -12 }}
+                          key={i}
+                          initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: pIdx * 0.1, duration: 0.35 }}
-                          className="flex items-start gap-3 py-2 border-b border-app-border last:border-0"
+                          transition={{ delay: i * 0.09, duration: 0.3 }}
+                          className="flex items-start gap-3 py-2.5 border-b border-app-border last:border-0"
                         >
                           <span
-                            className="mt-[4px] font-mono text-[9px] font-bold shrink-0 tabular-nums opacity-60"
+                            className="font-mono text-[9px] font-bold shrink-0 mt-[3px] opacity-40"
                             style={{ color: active.color }}
                           >
-                            {String(pIdx + 1).padStart(2, "0")}
+                            {String(i + 1).padStart(2, "0")}
                           </span>
-                          <p className="text-xs leading-relaxed text-app-text-secondary font-mono">{point}</p>
+                          <p className="text-[11px] leading-relaxed text-app-text-secondary font-mono">{point}</p>
                         </motion.div>
                       ))}
                     </div>
 
-                    {/* Architectural Flowchart Diagram */}
-                    <div className="relative z-10 mt-2">
-                      <MilestoneDiagram year={active.year} color={active.color} />
-                    </div>
-
-                    {/* Bottom meta */}
-                    <div className="relative z-10 flex items-center justify-between pt-4 border-t border-app-border mt-auto">
+                    {/* Footer */}
+                    <div className="relative z-10 flex items-center justify-between border-t border-app-border pt-3 mt-auto">
                       <span className="text-[9px] font-mono text-app-text-muted uppercase tracking-widest">
-                        Milestone / {active.year}
+                        Milestone · {active.year}
                       </span>
                       <span
-                        className="text-[9px] font-mono font-bold uppercase tracking-widest opacity-60"
+                        className="text-[9px] font-mono font-bold uppercase tracking-widest opacity-40"
                         style={{ color: active.color }}
                       >
                         {active.tag} ──
                       </span>
                     </div>
-
                   </div>
                 </div>
               </motion.div>

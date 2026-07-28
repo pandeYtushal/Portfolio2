@@ -7,28 +7,19 @@ import Magnetic from "./ui/Magnetic";
 const SOCIALS = [
   {
     label: "Email",
-    val: "tushalanand4@gmail.com",
-    href: "mailto:tushalanand4@gmail.com",
-    icon: Mail,
-    action: "mail",
-    hoverClass: "hover:border-app-accent/40 hover:text-app-accent",
-    iconClass: "text-app-accent",
+    href:  "mailto:tushalanand4@gmail.com",
+    icon:  Mail,
+    action: "mail" as const,
   },
   {
     label: "GitHub",
-    val: "github.com/pandeYtushal",
-    href: "https://github.com/pandeYtushal",
-    icon: Github,
-    hoverClass: "hover:border-app-text-primary/30 hover:text-app-text-primary",
-    iconClass: "text-app-text-muted group-hover:text-app-text-primary",
+    href:  "https://github.com/pandeYtushal",
+    icon:  Github,
   },
   {
     label: "LinkedIn",
-    val: "linkedin.com/in/tushal-anand18",
-    href: "https://www.linkedin.com/in/tushal-anand18/",
-    icon: Linkedin,
-    hoverClass: "hover:border-[#0077b5]/40 hover:text-[#0077b5]",
-    iconClass: "text-app-accent-blue group-hover:text-[#0077b5]",
+    href:  "https://www.linkedin.com/in/tushal-anand18/",
+    icon:  Linkedin,
   },
 ];
 
@@ -41,105 +32,97 @@ export const Contact = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard may be blocked; fail silently
+      // fail silently
     }
   }, []);
 
   return (
-    <section id="contact" className="border-t border-app-border bg-app-bg relative overflow-hidden">
-      {/* Blurred glow background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-app-accent/3 blur-[120px] pointer-events-none z-0" />
-
-      <div className="max-w-6xl mx-auto px-6 pt-24 pb-24">
+    <section id="contact" className="border-t border-app-border bg-app-bg">
+      <div className="max-w-5xl mx-auto px-6 py-24">
         <motion.div
           variants={fadeUpSubtle}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="relative z-10 w-full text-left"
+          className="flex flex-col items-start gap-10"
         >
-          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
+          {/* Label */}
+          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted">
             05 / CONTACT
           </p>
 
-          <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center space-y-6">
-            {/* Huge Typographic Headline */}
-            <h2 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-[-0.04em] text-app-text-primary leading-[1.05]">
-              LET&apos;S BUILD <br />
-              SOMETHING IMPOSSIBLE.
+          {/* Headline */}
+          <div className="max-w-3xl">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-app-text-primary leading-[0.95]">
+              LET&apos;S BUILD<br />SOMETHING<br />IMPOSSIBLE.
             </h2>
+          </div>
 
-            {/* Interactive Magnetic socials grid */}
-            <div className="flex flex-wrap items-center justify-center gap-6 pt-12">
-              {SOCIALS.map((soc) => {
-                const Icon = soc.icon;
-                if (soc.action === "mail") {
-                  return (
-                    <div key={soc.label} className="flex gap-2">
-                      <Magnetic>
-                        <a
-                          href={soc.href}
-                          className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-[10px] font-mono font-bold uppercase tracking-wider text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
-                        >
-                          <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
-                          <span>{soc.label}</span>
-                        </a>
-                      </Magnetic>
+          {/* Divider */}
+          <div className="w-full border-t border-app-border" />
 
-                      <Magnetic>
-                        <button
-                          onClick={copyEmail}
-                          className="group flex h-12 w-12 items-center justify-center rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface text-app-text-secondary hover:text-app-accent hover:border-app-accent/40 transition-all shadow-none cursor-pointer"
-                          title="Copy Email"
-                          aria-label={copied ? "Email copied" : "Copy email address"}
-                        >
-                          <AnimatePresence mode="wait">
-                            {copied ? (
-                              <motion.div
-                                key="check"
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.8, opacity: 0 }}
-                                transition={{ duration: 0.15 }}
-                              >
-                                <Check className="h-4 w-4 text-emerald-500" />
-                              </motion.div>
-                            ) : (
-                              <motion.div
-                                key="copy"
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.8, opacity: 0 }}
-                                transition={{ duration: 0.15 }}
-                              >
-                                <Copy className="h-4 w-4" />
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </button>
-                        <span className="sr-only" aria-live="polite">
-                          {copied ? "Email address copied to clipboard" : ""}
-                        </span>
-                      </Magnetic>
-                    </div>
-                  );
-                }
+          {/* Social links */}
+          <div className="flex flex-wrap gap-3">
+            {SOCIALS.map((soc) => {
+              const Icon = soc.icon;
 
+              if (soc.action === "mail") {
                 return (
-                  <Magnetic key={soc.label}>
+                  <div key={soc.label} className="flex gap-2">
+                    <Magnetic>
+                      <a
+                        id="contact-email-link"
+                        href={soc.href}
+                        className="group flex h-11 items-center gap-2 border border-app-accent/50 bg-transparent px-5 text-[11px] font-mono font-bold uppercase tracking-wider text-app-text-secondary hover:border-app-accent hover:text-app-text-primary transition-all duration-200"
+                      >
+                        <Icon className="h-3.5 w-3.5 text-app-accent shrink-0" />
+                        <span>{soc.label}</span>
+                      </a>
+                    </Magnetic>
+
+                    <Magnetic>
+                      <button
+                        id="contact-copy-email-btn"
+                        onClick={copyEmail}
+                        title="Copy email address"
+                        aria-label={copied ? "Email copied" : "Copy email address"}
+                        className="flex h-11 w-11 items-center justify-center border border-app-text-muted/40 bg-transparent text-app-text-muted hover:text-app-text-primary hover:border-app-text-secondary transition-all duration-200 cursor-pointer"
+                      >
+                        <AnimatePresence mode="wait">
+                          {copied ? (
+                            <motion.div key="check" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} transition={{ duration: 0.12 }}>
+                              <Check className="h-3.5 w-3.5 text-emerald-400" />
+                            </motion.div>
+                          ) : (
+                            <motion.div key="copy" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} transition={{ duration: 0.12 }}>
+                              <Copy className="h-3.5 w-3.5" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </button>
+                      <span className="sr-only" aria-live="polite">
+                        {copied ? "Email address copied to clipboard" : ""}
+                      </span>
+                    </Magnetic>
+                  </div>
+                );
+              }
+
+              return (
+                <Magnetic key={soc.label}>
                   <a
+                    id={`contact-${soc.label.toLowerCase()}-link`}
                     href={soc.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group flex h-12 items-center gap-2 rounded-full border border-app-border bg-app-surface/60 hover:bg-app-surface px-6 text-[10px] font-mono font-bold uppercase tracking-wider text-app-text-secondary transition-all shadow-none ${soc.hoverClass}`}
+                    className="flex h-11 items-center gap-2 border border-app-text-muted/40 bg-transparent px-5 text-[11px] font-mono font-bold uppercase tracking-wider text-app-text-secondary hover:border-app-text-secondary hover:text-app-text-primary transition-all duration-200"
                   >
-                    <Icon className={`h-4 w-4 transition-colors duration-300 ${soc.iconClass}`} />
+                    <Icon className="h-3.5 w-3.5 shrink-0" />
                     <span>{soc.label}</span>
                   </a>
-                  </Magnetic>
-                );
-              })}
-            </div>
+                </Magnetic>
+              );
+            })}
           </div>
         </motion.div>
       </div>

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 export const CustomCursor = () => {
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
+  const mouseX    = useMotionValue(-100);
+  const mouseY    = useMotionValue(-100);
   const shouldReduce = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -35,21 +35,18 @@ export const CustomCursor = () => {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
-
-      const isInteractive =
+      setIsHovered(
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
         !!target.closest("a") ||
         !!target.closest("button") ||
         !!target.closest('[role="button"]') ||
-        target.classList.contains("cursor-pointer");
-
-      setIsHovered(isInteractive);
+        target.classList.contains("cursor-pointer")
+      );
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseover", handleMouseOver);
-
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
@@ -67,14 +64,21 @@ export const CustomCursor = () => {
         translateY: "-50%",
       }}
       animate={{
-        width: isHovered ? 48 : 8,
-        height: isHovered ? 48 : 8,
-        backgroundColor: isHovered ? "rgba(255, 138, 0, 0.12)" : "rgb(255, 138, 0)",
-        borderColor: isHovered ? "rgba(255, 138, 0, 0.5)" : "rgba(255, 138, 0, 0)",
-        borderWidth: "1px",
+        width:  isHovered ? 40 : 8,
+        height: isHovered ? 40 : 8,
+        // Use a plain rgba value — no mix-blend-screen which disappears on light backgrounds.
+        // The orange dot is visible in both dark and light modes.
+        backgroundColor: isHovered
+          ? "rgba(249, 115, 22, 0.10)"
+          : "rgba(249, 115, 22, 0.90)",
+        borderColor: isHovered
+          ? "rgba(249, 115, 22, 0.50)"
+          : "rgba(249, 115, 22, 0.00)",
+        borderWidth: "1.5px",
       }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full hidden md:block mix-blend-screen"
+      // Removed mix-blend-screen — it caused the cursor to disappear on light backgrounds
+      className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full hidden md:block"
     />
   );
 };
