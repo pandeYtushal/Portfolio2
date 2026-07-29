@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Sun, Moon, X } from "lucide-react";
 import { playClickSound } from "../lib/audio";
@@ -149,6 +149,8 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const isNavigating = useRef(false);
   const shouldReduce = useReducedMotion();
 
   /* ── Scroll detection ── */
@@ -161,18 +163,51 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
 
   /* ── Active section tracking ── */
   useEffect(() => {
-    const ids = NAV_ITEMS.map((i) => i.href.slice(1));
-    const observers = ids.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-35% 0px -60% 0px", threshold: 0 }
+    const handleScroll = () => {
+      if (isNavigating.current) return;
+
+      const scrollPosition = window.scrollY + 120; // Offset for header + buffer
+
+      // Check if we are at the bottom of the page
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 60;
+
+      if (isAtBottom) {
+        setActiveSection("contact");
+        return;
+      }
+
+      // Find the current section
+      const sections = NAV_ITEMS.map((item) => {
+        const el = document.getElementById(item.href.slice(1));
+        return {
+          id: item.href.slice(1),
+          offsetTop: el ? el.offsetTop : 0,
+          offsetHeight: el ? el.offsetHeight : 0,
+        };
+      });
+
+      // Find which section contains the scrollPosition
+      const current = sections.find(
+        (sec) =>
+          scrollPosition >= sec.offsetTop &&
+          scrollPosition < sec.offsetTop + sec.offsetHeight
       );
-      obs.observe(el);
-      return obs;
-    });
-    return () => observers.forEach((o) => o?.disconnect());
+
+      if (current) {
+        setActiveSection(current.id);
+      } else if (window.scrollY < 100) {
+        // If at the very top, clear active section
+        setActiveSection("");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once initially
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   /* ── Close on desktop ── */
@@ -192,12 +227,20 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
+      const id = href.slice(1);
+      setActiveSection(id);
+      isNavigating.current = true;
+
       const el = document.querySelector(href);
       if (el) {
         const top = el.getBoundingClientRect().top + window.scrollY - 54;
         window.scrollTo({ top, behavior: "smooth" });
       }
       setMobileOpen(false);
+
+      setTimeout(() => {
+        isNavigating.current = false;
+      }, 800);
     },
     []
   );
@@ -249,32 +292,47 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
           </button>
 
           {/* Desktop nav */}
-          <nav aria-label="Site navigation" className="hidden md:flex items-center gap-0.5">
-            {NAV_ITEMS.map((item) => {
+          <nav
+            aria-label="Site navigation"
+            className="hidden md:flex items-center gap-0.5"
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {NAV_ITEMS.map((item, index) => {
               const isActive = activeSection === item.href.slice(1);
+              const isHovered = hoveredIndex === index;
               return (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                   className="relative px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] transition-colors duration-200"
                   style={{
-                    color: isActive
+                    color: isActive || isHovered
                       ? "var(--color-app-text-primary)"
                       : "var(--color-app-text-muted)",
                   }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.color = "var(--color-app-text-primary)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.color = "var(--color-app-text-muted)";
-                  }}
                 >
-                  {item.label}
+                  {/* Sliding Hover Background Pill */}
+                  {isHovered && (
+                    <motion.span
+                      layoutId="desktop-hover-pill"
+                      className="absolute inset-0 bg-app-surface-secondary/40 rounded-md z-0"
+                      transition={
+                        shouldReduce
+                          ? { duration: 0 }
+                          : { type: "spring", stiffness: 300, damping: 28 }
+                      }
+                    />
+                  )}
+
+                  <span className="relative z-10">{item.label}</span>
+
                   {isActive && (
                     <motion.span
                       layoutId="desktop-active-line"
-                      className="absolute bottom-0 left-3 right-3 h-[1.5px] bg-app-accent rounded-full"
+                      className="absolute bottom-0 left-3 right-3 h-[1.5px] bg-app-accent rounded-full z-10"
                       transition={
                         shouldReduce
                           ? { duration: 0 }

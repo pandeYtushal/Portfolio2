@@ -7,7 +7,7 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal = ({ onClose }: ResumeModalProps) => {
-  const pdfUrl = "/Tushal_Resume.pdf";
+  const pdfUrl = "/Tushal Anand_Resume.pdf";
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
