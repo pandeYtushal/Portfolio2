@@ -4,7 +4,7 @@ import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import { fadeUpSubtle, staggerContainer, fadeUp } from "../lib/motion";
 
 const MEDIUM_USERNAME = "tushalpandey";
-const RSS_API_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}`;
+const RSS_API_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}&t=${Date.now()}`;
 
 interface MediumPost {
   title: string;
