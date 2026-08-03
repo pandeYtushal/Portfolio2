@@ -9,7 +9,7 @@ const AnimatedNumber = ({ value }: { value: number }) => {
   useEffect(() => {
     if (value === 0) return;
     let start = 0;
-    const duration = 1800;
+    const duration = 800;
     const step = 16;
     const increment = value / (duration / step);
     const timer = setInterval(() => {
@@ -27,31 +27,45 @@ const AnimatedNumber = ({ value }: { value: number }) => {
   return <>{display.toLocaleString()}</>;
 };
 
-/* ── Visitor count (localStorage) ────────────────────────────────── */
-const TOTAL_KEY = "_pv2_total";
-const SESSION_KEY = "_pv2_session";
-const BASE = parseInt(import.meta.env.VITE_VISITOR_BASE ?? "0", 10); // ← change this number to set the starting visitor count
+/* ── Visitor count (counterapi.dev — real, shared across all users) ── */
+// Namespace is unique to your portfolio. Counter auto-creates on first hit.
+const NAMESPACE = "tushal-pandey-portfolio-v1";
+const COUNTER_KEY = "visitors";
+
+// Optional seed: set VITE_VISITOR_BASE in your Vercel/Netlify dashboard
+// so the displayed count = API count + BASE
+const BASE = parseInt(import.meta.env.VITE_VISITOR_BASE ?? "0", 10);
+
+const SESSION_KEY = "_pv_session";
+
+const CACHE_KEY = "_pv_cache"; // localStorage cache for instant display
 
 const useVisitorCount = () => {
-  const [count, setCount] = useState(0);
+  // Seed from cache immediately so there's no blank delay
+  const [count, setCount] = useState(() => {
+    const cached = parseInt(localStorage.getItem(CACHE_KEY) ?? "0", 10);
+    return cached > 0 ? cached + BASE : 0;
+  });
 
   useEffect(() => {
     const alreadyCounted = sessionStorage.getItem(SESSION_KEY);
-    const stored = Math.max(
-      BASE,
-      parseInt(localStorage.getItem(TOTAL_KEY) ?? "0", 10)
-    );
 
-    if (!alreadyCounted) {
-      // New browser session → increment
-      const next = stored + 1;
-      localStorage.setItem(TOTAL_KEY, String(next));
-      sessionStorage.setItem(SESSION_KEY, "1");
-      setCount(next);
-    } else {
-      // Same session → just show stored value
-      setCount(stored);
-    }
+    // New session → increment; same session → just read
+    const endpoint = alreadyCounted
+      ? `https://api.counterapi.dev/v1/${NAMESPACE}/${COUNTER_KEY}`
+      : `https://api.counterapi.dev/v1/${NAMESPACE}/${COUNTER_KEY}/up`;
+
+    fetch(endpoint)
+      .then((r) => r.json())
+      .then((data) => {
+        const val = (data?.count ?? data?.value ?? 0);
+        if (val > 0) {
+          localStorage.setItem(CACHE_KEY, String(val)); // update cache
+          setCount(val + BASE);
+          if (!alreadyCounted) sessionStorage.setItem(SESSION_KEY, "1");
+        }
+      })
+      .catch(() => {/* keep showing cached value */});
   }, []);
 
   return count;
