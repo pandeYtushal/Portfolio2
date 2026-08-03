@@ -290,13 +290,13 @@ export const About = () => {
             </div>
             <div className="relative z-10 flex flex-col gap-1.5">
               <p className="text-sm font-black tracking-tight text-app-text-primary leading-tight">
-                JavaScript Apprenticeship
+                Apprenticeship
               </p>
               <p className="text-[11px] font-mono text-app-text-secondary">
                 Metacrafters
               </p>
               <p className="text-[10px] font-mono text-app-text-muted mt-0.5">
-                May 2024 – Jul 2024
+                June 2024 – August 2024
               </p>
             </div>
             <div className="relative z-10 flex flex-col gap-1.5">
@@ -370,8 +370,8 @@ export const About = () => {
                     onClick={() => setActiveIdx(idx)}
                     className="shrink-0 px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest rounded-full border transition-all duration-200 cursor-pointer"
                     style={{
-                      borderColor:     activeIdx === idx ? `${stone.color}40` : "var(--color-app-border)",
-                      color:           activeIdx === idx ? stone.color : "var(--color-app-text-muted)",
+                      borderColor: activeIdx === idx ? `${stone.color}40` : "var(--color-app-border)",
+                      color: activeIdx === idx ? stone.color : "var(--color-app-text-muted)",
                       backgroundColor: activeIdx === idx ? `${stone.color}0e` : "transparent",
                     }}
                   >
@@ -401,8 +401,8 @@ export const About = () => {
                           className="h-1.5 w-1.5 rounded-full shrink-0 transition-all duration-300"
                           style={{
                             backgroundColor: activeIdx === idx ? stone.color : "var(--color-app-text-muted)",
-                            opacity:         activeIdx === idx ? 1 : 0.4,
-                            boxShadow:       activeIdx === idx ? `0 0 5px ${stone.color}` : "none",
+                            opacity: activeIdx === idx ? 1 : 0.4,
+                            boxShadow: activeIdx === idx ? `0 0 5px ${stone.color}` : "none",
                           }}
                         />
                         <span
