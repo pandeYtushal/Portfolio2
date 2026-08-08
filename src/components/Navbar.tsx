@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Sun, Moon, X } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion, useDragControls } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
 import { playClickSound } from "../lib/audio";
 
 const NAV_ITEMS = [
@@ -47,7 +47,7 @@ const ThemeToggle = ({
       className="relative shrink-0 cursor-pointer rounded-full border border-app-border bg-app-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1"
       style={{ width: w, height: h, display: "flex", alignItems: "center" }}
     >
-      {/* Track icons */}
+      {/* track icons */}
       <span
         className="absolute flex items-center justify-center transition-opacity duration-200"
         style={{ left: 7, width: thumb - 6, height: thumb - 4 }}
@@ -69,7 +69,7 @@ const ThemeToggle = ({
         />
       </span>
 
-      {/* Sliding thumb */}
+      {/* sliding thumb */}
       <motion.span
         animate={{ x: isDark ? 2 : travel }}
         transition={{ type: "spring", stiffness: 500, damping: 36, mass: 0.5 }}
@@ -142,9 +142,168 @@ const HamburgerIcon = ({ open }: { open: boolean }) => (
   </span>
 );
 
-/* ─────────────────────────────────────────────────────────────
-   MAIN NAVBAR
-───────────────────────────────────────────────────────────── */
+/* bottom sheet — swipe to close, staggered links, focus trap */
+interface BottomSheetProps {
+  activeSection: string;
+  onClose: () => void;
+  onNavClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+  shouldReduce: boolean;
+  theme: string;
+  onToggleTheme: (e: React.MouseEvent) => void;
+}
+
+const BottomSheet = ({
+  activeSection,
+  onClose,
+  onNavClick,
+  shouldReduce,
+}: BottomSheetProps) => {
+  const sheetRef = useRef<HTMLElement>(null);
+  const dragControls = useDragControls();
+
+  /* ── Focus trap ── */
+  useEffect(() => {
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+
+    const focusable = sheet.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    const trap = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    };
+
+    document.addEventListener("keydown", trap);
+    first?.focus();
+    return () => document.removeEventListener("keydown", trap);
+  }, [onClose]);
+
+  /* ── Close on scroll ── */
+  useEffect(() => {
+    const onScroll = () => onClose();
+    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [onClose]);
+
+  return (
+    <motion.aside
+      id="mobile-nav-panel"
+      layoutId="mobile-nav"
+      layout
+      ref={sheetRef}
+      drag="y"
+      dragControls={dragControls}
+      dragListener={false}
+      dragConstraints={{ top: 0, bottom: 0 }}
+      dragElastic={{ top: 0, bottom: 0.4 }}
+      onDragEnd={(_, info) => {
+        if (info.offset.y > 80 || info.velocity.y > 300) onClose();
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ type: "spring", stiffness: 360, damping: 38, mass: 0.7 }}
+      className="fixed bottom-0 left-0 right-0 z-[109] bg-app-bg border-t border-app-border flex flex-col md:hidden overflow-hidden"
+      style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, maxHeight: "85dvh" }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation"
+    >
+      {/* Drag handle — touch target to initiate swipe */}
+      <div
+        className="flex justify-center pt-3 pb-1 cursor-grab active:cursor-grabbing shrink-0"
+        onPointerDown={(e) => dragControls.start(e)}
+      >
+        <div className="h-1 w-10 rounded-full bg-app-border" />
+      </div>
+
+      {/* Sheet header */}
+      <div className="flex items-center justify-between px-5 py-3 shrink-0">
+        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted">
+          {activeSection ? (
+            <>
+              <span className="text-app-accent">{activeSection}</span>
+              <span className="mx-1.5 opacity-30">/</span>
+              <span>Menu</span>
+            </>
+          ) : "Menu"}
+        </span>
+        <button
+          onClick={onClose}
+          aria-label="Close menu"
+          className="flex h-8 w-8 items-center justify-center text-app-text-muted hover:text-app-text-primary transition-colors cursor-pointer"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Nav links */}
+      <nav
+        aria-label="Mobile navigation"
+        className="flex flex-col px-3 pb-4 gap-0.5 overflow-y-auto"
+      >
+        {NAV_ITEMS.map((item, i) => {
+          const isActive = activeSection === item.href.slice(1);
+          return (
+            <motion.a
+              key={item.href}
+              href={item.href}
+              onClick={(e) => onNavClick(e, item.href)}
+              initial={shouldReduce ? {} : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={shouldReduce ? {} : { opacity: 0, y: 10, transition: { delay: (NAV_ITEMS.length - 1 - i) * 0.03, duration: 0.15 } }}
+              transition={{ delay: i * 0.05, duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative flex items-center justify-between px-4 py-4 transition-colors duration-150"
+              style={{
+                color: isActive ? "var(--color-app-text-primary)" : "var(--color-app-text-secondary)",
+                backgroundColor: isActive ? "var(--color-app-surface)" : "transparent",
+              }}
+            >
+              {/* Left accent bar */}
+              {isActive && (
+                <motion.span
+                  layoutId="sheet-active-bar"
+                  className="absolute left-0 top-2 bottom-2 w-[2px] bg-app-accent"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="flex items-center gap-4">
+                <span
+                  className="text-[10px] font-mono tabular-nums w-5 text-right"
+                  style={{ color: "var(--color-app-text-muted)" }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-base font-mono font-bold uppercase tracking-[0.1em]">
+                  {item.label}
+                </span>
+              </span>
+              {isActive && (
+                <span className="h-1.5 w-1.5 rounded-full bg-app-accent shrink-0" />
+              )}
+            </motion.a>
+          );
+        })}
+      </nav>
+
+      {/* Bottom safe area */}
+      <div className="shrink-0 h-6" style={{ paddingBottom: "env(safe-area-inset-bottom)" }} />
+    </motion.aside>
+  );
+};
+
+/* main navbar */
 export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -262,9 +421,7 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
 
   return (
     <>
-      {/* ════════════════════════════════════════
-          TOP BAR
-      ════════════════════════════════════════ */}
+      {/* top bar */}
       <header
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled
             ? "border-b border-app-border bg-app-bg/95 backdrop-blur-xl shadow-sm dark:shadow-none"
@@ -351,27 +508,14 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
             <ThemeToggle theme={theme} onToggle={handleThemeToggle} size="sm" />
           </nav>
 
-          {/* Mobile controls */}
-          <div className="md:hidden flex items-center gap-3">
+          {/* Mobile: only theme toggle in top bar — nav is in the floating FAB */}
+          <div className="md:hidden flex items-center">
             <ThemeToggle theme={theme} onToggle={handleThemeToggle} size="sm" />
-
-            <button
-              id="mobile-menu-btn"
-              onClick={() => setMobileOpen((p) => !p)}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-nav-panel"
-              className="flex h-9 w-9 items-center justify-center text-app-text-secondary hover:text-app-text-primary transition-colors cursor-pointer"
-            >
-              <HamburgerIcon open={mobileOpen} />
-            </button>
           </div>
         </div>
       </header>
 
-      {/* ════════════════════════════════════════
-          MOBILE — Backdrop
-      ════════════════════════════════════════ */}
+      {/* backdrop */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -380,95 +524,51 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[108] bg-black/50 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-[108] bg-black/60 backdrop-blur-[3px] md:hidden"
             onClick={closeMobile}
             aria-hidden
           />
         )}
       </AnimatePresence>
 
-      {/* ════════════════════════════════════════
-          MOBILE — Right-side sliding panel
-      ════════════════════════════════════════ */}
+      {/* bottom sheet */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.aside
-            id="mobile-nav-panel"
-            key="panel"
-            initial={{ x: "100%" }}
-            animate={{ x: "0%" }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 340, damping: 36, mass: 0.8 }}
-            className="fixed top-0 right-0 bottom-0 z-[109] w-72 max-w-[85vw] bg-app-bg border-l border-app-border flex flex-col md:hidden"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation panel"
+          <BottomSheet
+            activeSection={activeSection}
+            onClose={closeMobile}
+            onNavClick={handleNavClick}
+            shouldReduce={!!shouldReduce}
+            theme={theme}
+            onToggleTheme={handleThemeToggle}
+          />
+        )}
+      </AnimatePresence>
+      {/* floating FAB — mobile only */}
+      <AnimatePresence>
+        {!mobileOpen && (
+          <motion.button
+            id="mobile-menu-btn"
+            layoutId="mobile-nav"
+            layout
+            key="fab"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-controls="mobile-nav-panel"
+            className="fixed bottom-6 right-6 z-[107] md:hidden flex items-center justify-center px-5 py-3 cursor-pointer"
+            style={{
+              background: "var(--color-app-surface)",
+              border: "1px solid var(--color-app-border)",
+              borderRadius: 999,
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.12)",
+            }}
+            whileTap={{ scale: 0.93 }}
+            transition={{ type: "spring", stiffness: 420, damping: 28 }}
           >
-            {/* Panel header */}
-            <div className="flex items-center justify-between px-5 h-[54px] border-b border-app-border shrink-0">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-app-text-muted">
-                Menu
-              </span>
-              <button
-                onClick={closeMobile}
-                aria-label="Close navigation"
-                className="flex h-8 w-8 items-center justify-center text-app-text-muted hover:text-app-text-primary transition-colors cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Nav links */}
-            <nav
-              aria-label="Mobile navigation"
-              className="flex flex-col flex-1 px-3 py-5 gap-0.5 overflow-y-auto"
-            >
-              {NAV_ITEMS.map((item, i) => {
-                const isActive = activeSection === item.href.slice(1);
-                return (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    initial={shouldReduce ? {} : { opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04, duration: 0.22, ease: "easeOut" }}
-                    className="flex items-center justify-between px-3 py-4 rounded transition-all duration-150"
-                    style={{
-                      color: isActive
-                        ? "var(--color-app-text-primary)"
-                        : "var(--color-app-text-secondary)",
-                      backgroundColor: isActive
-                        ? "var(--color-app-surface)"
-                        : "transparent",
-                    }}
-                  >
-                    <span className="flex items-center gap-3">
-                      <span
-                        className="text-[10px] font-mono tabular-nums"
-                        style={{ color: "var(--color-app-text-muted)" }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-sm font-mono font-bold uppercase tracking-[0.12em]">
-                        {item.label}
-                      </span>
-                    </span>
-                    {isActive && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-app-accent shrink-0" />
-                    )}
-                  </motion.a>
-                );
-              })}
-            </nav>
-
-            {/* Panel footer */}
-            <div className="px-5 py-5 border-t border-app-border shrink-0">
-              <p className="text-[10px] font-mono text-app-text-muted uppercase tracking-widest mb-1">
-                TUSHAL PANDEY
-              </p>
-            </div>
-          </motion.aside>
+            <HamburgerIcon open={false} />
+          </motion.button>
         )}
       </AnimatePresence>
     </>

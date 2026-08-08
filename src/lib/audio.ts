@@ -1,36 +1,29 @@
-// Web Audio API Synthesizer
 let audioCtx: AudioContext | null = null;
 
-const getAudioContext = (): AudioContext => {
-  if (!audioCtx) {
+const ctx = (): AudioContext => {
+  if (!audioCtx)
     audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-  }
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
+  if (audioCtx.state === "suspended") audioCtx.resume();
   return audioCtx;
 };
 
 export const playClickSound = () => {
   try {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gainNode = ctx.createGain();
+    const c = ctx();
+    const osc = c.createOscillator();
+    const gain = c.createGain();
 
     osc.type = "triangle";
-    // Soft click/pop
-    osc.frequency.setValueAtTime(450, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.06);
+    osc.frequency.setValueAtTime(450, c.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200, c.currentTime + 0.06);
+    gain.gain.setValueAtTime(0.025, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.06);
 
-    gainNode.gain.setValueAtTime(0.025, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
-
-    osc.connect(gainNode);
-    gainNode.connect(ctx.destination);
-
+    osc.connect(gain);
+    gain.connect(c.destination);
     osc.start();
-    osc.stop(ctx.currentTime + 0.06);
+    osc.stop(c.currentTime + 0.06);
   } catch {
-    // Fail silently
+    // silent fail
   }
 };

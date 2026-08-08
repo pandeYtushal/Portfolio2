@@ -12,35 +12,29 @@ export const CursorSpotlight = () => {
 
   useEffect(() => {
     if (shouldReduce) return () => {};
-
     const parent = containerRef.current?.parentElement;
     if (!parent) return () => {};
 
-    const computedStyle = window.getComputedStyle(parent);
-    if (computedStyle.position === "static") {
+    if (window.getComputedStyle(parent).position === "static")
       parent.style.position = "relative";
-    }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = parent.getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left);
-      mouseY.set(e.clientY - rect.top);
+    const onMove = (e: MouseEvent) => {
+      const r = parent.getBoundingClientRect();
+      mouseX.set(e.clientX - r.left);
+      mouseY.set(e.clientY - r.top);
+    };
+    const onTouch = (e: TouchEvent) => {
+      if (!e.touches.length) return;
+      const r = parent.getBoundingClientRect();
+      mouseX.set(e.touches[0].clientX - r.left);
+      mouseY.set(e.touches[0].clientY - r.top);
     };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length === 0) return;
-      const rect = parent.getBoundingClientRect();
-      const touch = e.touches[0];
-      mouseX.set(touch.clientX - rect.left);
-      mouseY.set(touch.clientY - rect.top);
-    };
-
-    parent.addEventListener("mousemove", handleMouseMove);
-    parent.addEventListener("touchmove", handleTouchMove, { passive: true });
-
+    parent.addEventListener("mousemove", onMove);
+    parent.addEventListener("touchmove", onTouch, { passive: true });
     return () => {
-      parent.removeEventListener("mousemove", handleMouseMove);
-      parent.removeEventListener("touchmove", handleTouchMove);
+      parent.removeEventListener("mousemove", onMove);
+      parent.removeEventListener("touchmove", onTouch);
     };
   }, [mouseX, mouseY, shouldReduce]);
 
@@ -48,10 +42,6 @@ export const CursorSpotlight = () => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-      {/*
-        Dark mode: warm orange glow at 45% opacity — visible and atmospheric.
-        Light mode: very faint glow at 12% opacity — barely-there, not distracting on white.
-      */}
       <motion.div
         className="absolute inset-0 opacity-[0.12] dark:opacity-[0.45]"
         style={{

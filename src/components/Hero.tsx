@@ -15,7 +15,6 @@ const TYPING_ROLES = [
 
 const AvatarCard = () => (
   <div className="w-[240px] shrink-0">
-    {/* Photo container */}
     <div className="relative overflow-hidden rounded-xl border border-app-border bg-app-surface-secondary aspect-[3/4]">
       <img
         src="/avtar.png"
@@ -23,11 +22,9 @@ const AvatarCard = () => (
         className="w-full h-full object-cover"
         onError={(e) => { e.currentTarget.style.display = "none"; }}
       />
-      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
     </div>
 
-    {/* Meta info */}
     <div className="mt-3 flex flex-col gap-1.5 pl-0.5">
       <div className="flex items-center gap-1.5 text-[10px] font-mono text-app-text-muted">
         <MapPin className="h-2.5 w-2.5 shrink-0" />
@@ -78,14 +75,9 @@ export const Hero = () => {
   const headline = ["BUILDING", "AUTONOMOUS", "SYSTEMS."];
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-app-bg"
-    >
-      {/* Cursor spotlight effect */}
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-app-bg">
       <CursorSpotlight />
 
-      {/* Subtle dot-grid background */}
       <div
         className="absolute inset-0 pointer-events-none z-0 dark:block hidden"
         style={{
@@ -98,10 +90,7 @@ export const Hero = () => {
       <div className="relative z-10 mx-auto max-w-5xl w-full px-6 pt-28 pb-20">
         <div className="flex flex-col lg:flex-row items-start justify-between gap-14 lg:gap-20">
 
-          {/* ── LEFT — Copy ── */}
           <div className="flex-1 flex flex-col items-start min-w-0">
-
-            {/* Label */}
             <motion.p
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -111,7 +100,6 @@ export const Hero = () => {
               00 / INTRO
             </motion.p>
 
-            {/* Typing role */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -122,7 +110,6 @@ export const Hero = () => {
               <span className="ml-0.5 inline-block w-[2px] h-[14px] bg-app-accent animate-pulse" />
             </motion.div>
 
-            {/* Headline */}
             <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] font-black tracking-tight leading-[0.95] text-app-text-primary mb-6">
               {headline.map((word, i) => (
                 <span key={i} className="block overflow-hidden pb-1">
@@ -138,7 +125,6 @@ export const Hero = () => {
               ))}
             </h1>
 
-            {/* Tagline */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -149,7 +135,6 @@ export const Hero = () => {
               Specializing in AI agents, browser automation, and full-stack products.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -184,7 +169,6 @@ export const Hero = () => {
             </motion.div>
           </div>
 
-          {/* ── RIGHT — Avatar ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -72,22 +72,30 @@ const AchievementBadge = ({ item, index }: { item: Achievement; index: number })
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.1, duration: 0.4, ease: easeOut }}
-    className="flex-shrink-0 flex items-start gap-3 border border-app-border rounded-lg p-4 bg-app-surface min-w-[200px] relative overflow-hidden group hover:border-opacity-60 transition-all duration-300"
+    className="relative overflow-hidden group transition-all duration-300 border border-app-border bg-app-surface
+      /* mobile: portrait card */
+      flex flex-col items-center text-center gap-2 p-4 rounded-lg
+      /* sm+: landscape row */
+      sm:flex-row sm:items-start sm:text-left sm:min-w-[200px] sm:flex-shrink-0"
     style={{ borderColor: `${item.color}20` }}
   >
     {/* ambient glow */}
     <div
       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
       style={{
-        background: `radial-gradient(circle at 0% 0%, ${item.color}0a 0%, transparent 70%)`,
+        background: `radial-gradient(circle at 50% 0%, ${item.color}12 0%, transparent 70%)`,
       }}
     />
+
+    {/* icon */}
     <div
-      className="h-7 w-7 rounded flex items-center justify-center shrink-0 relative z-10"
+      className="h-9 w-9 rounded-lg flex items-center justify-center shrink-0 relative z-10 sm:h-7 sm:w-7 sm:rounded"
       style={{ backgroundColor: `${item.color}14`, color: item.color }}
     >
-      <item.icon className="h-3.5 w-3.5" />
+      <item.icon className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
     </div>
+
+    {/* text */}
     <div className="relative z-10 min-w-0">
       <p className="text-xs font-semibold text-app-text-primary leading-tight">{item.label}</p>
       <p className="text-[10px] font-mono text-app-text-muted mt-0.5 leading-relaxed">{item.sub}</p>
@@ -512,7 +520,7 @@ export const About = () => {
           <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
             Achievements
           </p>
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-nowrap sm:overflow-x-auto sm:pb-2 scrollbar-none">
             {ACHIEVEMENTS.map((item, index) => (
               <AchievementBadge key={item.label} item={item} index={index} />
             ))}

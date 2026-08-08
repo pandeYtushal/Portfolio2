@@ -33,7 +33,6 @@ export const Skills = () => {
     <section id="skills" className="border-t border-app-border bg-app-bg">
       <div className="max-w-5xl mx-auto px-6 pt-24 pb-24">
 
-        {/* Header */}
         <motion.div
           variants={fadeUpSubtle}
           initial="hidden"
@@ -52,7 +51,6 @@ export const Skills = () => {
           </p>
         </motion.div>
 
-        {/* Category tabs */}
         <div className="flex flex-wrap gap-2 mb-8 border-b border-app-border pb-6">
           {SKILL_CATEGORIES.map((cat) => {
             const isActive = activeId === cat.id;
@@ -81,7 +79,6 @@ export const Skills = () => {
           })}
         </div>
 
-        {/* Skill tags */}
         <div className="min-h-[160px]">
           <AnimatePresence mode="wait">
             <motion.div

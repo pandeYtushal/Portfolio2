@@ -11,24 +11,20 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, []);
 
   useEffect(() => {
-    const handleKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const handleCopy = async () => {
+  const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.origin + pdfUrl);
     } catch (err) {
-      console.warn("Failed to copy link:", err);
+      console.warn("copy failed:", err);
     }
   };
 
@@ -40,7 +36,7 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
     >
       <div
         className="relative flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-app-border bg-app-surface shadow-2xl"
-        onClick={(event) => event.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="resume-title"
@@ -58,10 +54,9 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
 
           <div className="flex shrink-0 items-center gap-2">
             <button
-              onClick={handleCopy}
-              title="Copy link"
+              onClick={copyLink}
               aria-label="Copy resume link"
-              className="flex h-8 items-center gap-1.5 rounded-lg border border-app-border bg-transparent px-2.5 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none sm:px-3 cursor-pointer"
+              className="flex h-8 items-center gap-1.5 rounded-lg border border-app-border bg-transparent px-2.5 text-xs font-semibold text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 focus-visible:outline-none sm:px-3 cursor-pointer"
             >
               <Copy className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Copy Link</span>
@@ -69,9 +64,8 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
             <a
               href={pdfUrl}
               download
-              title="Download resume"
               aria-label="Download resume"
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 focus-visible:outline-none"
             >
               <Download className="h-4 w-4" />
             </a>
@@ -79,17 +73,15 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
               href={pdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              title="Open in new tab"
               aria-label="Open resume in new tab"
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 focus-visible:outline-none"
             >
               <ExternalLink className="h-4 w-4" />
             </a>
             <button
               onClick={onClose}
-              title="Close"
               aria-label="Close resume preview"
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 shadow-none focus-visible:outline-none cursor-pointer"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-app-border bg-transparent text-app-text-secondary hover:bg-app-surface-secondary hover:text-app-text-primary transition-all active:scale-95 focus-visible:outline-none cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
