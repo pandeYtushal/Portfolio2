@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion, useDragControls } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Sun, Moon, X } from "lucide-react";
 import { playClickSound } from "../lib/audio";
 
 const NAV_ITEMS = [
@@ -17,9 +17,46 @@ interface NavbarProps {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   THEME TOGGLE — sliding pill switch
-   Thumb slides left (dark/moon) or right (light/sun).
-   The icon inside the thumb switches to reflect the CURRENT mode.
+   MODERN HAMBURGER ICON — 3 lines with staggered widths
+───────────────────────────────────────────────────────────── */
+const HamburgerIcon = ({ open }: { open?: boolean }) => (
+  <motion.span
+    aria-hidden
+    className="relative flex flex-col justify-center items-end gap-[4px] w-5 h-5 cursor-pointer"
+    whileHover="hover"
+  >
+    <motion.span
+      animate={{ rotate: open ? 45 : 0, y: open ? 5.5 : 0 }}
+      variants={{
+        hover: { width: 20 },
+      }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
+      className="block h-[1.5px] rounded-none bg-app-text-primary origin-center"
+      style={{ width: 20 }}
+    />
+    <motion.span
+      animate={{ scaleX: open ? 0 : 1, opacity: open ? 0 : 1 }}
+      variants={{
+        hover: { width: 18, x: -2 },
+      }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
+      className="block h-[1.5px] rounded-none bg-app-accent origin-right"
+      style={{ width: 12 }}
+    />
+    <motion.span
+      animate={{ rotate: open ? -45 : 0, y: open ? -5.5 : 0 }}
+      variants={{
+        hover: { width: 20 },
+      }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
+      className="block h-[1.5px] rounded-none bg-app-text-primary origin-center"
+      style={{ width: 20 }}
+    />
+  </motion.span>
+);
+
+/* ─────────────────────────────────────────────────────────────
+   THEME TOGGLE — rounded sliding pill switch
 ───────────────────────────────────────────────────────────── */
 const ThemeToggle = ({
   theme,
@@ -31,10 +68,10 @@ const ThemeToggle = ({
   size?: "sm" | "md";
 }) => {
   const isDark = theme === "dark";
-  const w = size === "md" ? 56 : 44;
-  const h = size === "md" ? 28 : 22;
+  const w = size === "md" ? 52 : 42;
+  const h = size === "md" ? 26 : 22;
   const thumb = h - 4;
-  const travel = w - thumb - 4; // px from left edge to right resting position
+  const travel = w - thumb - 4;
 
   return (
     <motion.button
@@ -42,34 +79,30 @@ const ThemeToggle = ({
       onClick={onToggle}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       aria-pressed={!isDark}
-      whileTap={{ scale: 0.93 }}
+      whileTap={{ scale: 0.92 }}
       transition={{ duration: 0.1 }}
-      className="relative shrink-0 cursor-pointer rounded-full border border-app-border bg-app-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1"
+      className="relative shrink-0 cursor-pointer rounded-full border border-app-border bg-app-surface-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
       style={{ width: w, height: h, display: "flex", alignItems: "center" }}
     >
-      {/* track icons */}
       <span
         className="absolute flex items-center justify-center transition-opacity duration-200"
-        style={{ left: 7, width: thumb - 6, height: thumb - 4 }}
+        style={{ left: 6, width: thumb - 4, height: thumb - 4 }}
         aria-hidden
       >
         <Moon
-          className="transition-opacity duration-200"
           style={{ width: size === "md" ? 11 : 9, height: size === "md" ? 11 : 9, opacity: isDark ? 0 : 0.35 }}
         />
       </span>
       <span
         className="absolute flex items-center justify-center transition-opacity duration-200"
-        style={{ right: 7, width: thumb - 6, height: thumb - 4 }}
+        style={{ right: 6, width: thumb - 4, height: thumb - 4 }}
         aria-hidden
       >
         <Sun
-          className="transition-opacity duration-200"
           style={{ width: size === "md" ? 11 : 9, height: size === "md" ? 11 : 9, opacity: isDark ? 0.35 : 0 }}
         />
       </span>
 
-      {/* sliding thumb */}
       <motion.span
         animate={{ x: isDark ? 2 : travel }}
         transition={{ type: "spring", stiffness: 500, damping: 36, mass: 0.5 }}
@@ -92,9 +125,7 @@ const ThemeToggle = ({
               transition={{ duration: 0.18 }}
               className="flex"
             >
-              <Moon
-                style={{ width: size === "md" ? 12 : 10, height: size === "md" ? 12 : 10, color: "var(--color-app-bg)" }}
-              />
+              <Moon style={{ width: size === "md" ? 12 : 10, height: size === "md" ? 12 : 10, color: "var(--color-app-bg)" }} />
             </motion.span>
           ) : (
             <motion.span
@@ -105,9 +136,7 @@ const ThemeToggle = ({
               transition={{ duration: 0.18 }}
               className="flex"
             >
-              <Sun
-                style={{ width: size === "md" ? 12 : 10, height: size === "md" ? 12 : 10, color: "var(--color-app-bg)" }}
-              />
+              <Sun style={{ width: size === "md" ? 12 : 10, height: size === "md" ? 12 : 10, color: "var(--color-app-bg)" }} />
             </motion.span>
           )}
         </AnimatePresence>
@@ -117,142 +146,76 @@ const ThemeToggle = ({
 };
 
 /* ─────────────────────────────────────────────────────────────
-   ANIMATED HAMBURGER — 3 lines morph to × on open
+   FULL-SCREEN OVERLAY
 ───────────────────────────────────────────────────────────── */
-const HamburgerIcon = ({ open }: { open: boolean }) => (
-  <span aria-hidden className="flex flex-col justify-center items-end gap-[5px] w-5 h-5">
-    <motion.span
-      animate={{ rotate: open ? 45 : 0, y: open ? 10 : 0 }}
-      transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
-      className="block h-[1.5px] rounded-full bg-current origin-center"
-      style={{ width: 20 }}
-    />
-    <motion.span
-      animate={{ scaleX: open ? 0 : 1, opacity: open ? 0 : 1 }}
-      transition={{ duration: 0.18 }}
-      className="block h-[1.5px] rounded-full bg-current"
-      style={{ width: 14 }}
-    />
-    <motion.span
-      animate={{ rotate: open ? -45 : 0, y: open ? -10 : 0 }}
-      transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
-      className="block h-[1.5px] rounded-full bg-current origin-center"
-      style={{ width: 20 }}
-    />
-  </span>
-);
-
-/* bottom sheet — swipe to close, staggered links, focus trap */
-interface BottomSheetProps {
+interface FullScreenOverlayProps {
   activeSection: string;
   onClose: () => void;
   onNavClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
-  shouldReduce: boolean;
   theme: string;
   onToggleTheme: (e: React.MouseEvent) => void;
 }
 
-const BottomSheet = ({
+const FullScreenOverlay = ({
   activeSection,
   onClose,
   onNavClick,
-  shouldReduce,
-}: BottomSheetProps) => {
-  const sheetRef = useRef<HTMLElement>(null);
-  const dragControls = useDragControls();
+  theme,
+  onToggleTheme,
+}: FullScreenOverlayProps) => {
+  const [time, setTime] = useState("");
 
-  /* ── Focus trap ── */
   useEffect(() => {
-    const sheet = sheetRef.current;
-    if (!sheet) return;
-
-    const focusable = sheet.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    const trap = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { onClose(); return; }
-      if (e.key !== "Tab") return;
-      if (e.shiftKey) {
-        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
-      } else {
-        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
-      }
+    const updateTime = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })
+      );
     };
-
-    document.addEventListener("keydown", trap);
-    first?.focus();
-    return () => document.removeEventListener("keydown", trap);
-  }, [onClose]);
-
-  /* ── Close on scroll ── */
-  useEffect(() => {
-    const onScroll = () => onClose();
-    window.addEventListener("scroll", onScroll, { passive: true, once: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [onClose]);
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <motion.aside
-      id="mobile-nav-panel"
-      layoutId="mobile-nav"
-      layout
-      ref={sheetRef}
-      drag="y"
-      dragControls={dragControls}
-      dragListener={false}
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={{ top: 0, bottom: 0.4 }}
-      onDragEnd={(_, info) => {
-        if (info.offset.y > 80 || info.velocity.y > 300) onClose();
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ type: "spring", stiffness: 360, damping: 38, mass: 0.7 }}
-      className="fixed bottom-0 left-0 right-0 z-[109] bg-app-bg border-t border-app-border flex flex-col md:hidden overflow-hidden"
-      style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, maxHeight: "85dvh" }}
+    <motion.div
+      initial={{ opacity: 0, clipPath: "circle(0% at 90% 90%)" }}
+      animate={{ opacity: 1, clipPath: "circle(150% at 90% 90%)" }}
+      exit={{ opacity: 0, clipPath: "circle(0% at 90% 90%)" }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-0 z-[110] bg-app-bg/98 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-10 md:hidden overflow-y-auto"
       role="dialog"
       aria-modal="true"
-      aria-label="Navigation"
+      aria-label="Navigation Overlay"
     >
-      {/* Drag handle — touch target to initiate swipe */}
-      <div
-        className="flex justify-center pt-3 pb-1 cursor-grab active:cursor-grabbing shrink-0"
-        onPointerDown={(e) => dragControls.start(e)}
-      >
-        <div className="h-1 w-10 rounded-full bg-app-border" />
+      {/* Top Header */}
+      <div className="flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-3">
+          <img src="/sanskrit logo.png" alt="" aria-hidden className="h-5 w-auto dark:invert opacity-80" />
+          <span className="text-[11px] font-mono text-app-text-primary dark:text-white font-bold tracking-wider px-2.5 py-1 rounded-full bg-app-surface border border-app-border">
+            {time || "11:28:38 AM"} IST
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} size="sm" />
+          <button
+            onClick={onClose}
+            aria-label="Close menu"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-app-surface border border-app-border text-app-text-primary cursor-pointer hover:bg-app-surface-secondary transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      {/* Sheet header */}
-      <div className="flex items-center justify-between px-5 py-3 shrink-0">
-        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted">
-          {activeSection ? (
-            <>
-              <span className="text-app-accent">{activeSection}</span>
-              <span className="mx-1.5 opacity-30">/</span>
-              <span>Menu</span>
-            </>
-          ) : "Menu"}
-        </span>
-        <button
-          onClick={onClose}
-          aria-label="Close menu"
-          className="flex h-8 w-8 items-center justify-center text-app-text-muted hover:text-app-text-primary transition-colors cursor-pointer"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Nav links */}
-      <nav
-        aria-label="Mobile navigation"
-        className="flex flex-col px-3 pb-4 gap-0.5 overflow-y-auto"
-      >
+      {/* Main Nav Links — Icon-free Typography */}
+      <nav className="flex flex-col gap-2 my-auto py-8">
         {NAV_ITEMS.map((item, i) => {
           const isActive = activeSection === item.href.slice(1);
           return (
@@ -260,59 +223,70 @@ const BottomSheet = ({
               key={item.href}
               href={item.href}
               onClick={(e) => onNavClick(e, item.href)}
-              initial={shouldReduce ? {} : { opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={shouldReduce ? {} : { opacity: 0, y: 10, transition: { delay: (NAV_ITEMS.length - 1 - i) * 0.03, duration: 0.15 } }}
-              transition={{ delay: i * 0.05, duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative flex items-center justify-between px-4 py-4 transition-colors duration-150"
-              style={{
-                color: isActive ? "var(--color-app-text-primary)" : "var(--color-app-text-secondary)",
-                backgroundColor: isActive ? "var(--color-app-surface)" : "transparent",
-              }}
+              transition={{ delay: 0.08 + i * 0.04, duration: 0.28 }}
+              className="group flex items-center justify-between py-4 border-b border-app-border/30 transition-colors"
             >
-              {/* Left accent bar */}
-              {isActive && (
-                <motion.span
-                  layoutId="sheet-active-bar"
-                  className="absolute left-0 top-2 bottom-2 w-[2px] bg-app-accent"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-              <span className="flex items-center gap-4">
-                <span
-                  className="text-[10px] font-mono tabular-nums w-5 text-right"
-                  style={{ color: "var(--color-app-text-muted)" }}
-                >
-                  {String(i + 1).padStart(2, "0")}
+              <div className="flex items-baseline gap-4">
+                <span className="text-xs font-mono text-app-text-muted tabular-nums">
+                  0{i + 1}
                 </span>
-                <span className="text-base font-mono font-bold uppercase tracking-[0.1em]">
+                <span
+                  className="text-3xl font-black uppercase tracking-wider transition-transform duration-200 group-hover:translate-x-2"
+                  style={{
+                    color: isActive ? "var(--color-app-accent)" : "var(--color-app-text-primary)",
+                  }}
+                >
                   {item.label}
                 </span>
-              </span>
+              </div>
               {isActive && (
-                <span className="h-1.5 w-1.5 rounded-full bg-app-accent shrink-0" />
+                <span className="h-2 w-2 rounded-full bg-app-accent" />
               )}
             </motion.a>
           );
         })}
       </nav>
 
-      {/* Bottom safe area */}
-      <div className="shrink-0 h-6" style={{ paddingBottom: "env(safe-area-inset-bottom)" }} />
-    </motion.aside>
+      {/* Bottom Footer */}
+      <div className="flex items-center justify-between shrink-0 pt-4 border-t border-app-border/40">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          <span className="text-[10px] font-mono uppercase tracking-widest text-app-text-muted">
+            Available for work
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4 text-[10px] font-mono font-bold uppercase tracking-widest text-app-text-secondary">
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
+            GitHub
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
+            LinkedIn
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
+            X
+          </a>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
-/* main navbar */
+/* ─────────────────────────────────────────────────────────────
+   MAIN NAVBAR COMPONENT
+───────────────────────────────────────────────────────────── */
 export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const isNavigating = useRef(false);
   const shouldReduce = useReducedMotion();
 
-  /* ── Scroll detection ── */
+  /* Scroll detection */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -320,24 +294,20 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* ── Active section tracking ── */
+  /* Active section tracking */
   useEffect(() => {
     const handleScroll = () => {
       if (isNavigating.current) return;
 
-      const scrollPosition = window.scrollY + 120; // Offset for header + buffer
-
-      // Check if we are at the bottom of the page
+      const scrollPosition = window.scrollY + 120;
       const isAtBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 60;
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
 
       if (isAtBottom) {
         setActiveSection("contact");
         return;
       }
 
-      // Find the current section
       const sections = NAV_ITEMS.map((item) => {
         const el = document.getElementById(item.href.slice(1));
         return {
@@ -347,42 +317,41 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
         };
       });
 
-      // Find which section contains the scrollPosition
       const current = sections.find(
         (sec) =>
-          scrollPosition >= sec.offsetTop &&
-          scrollPosition < sec.offsetTop + sec.offsetHeight
+          scrollPosition >= sec.offsetTop && scrollPosition < sec.offsetTop + sec.offsetHeight
       );
 
       if (current) {
         setActiveSection(current.id);
       } else if (window.scrollY < 100) {
-        // If at the very top, clear active section
         setActiveSection("");
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run once initially
     handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* ── Close on desktop ── */
+  /* Desktop auto-close mobile state */
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 768) setMobileOpen(false); };
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMobileOpen(false);
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  /* ── Scroll-lock ── */
+  /* Lock body scroll when overlay open */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
-  /* ── Handlers ── */
+  /* Handlers */
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
@@ -421,16 +390,16 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
 
   return (
     <>
-      {/* top bar */}
+      {/* ── TOP HEADER BAR ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+          scrolled
             ? "border-b border-app-border bg-app-bg/95 backdrop-blur-xl shadow-sm dark:shadow-none"
             : "bg-transparent"
-          }`}
+        }`}
         role="banner"
       >
         <div className="mx-auto max-w-5xl px-5 sm:px-6 h-[54px] flex items-center justify-between gap-6">
-
           {/* Logo + Name */}
           <button
             onClick={scrollToTop}
@@ -443,12 +412,12 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
               aria-hidden
               className="h-[18px] w-auto object-contain dark:invert opacity-70 group-hover:opacity-100 transition-opacity duration-200"
             />
-            <span className="hidden sm:block text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-app-text-muted group-hover:text-app-text-primary transition-colors duration-200 select-none">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-app-text-muted group-hover:text-app-text-primary transition-colors duration-200 select-none">
               Tushal Pandey
             </span>
           </button>
 
-          {/* Desktop nav */}
+          {/* Desktop Nav */}
           <nav
             aria-label="Site navigation"
             className="hidden md:flex items-center gap-0.5"
@@ -466,12 +435,12 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                   onMouseLeave={() => setHoveredIndex(null)}
                   className="relative px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] transition-colors duration-200"
                   style={{
-                    color: isActive || isHovered
-                      ? "var(--color-app-text-primary)"
-                      : "var(--color-app-text-muted)",
+                    color:
+                      isActive || isHovered
+                        ? "var(--color-app-text-primary)"
+                        : "var(--color-app-text-muted)",
                   }}
                 >
-                  {/* Sliding Hover Background Pill */}
                   {isHovered && (
                     <motion.span
                       layoutId="desktop-hover-pill"
@@ -483,9 +452,7 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                       }
                     />
                   )}
-
                   <span className="relative z-10">{item.label}</span>
-
                   {isActive && (
                     <motion.span
                       layoutId="desktop-active-line"
@@ -500,75 +467,50 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                 </a>
               );
             })}
-
-            {/* Divider */}
             <span className="mx-3 h-4 w-px bg-app-border" aria-hidden />
-
-            {/* Pill toggle — desktop */}
             <ThemeToggle theme={theme} onToggle={handleThemeToggle} size="sm" />
           </nav>
 
-          {/* Mobile: only theme toggle in top bar — nav is in the floating FAB */}
+          {/* Mobile top-bar: Theme toggle on the right */}
           <div className="md:hidden flex items-center">
             <ThemeToggle theme={theme} onToggle={handleThemeToggle} size="sm" />
           </div>
         </div>
       </header>
 
-      {/* backdrop */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[108] bg-black/60 backdrop-blur-[3px] md:hidden"
-            onClick={closeMobile}
-            aria-hidden
-          />
-        )}
-      </AnimatePresence>
-
-      {/* bottom sheet */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <BottomSheet
-            activeSection={activeSection}
-            onClose={closeMobile}
-            onNavClick={handleNavClick}
-            shouldReduce={!!shouldReduce}
-            theme={theme}
-            onToggleTheme={handleThemeToggle}
-          />
-        )}
-      </AnimatePresence>
-      {/* floating FAB — mobile only */}
+      {/* ── BOTTOM CENTER FLOATING SHARP NAVBOX WITH MODERN HAMBURGER ICON ── */}
       <AnimatePresence>
         {!mobileOpen && (
           <motion.button
-            id="mobile-menu-btn"
-            layoutId="mobile-nav"
-            layout
-            key="fab"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            aria-controls="mobile-nav-panel"
-            className="fixed bottom-6 right-6 z-[107] md:hidden flex items-center justify-center px-5 py-3 cursor-pointer"
-            style={{
-              background: "var(--color-app-surface)",
-              border: "1px solid var(--color-app-border)",
-              borderRadius: 999,
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.12)",
+            key="bottom-menu-pill"
+            onClick={() => {
+              playClickSound();
+              setMobileOpen(true);
             }}
-            whileTap={{ scale: 0.93 }}
-            transition={{ type: "spring", stiffness: 420, damping: 28 }}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 450, damping: 25 }}
+            className="fixed bottom-6 right-6 z-[107] md:hidden flex items-center justify-center h-11 w-11 rounded-none bg-app-surface/90 backdrop-blur-3xl border border-app-border hover:border-app-accent/60 shadow-2xl shadow-black/40 cursor-pointer transition-colors duration-200"
+            aria-label="Open navigation menu"
           >
             <HamburgerIcon open={false} />
           </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* ── FULL-SCREEN MORPHING OVERLAY ── */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <FullScreenOverlay
+            activeSection={activeSection}
+            onClose={closeMobile}
+            onNavClick={handleNavClick}
+            theme={theme}
+            onToggleTheme={handleThemeToggle}
+          />
         )}
       </AnimatePresence>
     </>
