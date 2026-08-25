@@ -3,6 +3,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import CustomCursor from "./components/CustomCursor";
+import GlobalSpiderManTracker from "./components/GlobalSpiderManTracker";
 
 /* Lazy-loaded sections */
 const About = lazy(() => import("./components/About"));
@@ -78,9 +79,7 @@ export const App = () => {
       className="relative min-h-screen bg-app-bg text-app-text-primary font-sans antialiased overflow-x-hidden"
       style={{ overflowX: "hidden" }}
     >
-      {/* ── GPU-accelerated theme-transition vertical wipe overlay ──
-           Lives outside the React component tree so it never triggers
-           React re-renders during the animation. */}
+      {/* ── GPU-accelerated theme-transition vertical wipe overlay ── */}
       <div
         id="theme-swipe-overlay"
         className="fixed inset-0 z-[100000] pointer-events-none will-change-[clip-path]"
@@ -90,9 +89,10 @@ export const App = () => {
       {/* ── Custom cursor (desktop / pointer:fine only) ── */}
       <CustomCursor />
 
-      {/* ── Scroll-progress line ──
-           1px thin accent line at the very top of the viewport.
-           Sits above the navbar but below the ripple overlay. */}
+      {/* ── Page-Wide Sticky Spider-Man Cursor Tracker ── */}
+      <GlobalSpiderManTracker />
+
+      {/* ── Scroll-progress line ── */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-px bg-app-accent origin-left z-[9999]"
         style={{ scaleX }}
@@ -123,3 +123,4 @@ export const App = () => {
 };
 
 export default App;
+
