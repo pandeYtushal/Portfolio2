@@ -1,0 +1,264 @@
+# Tushal Pandey
+
+AI Agent Developer · Browser Automation Engineer · Full Stack Builder
+
+Portfolio: https://tushalpandey.vercel.app/
+GitHub: https://github.com/pandeYtushal
+LinkedIn: https://www.linkedin.com/in/tushal-anand18/
+Email: tushalanand4@gmail.com
+Medium: https://medium.com/@tushalpandey
+
+---
+
+## About
+
+Systems builder and software engineer based in India. Started with cryptography and blockchain protocols — deep focus on deterministic logic and execution accuracy. Transitioned into full-stack products specialising in state synchronisation, browser automation scrapers, and orchestration systems.
+
+Currently building Hunter — an autonomous browser agent that translates natural language goals into self-healing browser execution scripts.
+
+Open to work. 3+ years building.
+
+### Background
+
+Started with Solidity and decentralised Web3 systems in 2023. Moved into full-stack React and Firebase projects in 2024, then shifted focus to AI agents and multi-model orchestration from 2025 onward.
+
+### Education
+
+B.E. Computer Science & Engineering  
+Chandigarh University, Mohali, Punjab  
+2022 – 2026  
+Relevant coursework: DSA, OS, DBMS, CN, AI/ML
+
+### Experience
+
+Apprenticeship — Metacrafters  
+June 2024 – August 2024  
+- Built JavaScript modules covering async patterns, closures & DOM APIs.  
+- Completed JSProof certification through structured JS curriculum.  
+- Applied core JS fundamentals across real-world project assessments.
+
+### Areas of Focus
+
+- Autonomous Systems: Multi-model orchestration, browser control loops, self-healing automation nodes.
+- Distributed Networks: Decentralised nodes, blockchain state machines, realtime replication pipelines.
+- High-Performance UI: Route-level cache states, zero-flash views, dynamic client-side layouts.
+
+### Achievements
+
+- Springer Publication — ICICC-2026 Research Paper
+- NPTEL Certified — IoT, Cloud, Edge ML
+- JSProof Certified — Metacrafters, JavaScript
+- Research Papers — Blockchain, ZK Cryptography
+
+---
+
+## Skills
+
+### Languages
+TypeScript, JavaScript, Python, SQL, C++, C, HTML5, CSS3
+
+### Frameworks
+React.js, Tailwind CSS, Zustand, Framer Motion, Vite, PWA Support
+
+### Tools & Infrastructure
+Git, GitHub, PostgreSQL, Firestore, IndexedDB, Firebase, REST APIs, Vercel, VS Code
+
+### AI & Automation
+Browser Automation, LLM Orchestration, Prompt Engineering, Multi-Agent Systems, Puppeteer, Playwright
+
+---
+
+## Projects
+
+### Hunter
+
+An autonomous AI browser agent that translates natural language goals into self-healing browser execution scripts.
+
+Status: Active Alpha  
+Timeline: Ongoing  
+
+Problem: Procedural web bots fail instantly when layouts shift, class names update, or buttons change labels, causing broken workflows and high support overhead.
+
+Solution: Built a self-healing selection router integrating visual coordination meshes with semantic DOM elements, letting the model target action fields even after code updates.
+
+Architecture: Planner Engine → Vision Mapper → Execution Channel → Reflection Engine
+
+Technical contributions:
+- Autofill Layout Mapper
+- Multi-Agent Executor Loop
+- Local Cache Database
+- Chrome Extension Core
+
+Metrics: 94% target accuracy, <1.2s fill speed, 88% autofill rate
+
+Technologies: JavaScript, Chrome Extensions API, Manifest V3, Gemini API, OpenAI API, Vision Models, IndexedDB
+
+URL: https://huntterr.vercel.app/
+Source: https://github.com/pandeYtushal
+
+---
+
+### Smart Civic Platform
+
+A localised complaint logging platform bridging public residents with municipal administrators.
+
+Status: Live  
+Timeline: 2026  
+
+Problem: Municipal reporting apps fail in the field because users try to upload high-resolution images over weak 3G/LTE signals, leading to timed-out requests.
+
+Solution: Implemented local pre-processing using HTML5 Canvas to downscale and compress images directly in the browser. Payloads are shrunk by 70% before hitting the Firebase Storage pipeline.
+
+Architecture: Canvas Compressor → Firebase Upload Queue → Firestore Sync Engine → Admin Status Board
+
+Technical contributions:
+- Realtime ticket logging and status updates using Firebase Auth & Firestore.
+- Client-side image scaling utilising HTML5 Canvas context scaling.
+- Mobile-first responsive report form with status trackers and admin tools.
+
+Metrics: 70% size compression, <50ms alert latency, Realtime sync engine
+
+Technologies: React.js, Tailwind CSS, Firebase Authentication, Firestore, Firebase Storage, JavaScript (ES6+)
+
+URL: https://urban-utiliy-report.vercel.app/
+Source: https://github.com/pandeYtushal
+
+---
+
+### Melody Premium
+
+A music streaming web app with glassmorphic UI and PWA support for mobile-first experience.
+
+Status: Live  
+Timeline: 2026  
+
+Problem: Standard web music players interrupt audio playback during page navigation or fail when network bandwidth fluctuates, resulting in a choppy listening experience.
+
+Solution: Hoisted the audio playback engine to a global React context backed by Zustand for state tracking. Service workers pre-cache adjacent tracks, enabling zero-latency track switches.
+
+Architecture: Zustand Media Store → HTML5 Audio Engine → Service Worker Pre-caching → Saavn API Sync
+
+Technical contributions:
+- Integrated JioSaavn API for high-quality audio fetching and recommendations.
+- Firebase Auth with Google Login integration.
+- Zustand store tracking persistent queues, volumes, and routes.
+
+Metrics: 10M+ track index, Zustand state sync, <0.3s load latency
+
+Technologies: React 19, Tailwind CSS, Zustand, Firebase Auth, JioSaavn API, Axios, Vite
+
+URL: https://meldmusic.vercel.app/
+Source: https://github.com/pandeYtushal
+
+---
+
+### Portfolio
+
+Personal portfolio website showcasing projects, certifications, and skills with smooth navigation.
+
+Status: Live  
+Timeline: 2025  
+
+Technologies: React.js, Tailwind CSS, Vite, Framer Motion, Lucide Icons, JavaScript, Vercel
+
+URL: https://tushal-pandey.vercel.app/
+Source: https://github.com/pandeYtushal
+
+---
+
+### Cab Booking Platform
+
+A highly responsive cab booking interface simulating dynamic fare calculations and real-time ride tracking. Built using pure JavaScript routing and CSS transitions.
+
+Status: Archived  
+Timeline: Q1 2025  
+
+Technologies: HTML5, CSS3 Custom Properties, Vanilla JavaScript, Map APIs (Static), Local Storage
+
+Source: https://github.com/pandeYtushal
+
+---
+
+### Fit Gym Tracker
+
+A digital gym companion that logs and tracks daily workouts with persistent offline capability. Automatically resolves out-of-sync states using Firestore local caches.
+
+Status: Archived  
+Timeline: Q4 2024  
+
+Technologies: React, Firebase Firestore, TypeScript, Tailwind CSS, Recharts, LocalForage
+
+Source: https://github.com/pandeYtushal
+
+---
+
+### Weather Dashboard
+
+An interactive forecast dashboard projecting extreme weather trends and local forecasts in real-time. Reduces API overhead by 80% using custom local cache policies.
+
+Status: Archived  
+Timeline: Q3 2024  
+
+Technologies: React, OpenWeatherMap API, Chart.js, Tailwind CSS, Lucide Icons
+
+Source: https://github.com/pandeYtushal
+
+### Astronomical
+
+A multimedia web archive documenting the history of Indian mathematical astronomy, celestial models, and architectural observatories spanning 1,500 years.
+
+Status: Live
+Timeline: 2026
+
+Problem: The rich history of Indian mathematical astronomy — spanning Vedic astronomy, the Aryabhatiya, Jantar Mantar, and ISRO — lacks a single visually coherent web archive.
+
+Solution: Built a Next.js 15 multimedia archive with Framer Motion cinematic transitions, a d3-geo abstract observatory map, and scroll-velocity physics driving the historical timeline experience.
+
+Technical contributions:
+- Cinematic 3D gallery with physics-based scroll-velocity driven timeline.
+- Abstract coordinate map of historical observatories using d3-geo projections.
+- Detailed archive pages for scholars — Aryabhata, Brahmagupta, Bhaskara II.
+- Modern Space Era section covering ISRO achievements including Chandrayaan and AstroSat.
+
+Technologies: Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion, d3-geo, Space Grotesk, IBM Plex Mono
+
+URL: https://astronomical-chi.vercel.app/
+Source: https://github.com/pandeYtushal/Astronomical
+
+---
+
+## Development Journey
+
+### 2023 — Foundation
+Started Development: Solidity & Decentralised Web3 Systems
+- Designed cryptographic scripts and smart contracts on Ethereum networks.
+- Explored standard structures for decentralised client execution logic.
+- Built clean computational routines using pure Solidity structures.
+
+### 2024 — Growth
+Full Stack Projects: React, Zustand, and Realtime Database Synchronisation
+- Designed Melody, a high-fidelity streaming platform featuring zero-flash route cache states.
+- Built municipal tracking registers synced in realtime via Firestore caching.
+- Optimised load times to sub-200ms using local asset indexing.
+
+### 2025 — Breakout
+AI Agents: Structured Reasoning & Multi-Model Orchestration
+- Orchestrated custom model router hubs dynamically selector-swapping client queries.
+- Built browser automation scrapers utilising coordinate models.
+- Developed structured JSON API parsers formatting text results.
+
+### 2026 — Present
+Building Hunter: Flagship Autonomous Browser Automation Agent
+- Architecting self-healing DOM selectors resolving real-time app shifts.
+- Orchestrating concurrent sub-agents coordinating planning, browser, and memory nodes.
+- Deploying client extension architecture bypassing captcha blockages.
+
+---
+
+## Contact
+
+Email: tushalanand4@gmail.com
+GitHub: https://github.com/pandeYtushal
+LinkedIn: https://www.linkedin.com/in/tushal-anand18/
+Medium: https://medium.com/@tushalpandey
+Website: https://tushalpandey.vercel.app/

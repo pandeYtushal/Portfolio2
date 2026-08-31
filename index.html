@@ -21,19 +21,22 @@
   <!-- SEO-->
   <title>Tushal Pandey</title>
   <meta name="description"
-    content="Tushal Pandey — Student & Web Developer from India. I build modern, responsive web applications using React, TypeScript, Tailwind CSS, Firebase, and Framer Motion. View my projects and get in touch." />
+    content="Tushal Pandey — Student &amp; Web Developer from India. I build modern, responsive web applications using React, TypeScript, Tailwind CSS, Firebase, and Framer Motion. View my projects and get in touch." />
   <meta name="keywords"
     content="Tushal Pandey, Portfolio, Web Developer, React Developer, TypeScript, Tailwind CSS, JavaScript, Firebase, Framer Motion, India, Frontend Developer, AI Agents" />
   <meta name="author" content="Tushal Pandey" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://tushalpandey.vercel.app/" />
 
+  <!-- AI / LLM machine-readable layer -->
+  <link rel="alternate" type="text/plain" href="/llms.txt" />
+
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tushal-pandey.vercel.app/" />
-  <meta property="og:title" content="Tushal Pandey | Web Developer & Designer" />
+  <meta property="og:url" content="https://tushalpandey.vercel.app/" />
+  <meta property="og:title" content="Tushal Pandey | Web Developer &amp; Designer" />
   <meta property="og:description"
-    content="Student & Web Developer from India. I build modern, responsive web applications using React, TypeScript, Tailwind CSS, Firebase, and Framer Motion." />
-  <meta property="og:image" content="https://tushal-pandey.vercel.app/avtar.png" />
+    content="Student &amp; Web Developer from India. I build modern, responsive web applications using React, TypeScript, Tailwind CSS, Firebase, and Framer Motion." />
+  <meta property="og:image" content="https://tushalpandey.vercel.app/avtar.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Tushal Pandey — Web Developer Portfolio" />
@@ -43,9 +46,9 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://tushalpandey.vercel.app/" />
-  <meta name="twitter:title" content="Tushal Pandey | Web Developer & Designer" />
+  <meta name="twitter:title" content="Tushal Pandey | Web Developer &amp; Designer" />
   <meta name="twitter:description"
-    content="Student & Web Developer from India. Building modern web apps with React, TypeScript, Tailwind CSS & more." />
+    content="Student &amp; Web Developer from India. Building modern web apps with React, TypeScript, Tailwind CSS &amp; more." />
   <meta name="twitter:image" content="https://tushalpandey.vercel.app/avtar.png" />
   <meta name="twitter:image:alt" content="Tushal Pandey — Web Developer Portfolio" />
   <meta name="twitter:creator" content="@pandeYtushal" />
@@ -72,14 +75,17 @@
     rel="stylesheet" />
 
 
+  <!-- ═══════════════════════════════════════════
+       STRUCTURED DATA — Person (JSON-LD)
+  ════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Tushal Pandey",
     "alternateName": "Tushal Anand",
-    "url": "https://tushal-pandey.vercel.app/",
-    "image": "https://tushal-pandey.vercel.app/avtar.png",
+    "url": "https://tushalpandey.vercel.app/",
+    "image": "https://tushalpandey.vercel.app/avtar.png",
     "jobTitle": "Web Developer & Designer",
     "description": "Student & Web Developer from India specialising in React, TypeScript, Tailwind CSS, Firebase, and Framer Motion.",
     "nationality": "Indian",
@@ -115,7 +121,7 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Tushal Pandey Portfolio",
-    "url": "https://tushal-pandey.vercel.app/",
+    "url": "https://tushalpandey.vercel.app/",
     "description": "Personal portfolio of Tushal Pandey — Student & Web Developer from India.",
     "author": {
       "@type": "Person",
@@ -123,11 +129,162 @@
     }
   }
   </script>
+
+  <!-- ═══════════════════════════════════════════
+       STRUCTURED DATA — CreativeWork / Projects (JSON-LD)
+  ════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Tushal Pandey — Selected Projects",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Hunter",
+          "description": "An autonomous AI browser agent that translates natural language goals into self-healing browser execution scripts.",
+          "url": "https://huntterr.vercel.app/",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Chrome"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Smart Civic Platform",
+          "description": "A localised complaint logging platform bridging public residents with municipal administrators.",
+          "url": "https://urban-utiliy-report.vercel.app/",
+          "applicationCategory": "WebApplication"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Melody Premium",
+          "description": "A music streaming web app with glassmorphic UI and PWA support for mobile-first experience.",
+          "url": "https://meldmusic.vercel.app/",
+          "applicationCategory": "MultimediaApplication"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+
+  <!--
+    ═══════════════════════════════════════════════════════════════
+    NOSCRIPT FALLBACK
+    Provides real portfolio content for crawlers and users without JS.
+    Visually hidden when JS is enabled (the <div id="root"> takes over).
+    ═══════════════════════════════════════════════════════════════
+  -->
+  <noscript>
+    <style>
+      .noscript-portfolio { font-family: sans-serif; max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; color: #111; line-height: 1.6; }
+      .noscript-portfolio h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+      .noscript-portfolio h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.25rem; }
+      .noscript-portfolio h3 { font-size: 1.1rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.25rem; }
+      .noscript-portfolio p, .noscript-portfolio li { font-size: 0.95rem; color: #374151; }
+      .noscript-portfolio ul { padding-left: 1.25rem; }
+      .noscript-portfolio a { color: #2563eb; }
+      .noscript-portfolio article { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    </style>
+    <main class="noscript-portfolio">
+      <h1>Tushal Pandey — AI Agent Developer &amp; Full Stack Builder</h1>
+      <p>Student &amp; Web Developer from India. Turning complex workflows into self-healing autonomous systems. Specialising in AI agents, browser automation, and full-stack products.</p>
+      <p>
+        <a href="https://github.com/pandeYtushal">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/tushal-anand18/">LinkedIn</a> ·
+        <a href="mailto:tushalanand4@gmail.com">tushalanand4@gmail.com</a>
+      </p>
+
+      <section>
+        <h2>About</h2>
+        <p>Systems builder &amp; software engineer. Started with cryptography and blockchain protocols — deep focus on deterministic logic and execution accuracy. Transitioned into full-stack products specialising in state synchronisation, browser automation scrapers, and orchestration systems.</p>
+        <p>Based in India · Open to Work · 3+ years building</p>
+
+        <h3>Education</h3>
+        <p>B.E. Computer Science &amp; Engineering — Chandigarh University, Mohali, Punjab (2022–2026)</p>
+
+        <h3>Experience</h3>
+        <p>Apprenticeship at Metacrafters (June 2024 – August 2024) — Built JavaScript modules covering async patterns, closures &amp; DOM APIs. Completed JSProof certification through structured JS curriculum.</p>
+
+        <h3>Achievements</h3>
+        <ul>
+          <li>Springer Publication — ICICC-2026 Research Paper</li>
+          <li>NPTEL Certified — IoT, Cloud, Edge ML</li>
+          <li>JSProof Certified — Metacrafters, JavaScript</li>
+          <li>Research Papers — Blockchain &amp; ZK Cryptography</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Projects</h2>
+
+        <article>
+          <h3>Hunter</h3>
+          <p>An autonomous AI browser agent that translates natural language goals into self-healing browser execution scripts. 94% target accuracy, &lt;1.2s fill speed.</p>
+          <p>Technologies: JavaScript, Chrome Extensions API, Manifest V3, Gemini API, OpenAI API, Vision Models, IndexedDB</p>
+          <a href="https://huntterr.vercel.app/">View Hunter</a>
+        </article>
+
+        <article>
+          <h3>Smart Civic Platform</h3>
+          <p>A localised complaint logging platform bridging public residents with municipal administrators. Client-side image compression via HTML5 Canvas shrinks payloads by 70%.</p>
+          <p>Technologies: React.js, Tailwind CSS, Firebase Authentication, Firestore, Firebase Storage, JavaScript</p>
+          <a href="https://urban-utiliy-report.vercel.app/">View Smart Civic Platform</a>
+        </article>
+
+        <article>
+          <h3>Melody Premium</h3>
+          <p>A music streaming web app with glassmorphic UI and PWA support. Zustand-hoisted audio playback maintains uninterrupted playback during navigation. 10M+ track index.</p>
+          <p>Technologies: React 19, Tailwind CSS, Zustand, Firebase Auth, JioSaavn API, Axios, Vite</p>
+          <a href="https://meldmusic.vercel.app/">View Melody Premium</a>
+        </article>
+
+        <article>
+          <h3>Portfolio</h3>
+          <p>Personal portfolio website with smooth Framer Motion animations, dynamic dark/light mode, and Lighthouse-optimised performance.</p>
+          <p>Technologies: React.js, Tailwind CSS, Vite, Framer Motion, Vercel</p>
+        </article>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <h3>Languages</h3>
+        <p>TypeScript, JavaScript, Python, SQL, C++, C, HTML5, CSS3</p>
+        <h3>Frameworks</h3>
+        <p>React.js, Tailwind CSS, Zustand, Framer Motion, Vite, PWA Support</p>
+        <h3>Tools &amp; Infrastructure</h3>
+        <p>Git, GitHub, PostgreSQL, Firestore, IndexedDB, Firebase, REST APIs, Vercel, VS Code</p>
+        <h3>AI &amp; Automation</h3>
+        <p>Browser Automation, LLM Orchestration, Prompt Engineering, Multi-Agent Systems, Puppeteer, Playwright</p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <ul>
+          <li>Email: <a href="mailto:tushalanand4@gmail.com">tushalanand4@gmail.com</a></li>
+          <li>GitHub: <a href="https://github.com/pandeYtushal">github.com/pandeYtushal</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/tushal-anand18/">linkedin.com/in/tushal-anand18</a></li>
+          <li>Medium: <a href="https://medium.com/@tushalpandey">medium.com/@tushalpandey</a></li>
+        </ul>
+      </section>
+
+      <p>Enable JavaScript for the full interactive portfolio experience.</p>
+    </main>
+  </noscript>
 </body>
 
 </html>

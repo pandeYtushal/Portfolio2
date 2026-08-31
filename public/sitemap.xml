@@ -5,7 +5,7 @@
   <!-- Main / Home -->
   <url>
     <loc>https://tushalpandey.vercel.app/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://tushalpandey.vercel.app/" />
@@ -14,7 +14,7 @@
   <!-- Projects Section -->
   <url>
     <loc>https://tushalpandey.vercel.app/#projects</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -22,7 +22,7 @@
   <!-- Blog Section -->
   <url>
     <loc>https://tushalpandey.vercel.app/#writing</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -30,7 +30,7 @@
   <!-- Contact Section -->
   <url>
     <loc>https://tushalpandey.vercel.app/#contact</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>

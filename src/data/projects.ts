@@ -78,8 +78,55 @@ export const PROJECTS_DATA: Project[] = [
     source: "https://github.com/pandeYtushal"
   },
   {
-    id: "civic",
+    id: "astronomical",
     figNum: "FIG.02",
+    title: "Astronomical",
+    tag: "SCROLL-VELOCITY PHYSICS & D3 MAP",
+    image: "/astronomical.png",
+    description: "A multimedia web archive documenting the history of Indian mathematical astronomy, celestial models, and architectural observatories spanning 1,500 years.",
+    status: "Live",
+    urlDomain: "astronomical-chi.vercel.app",
+    highlight: "Physics-based scroll-velocity timeline of historical scholars and a coordinate-mapped observatory index.",
+    timeline: "2026",
+    impact: "1500 years catalogued",
+    achievement: "D3-geo observatory mapping",
+    metricPills: ["Next.js 15", "Framer Motion", "d3-geo", "Scroll Physics", "Custom Fonts"],
+    whatIBuilt: [
+      "Cinematic 3D gallery with physics-based scroll-velocity driven timeline.",
+      "Abstract coordinate map of historical observatories using d3-geo projections.",
+      "Detailed archive pages for scholars — Aryabhata, Brahmagupta, Bhaskara II.",
+      "Modern Space Era section covering ISRO achievements including Chandrayaan and AstroSat."
+    ],
+    problemStatement: "The rich history of Indian mathematical astronomy — spanning Vedic astronomy, the Aryabhatiya, Jantar Mantar, and ISRO — lacks a single visually coherent web archive that honours both its depth and its modern context.",
+    solution: "Built a Next.js 15 multimedia archive with Framer Motion cinematic transitions, a d3-geo abstract observatory map, and scroll-velocity physics driving the historical timeline experience.",
+    architectureSteps: ["Scroll Physics Engine", "d3-geo Map Renderer", "Archive Content Layer", "Framer Motion Transitions"],
+    engineeringDecisions: "Used d3-geo for the abstract coordinate-based map instead of a tile-map service to maintain visual control and avoid external API dependencies for historical observatory locations.",
+    futureImprovements: "Add primary source manuscript viewer with annotated translations of the Aryabhatiya and Brahmasphutasiddhanta.",
+    metrics: [
+      { label: "Timeline Span", val: "1,500yr" },
+      { label: "Stack", val: "Next 15" },
+      { label: "Map Engine", val: "d3-geo" }
+    ],
+    longDescription: "Astronomical is a multimedia web archive that documents the history of Indian mathematical astronomy across 1,500 years. The archive features a physics-based cinematic timeline of historical scholars and celestial models, an interactive d3-geo abstract map of ancient observatories like Jantar Mantar, deep-dive archive pages on Aryabhata, Brahmagupta, and Bhaskara II, and a Modern Space Era section covering ISRO milestones including Chandrayaan and AstroSat.",
+    keyPoints: [
+      "Physics-based scroll-velocity driven timeline delivering a cinematic browsing experience.",
+      "d3-geo coordinate-based observatory map for Jantar Mantar and ancient universities.",
+      "Archive depth covering scholars from Aryabhata (5th century CE) through ISRO's modern era."
+    ],
+    tech: ["Next.js 15", "Framer Motion", "d3-geo"],
+    fullTech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "Framer Motion", "d3-geo", "Space Grotesk", "IBM Plex Mono"],
+    challenges: "Rendering fluid scroll-velocity physics on a static archive without sacrificing page performance. Solved by decoupling the physics engine from the React render cycle using Framer Motion's useScroll and transform utilities.",
+    features: [
+      { title: "Cinematic Timeline", desc: "Physics-based scroll-velocity driven gallery of historical scholars and celestial events.", iconName: "Layers" },
+      { title: "Observatory Map", desc: "Abstract d3-geo coordinate map of Jantar Mantar and ancient astronomical universities.", iconName: "Globe" },
+      { title: "Scholar Archives", desc: "Deep-dive pages on Aryabhata, Brahmagupta, Bhaskara II and their primary works.", iconName: "FileText" }
+    ],
+    link: "https://astronomical-chi.vercel.app/",
+    source: "https://github.com/pandeYtushal/Astronomical"
+  },
+  {
+    id: "civic",
+    figNum: "FIG.03",
     title: "Smart Civic Platform",
     tag: "CANVAS COMPRESSION & FIRESTORE",
     image: "/urban.png",
@@ -125,7 +172,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "melody",
-    figNum: "FIG.03",
+    figNum: "FIG.04",
     title: "Melody Premium",
     tag: "HOISTED PLAYBACK STATE & PWA",
     image: "/music.png",
@@ -171,7 +218,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "portfolio",
-    figNum: "FIG.04",
+    figNum: "FIG.05",
     title: "Portfolio",
     tag: "NATIVE TRANSITIONS & THEME SWITCH",
     image: "/port.png",
@@ -217,7 +264,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "cab",
-    figNum: "FIG.05",
+    figNum: "FIG.06",
     title: "Cab Booking Platform",
     tag: "PURE JS ROUTING & CSS TRANSITION",
     image: "/meme.png",
@@ -260,7 +307,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "gym",
-    figNum: "FIG.06",
+    figNum: "FIG.07",
     title: "Fit Gym Tracker",
     tag: "FIRESTORE OFFLINE PERSISTENCE",
     image: "/meme.png",
@@ -303,7 +350,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "weather",
-    figNum: "FIG.07",
+    figNum: "FIG.08",
     title: "Weather Dashboard",
     tag: "TTL LOCALCACHE FORECAST",
     image: "/meme.png",

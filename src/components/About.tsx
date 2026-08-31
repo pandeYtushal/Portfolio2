@@ -193,9 +193,9 @@ export const About = () => {
         >
           {/* Bio card */}
           <div className="md:col-span-1 border border-app-border rounded-lg p-5 bg-app-surface flex flex-col gap-3">
-            <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted mb-1">
+            <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted mb-1">
               Background
-            </p>
+            </h3>
             <p className="text-[11px] font-mono leading-relaxed text-app-text-secondary">
               Systems builder &amp; software engineer. Started with cryptography and blockchain
               protocols — deep focus on deterministic logic and execution accuracy.
@@ -230,12 +230,12 @@ export const About = () => {
               >
                 <GraduationCap className="h-3.5 w-3.5" />
               </div>
-              <span
+              <h3
                 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em]"
                 style={{ color: "#3b82f6" }}
               >
                 Education
-              </span>
+              </h3>
             </div>
             <div className="relative z-10 flex flex-col gap-1.5">
               <p className="text-sm font-black tracking-tight text-app-text-primary leading-tight">
@@ -289,12 +289,12 @@ export const About = () => {
               >
                 <Briefcase className="h-3.5 w-3.5" />
               </div>
-              <span
+              <h3
                 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em]"
                 style={{ color: "#f97316" }}
               >
                 Experience
-              </span>
+              </h3>
             </div>
             <div className="relative z-10 flex flex-col gap-1.5">
               <p className="text-sm font-black tracking-tight text-app-text-primary leading-tight">
@@ -338,17 +338,17 @@ export const About = () => {
           className="mb-10"
         >
           {/* Section label */}
-          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
+          <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
             Journey
-          </p>
+          </h3>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Areas of Focus */}
             <div className="lg:col-span-4 flex flex-col gap-4">
               <div className="border border-app-border rounded-lg p-5 bg-app-surface flex flex-col gap-4">
-                <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted mb-1">
+                <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted mb-1">
                   Areas of Focus
-                </p>
+                </h4>
                 <ul className="space-y-4">
                   {FOCUS_AREAS.map(({ icon: Icon, color, title, desc }) => (
                     <li key={title} className="flex items-start gap-3">
@@ -517,9 +517,9 @@ export const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: easeOut }}
         >
-          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
+          <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-6">
             Achievements
-          </p>
+          </h3>
           <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-nowrap sm:overflow-x-auto sm:pb-2 scrollbar-none">
             {ACHIEVEMENTS.map((item, index) => (
               <AchievementBadge key={item.label} item={item} index={index} />

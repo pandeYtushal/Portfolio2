@@ -79,6 +79,14 @@ export const App = () => {
       className="relative min-h-screen bg-app-bg text-app-text-primary font-sans antialiased overflow-x-hidden"
       style={{ overflowX: "hidden" }}
     >
+      {/* ── Skip to main content (keyboard navigation) ── */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200000] focus:px-4 focus:py-2 focus:bg-app-accent focus:text-black focus:text-xs focus:font-bold focus:uppercase focus:tracking-wider focus:outline-none focus:rounded"
+      >
+        Skip to main content
+      </a>
+
       {/* ── GPU-accelerated theme-transition vertical wipe overlay ── */}
       <div
         id="theme-swipe-overlay"

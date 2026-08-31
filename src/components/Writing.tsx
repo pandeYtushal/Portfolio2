@@ -107,43 +107,48 @@ export const Writing = () => {
             </>
           ) : (
             posts.map((post, i) => (
-              <motion.article
+              <motion.a
                 key={post.link + i}
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 variants={fadeUp}
-                onClick={() => window.open(post.link, "_blank", "noopener,noreferrer")}
-                className="group cursor-pointer flex flex-col md:flex-row md:items-center justify-between py-7 border-b border-app-border/70 hover:bg-app-surface/30 -mx-4 px-4 transition-all duration-200 gap-5 rounded"
+                className="group cursor-pointer flex flex-col md:flex-row md:items-center justify-between py-7 border-b border-app-border/70 hover:bg-app-surface/30 -mx-4 px-4 transition-all duration-200 gap-5 rounded no-underline"
+                aria-label={`Read article: ${post.title}`}
               >
-                <div className="space-y-2 flex-1">
-                  <div className="flex items-center gap-4 text-[10px] font-mono text-app-text-muted">
-                    <span className="flex items-center gap-1 uppercase tracking-wide">
-                      <Calendar className="h-2.5 w-2.5" />
-                      {post.pubDate}
-                    </span>
-                    <span className="flex items-center gap-1 uppercase tracking-wide">
-                      <Clock className="h-2.5 w-2.5" />
-                      {post.readingTime}
-                    </span>
+                <article className="contents">
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center gap-4 text-[10px] font-mono text-app-text-muted">
+                      <span className="flex items-center gap-1 uppercase tracking-wide">
+                        <Calendar className="h-2.5 w-2.5" />
+                        {post.pubDate}
+                      </span>
+                      <span className="flex items-center gap-1 uppercase tracking-wide">
+                        <Clock className="h-2.5 w-2.5" />
+                        {post.readingTime}
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg md:text-xl font-black text-app-text-primary tracking-tight leading-tight group-hover:text-app-accent transition-colors duration-200">
+                      {post.title}
+                    </h3>
+
+                    <p className="text-[11px] leading-relaxed text-app-text-secondary font-mono max-w-2xl line-clamp-2">
+                      {post.description}
+                    </p>
                   </div>
 
-                  <h3 className="text-lg md:text-xl font-black text-app-text-primary tracking-tight leading-tight group-hover:text-app-accent transition-colors duration-200">
-                    {post.title}
-                  </h3>
-
-                  <p className="text-[11px] leading-relaxed text-app-text-secondary font-mono max-w-2xl line-clamp-2">
-                    {post.description}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4 shrink-0">
-                  <div className="flex items-center gap-1.5 text-app-text-muted">
-                    <MediumIcon className="h-3 w-3" />
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-wider">Medium</span>
+                  <div className="flex items-center gap-4 shrink-0">
+                    <div className="flex items-center gap-1.5 text-app-text-muted">
+                      <MediumIcon className="h-3 w-3" />
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider">Medium</span>
+                    </div>
+                    <div className="h-9 w-9 rounded-full border border-app-border flex items-center justify-center text-app-text-muted group-hover:bg-app-text-primary group-hover:text-app-bg group-hover:border-app-text-primary transition-all duration-300">
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </div>
                   </div>
-                  <div className="h-9 w-9 rounded-full border border-app-border flex items-center justify-center text-app-text-muted group-hover:bg-app-text-primary group-hover:text-app-bg group-hover:border-app-text-primary transition-all duration-300">
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </div>
-                </div>
-              </motion.article>
+                </article>
+              </motion.a>
             ))
           )}
         </motion.div>

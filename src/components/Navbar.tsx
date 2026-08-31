@@ -259,14 +259,14 @@ const FullScreenOverlay = ({
         </div>
 
         <div className="flex items-center gap-4 text-[10px] font-mono font-bold uppercase tracking-widest text-app-text-secondary">
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
+          <a href="https://github.com/pandeYtushal" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
             GitHub
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
+          <a href="https://www.linkedin.com/in/tushal-anand18/" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
             LinkedIn
           </a>
-          <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
-            X
+          <a href="https://medium.com/@tushalpandey" target="_blank" rel="noreferrer" className="hover:text-app-text-primary transition-colors">
+            Medium
           </a>
         </div>
       </div>

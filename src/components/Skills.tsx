@@ -104,6 +104,20 @@ export const Skills = () => {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* Visually hidden full skill list for screen readers and non-JS crawlers */}
+        <div className="sr-only" aria-label="Full skills list">
+          {SKILL_CATEGORIES.map((cat) => (
+            <div key={cat.id}>
+              <h3>{cat.title}</h3>
+              <ul>
+                {cat.skills.map((skill) => (
+                  <li key={skill}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
