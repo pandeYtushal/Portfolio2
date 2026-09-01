@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Prevent theme flash before React hydrates -->
+  <!-- Inline: apply theme class before first paint to avoid FOUC -->
   <script>
     (function () {
       try {
@@ -18,7 +18,7 @@
     })();
   </script>
 
-  <!-- SEO-->
+  <!-- SEO: primary meta tags -->
   <title>Tushal Pandey</title>
   <meta name="description"
     content="Tushal Pandey — Student &amp; Web Developer from India. I build modern, responsive web applications using React, TypeScript, Tailwind CSS, Firebase, and Framer Motion. View my projects and get in touch." />
@@ -28,7 +28,7 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://tushalpandey.vercel.app/" />
 
-  <!-- AI / LLM machine-readable layer -->
+  <!-- LLM-readable sitemap (llms.txt spec) -->
   <link rel="alternate" type="text/plain" href="/llms.txt" />
 
   <meta property="og:type" content="website" />
@@ -67,7 +67,7 @@
   <link rel="dns-prefetch" href="https://api.rss2json.com" />
   <link rel="dns-prefetch" href="https://medium.com" />
 
-  <!-- Fonts -->
+  <!-- Fonts: preload → stylesheet avoids render-blocking -->
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
   <link
@@ -75,9 +75,7 @@
     rel="stylesheet" />
 
 
-  <!-- ═══════════════════════════════════════════
-       STRUCTURED DATA — Person (JSON-LD)
-  ════════════════════════════════════════════ -->
+  <!-- JSON-LD: Person schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -113,9 +111,7 @@
   }
   </script>
 
-  <!-- ═══════════════════════════════════════════
-       STRUCTURED DATA — WebSite (JSON-LD)
-  ════════════════════════════════════════════ -->
+  <!-- JSON-LD: WebSite schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -130,9 +126,7 @@
   }
   </script>
 
-  <!-- ═══════════════════════════════════════════
-       STRUCTURED DATA — CreativeWork / Projects (JSON-LD)
-  ════════════════════════════════════════════ -->
+  <!-- JSON-LD: Projects ItemList schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -182,13 +176,7 @@
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 
-  <!--
-    ═══════════════════════════════════════════════════════════════
-    NOSCRIPT FALLBACK
-    Provides real portfolio content for crawlers and users without JS.
-    Visually hidden when JS is enabled (the <div id="root"> takes over).
-    ═══════════════════════════════════════════════════════════════
-  -->
+  <!-- Noscript: static fallback for crawlers & no-JS users; hidden once React mounts -->
   <noscript>
     <style>
       .noscript-portfolio { font-family: sans-serif; max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; color: #111; line-height: 1.6; }
