@@ -1,157 +1,228 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Calendar, Clock } from "lucide-react";
-import { fadeUpSubtle, staggerContainer, fadeUp } from "../lib/motion";
+import React from "react";
+import { motion, useSpring, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
-const MEDIUM_USERNAME = "tushalpandey";
-const RSS_API_URL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${MEDIUM_USERNAME}&t=${Date.now()}`;
-
-interface MediumPost {
+interface Article {
+  id: string;
   title: string;
-  pubDate: string;
-  readingTime: string;
+  category: string;
+  date: string;
+  readTime: string;
+  excerpt: string;
   link: string;
-  description: string;
+  featured?: boolean;
 }
 
-const MediumIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-  </svg>
-);
+const ARTICLES_DATA: Article[] = [
+  {
+    id: "hunter-agent",
+    title: "From Chatbots to Browser Agents: Building Hunter",
+    category: "AI / BUILDING",
+    date: "JUL 31, 2026",
+    readTime: "4 MIN READ",
+    excerpt: "How I built a multi-agent AI system that translates natural language goals into self-healing browser execution loops.",
+    link: "https://medium.com/@tushalpandey",
+    featured: true,
+  },
+  {
+    id: "placement-game",
+    title: "The Placement Game Has Changed: What CS Students Need Now",
+    category: "AI / CAREER",
+    date: "MAY 06, 2026",
+    readTime: "5 MIN READ",
+    excerpt: "Why standard DSA grinding is no longer enough and how building autonomous AI systems separates elite software engineers.",
+    link: "https://medium.com/@tushalpandey",
+  },
+  {
+    id: "decentralized-sync",
+    title: "Decentralized State Synchronization in Modern Web Architecture",
+    category: "SYSTEMS / WEB3",
+    date: "MAR 18, 2026",
+    readTime: "6 MIN READ",
+    excerpt: "Architecting deterministic state machines and low-latency cache synchronization across distributed client nodes.",
+    link: "https://medium.com/@tushalpandey",
+  },
+  {
+    id: "frontend-mistakes",
+    title: "5 Frontend Mistakes Every Senior Developer Still Makes",
+    category: "FRONTEND / UX",
+    date: "FEB 16, 2026",
+    readTime: "3 MIN READ",
+    excerpt: "From state hoisting anti-patterns to dynamic layout shifts — fixing subtle architectural flaws in modern SPAs.",
+    link: "https://medium.com/@tushalpandey",
+  },
+];
 
-const SkeletonRow = () => (
-  <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-b border-app-border animate-pulse gap-4">
-    <div className="space-y-2.5 flex-1">
-      <div className="h-2.5 w-20 bg-app-surface-secondary rounded" />
-      <div className="h-5 w-2/3 bg-app-surface-secondary rounded" />
-      <div className="h-3 w-5/6 bg-app-surface-secondary rounded" />
-    </div>
-    <div className="flex items-center gap-4">
-      <div className="h-3 w-16 bg-app-surface-secondary rounded" />
-      <div className="h-8 w-8 rounded-full bg-app-surface-secondary" />
-    </div>
-  </div>
-);
+const ArticleCard = ({
+  article,
+  isFeatured = false,
+}: {
+  article: Article;
+  isFeatured?: boolean;
+}) => {
+  const shouldReduce = useReducedMotion();
 
-export const Writing = () => {
-  const [posts,   setPosts]   = useState<MediumPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Controlled spring hover physics for text
+  const springConfig = { stiffness: 140, damping: 22, mass: 0.6 };
+  const textX = useSpring(0, springConfig);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res  = await fetch(RSS_API_URL);
-        const data = await res.json();
+  const handleMouseEnter = () => {
+    if (shouldReduce) return;
+    const isPointerCapable = window.matchMedia("(hover: hover)").matches;
+    if (!isPointerCapable) return;
+    textX.set(4);
+  };
 
-        if (data.status === "ok" && data.items?.length > 0) {
-          const formatted = data.items.slice(0, 6).map((item: any) => {
-            const clean   = item.description?.replace(/<[^>]*>/g, "").trim() ?? "";
-            const excerpt = clean.substring(0, 160) + (clean.length > 160 ? "..." : "");
-            const words   = item.content?.replace(/<[^>]*>/g, "").split(/\s+/).length ?? 1000;
-            const mins    = Math.ceil(words / 225);
-            const date    = new Date(item.pubDate).toLocaleDateString("en-US", {
-              month: "short", day: "numeric", year: "numeric",
-            });
-            return { title: item.title, pubDate: date, readingTime: `${mins} min read`, link: item.link, description: excerpt };
-          });
-          setPosts(formatted);
-        } else {
-          setPosts([]);
-        }
-      } catch {
-        setPosts([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPosts();
-  }, []);
+  const handleMouseLeave = () => {
+    textX.set(0);
+  };
 
-  if (!loading && posts.length === 0) return null;
+  const revealVariant = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  if (isFeatured) {
+    return (
+      <motion.article
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={revealVariant}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="group flex flex-col gap-6 pb-16 border-b border-app-border/30"
+      >
+        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-accent">
+          FEATURED THOUGHT
+        </span>
+
+        <div className="flex flex-col items-start gap-4 max-w-3xl">
+          <div className="flex items-center gap-3 text-xs font-mono text-app-text-muted uppercase tracking-widest">
+            <span className="text-app-accent font-bold">{article.category}</span>
+            <span>·</span>
+            <span>{article.date}</span>
+            <span>·</span>
+            <span>{article.readTime}</span>
+          </div>
+
+          <a
+            href={article.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="no-underline"
+          >
+            <motion.h3
+              style={shouldReduce ? undefined : { x: textX }}
+              className="text-3xl sm:text-5xl font-sans font-normal tracking-tight text-app-text-primary hover:text-app-accent transition-colors leading-tight"
+            >
+              {article.title}
+            </motion.h3>
+          </a>
+
+          <p className="text-xs sm:text-sm font-mono text-app-text-secondary leading-relaxed max-w-2xl">
+            {article.excerpt}
+          </p>
+
+          <a
+            href={article.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-primary group-hover:text-app-accent border-b border-app-text-primary/40 group-hover:border-app-accent pb-1 transition-all pt-2"
+          >
+            <span>READ ARTICLE</span>
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+          </a>
+        </div>
+      </motion.article>
+    );
+  }
 
   return (
-    <section id="writing" className="border-t border-app-border bg-app-bg">
-      <div className="max-w-5xl mx-auto px-6 py-24">
+    <motion.article
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={revealVariant}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="group py-12 border-b border-app-border/30 last:border-b-0"
+    >
+      <div className="flex flex-col items-start gap-4 max-w-3xl">
+        <div className="flex items-center gap-3 text-xs font-mono text-app-text-muted uppercase tracking-widest">
+          <span className="text-app-accent font-bold">{article.category}</span>
+          <span>·</span>
+          <span>{article.date}</span>
+          <span>·</span>
+          <span>{article.readTime}</span>
+        </div>
 
-        <motion.div
-          variants={fadeUpSubtle}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mb-12 border-b border-app-border pb-8"
+        <a
+          href={article.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline"
         >
-          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-4">
-            04 / WRITING
-          </p>
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-app-text-primary leading-[1.0]">
-            ARTICLES.
+          <motion.h3
+            style={shouldReduce ? undefined : { x: textX }}
+            className="text-2xl sm:text-4xl font-sans font-normal tracking-tight text-app-text-primary hover:text-app-accent transition-colors leading-tight"
+          >
+            {article.title}
+          </motion.h3>
+        </a>
+
+        <p className="text-xs sm:text-sm font-mono text-app-text-secondary leading-relaxed max-w-2xl">
+          {article.excerpt}
+        </p>
+
+        <a
+          href={article.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-primary group-hover:text-app-accent border-b border-app-text-primary/40 group-hover:border-app-accent pb-1 transition-all pt-2"
+        >
+          <span>READ ARTICLE</span>
+          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </a>
+      </div>
+    </motion.article>
+  );
+};
+
+export const Writing = () => {
+  return (
+    <section id="writing" className="border-t border-app-border/40 bg-app-bg px-6 py-28 sm:py-40 overflow-x-hidden">
+      <div className="max-w-5xl mx-auto flex flex-col gap-20">
+        
+        {/* Large Editorial Opening */}
+        <div className="flex flex-col items-start gap-4 max-w-3xl">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-text-muted">
+            06 / THOUGHTS
+          </span>
+          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-normal tracking-tight leading-[0.95] text-app-text-primary uppercase">
+            WRITING <br />
+            WITHOUT <br />
+            <span className="italic font-serif text-app-accent font-normal lowercase">a template.</span>
           </h2>
-          <p className="mt-4 text-sm font-mono leading-relaxed text-app-text-secondary max-w-lg">
-            Sharing learnings, challenges, and architectural decisions from building software.
+          <p className="mt-4 text-xs sm:text-sm font-mono leading-relaxed text-app-text-secondary max-w-md">
+            Ideas, experiments, lessons and things I&apos;ve learned while building autonomous systems.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={staggerContainer(0.06, 0.05)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-col"
-        >
-          {loading ? (
-            <>
-              <SkeletonRow />
-              <SkeletonRow />
-              <SkeletonRow />
-            </>
-          ) : (
-            posts.map((post, i) => (
-              <motion.a
-                key={post.link + i}
-                href={post.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={fadeUp}
-                className="group cursor-pointer flex flex-col md:flex-row md:items-center justify-between py-7 border-b border-app-border/70 hover:bg-app-surface/30 -mx-4 px-4 transition-all duration-200 gap-5 rounded no-underline"
-                aria-label={`Read article: ${post.title}`}
-              >
-                <article className="contents">
-                  <div className="space-y-2 flex-1">
-                    <div className="flex items-center gap-4 text-[10px] font-mono text-app-text-muted">
-                      <span className="flex items-center gap-1 uppercase tracking-wide">
-                        <Calendar className="h-2.5 w-2.5" />
-                        {post.pubDate}
-                      </span>
-                      <span className="flex items-center gap-1 uppercase tracking-wide">
-                        <Clock className="h-2.5 w-2.5" />
-                        {post.readingTime}
-                      </span>
-                    </div>
+        {/* Featured Article */}
+        <ArticleCard article={ARTICLES_DATA[0]} isFeatured={true} />
 
-                    <h3 className="text-lg md:text-xl font-black text-app-text-primary tracking-tight leading-tight group-hover:text-app-accent transition-colors duration-200">
-                      {post.title}
-                    </h3>
+        {/* Subsequent Articles */}
+        <div className="flex flex-col">
+          {ARTICLES_DATA.slice(1).map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
 
-                    <p className="text-[11px] leading-relaxed text-app-text-secondary font-mono max-w-2xl line-clamp-2">
-                      {post.description}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-4 shrink-0">
-                    <div className="flex items-center gap-1.5 text-app-text-muted">
-                      <MediumIcon className="h-3 w-3" />
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider">Medium</span>
-                    </div>
-                    <div className="h-9 w-9 rounded-full border border-app-border flex items-center justify-center text-app-text-muted group-hover:bg-app-text-primary group-hover:text-app-bg group-hover:border-app-text-primary transition-all duration-300">
-                      <ArrowUpRight className="h-3.5 w-3.5" />
-                    </div>
-                  </div>
-                </article>
-              </motion.a>
-            ))
-          )}
-        </motion.div>
       </div>
     </section>
   );

@@ -1,182 +1,139 @@
-import { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Download, ArrowRight, MapPin, Code2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, useSpring, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import ResumeModal from "./ResumeModal";
-import { easeOut } from "../lib/motion";
-import Magnetic from "./ui/Magnetic";
-import CursorSpotlight from "./CursorSpotlight";
-
-const TYPING_ROLES = [
-  "AI Agent Developer",
-  "Browser Automation Engineer",
-  "Full Stack Builder",
-  "System Architect",
-];
-
-const AvatarCard = () => (
-  <div className="w-[240px] shrink-0">
-    <div className="relative overflow-hidden rounded-xl border border-app-border bg-app-surface-secondary aspect-[3/4]">
-      <img
-        src="/avtar.png"
-        alt="Tushal Pandey"
-        className="w-full h-full object-cover"
-        onError={(e) => { e.currentTarget.style.display = "none"; }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-    </div>
-
-    <div className="mt-3 flex flex-col gap-1.5 pl-0.5">
-      <div className="flex items-center gap-1.5 text-[10px] font-mono text-app-text-muted">
-        <MapPin className="h-2.5 w-2.5 shrink-0" />
-        <span>India · Open to Work</span>
-      </div>
-      <div className="flex items-center gap-1.5 text-[10px] font-mono text-app-text-muted">
-        <Code2 className="h-2.5 w-2.5 shrink-0" />
-        <span>3+ years building</span>
-      </div>
-      <div className="flex items-center gap-1.5 mt-1">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.6)]" />
-        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400">Available</span>
-      </div>
-    </div>
-  </div>
-);
 
 export const Hero = () => {
-  const [showResume, setShowResume]   = useState(false);
-  const [typingText, setTypingText]   = useState("");
-  const [roleIdx,    setRoleIdx]      = useState(0);
-  const [isDeleting, setIsDeleting]   = useState(false);
-  const shouldReduceMotion            = useReducedMotion();
+  const [showResume, setShowResume] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
+  const shouldReduce = useReducedMotion();
 
-  /* Typewriter effect */
+  // Controlled 4-8px spring pointer follow physics for portrait artwork
+  const springConfig = { stiffness: 150, damping: 22, mass: 0.5 };
+  const portraitX = useSpring(0, springConfig);
+  const portraitY = useSpring(0, springConfig);
+
+  // Scroll dynamics for portrait (subtle position shift on scroll)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  const portraitScrollY = useTransform(scrollYProgress, [0, 1], [0, 45]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+
+  // Combined vertical translation for pointer follow + scroll dynamics
+  const combinedPortraitY = useTransform(
+    [portraitY, portraitScrollY],
+    ([y, sy]) => (y as number) + (sy as number)
+  );
+
   useEffect(() => {
-    const current = TYPING_ROLES[roleIdx];
-    const speed   = isDeleting ? 40 : 75;
+    if (shouldReduce) return;
 
-    if (!isDeleting && typingText === current) {
-      const t = setTimeout(() => setIsDeleting(true), 2000);
-      return () => clearTimeout(t);
-    }
-    if (isDeleting && typingText === "") {
-      setIsDeleting(false);
-      setRoleIdx((p) => (p + 1) % TYPING_ROLES.length);
-      return;
-    }
+    // Only enable mouse follow physics on desktop pointer devices
+    const isPointerCapable = window.matchMedia("(hover: hover)").matches;
+    if (!isPointerCapable) return;
 
-    const t = setTimeout(() => {
-      setTypingText((p) =>
-        isDeleting ? p.slice(0, -1) : current.slice(0, p.length + 1)
-      );
-    }, speed);
-    return () => clearTimeout(t);
-  }, [typingText, isDeleting, roleIdx]);
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const dx = (e.clientX - centerX) / (rect.width / 2);
+      const dy = (e.clientY - centerY) / (rect.height / 2);
 
-  const headline = ["BUILDING", "AUTONOMOUS", "SYSTEMS."];
+      // Strictly bounded 4-8px physical movement
+      portraitX.set(Math.max(-8, Math.min(8, dx * 6)));
+      portraitY.set(Math.max(-8, Math.min(8, dy * 6)));
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [portraitX, portraitY, shouldReduce]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-app-bg">
-      <CursorSpotlight />
+    <section
+      ref={containerRef}
+      id="home"
+      className="relative min-h-[90vh] sm:min-h-screen flex flex-col justify-center bg-app-bg px-6 pt-24 sm:pt-28 pb-16 overflow-x-hidden"
+    >
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-      <div
-        className="absolute inset-0 pointer-events-none z-0 dark:block hidden"
-        style={{
-          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
-          maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 30%, transparent 100%)",
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-5xl w-full px-6 pt-28 pb-20">
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-14 lg:gap-20">
-
-          <div className="flex-1 flex flex-col items-start min-w-0">
-            <motion.p
-              initial={{ opacity: 0, y: -6 }}
+          {/* Primary Typographic Headline Area */}
+          <div className="order-1 lg:order-none lg:col-span-7 lg:row-start-1">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-text-muted block mb-3">
+              01 / SYSTEM ARCHITECT & FULL-STACK
+            </span>
+            <motion.h1
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: easeOut }}
-              className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-7"
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-medium tracking-tight uppercase leading-[0.93] text-app-text-primary"
             >
-              00 / INTRO
+              I BUILD <br />
+              <span className="text-app-accent font-semibold">AUTONOMOUS SYSTEMS.</span>
+            </motion.h1>
+          </div>
+
+          {/* Integrated Portrait Artwork (Asymmetric Desktop Placement) */}
+          <motion.div
+            style={
+              shouldReduce
+                ? undefined
+                : { x: portraitX, y: combinedPortraitY, scale: portraitScale }
+            }
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-span-2 relative w-full flex justify-center lg:justify-end my-4 lg:my-0"
+          >
+            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-black/20 dark:shadow-black/70">
+              <img
+                src="/avtar.png"
+                alt="Tushal Pandey"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-[1.02]"
+                loading="eager"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+            </div>
+          </motion.div>
+
+          {/* Supporting Statement & Subordinate Actions (Anchoring Lower Region) */}
+          <div className="order-3 lg:order-none lg:col-span-7 lg:row-start-2 flex flex-col gap-6 max-w-xl">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.6 }}
+              className="text-xs sm:text-sm font-mono text-app-text-secondary leading-relaxed"
+            >
+              Full-stack engineer crafting autonomous AI browser agents, self-healing control loops, and production web applications with deterministic precision.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-              className="mb-5 h-5 flex items-center"
-            >
-              <span className="font-mono text-xs text-app-accent">{typingText}</span>
-              <span className="ml-0.5 inline-block w-[2px] h-[14px] bg-app-accent animate-pulse" />
-            </motion.div>
-
-            <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] font-black tracking-tight leading-[0.95] text-app-text-primary mb-6">
-              {headline.map((word, i) => (
-                <span key={i} className="block overflow-hidden pb-1">
-                  <motion.span
-                    initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 70 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.65, ease: easeOut, delay: 0.12 + i * 0.1 }}
-                    className="block"
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.5, ease: easeOut }}
-              className="text-sm font-mono leading-relaxed text-app-text-secondary max-w-md mb-10"
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="flex items-center gap-8 pt-2"
             >
-              Turning complex workflows into self-healing autonomous systems.
-              Specializing in AI agents, browser automation, and full-stack products.
-            </motion.p>
+              <a
+                href="#projects"
+                className="group inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-primary hover:text-app-accent border-b border-app-text-primary/40 hover:border-app-accent pb-1 transition-all"
+              >
+                <span>EXPLORE WORK</span>
+                <ArrowDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+              </a>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.72, duration: 0.5, ease: easeOut }}
-              className="flex flex-wrap gap-3"
-            >
-              <Magnetic>
-                <a
-                  href="#projects"
-                  id="hero-explore-btn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="group inline-flex items-center gap-2 h-11 px-6 bg-app-accent text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:bg-app-accent/85 transition-colors duration-200 active:scale-95"
-                >
-                  <span>Explore Work</span>
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </a>
-              </Magnetic>
-
-              <Magnetic>
-                <button
-                  id="hero-resume-btn"
-                  onClick={() => setShowResume(true)}
-                  className="inline-flex items-center gap-2 h-11 px-6 border border-app-text-muted/40 text-app-text-secondary text-[11px] font-bold uppercase tracking-[0.12em] hover:border-app-text-secondary hover:text-app-text-primary transition-all duration-200 active:scale-95 cursor-pointer bg-transparent"
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  <span>Resume</span>
-                </button>
-              </Magnetic>
+              <button
+                onClick={() => setShowResume(true)}
+                className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted hover:text-app-text-primary border-b border-transparent hover:border-app-text-muted pb-1 transition-all cursor-pointer"
+              >
+                RESUME
+              </button>
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.65, ease: easeOut }}
-            className="lg:self-center"
-          >
-            <AvatarCard />
-          </motion.div>
         </div>
       </div>
 

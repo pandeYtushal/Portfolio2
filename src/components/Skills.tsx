@@ -1,123 +1,201 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { fadeUpSubtle } from "../lib/motion";
+import React, { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
-const SKILL_CATEGORIES = [
+interface SkillCategory {
+  num: string;
+  category: string;
+  items: string[];
+  diagram: React.ReactNode;
+}
+
+const SKILL_INDEX: SkillCategory[] = [
   {
-    id: "languages",
-    title: "Languages",
-    skills: ["TypeScript", "JavaScript", "Python", "SQL", "C++", "C", "HTML5", "CSS3"],
+    num: "01",
+    category: "LANGUAGES",
+    items: ["TypeScript", "JavaScript", "Python", "SQL", "C++", "HTML5", "CSS3"],
+    diagram: (
+      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
+        <path d="M12 20h20M22 20v24M34 32h18M44 20v24" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="22" cy="44" r="2.5" fill="currentColor" />
+        <circle cx="44" cy="20" r="2.5" fill="currentColor" />
+      </svg>
+    ),
   },
   {
-    id: "frameworks",
-    title: "Frameworks",
-    skills: ["React.js", "Tailwind CSS", "Zustand", "Framer Motion", "Vite", "PWA Support"],
+    num: "02",
+    category: "SYSTEMS & FRAMEWORKS",
+    items: ["React.js", "Tailwind CSS", "Zustand", "Framer Motion", "Vite", "REST APIs", "PostgreSQL"],
+    diagram: (
+      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
+        <circle cx="20" cy="20" r="4" strokeWidth="1.5" />
+        <circle cx="44" cy="20" r="4" strokeWidth="1.5" />
+        <circle cx="32" cy="44" r="4" strokeWidth="1.5" />
+        <path d="M24 22l6 18M40 22l-6 18M24 20h16" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
   },
   {
-    id: "tools",
-    title: "Tools & Infra",
-    skills: ["Git", "GitHub", "PostgreSQL", "Firestore", "IndexedDB", "Firebase", "REST APIs", "Vercel", "VS Code"],
+    num: "03",
+    category: "AI & AUTOMATION",
+    items: ["Browser Automation", "LLM Orchestration", "Puppeteer", "Playwright", "Multi-Agent Systems"],
+    diagram: (
+      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
+        <path d="M16 32c0-8.8 7.2-16 16-16s16 7.2 16 16-7.2 16-16 16" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M44 28l4 4-4 4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
   },
   {
-    id: "ai",
-    title: "AI & Automation",
-    skills: ["Browser Automation", "LLM Orchestration", "Prompt Engineering", "Multi-Agent Systems", "Puppeteer", "Playwright"],
+    num: "04",
+    category: "TOOLS & INFRASTRUCTURE",
+    items: ["Git", "GitHub", "Vercel", "Firebase", "IndexedDB", "Firestore", "VS Code"],
+    diagram: (
+      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
+        <rect x="16" y="16" width="32" height="32" rx="4" strokeWidth="1.5" />
+        <path d="M16 28h32M28 28v20" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
   },
 ];
 
+const TechItem = ({ name }: { name: string }) => {
+  const shouldReduce = useReducedMotion();
+  return (
+    <motion.span
+      whileHover={
+        shouldReduce
+          ? undefined
+          : { x: 3, transition: { type: "spring", stiffness: 280, damping: 22 } }
+      }
+      className="text-sm sm:text-base font-sans text-app-text-secondary hover:text-app-text-primary transition-colors cursor-default select-none inline-block"
+    >
+      {name}
+    </motion.span>
+  );
+};
+
 export const Skills = () => {
-  const [activeId, setActiveId] = useState("languages");
-  const active = SKILL_CATEGORIES.find((c) => c.id === activeId)!;
+  const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
+
+  const groupReveal = {
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
 
   return (
-    <section id="skills" className="border-t border-app-border bg-app-bg">
-      <div className="max-w-5xl mx-auto px-6 pt-24 pb-24">
+    <section id="skills" className="border-t border-app-border/40 bg-app-bg px-6 py-24 sm:py-32 overflow-x-hidden">
+      <div className="max-w-5xl mx-auto flex flex-col gap-16 sm:gap-20">
 
+        {/* Editorial Introduction */}
         <motion.div
-          variants={fadeUpSubtle}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mb-12"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={groupReveal}
+          className="flex flex-col items-start gap-4 max-w-2xl"
         >
-          <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-app-text-muted mb-4">
-            03 / SKILLS
-          </p>
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-app-text-primary leading-[1.0]">
-            THE STACK.
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-text-muted">
+            05 / TECHNICAL INDEX
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-normal tracking-tight text-app-text-primary leading-tight">
+            The tools change. <br />
+            <span className="italic font-serif text-app-text-secondary">The way I build doesn&apos;t.</span>
           </h2>
-          <p className="mt-4 text-sm font-mono leading-relaxed text-app-text-secondary max-w-md">
-            Curated set of languages, frameworks, infrastructure layers, and AI tooling.
-          </p>
         </motion.div>
 
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-app-border pb-6">
-          {SKILL_CATEGORIES.map((cat) => {
-            const isActive = activeId === cat.id;
-            return (
-              <button
-                key={cat.id}
-                id={`skill-tab-${cat.id}`}
-                onClick={() => setActiveId(cat.id)}
-                className="h-9 px-4 text-[10px] font-mono font-bold uppercase tracking-[0.15em] border transition-all duration-200 cursor-pointer"
-                style={{
-                  borderColor:     isActive
-                    ? "var(--color-app-accent)"
-                    : "var(--color-app-text-muted)",
-                  color:           isActive
-                    ? "var(--color-app-accent)"
-                    : "var(--color-app-text-secondary)",
-                  backgroundColor: isActive
-                    ? "transparent"
-                    : "transparent",
-                  opacity: isActive ? 1 : 0.6,
-                }}
+        {/* Asymmetric Technical Index */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column (01 & 03) */}
+          <div className="lg:col-span-6 flex flex-col gap-12 sm:gap-16">
+            {SKILL_INDEX.filter((_, i) => i % 2 === 0).map((group) => (
+              <motion.div
+                key={group.num}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                variants={groupReveal}
+                onMouseEnter={() => setHoveredGroup(group.num)}
+                onMouseLeave={() => setHoveredGroup(null)}
+                className="group relative flex flex-col gap-4 py-4 border-b border-app-border/30 transition-colors"
               >
-                {cat.title}
-              </button>
-            );
-          })}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono font-light text-app-accent">{group.num}</span>
+                    <h3 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted group-hover:text-app-text-primary transition-colors">
+                      {group.category}
+                    </h3>
+                  </div>
+
+                  {/* Restrained Abstract Diagram Reveal */}
+                  <div className={`transition-opacity duration-500 pointer-events-none ${hoveredGroup === group.num ? "opacity-100" : "opacity-0"}`}>
+                    {group.diagram}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
+                  {group.items.map((item) => (
+                    <TechItem key={item} name={item} />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Right Column (02 & 04) — Staggered Editorial Offset */}
+          <div className="lg:col-span-6 lg:translate-y-12 flex flex-col gap-12 sm:gap-16">
+            {SKILL_INDEX.filter((_, i) => i % 2 === 1).map((group) => (
+              <motion.div
+                key={group.num}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                variants={groupReveal}
+                onMouseEnter={() => setHoveredGroup(group.num)}
+                onMouseLeave={() => setHoveredGroup(null)}
+                className="group relative flex flex-col gap-4 py-4 border-b border-app-border/30 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono font-light text-app-accent">{group.num}</span>
+                    <h3 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted group-hover:text-app-text-primary transition-colors">
+                      {group.category}
+                    </h3>
+                  </div>
+
+                  {/* Restrained Abstract Diagram Reveal */}
+                  <div className={`transition-opacity duration-500 pointer-events-none ${hoveredGroup === group.num ? "opacity-100" : "opacity-0"}`}>
+                    {group.diagram}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
+                  {group.items.map((item) => (
+                    <TechItem key={item} name={item} />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
         </div>
 
-        <div className="min-h-[160px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeId}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
-              className="flex flex-wrap gap-2.5"
-            >
-              {active.skills.map((skill, i) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.03, duration: 0.18 }}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 border border-app-border bg-app-surface text-app-text-secondary hover:text-app-text-primary hover:border-app-text-muted transition-colors duration-200 cursor-default"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-app-accent shrink-0" />
-                  <span className="text-[11px] font-mono font-semibold tracking-[0.08em]">{skill}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {/* Quiet Transition Line */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={groupReveal}
+          className="pt-8 border-t border-app-border/30 flex items-center justify-between text-[10px] font-mono text-app-text-muted uppercase tracking-widest"
+        >
+          <span>Tools are only useful when they solve something.</span>
+          <span className="hidden sm:inline">TUSHAL PANDEY</span>
+        </motion.div>
 
-        {/* Visually hidden full skill list for screen readers and non-JS crawlers */}
-        <div className="sr-only" aria-label="Full skills list">
-          {SKILL_CATEGORIES.map((cat) => (
-            <div key={cat.id}>
-              <h3>{cat.title}</h3>
-              <ul>
-                {cat.skills.map((skill) => (
-                  <li key={skill}>{skill}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
