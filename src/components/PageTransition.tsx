@@ -26,8 +26,8 @@ export const PageTransition = ({ children }: { children: React.ReactNode }) => {
         animate="animate"
         exit="exit"
         variants={slideVariants}
-        // #E2F62A or #FFD700 (yellow)
-        className="fixed inset-0 z-[99999] bg-[#E2F62A] pointer-events-none"
+        // Adaptive theme color curtain
+        className="fixed inset-0 z-[99999] bg-app-text-primary pointer-events-none"
       />
       <motion.div
         initial={{ opacity: 0 }}
