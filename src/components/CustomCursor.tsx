@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useReducedMotion, AnimatePresence } from "framer-motion";
 
 export const CustomCursor = () => {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
   const shouldReduce = useReducedMotion();
-  const [hovered, setHovered] = useState(false);
+  const [hoverState, setHoverState] = useState<"default" | "link" | "project">("default");
 
   const spring = { stiffness: 400, damping: 28, mass: 0.1 };
   const cursorX = useSpring(mouseX, spring);
@@ -32,14 +32,22 @@ export const CustomCursor = () => {
     const onOver = (e: MouseEvent) => {
       const t = e.target as HTMLElement | null;
       if (!t) return;
-      setHovered(
+      
+      const projectHover = t.closest('[data-cursor="view"]');
+      if (projectHover) {
+        setHoverState("project");
+        return;
+      }
+
+      const isLink = 
         t.tagName === "A" ||
         t.tagName === "BUTTON" ||
         !!t.closest("a") ||
         !!t.closest("button") ||
         !!t.closest('[role="button"]') ||
-        t.classList.contains("cursor-pointer")
-      );
+        t.classList.contains("cursor-pointer");
+
+      setHoverState(isLink ? "link" : "default");
     };
 
     window.addEventListener("mousemove", onMove);
@@ -56,12 +64,25 @@ export const CustomCursor = () => {
     <motion.div
       style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%" }}
       animate={{
-        width: hovered ? 80 : 16,
-        height: hovered ? 80 : 16,
+        width: hoverState === "project" ? 100 : hoverState === "link" ? 80 : 16,
+        height: hoverState === "project" ? 100 : hoverState === "link" ? 80 : 16,
       }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full hidden md:block bg-white mix-blend-difference"
-    />
+      className={`fixed top-0 left-0 pointer-events-none z-[99999] rounded-full hidden md:flex items-center justify-center bg-white ${hoverState !== "project" ? "mix-blend-difference" : ""}`}
+    >
+      <AnimatePresence>
+        {hoverState === "project" && (
+          <motion.span
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            className="text-black text-xs font-bold uppercase tracking-widest"
+          >
+            View
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

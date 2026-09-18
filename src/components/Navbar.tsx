@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
@@ -54,6 +55,9 @@ const MagneticItem = ({ children }: { children: React.ReactNode }) => {
    FULLSCREEN OVERLAY MENU
 ───────────────────────────────────────────────── */
 const MenuOverlay = ({ isOpen, close }: { isOpen: boolean; close: () => void }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -87,12 +91,21 @@ const MenuOverlay = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
                     onClick={(e) => {
                       e.preventDefault();
                       close();
-                      setTimeout(() => {
-                        const el = document.querySelector(item.href);
-                        if (el) {
-                          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
-                        }
-                      }, 800);
+
+                      if (location.pathname !== "/") {
+                        // Navigate home with hash
+                        setTimeout(() => {
+                          navigate("/" + item.href);
+                        }, 800);
+                      } else {
+                        // Already on home, just scroll
+                        setTimeout(() => {
+                          const el = document.querySelector(item.href);
+                          if (el) {
+                            window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+                          }
+                        }, 800);
+                      }
                     }}
                     initial={{ y: "100%", rotateX: -90 }}
                     animate={{ y: "0%", rotateX: 0 }}
@@ -130,6 +143,8 @@ const MenuOverlay = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
 ───────────────────────────────────────────────── */
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -144,10 +159,16 @@ export const Navbar = () => {
         <div className="pointer-events-auto">
           <MagneticItem>
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-sm font-bold uppercase tracking-widest"
+              onClick={() => {
+                if (location.pathname !== "/") {
+                  navigate("/");
+                } else {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              className="text-sm font-bold uppercase tracking-widest hidden sm:block"
             >
-              Tushal &copy;
+              Tushal Pandey
             </button>
           </MagneticItem>
         </div>

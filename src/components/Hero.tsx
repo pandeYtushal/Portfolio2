@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import ResumeModal from "./ResumeModal";
 
@@ -58,6 +58,12 @@ const AnimatedText = ({ text, delay = 0 }: { text: string; delay?: number }) => 
 
 export const Hero = () => {
   const [showResume, setShowResume] = useState(false);
+  
+  const { scrollY } = useScroll();
+  // Move the hero content down slightly as you scroll down
+  const y = useTransform(scrollY, [0, 1000], [0, 300]);
+  // Fade out slightly as it goes behind
+  const opacity = useTransform(scrollY, [0, 800], [1, 0.3]);
 
   return (
     <section
@@ -68,7 +74,10 @@ export const Hero = () => {
         <div className="hidden md:block absolute top-1/4 -right-1/4 sm:right-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-app-text-primary/5 rounded-full blur-[100px] md:blur-[150px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 px-4 sm:px-10 md:px-16 w-full flex flex-col items-start text-left max-w-[1600px] mx-auto">
+      <motion.div 
+        style={{ y, opacity }}
+        className="relative z-10 px-4 sm:px-10 md:px-16 w-full flex flex-col items-start text-left max-w-[1600px] mx-auto"
+      >
         
         <div className="flex flex-col mb-12 sm:mb-20">
           <motion.div 
@@ -134,7 +143,7 @@ export const Hero = () => {
             </button>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {showResume && <ResumeModal onClose={() => setShowResume(false)} />}
     </section>

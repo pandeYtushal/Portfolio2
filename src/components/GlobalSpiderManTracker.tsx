@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useScroll, useVelocity, useSpring, useTransform } from "framer-motion";
 
 export const GlobalSpiderManTracker: React.FC = () => {
   const headRef = useRef<SVGGElement>(null);
@@ -16,6 +16,24 @@ export const GlobalSpiderManTracker: React.FC = () => {
   const [webSway, setWebSway] = useState(0);
 
   const prevMouseX = useRef(0);
+
+  // --- Scroll Physics Engine ---
+  const { scrollY } = useScroll();
+  const rawVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(rawVelocity, { damping: 40, stiffness: 200, mass: 0.5 });
+  
+  // Y Translation: Drops down when scrolling fast down, pulls up slightly when scrolling up
+  const spideyY = useTransform(smoothVelocity, [-2000, 0, 2000], [-40, 0, 250]);
+  
+  // Web Tension: Stretches the web based on how far he dropped
+  const webStretch = useTransform(spideyY, [0, 250], [1, 1.8]);
+  
+  // Arm Rotations (Flaring arms out when falling)
+  const armLeftRotate = useTransform(smoothVelocity, [0, 1500], [0, 35]);
+  const armRightRotate = useTransform(smoothVelocity, [0, 1500], [0, -35]);
+  
+  // Eye Widen (Panic eyes when falling fast)
+  const eyeFallScale = useTransform(smoothVelocity, [0, 1500], [1, 1.5]);
 
   // Automatic eye blinking every 3.6 seconds
   useEffect(() => {
@@ -127,25 +145,35 @@ export const GlobalSpiderManTracker: React.FC = () => {
             </defs>
 
             {/* HANGING WEB LINE */}
-            <path
-              d={`M 110 -600 Q ${110 + webSway * 1.2} -200, ${110 + webSway} 12`}
-              stroke="#000000"
-              strokeWidth="5"
-              strokeLinecap="round"
-            />
-            <path
-              d={`M 110 -600 Q ${110 + webSway * 1.2} -200, ${110 + webSway} 12`}
-              stroke="url(#web-line-grad)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
+            <motion.g style={{ scaleY: webStretch, transformOrigin: "110px -600px" }}>
+              <path
+                d={`M 110 -600 Q ${110 + webSway * 1.2} -200, ${110 + webSway} 12`}
+                stroke="#000000"
+                strokeWidth="5"
+                strokeLinecap="round"
+              />
+              <path
+                d={`M 110 -600 Q ${110 + webSway * 1.2} -200, ${110 + webSway} 12`}
+                stroke="url(#web-line-grad)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              />
+            </motion.g>
 
-            {/* SPIDER-MAN BODY & HEAD */}
-            <g transform={`translate(${webSway}, 0)`}>
+            {/* SPIDER-MAN BODY & HEAD (Translated by scroll velocity) */}
+            <motion.g style={{ y: spideyY }} transform={`translate(${webSway}, 0)`}>
               <g id="spidey-body">
                 <ellipse cx="110" cy="24" rx="36" ry="24" fill="#000000" />
-                <path d="M 76 10 C 70 26, 72 40, 84 46 C 92 50, 98 50, 104 50 C 98 34, 88 18, 76 10 Z" fill="url(#spidey-blue-grad)" stroke="#000000" strokeWidth="3" />
-                <path d="M 144 10 C 150 26, 148 40, 136 46 C 128 50, 122 50, 116 50 C 122 34, 132 18, 144 10 Z" fill="url(#spidey-blue-grad)" stroke="#000000" strokeWidth="3" />
+                
+                {/* Left Arm */}
+                <motion.g style={{ rotate: armLeftRotate, transformOrigin: "84px 30px" }}>
+                  <path d="M 76 10 C 70 26, 72 40, 84 46 C 92 50, 98 50, 104 50 C 98 34, 88 18, 76 10 Z" fill="url(#spidey-blue-grad)" stroke="#000000" strokeWidth="3" />
+                </motion.g>
+                
+                {/* Right Arm */}
+                <motion.g style={{ rotate: armRightRotate, transformOrigin: "136px 30px" }}>
+                  <path d="M 144 10 C 150 26, 148 40, 136 46 C 128 50, 122 50, 116 50 C 122 34, 132 18, 144 10 Z" fill="url(#spidey-blue-grad)" stroke="#000000" strokeWidth="3" />
+                </motion.g>
                 <path d="M 84 10 C 82 26, 84 42, 94 48 C 100 52, 120 52, 126 48 C 136 42, 138 26, 136 10 Z" fill="url(#spidey-red-grad)" stroke="#000000" strokeWidth="3.5" />
 
                 <g stroke="#000000" strokeWidth="1.8" opacity="0.85" fill="none">
@@ -191,13 +219,14 @@ export const GlobalSpiderManTracker: React.FC = () => {
                   <path d="M 83 114 Q 110 123 137 114" />
                 </g>
 
-                <g
+                <motion.g
                   id="spidey-eyes"
                   style={{
-                    transform: `scaleY(${isBlinking ? 0.08 : 1})`,
+                    scaleY: isBlinking ? 0.08 : 1,
+                    scale: eyeFallScale,
                     transformOrigin: "110px 90px",
-                    transition: "transform 0.12s ease-out",
                   }}
+                  transition={{ duration: 0.12, ease: "easeOut" }}
                 >
                   <g style={{ transform: `translate(${isDragging ? 0 : eyeOffset.x * 0.8}px, ${isDragging ? -2 : eyeOffset.y * 0.8}px)` }}>
                     <path
@@ -218,9 +247,9 @@ export const GlobalSpiderManTracker: React.FC = () => {
                       strokeLinejoin="round"
                     />
                   </g>
-                </g>
+                </motion.g>
               </g>
-            </g>
+            </motion.g>
           </svg>
         </motion.div>
       </div>

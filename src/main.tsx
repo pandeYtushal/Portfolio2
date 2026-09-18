@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import "./index.css";
@@ -10,9 +11,12 @@ const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width:
 if (!isMobile) {
   const lenis = new Lenis({
     autoRaf: true,
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for premium feel
+    lerp: 0.05,
+    wheelMultiplier: 1.0,
+    smoothWheel: true,
   });
+  // @ts-ignore
+  window.lenis = lenis;
 }
 
 const rootEl = document.getElementById("root");
@@ -22,6 +26,8 @@ if (!rootEl) {
 
 createRoot(rootEl).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 );
