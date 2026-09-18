@@ -1,200 +1,108 @@
-import React, { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
-interface SkillCategory {
-  num: string;
-  category: string;
-  items: string[];
-  diagram: React.ReactNode;
-}
-
-const SKILL_INDEX: SkillCategory[] = [
+const SKILL_CATEGORIES = [
   {
-    num: "01",
-    category: "LANGUAGES",
-    items: ["TypeScript", "JavaScript", "Python", "SQL", "C++", "HTML5", "CSS3"],
-    diagram: (
-      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
-        <path d="M12 20h20M22 20v24M34 32h18M44 20v24" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="22" cy="44" r="2.5" fill="currentColor" />
-        <circle cx="44" cy="20" r="2.5" fill="currentColor" />
-      </svg>
-    ),
+    title: "Frontend & Motion",
+    description: "Building fluid, pixel-perfect user interfaces with modern frameworks and physics-based animation engines.",
+    skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion", "GSAP", "WebGL"]
   },
   {
-    num: "02",
-    category: "SYSTEMS & FRAMEWORKS",
-    items: ["React.js", "Tailwind CSS", "Zustand", "Framer Motion", "Vite", "REST APIs", "PostgreSQL"],
-    diagram: (
-      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
-        <circle cx="20" cy="20" r="4" strokeWidth="1.5" />
-        <circle cx="44" cy="20" r="4" strokeWidth="1.5" />
-        <circle cx="32" cy="44" r="4" strokeWidth="1.5" />
-        <path d="M24 22l6 18M40 22l-6 18M24 20h16" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    title: "Backend & Systems",
+    description: "Architecting scalable server logic, relational databases, and secure real-time APIs.",
+    skills: ["Node.js", "Python", "PostgreSQL", "Supabase", "Firebase", "Docker", "REST APIs"]
   },
   {
-    num: "03",
-    category: "AI & AUTOMATION",
-    items: ["Browser Automation", "LLM Orchestration", "Puppeteer", "Playwright", "Multi-Agent Systems"],
-    diagram: (
-      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
-        <path d="M16 32c0-8.8 7.2-16 16-16s16 7.2 16 16-7.2 16-16 16" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M44 28l4 4-4 4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    title: "AI & Autonomous",
+    description: "Integrating large language models and vision systems into autonomous agents and browser automation.",
+    skills: ["LLM Orchestration", "Multi-Agent Systems", "Playwright", "Puppeteer", "Vision Models", "Prompt Eng"]
   },
   {
-    num: "04",
-    category: "TOOLS & INFRASTRUCTURE",
-    items: ["Git", "GitHub", "Vercel", "Firebase", "IndexedDB", "Firestore", "VS Code"],
-    diagram: (
-      <svg className="w-16 h-16 stroke-current text-app-accent" viewBox="0 0 64 64" fill="none">
-        <rect x="16" y="16" width="32" height="32" rx="4" strokeWidth="1.5" />
-        <path d="M16 28h32M28 28v20" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
+    title: "Design & Tooling",
+    description: "Rapid prototyping, wireframing, and modern CI/CD deployment pipelines.",
+    skills: ["Figma", "Git", "Vercel", "GitHub Actions", "WebRTC", "Canvas API"]
+  }
 ];
 
-const TechItem = ({ name }: { name: string }) => {
-  const shouldReduce = useReducedMotion();
-  return (
-    <motion.span
-      whileHover={
-        shouldReduce
-          ? undefined
-          : { x: 3, transition: { type: "spring", stiffness: 280, damping: 22 } }
-      }
-      className="text-sm sm:text-base font-sans text-app-text-secondary hover:text-app-text-primary transition-colors cursor-default select-none inline-block"
-    >
-      {name}
-    </motion.span>
-  );
-};
-
 export const Skills = () => {
-  const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
-
-  const groupReveal = {
-    hidden: { opacity: 0, y: 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
   return (
-    <section id="skills" className="border-t border-app-border/40 bg-app-bg px-6 py-24 sm:py-32 overflow-x-hidden">
-      <div className="max-w-5xl mx-auto flex flex-col gap-16 sm:gap-20">
+    <section
+      id="skills"
+      className="py-16 md:py-32 bg-app-bg relative z-10"
+    >
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-10 md:px-16">
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="flex flex-col gap-4"
+          >
+            <span className="text-sm font-bold font-mono text-app-text-secondary uppercase tracking-widest">
+              Capabilities
+            </span>
+            <h2 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-app-text-primary leading-[0.85] uppercase">
+              Technical<br/>Arsenal
+            </h2>
+          </motion.div>
 
-        {/* Editorial Introduction */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={groupReveal}
-          className="flex flex-col items-start gap-4 max-w-2xl"
-        >
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-text-muted">
-            05 / TECHNICAL INDEX
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-normal tracking-tight text-app-text-primary leading-tight">
-            The tools change. <br />
-            <span className="italic font-serif text-app-text-secondary">The way I build doesn&apos;t.</span>
-          </h2>
-        </motion.div>
-
-        {/* Asymmetric Technical Index */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* Left Column (01 & 03) */}
-          <div className="lg:col-span-6 flex flex-col gap-12 sm:gap-16">
-            {SKILL_INDEX.filter((_, i) => i % 2 === 0).map((group) => (
-              <motion.div
-                key={group.num}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                variants={groupReveal}
-                onMouseEnter={() => setHoveredGroup(group.num)}
-                onMouseLeave={() => setHoveredGroup(null)}
-                className="group relative flex flex-col gap-4 py-4 border-b border-app-border/30 transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-light text-app-accent">{group.num}</span>
-                    <h3 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted group-hover:text-app-text-primary transition-colors">
-                      {group.category}
-                    </h3>
-                  </div>
-
-                  {/* Restrained Abstract Diagram Reveal */}
-                  <div className={`transition-opacity duration-500 pointer-events-none ${hoveredGroup === group.num ? "opacity-100" : "opacity-0"}`}>
-                    {group.diagram}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
-                  {group.items.map((item) => (
-                    <TechItem key={item} name={item} />
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Right Column (02 & 04) — Staggered Editorial Offset */}
-          <div className="lg:col-span-6 lg:translate-y-12 flex flex-col gap-12 sm:gap-16">
-            {SKILL_INDEX.filter((_, i) => i % 2 === 1).map((group) => (
-              <motion.div
-                key={group.num}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                variants={groupReveal}
-                onMouseEnter={() => setHoveredGroup(group.num)}
-                onMouseLeave={() => setHoveredGroup(null)}
-                className="group relative flex flex-col gap-4 py-4 border-b border-app-border/30 transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-light text-app-accent">{group.num}</span>
-                    <h3 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-muted group-hover:text-app-text-primary transition-colors">
-                      {group.category}
-                    </h3>
-                  </div>
-
-                  {/* Restrained Abstract Diagram Reveal */}
-                  <div className={`transition-opacity duration-500 pointer-events-none ${hoveredGroup === group.num ? "opacity-100" : "opacity-0"}`}>
-                    {group.diagram}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
-                  {group.items.map((item) => (
-                    <TechItem key={item} name={item} />
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
+          <motion.p 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+            className="max-w-md text-base sm:text-lg text-app-text-muted leading-relaxed font-medium pb-2"
+          >
+            I operate across the full stack, utilizing bleeding-edge frameworks to construct robust architectures and immaculate interfaces.
+          </motion.p>
         </div>
 
-        {/* Quiet Transition Line */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={groupReveal}
-          className="pt-8 border-t border-app-border/30 flex items-center justify-between text-[10px] font-mono text-app-text-muted uppercase tracking-widest"
-        >
-          <span>Tools are only useful when they solve something.</span>
-          <span className="hidden sm:inline">TUSHAL PANDEY</span>
-        </motion.div>
+        {/* Structural List */}
+        <div className="flex flex-col border-t border-app-border/40">
+          {SKILL_CATEGORIES.map((category, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: index * 0.1 }}
+              className="group flex flex-col lg:flex-row border-b border-app-border/40 py-10 md:py-16 hover:bg-app-text-primary hover:text-app-bg transition-colors duration-500 cursor-pointer -mx-4 sm:-mx-10 md:-mx-16 px-4 sm:px-10 md:px-16"
+            >
+              <div className="lg:w-2/5 flex flex-col justify-between pr-8">
+                <div className="flex items-start gap-4 mb-6 lg:mb-0">
+                  <span className="font-mono text-sm opacity-50 mt-2">0{index + 1}</span>
+                  <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter uppercase leading-none">
+                    {category.title}
+                  </h3>
+                </div>
+                <p className="text-app-text-muted group-hover:text-app-bg/70 transition-colors mt-6 lg:mt-12 max-w-sm text-lg hidden sm:block">
+                  {category.description}
+                </p>
+              </div>
+              
+              <div className="lg:w-3/5 mt-8 lg:mt-0 flex flex-col justify-between">
+                <div className="flex flex-wrap items-start gap-3">
+                  {category.skills.map((skill) => (
+                    <span 
+                      key={skill} 
+                      className="px-5 py-2.5 rounded-full border border-app-border/40 text-sm font-bold uppercase tracking-widest text-app-text-primary group-hover:border-app-bg/30 group-hover:text-app-bg transition-colors"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                <div className="hidden lg:flex justify-end w-full mt-12">
+                  <div className="w-16 h-16 rounded-full border border-app-border/40 flex items-center justify-center group-hover:bg-app-bg group-hover:text-app-text-primary transition-colors transform group-hover:scale-110 duration-500">
+                    <ArrowUpRight className="w-8 h-8" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
       </div>
     </section>

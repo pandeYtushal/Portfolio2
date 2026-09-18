@@ -88,8 +88,25 @@ export const ResumeModal = ({ onClose }: ResumeModalProps) => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-hidden bg-app-surface">
-          <iframe src={pdfUrl} title="Tushal Pandey Resume" className="h-full w-full border-none" />
+        <div className="flex-1 overflow-hidden bg-app-surface relative">
+          <div className="sm:hidden absolute inset-0 flex flex-col items-center justify-center p-6 text-center gap-6 z-10 bg-app-surface">
+            <div className="w-20 h-20 bg-app-surface-secondary rounded-full flex items-center justify-center">
+              <FileText className="w-10 h-10 text-app-text-primary" />
+            </div>
+            <div className="max-w-xs">
+              <p className="text-xl font-bold text-app-text-primary mb-3">Resume Ready</p>
+              <p className="text-sm text-app-text-secondary leading-relaxed">PDF previews are limited on mobile devices. Tap below to view or download.</p>
+            </div>
+            <a
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 flex items-center gap-3 bg-app-text-primary text-app-bg px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-transform"
+            >
+              Open PDF
+            </a>
+          </div>
+          <iframe src={pdfUrl} title="Tushal Pandey Resume" className="hidden sm:block h-full w-full border-none relative z-0" />
         </div>
       </div>
     </div>,

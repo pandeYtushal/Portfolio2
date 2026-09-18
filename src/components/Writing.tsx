@@ -1,9 +1,10 @@
 import React from "react";
-import { motion, useSpring, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 interface Article {
   id: string;
+  number: string;
   title: string;
   category: string;
   date: string;
@@ -16,8 +17,9 @@ interface Article {
 const ARTICLES_DATA: Article[] = [
   {
     id: "hunter-agent",
-    title: "From Chatbots to Browser Agents: Building Hunter",
-    category: "AI / BUILDING",
+    number: "01",
+    title: "From Chatbots to Browser Agents",
+    category: "AI / ENGINEERING",
     date: "JUL 31, 2026",
     readTime: "4 MIN READ",
     excerpt: "How I built a multi-agent AI system that translates natural language goals into self-healing browser execution loops.",
@@ -26,8 +28,9 @@ const ARTICLES_DATA: Article[] = [
   },
   {
     id: "placement-game",
-    title: "The Placement Game Has Changed: What CS Students Need Now",
-    category: "AI / CAREER",
+    number: "02",
+    title: "The New Engineering Meta",
+    category: "CAREER",
     date: "MAY 06, 2026",
     readTime: "5 MIN READ",
     excerpt: "Why standard DSA grinding is no longer enough and how building autonomous AI systems separates elite software engineers.",
@@ -35,8 +38,9 @@ const ARTICLES_DATA: Article[] = [
   },
   {
     id: "decentralized-sync",
-    title: "Decentralized State Synchronization in Modern Web Architecture",
-    category: "SYSTEMS / WEB3",
+    number: "03",
+    title: "Decentralized State Synchronization",
+    category: "SYSTEMS",
     date: "MAR 18, 2026",
     readTime: "6 MIN READ",
     excerpt: "Architecting deterministic state machines and low-latency cache synchronization across distributed client nodes.",
@@ -44,8 +48,9 @@ const ARTICLES_DATA: Article[] = [
   },
   {
     id: "frontend-mistakes",
-    title: "5 Frontend Mistakes Every Senior Developer Still Makes",
-    category: "FRONTEND / UX",
+    number: "04",
+    title: "Modern SPA Anti-Patterns",
+    category: "FRONTEND",
     date: "FEB 16, 2026",
     readTime: "3 MIN READ",
     excerpt: "From state hoisting anti-patterns to dynamic layout shifts — fixing subtle architectural flaws in modern SPAs.",
@@ -53,173 +58,72 @@ const ARTICLES_DATA: Article[] = [
   },
 ];
 
-const ArticleCard = ({
-  article,
-  isFeatured = false,
-}: {
-  article: Article;
-  isFeatured?: boolean;
-}) => {
-  const shouldReduce = useReducedMotion();
-
-  // Controlled spring hover physics for text
-  const springConfig = { stiffness: 140, damping: 22, mass: 0.6 };
-  const textX = useSpring(0, springConfig);
-
-  const handleMouseEnter = () => {
-    if (shouldReduce) return;
-    const isPointerCapable = window.matchMedia("(hover: hover)").matches;
-    if (!isPointerCapable) return;
-    textX.set(4);
-  };
-
-  const handleMouseLeave = () => {
-    textX.set(0);
-  };
-
-  const revealVariant = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
-  if (isFeatured) {
-    return (
-      <motion.article
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={revealVariant}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="group flex flex-col gap-6 pb-16 border-b border-app-border/30"
-      >
-        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-accent">
-          FEATURED THOUGHT
-        </span>
-
-        <div className="flex flex-col items-start gap-4 max-w-3xl">
-          <div className="flex items-center gap-3 text-xs font-mono text-app-text-muted uppercase tracking-widest">
-            <span className="text-app-accent font-bold">{article.category}</span>
-            <span>·</span>
-            <span>{article.date}</span>
-            <span>·</span>
-            <span>{article.readTime}</span>
-          </div>
-
-          <a
-            href={article.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="no-underline"
-          >
-            <motion.h3
-              style={shouldReduce ? undefined : { x: textX }}
-              className="text-3xl sm:text-5xl font-sans font-normal tracking-tight text-app-text-primary hover:text-app-accent transition-colors leading-tight"
-            >
-              {article.title}
-            </motion.h3>
-          </a>
-
-          <p className="text-xs sm:text-sm font-mono text-app-text-secondary leading-relaxed max-w-2xl">
-            {article.excerpt}
-          </p>
-
-          <a
-            href={article.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-primary group-hover:text-app-accent border-b border-app-text-primary/40 group-hover:border-app-accent pb-1 transition-all pt-2"
-          >
-            <span>READ ARTICLE</span>
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </a>
-        </div>
-      </motion.article>
-    );
-  }
-
-  return (
-    <motion.article
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={revealVariant}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="group py-12 border-b border-app-border/30 last:border-b-0"
-    >
-      <div className="flex flex-col items-start gap-4 max-w-3xl">
-        <div className="flex items-center gap-3 text-xs font-mono text-app-text-muted uppercase tracking-widest">
-          <span className="text-app-accent font-bold">{article.category}</span>
-          <span>·</span>
-          <span>{article.date}</span>
-          <span>·</span>
-          <span>{article.readTime}</span>
-        </div>
-
-        <a
-          href={article.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="no-underline"
-        >
-          <motion.h3
-            style={shouldReduce ? undefined : { x: textX }}
-            className="text-2xl sm:text-4xl font-sans font-normal tracking-tight text-app-text-primary hover:text-app-accent transition-colors leading-tight"
-          >
-            {article.title}
-          </motion.h3>
-        </a>
-
-        <p className="text-xs sm:text-sm font-mono text-app-text-secondary leading-relaxed max-w-2xl">
-          {article.excerpt}
-        </p>
-
-        <a
-          href={article.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-primary group-hover:text-app-accent border-b border-app-text-primary/40 group-hover:border-app-accent pb-1 transition-all pt-2"
-        >
-          <span>READ ARTICLE</span>
-          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </a>
-      </div>
-    </motion.article>
-  );
-};
-
 export const Writing = () => {
+  const shouldReduce = useReducedMotion();
+  const initial = shouldReduce ? "visible" : "hidden";
+
   return (
-    <section id="writing" className="border-t border-app-border/40 bg-app-bg px-6 py-28 sm:py-40 overflow-x-hidden">
-      <div className="max-w-5xl mx-auto flex flex-col gap-20">
+    <section
+      id="writing"
+      className="bg-app-bg py-32 sm:py-48 overflow-hidden relative border-t border-app-border/20"
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 flex flex-col gap-16 sm:gap-24 relative z-10">
         
-        {/* Large Editorial Opening */}
-        <div className="flex flex-col items-start gap-4 max-w-3xl">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-text-muted">
-            06 / THOUGHTS
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="flex flex-col gap-4"
+        >
+          <span className="text-sm font-semibold text-app-text-secondary uppercase tracking-widest">
+            Thoughts & Articles
           </span>
-          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-normal tracking-tight leading-[0.95] text-app-text-primary uppercase">
-            WRITING <br />
-            WITHOUT <br />
-            <span className="italic font-serif text-app-accent font-normal lowercase">a template.</span>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-app-text-primary uppercase">
+            Writings.
           </h2>
-          <p className="mt-4 text-xs sm:text-sm font-mono leading-relaxed text-app-text-secondary max-w-md">
-            Ideas, experiments, lessons and things I&apos;ve learned while building autonomous systems.
-          </p>
-        </div>
+        </motion.div>
 
-        {/* Featured Article */}
-        <ArticleCard article={ARTICLES_DATA[0]} isFeatured={true} />
+        {/* Article List */}
+        <div className="flex flex-col border-t border-app-border/40">
+          {ARTICLES_DATA.map((article, i) => (
+            <motion.a
+              key={article.id}
+              href={article.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: i * 0.1 }}
+              className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-8 sm:py-12 border-b border-app-border/40 hover:bg-app-surface/30 transition-colors px-4 -mx-4 rounded-2xl"
+            >
+              {/* Left Meta & Title */}
+              <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12 lg:gap-16">
+                <span className="text-sm font-bold text-app-text-secondary uppercase tracking-widest hidden sm:block">
+                  {article.number}
+                </span>
+                <div className="flex flex-col gap-2 max-w-2xl">
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-app-text-primary group-hover:text-app-text-secondary transition-colors leading-[1.1]">
+                    {article.title}
+                  </h3>
+                  <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-app-text-muted mt-2">
+                    <span>{article.category}</span>
+                    <span className="w-1 h-1 rounded-full bg-app-text-muted" />
+                    <span>{article.readTime}</span>
+                  </div>
+                </div>
+              </div>
 
-        {/* Subsequent Articles */}
-        <div className="flex flex-col">
-          {ARTICLES_DATA.slice(1).map((article) => (
-            <ArticleCard key={article.id} article={article} />
+              {/* Right Arrow */}
+              <div className="flex items-center justify-between md:justify-end mt-4 md:mt-0">
+                <span className="text-xs font-bold uppercase tracking-widest text-app-text-primary md:hidden">Read Article</span>
+                <div className="flex items-center justify-center w-12 h-12 rounded-full border border-app-border/40 bg-app-surface text-app-text-primary group-hover:bg-app-text-primary group-hover:text-app-bg transition-colors">
+                  <ArrowUpRight className="w-5 h-5 transition-transform group-hover:scale-110" />
+                </div>
+              </div>
+            </motion.a>
           ))}
         </div>
 

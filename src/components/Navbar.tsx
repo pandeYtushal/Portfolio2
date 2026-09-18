@@ -1,150 +1,174 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { Sun, Moon } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 
 const NAV_ITEMS = [
+  { label: "Home", href: "#home" },
   { label: "Work", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Writing", href: "#writing" },
+  { label: "Profile", href: "#about" },
+  { label: "Tech", href: "#skills" },
+  { label: "Blog", href: "#writing" },
   { label: "Contact", href: "#contact" },
 ];
 
-interface NavbarProps {
-  theme: string;
-  toggleTheme: (e?: React.MouseEvent) => void;
-}
+/* ─────────────────────────────────────────────────
+   MAGNETIC WRAPPER
+───────────────────────────────────────────────── */
+const MagneticItem = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-const ThemeToggle = ({
-  theme,
-  onToggle,
-}: {
-  theme: string;
-  onToggle: (e: React.MouseEvent) => void;
-}) => {
-  const isDark = theme === "dark";
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    x.set((clientX - centerX) * 0.3);
+    y.set((clientY - centerY) * 0.3);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <button
-      onClick={onToggle}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="p-1.5 text-app-text-muted hover:text-app-text-primary transition-colors cursor-pointer"
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+      className="cursor-pointer p-4 -m-4"
     >
-      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-    </button>
+      {children}
+    </motion.div>
   );
 };
 
-export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const isNavigating = useRef(false);
+/* ─────────────────────────────────────────────────
+   FULLSCREEN OVERLAY MENU
+───────────────────────────────────────────────── */
+const MenuOverlay = ({ isOpen, close }: { isOpen: boolean; close: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ clipPath: "circle(0% at 100% 0%)" }}
+          animate={{ clipPath: "circle(150% at 100% 0%)" }}
+          exit={{ clipPath: "circle(0% at 100% 0%)" }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[120] bg-app-text-primary text-app-bg overflow-y-auto overscroll-contain"
+          data-lenis-prevent="true"
+        >
+          <div className="min-h-full grid grid-rows-[auto_1fr_auto] px-6 sm:px-16">
+            {/* Close Button in Overlay */}
+            <div className="flex justify-end pt-8 sm:pt-12 pb-4">
+              <MagneticItem>
+                <button
+                  onClick={close}
+                  className="text-sm font-bold uppercase tracking-widest hover:opacity-70 transition-opacity"
+                >
+                  Close
+                </button>
+              </MagneticItem>
+            </div>
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+            {/* Links Container */}
+            <div className="flex flex-col gap-4 sm:gap-6 max-w-6xl mx-auto w-full self-center py-8">
+              {NAV_ITEMS.map((item, i) => (
+                <div key={item.label} className="overflow-hidden">
+                  <motion.a
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      close();
+                      setTimeout(() => {
+                        const el = document.querySelector(item.href);
+                        if (el) {
+                          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+                        }
+                      }, 800);
+                    }}
+                    initial={{ y: "100%", rotateX: -90 }}
+                    animate={{ y: "0%", rotateX: 0 }}
+                    exit={{ y: "-100%", rotateX: 90 }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 * i }}
+                    className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase origin-bottom hover:text-app-bg hover:opacity-50 transition-opacity leading-none py-1 sm:py-2"
+                    style={{ WebkitTextStroke: "1px var(--color-app-bg)" }}
+                  >
+                    {item.label}
+                  </motion.a>
+                </div>
+              ))}
+            </div>
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isNavigating.current) return;
-      const scrollPosition = window.scrollY + 140;
-
-      const sections = NAV_ITEMS.map((item) => {
-        const el = document.getElementById(item.href.slice(1));
-        return {
-          id: item.href.slice(1),
-          offsetTop: el ? el.offsetTop : 0,
-          offsetHeight: el ? el.offsetHeight : 0,
-        };
-      });
-
-      const current = sections.find(
-        (sec) =>
-          scrollPosition >= sec.offsetTop && scrollPosition < sec.offsetTop + sec.offsetHeight
-      );
-
-      if (current) {
-        setActiveSection(current.id);
-      } else if (window.scrollY < 100) {
-        setActiveSection("");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      e.preventDefault();
-      const id = href.slice(1);
-      setActiveSection(id);
-      isNavigating.current = true;
-
-      const el = document.querySelector(href);
-      if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - 60;
-        window.scrollTo({ top, behavior: "smooth" });
-      }
-
-      setTimeout(() => {
-        isNavigating.current = false;
-      }, 800);
-    },
-    []
+            {/* Socials / Footer of menu */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex gap-6 sm:gap-8 text-xs sm:text-sm font-bold tracking-widest uppercase pb-10 sm:pb-12 pt-4"
+            >
+              <a href="https://github.com/pandeYtushal" target="_blank" rel="noreferrer" className="hover:opacity-50 transition-opacity">GH</a>
+              <a href="https://www.linkedin.com/in/tushal-anand18/" target="_blank" rel="noreferrer" className="hover:opacity-50 transition-opacity">IN</a>
+              <a href="https://medium.com/@tushalpandey" target="_blank" rel="noreferrer" className="hover:opacity-50 transition-opacity">MD</a>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
+};
 
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+/* ─────────────────────────────────────────────────
+   MAIN NAVBAR
+───────────────────────────────────────────────── */
+export const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled
-        ? "bg-app-bg/90 backdrop-blur-md py-4 border-b border-app-border/40"
-        : "bg-transparent py-6 sm:py-8"
-        }`}
-      role="banner"
-    >
-      <div className="mx-auto max-w-5xl px-6 flex items-center justify-between">
-        {/* Brand Name */}
-        <button
-          onClick={scrollToTop}
-          className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-app-text-primary hover:text-app-accent transition-colors cursor-pointer select-none"
-        >
-          TUSHAL PANDEY
-        </button>
+    <>
+      <header className="fixed top-0 left-0 right-0 z-[100] px-4 sm:px-10 py-6 sm:py-8 flex justify-between items-center pointer-events-none mix-blend-difference text-white">
 
-        {/* Quiet Desktop Navigation */}
-        <nav aria-label="Site navigation" className="hidden md:flex items-center gap-8">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.href.slice(1);
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className={`text-xs font-mono tracking-widest uppercase transition-colors duration-200 ${isActive
-                  ? "text-app-text-primary font-bold"
-                  : "text-app-text-muted hover:text-app-text-primary"
-                  }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-          <div className="h-3 w-px bg-app-border" />
-          <ThemeToggle theme={theme} onToggle={toggleTheme} />
-        </nav>
-
-        {/* Mobile Theme Toggle */}
-        <div className="md:hidden flex items-center">
-          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+        {/* Logo */}
+        <div className="pointer-events-auto">
+          <MagneticItem>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="text-sm font-bold uppercase tracking-widest"
+            >
+              Tushal &copy;
+            </button>
+          </MagneticItem>
         </div>
-      </div>
-    </header>
+
+        {/* Menu Button */}
+        <div className="pointer-events-auto">
+          <MagneticItem>
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="text-sm font-bold uppercase tracking-widest flex items-center gap-3"
+            >
+              <div className="w-2 h-2 rounded-full bg-white" />
+              Menu
+            </button>
+          </MagneticItem>
+        </div>
+
+      </header>
+
+      <MenuOverlay isOpen={menuOpen} close={() => setMenuOpen(false)} />
+    </>
   );
 };
 

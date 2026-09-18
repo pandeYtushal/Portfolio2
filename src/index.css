@@ -1,51 +1,54 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 @variant dark (&:where(.dark, .dark *));
 
 /* ─────────────────────────────────────────
-   WARM NEUTRAL DESIGN TOKENS (Dark Mode Default)
+   MODERN SLEEK DESIGN TOKENS
 ───────────────────────────────────────── */
 @theme {
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
 
-  /* Dark mode: Soft midnight graphite & warm text */
-  --color-app-bg:               #0d0d0e;
-  --color-app-surface:          #141416;
-  --color-app-surface-secondary:#1c1c1f;
-  --color-app-border:           rgba(255, 255, 255, 0.07);
-  --color-app-text-primary:     #eeebe6;
-  --color-app-text-secondary:   #949089;
-  --color-app-text-muted:       #615e58;
-  --color-app-accent:           #e26d39;
-  --color-app-accent-blue:      #e26d39;
+  /* Studio Bone Palette */
+  --color-app-bg:               #F4F4F0;
+  --color-app-surface:          #E8E8E4;
+  --color-app-surface-secondary:#DCDCD8;
+  --color-app-border:           rgba(17, 17, 17, 0.1);
+  --color-app-text-primary:     #111111;
+  --color-app-text-secondary:   #4A4A4A;
+  --color-app-text-muted:       #737373;
+  --color-app-accent:           #000000;
 }
 
-/* ─────────────────────────────────────────
-   LIGHT MODE (Warm Off-White & Soft Charcoal)
-───────────────────────────────────────── */
 :root {
-  --color-app-bg:               #F7F5F0;
-  --color-app-surface:          #EFECE6;
-  --color-app-surface-secondary:#E5E1D7;
-  --color-app-border:           rgba(28, 27, 26, 0.08);
-  --color-app-text-primary:     #1c1b1a;
-  --color-app-text-secondary:   #68645e;
-  --color-app-text-muted:       #9c978f;
-  --color-app-accent:           #d45924;
-  --color-app-accent-blue:      #d45924;
+  --color-app-bg:               #F4F4F0;
+  --color-app-surface:          #E8E8E4;
+  --color-app-surface-secondary:#DCDCD8;
+  --color-app-border:           rgba(17, 17, 17, 0.15);
+  --color-app-text-primary:     #111111;
+  --color-app-text-secondary:   #4A4A4A;
+  --color-app-text-muted:       #737373;
+  --color-app-accent:           #000000;
 }
 
 .dark {
-  --color-app-bg:               #0d0d0e;
-  --color-app-surface:          #141416;
-  --color-app-surface-secondary:#1c1c1f;
-  --color-app-border:           rgba(255, 255, 255, 0.07);
-  --color-app-text-primary:     #eeebe6;
-  --color-app-text-secondary:   #949089;
-  --color-app-text-muted:       #615e58;
-  --color-app-accent:           #e26d39;
-  --color-app-accent-blue:      #e26d39;
+  /* Keeping dark mode same for now, or forcing it to light mode palette if they want true bone */
+  --color-app-bg:               #F4F4F0;
+  --color-app-surface:          #E8E8E4;
+  --color-app-surface-secondary:#DCDCD8;
+  --color-app-border:           rgba(17, 17, 17, 0.15);
+  --color-app-text-primary:     #111111;
+  --color-app-text-secondary:   #4A4A4A;
+  --color-app-text-muted:       #737373;
+  --color-app-accent:           #000000;
+}
+
+@layer utilities {
+  .bg-glass {
+    @apply bg-app-surface/60 backdrop-blur-md border border-app-border;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -68,13 +71,11 @@
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
   }
 
   body {
     background-color: var(--color-app-bg);
     color: var(--color-app-text-primary);
-    overflow-x: hidden;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
@@ -82,7 +83,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
   }
 
   button, a, [role="button"] {
@@ -109,12 +111,12 @@
   }
 
   ::selection {
-    background-color: var(--color-app-accent);
-    color: #ffffff;
+    background-color: var(--color-app-text-primary);
+    color: var(--color-app-bg);
   }
 
   *:focus-visible {
-    outline: 2px solid var(--color-app-accent);
+    outline: 2px solid var(--color-app-text-secondary);
     outline-offset: 2px;
   }
 

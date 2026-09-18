@@ -76,7 +76,7 @@ export const GlobalSpiderManTracker: React.FC = () => {
   if (shouldReduceMotion || !hasScrolledPastHero) return null;
 
   return (
-    <div className="fixed top-[54px] right-4 sm:right-8 md:right-12 z-[90] pointer-events-none select-none">
+    <div className="hidden md:block fixed top-[54px] right-4 sm:right-8 md:right-12 z-[90] pointer-events-none select-none">
       <div className="relative w-32 sm:w-40 md:w-44 h-auto pointer-events-none">
         {/* DRAGGABLE HIGH-DEFINITION SPIDER-MAN */}
         <motion.div
