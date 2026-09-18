@@ -21,7 +21,7 @@ const ProjectCard = ({ project, index, total, isMobile }: { project: Project; in
       style={{ top: stickyTop }}
     >
       <div className="flex items-center justify-between mb-auto z-10">
-        <span className="px-4 py-2 rounded-full bg-app-bg border border-app-border/40 text-[clamp(0.7rem,1.5vw,0.75rem)] font-bold tracking-widest uppercase text-app-text-primary">
+        <span className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-app-bg border border-app-border/40 text-[clamp(0.6rem,1.5vw,0.75rem)] font-bold tracking-widest uppercase text-app-text-primary">
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </span>
         <div className="flex items-center justify-center w-[clamp(2.5rem,6vw,3rem)] h-[clamp(2.5rem,6vw,3rem)] rounded-full bg-app-text-primary text-app-bg transform group-hover:scale-110 transition-transform shrink-0">
@@ -41,11 +41,11 @@ const ProjectCard = ({ project, index, total, isMobile }: { project: Project; in
       <div className="flex flex-col gap-6 mt-8 z-10">
         <motion.h3 
           layoutId={`project-title-${project.id}`}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-app-text-primary tracking-tighter leading-none group-hover:text-app-text-secondary transition-colors"
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-app-text-primary tracking-tighter leading-none group-hover:text-app-text-secondary transition-colors"
         >
           {project.title}
         </motion.h3>
-        <p className="text-base md:text-lg lg:text-xl text-app-text-muted max-w-2xl leading-relaxed line-clamp-3">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-app-text-muted max-w-2xl leading-relaxed line-clamp-3">
           {project.description}
         </p>
         
@@ -104,10 +104,10 @@ export const Projects = () => {
         
         {/* Section Header */}
         <div className="flex flex-col gap-4 md:gap-6 mb-16 md:mb-32">
-          <span className="text-sm font-semibold text-app-text-secondary uppercase tracking-widest">
+          <span className="text-xs sm:text-sm font-semibold text-app-text-secondary uppercase tracking-widest">
             Selected Work
           </span>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-app-text-primary">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-app-text-primary">
             Featured Projects.
           </h2>
         </div>

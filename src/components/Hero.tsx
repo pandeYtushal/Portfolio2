@@ -68,7 +68,7 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-end pb-12 sm:pb-24 bg-transparent overflow-hidden z-10"
+      className="relative min-h-[100dvh] flex flex-col justify-center sm:justify-end pt-20 sm:pt-0 pb-20 sm:pb-24 bg-transparent overflow-hidden z-10"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="hidden md:block absolute top-1/4 -right-1/4 sm:right-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-app-text-primary/5 rounded-full blur-[100px] md:blur-[150px] mix-blend-screen" />
@@ -93,7 +93,7 @@ export const Hero = () => {
             Available for selected missions
           </motion.div>
 
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85] text-app-text-primary uppercase flex flex-col">
+          <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85] text-app-text-primary uppercase flex flex-col">
             <div className="overflow-hidden">
               <AnimatedText text="CREATIVE" delay={0.1} />
             </div>
@@ -108,7 +108,7 @@ export const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 1 }}
-            className="max-w-md text-base sm:text-lg text-app-text-muted leading-relaxed font-medium"
+            className="max-w-md text-sm sm:text-lg text-app-text-muted leading-relaxed font-medium"
           >
             I build modern, high-performance web applications, intelligent agents, and exceptional user experiences. Focused on fluid motion and pixel-perfect design.
           </motion.p>
@@ -128,7 +128,7 @@ export const Hero = () => {
                   window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
                 }
               }}
-              className="flex-1 sm:flex-none group flex items-center justify-center gap-3 bg-app-text-primary text-app-bg px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest transition-all hover:bg-app-text-secondary"
+              className="flex-1 sm:flex-none group flex items-center justify-center gap-3 bg-app-text-primary text-app-bg px-5 sm:px-8 py-3 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest transition-all hover:bg-app-text-secondary"
             >
               <span>Explore</span>
               <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1" />
@@ -136,7 +136,7 @@ export const Hero = () => {
 
             <button
               onClick={() => setShowResume(true)}
-              className="group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-app-surface/50 border border-app-border/40 text-app-text-primary rounded-full transition-all hover:bg-app-text-primary hover:text-app-bg"
+              className="group flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 shrink-0 bg-app-surface/50 border border-app-border/40 text-app-text-primary rounded-full transition-all hover:bg-app-text-primary hover:text-app-bg"
               aria-label="View Resume"
             >
               <ArrowRight className="w-5 h-5 transition-transform group-hover:-rotate-45" />
