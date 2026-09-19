@@ -11,41 +11,46 @@
   --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
   --font-mono: 'Space Grotesk', monospace;
 
-  /* Studio Bone Palette */
-  --color-app-bg:               #F4F4F0;
-  --color-app-surface:          #E8E8E4;
-  --color-app-surface-secondary:#DCDCD8;
-  --color-app-border:           rgba(17, 17, 17, 0.1);
-  --color-app-text-primary:     #111111;
-  --color-app-text-secondary:   #4A4A4A;
-  --color-app-text-muted:       #737373;
-  --color-app-accent:           #000000;
+  /* Off-Brand Inspired: High-Contrast Black/White/Yellow */
+  --color-app-bg:               #000000;
+  --color-app-surface:          #0A0A0A;
+  --color-app-surface-secondary:#141414;
+  --color-app-border:           rgba(255, 255, 255, 0.15);
+  --color-app-text-primary:     #FFFFFF;
+  --color-app-text-secondary:   #E5E5E5;
+  --color-app-text-muted:       #A3A3A3;
+  --color-app-accent:           #FFFF00; /* Pure Yellow */
 }
 
 :root {
-  --color-app-bg:               #F4F4F0;
-  --color-app-surface:          #E8E8E4;
-  --color-app-surface-secondary:#DCDCD8;
-  --color-app-border:           rgba(17, 17, 17, 0.15);
-  --color-app-text-primary:     #111111;
-  --color-app-text-secondary:   #4A4A4A;
-  --color-app-text-muted:       #737373;
-  --color-app-accent:           #000000;
+  --color-app-bg:               #000000;
+  --color-app-surface:          #0A0A0A;
+  --color-app-surface-secondary:#141414;
+  --color-app-border:           rgba(255, 255, 255, 0.15);
+  --color-app-text-primary:     #FFFFFF;
+  --color-app-text-secondary:   #E5E5E5;
+  --color-app-text-muted:       #A3A3A3;
+  --color-app-accent:           #FFFF00;
 }
 
 .dark {
-  /* Keeping dark mode same for now, or forcing it to light mode palette if they want true bone */
-  --color-app-bg:               #F4F4F0;
-  --color-app-surface:          #E8E8E4;
-  --color-app-surface-secondary:#DCDCD8;
-  --color-app-border:           rgba(17, 17, 17, 0.15);
-  --color-app-text-primary:     #111111;
-  --color-app-text-secondary:   #4A4A4A;
-  --color-app-text-muted:       #737373;
-  --color-app-accent:           #000000;
+  --color-app-bg:               #000000;
+  --color-app-surface:          #0A0A0A;
+  --color-app-surface-secondary:#141414;
+  --color-app-border:           rgba(255, 255, 255, 0.15);
+  --color-app-text-primary:     #FFFFFF;
+  --color-app-text-secondary:   #E5E5E5;
+  --color-app-text-muted:       #A3A3A3;
+  --color-app-accent:           #FFFF00;
 }
 
 @layer utilities {
+  .text-gradient-neon {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#00E5FF];
+  }
+  .bg-glow {
+    box-shadow: 0 0 80px -20px var(--color-app-accent);
+  }
   .bg-glass {
     @apply bg-app-surface/60 backdrop-blur-md border border-app-border;
   }
@@ -70,7 +75,7 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Native smooth scroll removed to prevent conflict with Lenis */
   }
 
   body {

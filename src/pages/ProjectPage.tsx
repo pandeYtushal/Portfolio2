@@ -28,11 +28,11 @@ export const ProjectPage = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-app-bg text-app-text-primary overflow-x-hidden">
+      <div className="min-h-screen bg-app-bg text-app-text-primary overflow-x-clip">
         {/* Navbar / Header */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 sm:px-10 py-8 flex justify-between items-center mix-blend-difference text-white">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/#projects")}
           className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest hover:opacity-70 transition-opacity"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />

@@ -87,8 +87,8 @@ export const Hero = () => {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-app-border/40 bg-app-surface/30 backdrop-blur-sm text-[10px] sm:text-xs font-medium text-app-text-secondary w-fit mb-6 sm:mb-8"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-app-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-app-accent"></span>
             </span>
             Available for selected missions
           </motion.div>
@@ -97,7 +97,7 @@ export const Hero = () => {
             <div className="overflow-hidden">
               <AnimatedText text="CREATIVE" delay={0.1} />
             </div>
-            <div className="overflow-hidden text-app-text-secondary ml-[10vw] sm:ml-[5vw] md:ml-[10vw]">
+            <div className="overflow-hidden text-app-accent ml-[10vw] sm:ml-[5vw] md:ml-[10vw]">
               <AnimatedText text="ENGINEER" delay={0.3} />
             </div>
           </h1>
@@ -128,7 +128,7 @@ export const Hero = () => {
                   window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
                 }
               }}
-              className="flex-1 sm:flex-none group flex items-center justify-center gap-3 bg-app-text-primary text-app-bg px-5 sm:px-8 py-3 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest transition-all hover:bg-app-text-secondary"
+              className="flex-1 sm:flex-none group flex items-center justify-center gap-3 bg-app-accent text-app-bg px-5 sm:px-8 py-3 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest transition-all hover:bg-app-text-primary hover:text-app-accent"
             >
               <span>Explore</span>
               <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1" />
@@ -136,7 +136,7 @@ export const Hero = () => {
 
             <button
               onClick={() => setShowResume(true)}
-              className="group flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 shrink-0 bg-app-surface/50 border border-app-border/40 text-app-text-primary rounded-full transition-all hover:bg-app-text-primary hover:text-app-bg"
+              className="group flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 shrink-0 bg-app-surface/50 border border-app-border/40 text-app-text-primary rounded-full transition-all hover:bg-app-accent hover:text-app-bg hover:border-app-accent"
               aria-label="View Resume"
             >
               <ArrowRight className="w-5 h-5 transition-transform group-hover:-rotate-45" />

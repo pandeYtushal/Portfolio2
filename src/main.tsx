@@ -7,17 +7,22 @@ import "lenis/dist/lenis.css";
 import "./index.css";
 
 // Initialize smooth scrolling only on non-touch/desktop devices for better performance
-const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-if (!isMobile) {
-  const lenis = new Lenis({
-    autoRaf: true,
-    lerp: 0.05,
-    wheelMultiplier: 1.0,
-    smoothWheel: true,
-  });
-  // @ts-ignore
-  window.lenis = lenis;
+const lenis = new Lenis({
+  lerp: 0.1, // Higher value makes it snappier and faster
+  wheelMultiplier: 1.5, // Increases the scroll distance per wheel click
+  smoothWheel: true,
+  syncTouch: false, // Ensures native touch scroll on actual mobile devices isn't slowed down
+});
+
+function raf(time: number) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
+
+requestAnimationFrame(raf);
+
+// @ts-ignore
+window.lenis = lenis;
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {

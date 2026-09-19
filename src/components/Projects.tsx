@@ -104,7 +104,7 @@ export const Projects = () => {
         
         {/* Section Header */}
         <div className="flex flex-col gap-4 md:gap-6 mb-16 md:mb-32">
-          <span className="text-xs sm:text-sm font-semibold text-app-text-secondary uppercase tracking-widest">
+          <span className="text-xs sm:text-sm font-semibold text-app-accent uppercase tracking-widest">
             Selected Work
           </span>
           <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-app-text-primary">
@@ -131,7 +131,7 @@ export const Projects = () => {
             href="https://github.com/pandeYtushal"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 bg-app-surface border border-app-border/40 hover:border-app-text-primary px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest text-app-text-primary transition-all hover:bg-app-text-primary hover:text-app-bg"
+            className="group flex items-center gap-3 bg-app-surface border border-app-border/40 hover:border-app-accent px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest text-app-text-primary transition-all hover:bg-app-accent hover:text-app-bg"
           >
             View More on GitHub
             <FaGithub className="w-5 h-5 transition-transform group-hover:scale-110" />
