@@ -36,8 +36,54 @@ export interface Project {
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: "hunter",
+    id: "pulse",
     figNum: "FIG.01",
+    title: "Pulse",
+    tag: "SYSTEM LAYER & TAURI",
+    image: "/Pulse.png",
+    description: "A quiet system layer for Windows bringing media, notifications, and system activity into one compact surface at the top of your screen.",
+    status: "Active",
+    urlDomain: "github.com/pandeYtushal/Pulse",
+    highlight: "Native Rust services interfacing directly with Windows APIs.",
+    timeline: "2026",
+    impact: "Unified system layer",
+    achievement: "Tauri & Rust integration",
+    metricPills: ["Tauri 2", "React", "TypeScript", "Rust", "Windows APIs"],
+    whatIBuilt: [
+      "Built a desktop application using Tauri 2, React, and Rust.",
+      "Developed native Rust services to read Windows system state like media sessions, clipboard, and battery.",
+      "Created a compact, unobtrusive React interface to display system activity at the top of the screen."
+    ],
+    problemStatement: "System information, media controls, and notifications are scattered across the Windows interface, leading to a fragmented and distracting user experience.",
+    solution: "Developed a quiet, unified system layer that aggregates media, notifications, clipboard, power, and connection events into a single, cohesive surface using Tauri and Rust.",
+    architectureSteps: ["Rust System Services", "Tauri IPC Bridge", "React Interface", "Windows API Integration"],
+    engineeringDecisions: "Chose Tauri and Rust for a lightweight, native-feeling desktop experience with minimal memory footprint while securely accessing low-level Windows APIs.",
+    futureImprovements: "Implement comprehensive local notification history and expand browser extension capabilities for deeper integration.",
+    metrics: [
+      { label: "Platform", val: "Windows" },
+      { label: "Framework", val: "Tauri 2" },
+      { label: "Core", val: "Rust" }
+    ],
+    longDescription: "Pulse is a quiet system layer for Windows built with Tauri 2, React, TypeScript, and Rust. The React interface presents current activity, while native Rust services read supported Windows system state and report it to the interface. It displays media sessions, playback controls, notification activity, clipboard changes, power alerts, and connection events in one compact surface.",
+    keyPoints: [
+      "Native Windows API integration using Rust.",
+      "Lightweight desktop application architecture with Tauri 2.",
+      "Unified display for media, notifications, clipboard, and system events."
+    ],
+    tech: ["Tauri", "React", "Rust"],
+    fullTech: ["Tauri 2", "React", "TypeScript", "Rust", "Windows APIs"],
+    challenges: "Interfacing safely and efficiently with diverse low-level Windows APIs for media and notifications. Addressed by writing robust native Rust services to handle state monitoring and IPC bridging to the React frontend.",
+    features: [
+      { title: "System Activity", desc: "Monitors battery, Bluetooth, USB, and screenshot events.", iconName: "Activity" },
+      { title: "Media Controls", desc: "Displays Windows media metadata and provides playback controls.", iconName: "PlayCircle" },
+      { title: "Notification Layer", desc: "Aggregates notification activity and optional sanitized clipboard previews.", iconName: "Bell" }
+    ],
+    link: "https://github.com/pandeYtushal/Pulse",
+    source: "https://github.com/pandeYtushal/Pulse"
+  },
+  {
+    id: "hunter",
+    figNum: "FIG.02",
     title: "Hunter",
     tag: "INDEPENDENT TRANSFORMS & AUTOFULL",
     image: "/hunter.png",
@@ -79,7 +125,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "astronomical",
-    figNum: "FIG.02",
+    figNum: "FIG.03",
     title: "Astronomical",
     tag: "SCROLL-VELOCITY PHYSICS & D3 MAP",
     image: "/astronomical.png",
@@ -126,7 +172,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "civic",
-    figNum: "FIG.03",
+    figNum: "FIG.04",
     title: "Smart Civic Platform",
     tag: "CANVAS COMPRESSION & FIRESTORE",
     image: "/urban.png",
@@ -172,7 +218,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "melody",
-    figNum: "FIG.04",
+    figNum: "FIG.05",
     title: "Melody Premium",
     tag: "HOISTED PLAYBACK STATE & PWA",
     image: "/music.png",
