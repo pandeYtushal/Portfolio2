@@ -78,7 +78,7 @@ export const PROJECTS_DATA: Project[] = [
       { title: "Media Controls", desc: "Displays Windows media metadata and provides playback controls.", iconName: "PlayCircle" },
       { title: "Notification Layer", desc: "Aggregates notification activity and optional sanitized clipboard previews.", iconName: "Bell" }
     ],
-    link: "https://github.com/pandeYtushal/Pulse",
+    link: "https://pulse-website-nine.vercel.app/",
     source: "https://github.com/pandeYtushal/Pulse"
   },
   {
