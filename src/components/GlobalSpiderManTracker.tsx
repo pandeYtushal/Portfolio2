@@ -46,38 +46,48 @@ export const GlobalSpiderManTracker: React.FC = () => {
 
   // Real-time cursor tracking across the entire window
   useEffect(() => {
+    let animId: number | null = null;
+
     const handleMouseMove = (e: MouseEvent) => {
-      const deltaX = e.clientX - prevMouseX.current;
-      prevMouseX.current = e.clientX;
-      setWebSway((prev) => Math.max(-14, Math.min(14, prev * 0.85 + deltaX * 0.12)));
+      if (animId) return;
 
-      if (isDragging || !headRef.current) return;
-      const rect = headRef.current.getBoundingClientRect();
-      const headCenterX = rect.left + rect.width / 2;
-      const headCenterY = rect.top + rect.height / 2;
+      animId = window.requestAnimationFrame(() => {
+        animId = null;
+        const deltaX = e.clientX - prevMouseX.current;
+        prevMouseX.current = e.clientX;
+        setWebSway((prev) => Math.max(-14, Math.min(14, prev * 0.85 + deltaX * 0.12)));
 
-      const dx = e.clientX - headCenterX;
-      const dy = e.clientY - headCenterY;
-      const dist = Math.hypot(dx, dy);
+        if (isDragging || !headRef.current) return;
+        const rect = headRef.current.getBoundingClientRect();
+        const headCenterX = rect.left + rect.width / 2;
+        const headCenterY = rect.top + rect.height / 2;
 
-      const rad = Math.atan2(dy, dx);
-      let deg = (rad * 180) / Math.PI;
+        const dx = e.clientX - headCenterX;
+        const dy = e.clientY - headCenterY;
+        const dist = Math.hypot(dx, dy);
 
-      let relativeAngle = deg - 90;
-      while (relativeAngle > 180) relativeAngle -= 360;
-      while (relativeAngle < -180) relativeAngle += 360;
+        const rad = Math.atan2(dy, dx);
+        let deg = (rad * 180) / Math.PI;
 
-      const clampedRotation = Math.max(-55, Math.min(55, relativeAngle * 0.75));
-      setHeadRotation(clampedRotation);
+        let relativeAngle = deg - 90;
+        while (relativeAngle > 180) relativeAngle -= 360;
+        while (relativeAngle < -180) relativeAngle += 360;
 
-      const maxOffset = 9;
-      const offsetX = dist > 0 ? (dx / dist) * Math.min(maxOffset, dist * 0.028) : 0;
-      const offsetY = dist > 0 ? (dy / dist) * Math.min(maxOffset, dist * 0.028) : 0;
-      setEyeOffset({ x: offsetX, y: offsetY });
+        const clampedRotation = Math.max(-55, Math.min(55, relativeAngle * 0.75));
+        setHeadRotation(clampedRotation);
+
+        const maxOffset = 9;
+        const offsetX = dist > 0 ? (dx / dist) * Math.min(maxOffset, dist * 0.028) : 0;
+        const offsetY = dist > 0 ? (dy / dist) * Math.min(maxOffset, dist * 0.028) : 0;
+        setEyeOffset({ x: offsetX, y: offsetY });
+      });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      if (animId) window.cancelAnimationFrame(animId);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, [isDragging]);
 
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);

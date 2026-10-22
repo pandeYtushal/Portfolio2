@@ -1,108 +1,86 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { MILESTONES } from "../data/milestones";
+import React from "react";
+import { motion, type Variants } from "framer-motion";
 
-const ScrubbingText = ({ text, progress }: { text: string; progress: MotionValue<number> }) => {
-  const words = text.split(" ");
-  return (
-    <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight flex flex-wrap gap-x-2 sm:gap-x-3 md:gap-x-4">
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + (1 / words.length);
-        const opacity = useTransform(progress, [start, end], [0.1, 1]);
-        return (
-          <span key={i} className="relative">
-            <span className="absolute opacity-10">{word}</span>
-            <motion.span style={{ opacity }}>{word}</motion.span>
-          </span>
-        );
-      })}
-    </p>
-  );
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] as const },
+  }),
 };
 
 export const About = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress: portraitProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(portraitProgress, [0, 1], [100, -100]);
-
-  const { scrollYProgress: textProgress } = useScroll({
-    target: textRef,
-    offset: ["start 80%", "end 60%"],
-  });
-
   return (
-    <section
-      ref={containerRef}
-      id="about"
-      className="bg-app-bg py-16 md:py-32 overflow-hidden relative"
-    >
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-16 flex flex-col gap-16 md:gap-[10vw]">
+    <section id="about" className="relative py-28 md:py-40 px-6 md:px-12 text-app-text-primary z-10">
 
-        {/* Scroll Scrubbing Text */}
-        <div ref={textRef} className="w-full max-w-5xl mx-auto py-12">
-          <span className="text-sm font-semibold text-app-text-secondary uppercase tracking-widest mb-12 block">
-            The Ethos
-          </span>
-          <ScrubbingText 
-            text="I am a full-stack engineer and designer obsessed with creating systems that feel organic, fast, and beautiful. My foundation in decentralized architecture taught me deterministic logic, but my passion lies in crafting user interfaces that feel truly alive." 
-            progress={textProgress} 
-          />
-        </div>
+      <div className="max-w-6xl mx-auto flex flex-col gap-14 md:gap-20">
+        
+        {/* Section Header */}
+        <motion.div 
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}
+          className="flex items-center gap-6"
+        >
+          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">01</motion.span>
+          <motion.span custom={1} variants={fadeUp} className="font-sans text-xs uppercase tracking-widest font-semibold text-app-text-primary">The Person &mdash; The Roots</motion.span>
+          <motion.div custom={2} variants={fadeUp} className="h-[1px] flex-1 bg-app-border/70 ml-4" />
+        </motion.div>
 
-        {/* Header & Portrait */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-          <div className="lg:col-span-5 relative w-full flex justify-center">
-            <motion.div style={{ y }} className="relative w-[85%] sm:w-[70%] lg:w-full max-h-[60vh] lg:max-h-none aspect-[4/5] rounded-3xl overflow-hidden bg-app-surface-secondary">
-              <img
-                src="/avtar.png"
-                alt="Tushal Pandey"
-                className="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-700"
-                loading="lazy"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+        {/* Headline — bold editorial title directly over the open landscape */}
+        <motion.h2 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] as const }}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-medium leading-[1.08] tracking-tight max-w-4xl drop-shadow-[0_2px_15px_rgba(244,244,240,0.7)]"
+        >
+          "I'D RATHER QUESTION THE OBVIOUS THAN PERFECT THE ORDINARY."
+        </motion.h2>
+
+        {/* Narrative & Profile — open editorial columns with NO enclosing card box */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 border-t border-app-border/70 pt-10 items-start"
+        >
+          {/* Left Column: Portrait & Details */}
+          <motion.div custom={0} variants={fadeUp} className="md:col-span-4 flex flex-col gap-6">
+            <div className="aspect-[3/4] bg-app-surface-secondary/80 border border-app-border/60 overflow-hidden rounded-lg shadow-md max-w-[280px]">
+              <img 
+                src="/avtar.png" 
+                alt="Tushal Pandey" 
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 opacity-90 hover:opacity-100" 
               />
-              <div className="absolute inset-0 border border-app-border/20 rounded-3xl pointer-events-none" />
-            </motion.div>
-          </div>
-
-          <div className="lg:col-span-7 flex flex-col gap-16">
-            <div className="flex flex-col gap-8">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-app-text-primary">
-                Engineering <br className="hidden lg:block" />
-                the abstract.
-              </h2>
-              <p className="text-lg text-app-text-secondary leading-relaxed max-w-lg">
-                Currently pursuing a B.E. in Computer Science at Chandigarh University, I spend my time architecting highly reliable web applications, building intelligent AI agents, and obsessing over fluid typography and physics-based motion.
-              </p>
             </div>
-
-            {/* Milestones */}
-            <div className="flex flex-col gap-10 border-t border-app-border/30 pt-10">
-              <h3 className="text-sm font-bold text-app-text-secondary uppercase tracking-widest">Selected Milestones</h3>
-              
-              <div className="flex flex-col gap-6">
-                {MILESTONES.map((m) => (
-                  <div key={m.year} className="group flex flex-col sm:flex-row sm:items-baseline gap-4 sm:gap-8 pb-6 border-b border-app-border/20 last:border-0 hover:pl-4 transition-all duration-300">
-                    <span className="text-xl sm:text-2xl font-bold text-app-text-muted group-hover:text-app-text-primary transition-colors min-w-[5rem]">{m.year}</span>
-                    <div className="flex flex-col gap-1">
-                      <h4 className="text-lg sm:text-xl font-bold text-app-text-primary">{m.title}</h4>
-                      <span className="text-sm font-medium text-app-text-secondary">{m.subtitle}</span>
-                    </div>
-                    <span className="sm:ml-auto mt-2 sm:mt-0 px-3 py-1 bg-app-surface border border-app-border/40 rounded-full text-xs font-bold uppercase tracking-widest text-app-text-secondary w-fit group-hover:bg-app-text-primary group-hover:text-app-bg transition-colors">
-                      {m.tag}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            <div className="font-mono text-xs text-app-text-secondary uppercase tracking-widest leading-relaxed">
+              Based in India <br/>
+              Computer Science Engineer <br/>
+              Building across disciplines
             </div>
-          </div>
-        </div>
+          </motion.div>
 
+          {/* Right Column: Narrative paragraphs breathing over the landscape */}
+          <motion.div 
+            custom={1} variants={fadeUp}
+            className="md:col-span-8 font-sans text-base sm:text-lg md:text-xl text-app-text-secondary leading-relaxed flex flex-col gap-6"
+          >
+            <p>
+              I've never been particularly interested in making things simply because that's how they've always been made.
+            </p>
+            <p>
+              My background in Computer Science Engineering taught me how to think systematically—how to break down complex problems, optimize algorithms, and architect scalable databases. But engineering alone isn't enough if the end experience feels rigid.
+            </p>
+            <p>
+              I'm drawn to the details that change the whole experience. The interface that feels inevitable only after someone has thought hard enough about it. The interaction that makes you pause. The system architecture that effortlessly supports a beautiful frontend.
+            </p>
+            <p>
+              I move between design, code, experiments, and systems engineering because I don't think interesting ideas respect professional boundaries.
+            </p>
+            <p className="font-medium text-app-text-primary mt-2">
+              I'd rather make something with a perspective—backed by rigorous engineering—than something that merely looks correct.
+            </p>
+          </motion.div>
+
+        </motion.div>
       </div>
     </section>
   );

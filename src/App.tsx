@@ -1,22 +1,14 @@
-import React, { lazy, Suspense, useState, useEffect } from "react";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import ProjectPage from "./pages/ProjectPage";
-import CustomCursor from "./components/CustomCursor";
+import ResumePage from "./pages/ResumePage";
 import GlobalSpiderManTracker from "./components/GlobalSpiderManTracker";
-import Preloader from "./components/Preloader";
-import LiveEnvironment from "./components/LiveEnvironment";
 
 export const App = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 32,
-    restDelta: 0.001,
-  });
 
   useEffect(() => {
     // Force scroll to top on every route change, overcoming Lenis interpolation
@@ -29,16 +21,33 @@ export const App = () => {
     }
   }, [location.pathname]);
 
-  return (
-    <div className="relative min-h-screen bg-app-bg text-app-text-primary font-sans antialiased overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
-      <AnimatePresence mode="wait">
-        {loading && <Preloader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
+  useEffect(() => {
+    // Simple load simulate
+    const t = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(t);
+  }, []);
 
-      {/* Subtle Grain / Noise Overlay (Optional for premium feel) */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-      />
+  if (loading) return null; // Very minimal load state, avoid flashy preloader
+
+  return (
+    <div className="relative min-h-screen bg-transparent text-app-text-primary font-sans antialiased overflow-x-clip selection:bg-app-text-primary selection:text-app-bg bg-grain">
+      
+      {/* Fixed Atmospheric Pastoral Landscape Backdrop */}
+      <div 
+        aria-hidden="true" 
+        className="fixed inset-0 pointer-events-none -z-20 overflow-hidden select-none"
+      >
+        <img
+          src="/landscape-bg.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center filter brightness-[0.98] contrast-[1.02]"
+        />
+        {/* Soft Ambient Parchment Scrim */}
+        <div className="absolute inset-0 bg-[#F4F4F0]/30 pointer-events-none" />
+      </div>
+
+      {/* Sticky Spider-Man */}
+      <GlobalSpiderManTracker />
 
       <a
         href="#main-content"
@@ -47,25 +56,10 @@ export const App = () => {
         Skip to main content
       </a>
 
-      {/* Desktop Custom Cursor */}
-      <CustomCursor />
-
-      {/* Sticky Spider-Man */}
-      <GlobalSpiderManTracker />
-
-      {/* Live Environment Sync */}
-      <LiveEnvironment />
-
-      {/* Top Scroll Progress Line - Sleek White */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-app-text-primary origin-left z-[9999]"
-        style={{ scaleX }}
-        aria-hidden
-      />
-
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
+          <Route path="/resume" element={<ResumePage />} />
           <Route path="/project/:id" element={<ProjectPage />} />
         </Routes>
       </AnimatePresence>

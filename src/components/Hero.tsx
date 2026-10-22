@@ -1,151 +1,102 @@
-import { useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowRight } from "lucide-react";
-import ResumeModal from "./ResumeModal";
-
-// Split text into characters for advanced reveal
-const AnimatedText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
-  const characters = text.split("");
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.03, delayChildren: delay * i },
-    }),
-  };
-
-  const child = {
-    hidden: {
-      opacity: 0,
-      y: 40,
-      rotateX: -90,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: {
-        type: "spring" as const,
-        damping: 24,
-        stiffness: 120,
-        mass: 1.5,
-      },
-    },
-  };
-
-  return (
-    <motion.div
-      style={{ display: "inline-block", perspective: "1000px" }}
-      variants={container}
-      initial="hidden"
-      animate="visible"
-      className="inline-flex overflow-hidden"
-    >
-      {characters.map((char, index) => (
-        <motion.span
-          variants={child}
-          style={{ display: "inline-block" }}
-          key={index}
-          className="origin-bottom"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
-    </motion.div>
-  );
-};
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export const Hero = () => {
-  const [showResume, setShowResume] = useState(false);
-  
-  const { scrollY } = useScroll();
-  // Move the hero content down slightly as you scroll down
-  const y = useTransform(scrollY, [0, 1000], [0, 300]);
-  // Fade out slightly as it goes behind
-  const opacity = useTransform(scrollY, [0, 800], [1, 0.3]);
-
   return (
     <section
       id="home"
-      className="relative min-h-[100dvh] flex flex-col justify-center sm:justify-end pt-20 sm:pt-0 pb-20 sm:pb-24 bg-transparent overflow-hidden z-10"
+      className="relative min-h-[95vh] flex flex-col justify-end pb-16 md:pb-24 px-6 md:px-12 z-10 pt-36"
     >
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="hidden md:block absolute top-1/4 -right-1/4 sm:right-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-app-text-primary/5 rounded-full blur-[100px] md:blur-[150px] mix-blend-screen" />
-      </div>
-
-      <motion.div 
-        style={{ y, opacity }}
-        className="relative z-10 px-4 sm:px-10 md:px-16 w-full flex flex-col items-start text-left max-w-[1600px] mx-auto"
-      >
+      <div className="max-w-6xl w-full mx-auto flex flex-col gap-12 md:gap-20">
         
-        <div className="flex flex-col mb-12 sm:mb-20">
-          <motion.div 
+        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] font-serif font-medium leading-[0.95] text-app-text-primary tracking-tight max-w-[90%]">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-app-border/40 bg-app-surface/30 backdrop-blur-sm text-[10px] sm:text-xs font-medium text-app-text-secondary w-fit mb-6 sm:mb-8"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-app-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-app-accent"></span>
-            </span>
-            Available for selected missions
+            I DON'T MAKE
           </motion.div>
-
-          <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85] text-app-text-primary uppercase flex flex-col">
-            <div className="overflow-hidden">
-              <AnimatedText text="CREATIVE" delay={0.1} />
-            </div>
-            <div className="overflow-hidden text-app-accent ml-[10vw] sm:ml-[5vw] md:ml-[10vw]">
-              <AnimatedText text="ENGINEER" delay={0.3} />
-            </div>
-          </h1>
-        </div>
-
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-10">
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 1 }}
-            className="max-w-md text-sm sm:text-lg text-app-text-muted leading-relaxed font-medium"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="text-app-text-secondary italic font-normal"
           >
-            I build modern, high-performance web applications, intelligent agents, and exceptional user experiences. Focused on fluid motion and pixel-perfect design.
-          </motion.p>
+            THINGS TO FILL
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          >
+            A SCREEN.
+          </motion.div>
+        </h1>
+
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 border-t border-app-border/70 pt-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="max-w-xl font-sans text-base md:text-lg leading-relaxed text-app-text-secondary"
+          >
+            <p className="mb-4">
+              I make them because something about the way things are could be more interesting. As a Computer Science Engineer, I use code to build systems, interactions, and ideas that actually work—not just things that look correct.
+            </p>
+            <p>
+              I'm interested in what happens when technical rigor meets creative intention — and a concept becomes something you can actually experience.
+            </p>
+            <p className="mt-8 font-mono text-xs font-semibold tracking-widest text-app-text-primary uppercase">
+              LESS NOISE. MORE NERVE.
+            </p>
+          </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 1.2 }}
-            className="flex items-center gap-4 w-full sm:w-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="flex flex-col gap-4 font-sans text-sm font-semibold tracking-widest uppercase"
           >
-            <a
-              href="#projects"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById("projects");
-                if (el) {
-                  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
-                }
-              }}
-              className="flex-1 sm:flex-none group flex items-center justify-center gap-3 bg-app-accent text-app-bg px-5 sm:px-8 py-3 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest transition-all hover:bg-app-text-primary hover:text-app-accent"
+            <a 
+              href="#projects" 
+              className="group flex items-center gap-3 text-app-text-primary hover:text-amber-800 transition-colors"
             >
-              <span>Explore</span>
-              <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1" />
+              <span>Explore the work</span>
+              <span className="block w-6 h-[1.5px] bg-app-text-primary group-hover:w-10 transition-all duration-300" />
             </a>
-
-            <button
-              onClick={() => setShowResume(true)}
-              className="group flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 shrink-0 bg-app-surface/50 border border-app-border/40 text-app-text-primary rounded-full transition-all hover:bg-app-accent hover:text-app-bg hover:border-app-accent"
-              aria-label="View Resume"
+            <Link 
+              to="/resume" 
+              className="group flex items-center gap-3 text-app-text-secondary hover:text-app-text-primary transition-colors"
             >
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:-rotate-45" />
-            </button>
+              <span>Resume</span>
+              <span className="block w-6 h-[1.5px] bg-app-text-secondary group-hover:bg-app-text-primary group-hover:w-10 transition-all duration-300" />
+            </Link>
           </motion.div>
         </div>
-      </motion.div>
 
-      {showResume && <ResumeModal onClose={() => setShowResume(false)} />}
+        {/* Seamless trail connector leading from Home into About */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-primary font-semibold whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
+            <span>Prologue &mdash; The Overlook</span>
+          </div>
+          <a 
+            href="#about"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors whitespace-nowrap"
+          >
+            <span>Follow the path to The Roots</span>
+            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
+          </a>
+        </motion.div>
+
+      </div>
     </section>
   );
 };
