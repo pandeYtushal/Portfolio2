@@ -12,9 +12,9 @@ const fadeUp: Variants = {
 
 export const About = () => {
   return (
-    <section id="about" className="relative py-28 md:py-40 px-6 md:px-12 text-app-text-primary z-10">
+    <section id="about" className="relative py-20 sm:py-28 md:py-40 px-5 sm:px-8 md:px-12 text-app-text-primary z-10">
 
-      <div className="max-w-6xl mx-auto flex flex-col gap-14 md:gap-20">
+      <div className="max-w-6xl mx-auto flex flex-col gap-12 md:gap-20">
         
         {/* Section Header */}
         <motion.div 
@@ -67,7 +67,7 @@ export const About = () => {
               I've never been particularly interested in making things simply because that's how they've always been made.
             </p>
             <p>
-              My background in Computer Science Engineering taught me how to think systematically—how to break down complex problems, optimize algorithms, and architect scalable databases. But engineering alone isn't enough if the end experience feels rigid.
+              My background in Computer Science Engineering taught me how to think systematically, breaking down complex problems, optimizing algorithms, and architecting scalable databases. But engineering alone isn't enough if the end experience feels rigid.
             </p>
             <p>
               I'm drawn to the details that change the whole experience. The interface that feels inevitable only after someone has thought hard enough about it. The interaction that makes you pause. The system architecture that effortlessly supports a beautiful frontend.
@@ -76,10 +76,31 @@ export const About = () => {
               I move between design, code, experiments, and systems engineering because I don't think interesting ideas respect professional boundaries.
             </p>
             <p className="font-medium text-app-text-primary mt-2">
-              I'd rather make something with a perspective—backed by rigorous engineering—than something that merely looks correct.
+              I'd rather make something with a perspective, backed by rigorous engineering, than something that merely looks correct.
             </p>
           </motion.div>
 
+        </motion.div>
+
+        {/* Seamless trail connector: About -> Engineering */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6 mt-4"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-app-text-primary/70" />
+            <span>01 / 06 The Roots Completed</span>
+          </div>
+          <a 
+            href="#engineering"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors"
+          >
+            <span>Proceed to 02 The Craft</span>
+            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
+          </a>
         </motion.div>
       </div>
     </section>

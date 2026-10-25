@@ -140,10 +140,10 @@ export const PROJECTS_DATA: Project[] = [
     whatIBuilt: [
       "Cinematic 3D gallery with physics-based scroll-velocity driven timeline.",
       "Abstract coordinate map of historical observatories using d3-geo projections.",
-      "Detailed archive pages for scholars — Aryabhata, Brahmagupta, Bhaskara II.",
+      "Detailed archive pages for scholars: Aryabhata, Brahmagupta, Bhaskara II.",
       "Modern Space Era section covering ISRO achievements including Chandrayaan and AstroSat."
     ],
-    problemStatement: "The rich history of Indian mathematical astronomy — spanning Vedic astronomy, the Aryabhatiya, Jantar Mantar, and ISRO — lacks a single visually coherent web archive that honours both its depth and its modern context.",
+    problemStatement: "The rich history of Indian mathematical astronomy, spanning Vedic astronomy, the Aryabhatiya, Jantar Mantar, and ISRO, lacks a single visually coherent web archive that honours both its depth and its modern context.",
     solution: "Built a Next.js 15 multimedia archive with Framer Motion cinematic transitions, a d3-geo abstract observatory map, and scroll-velocity physics driving the historical timeline experience.",
     architectureSteps: ["Scroll Physics Engine", "d3-geo Map Renderer", "Archive Content Layer", "Framer Motion Transitions"],
     engineeringDecisions: "Used d3-geo for the abstract coordinate-based map instead of a tile-map service to maintain visual control and avoid external API dependencies for historical observatory locations.",

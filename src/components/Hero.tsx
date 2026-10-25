@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-[95vh] flex flex-col justify-end pb-16 md:pb-24 px-6 md:px-12 z-10 pt-36"
+      className="relative min-h-[95vh] flex flex-col justify-end pb-16 md:pb-24 px-5 sm:px-8 md:px-12 z-10 pt-32 sm:pt-36"
     >
       <div className="max-w-6xl w-full mx-auto flex flex-col gap-12 md:gap-20">
         
@@ -43,10 +42,10 @@ export const Hero = () => {
             className="max-w-xl font-sans text-base md:text-lg leading-relaxed text-app-text-secondary"
           >
             <p className="mb-4">
-              I make them because something about the way things are could be more interesting. As a Computer Science Engineer, I use code to build systems, interactions, and ideas that actually work—not just things that look correct.
+              I make them because something about the way things are could be more interesting. As a Computer Science Engineer, I use code to build systems, interactions, and ideas that actually work, not just things that look correct.
             </p>
             <p>
-              I'm interested in what happens when technical rigor meets creative intention — and a concept becomes something you can actually experience.
+              I'm interested in what happens when technical rigor meets creative intention, and a concept becomes something you can actually experience.
             </p>
             <p className="mt-8 font-mono text-xs font-semibold tracking-widest text-app-text-primary uppercase">
               LESS NOISE. MORE NERVE.
@@ -66,13 +65,15 @@ export const Hero = () => {
               <span>Explore the work</span>
               <span className="block w-6 h-[1.5px] bg-app-text-primary group-hover:w-10 transition-all duration-300" />
             </a>
-            <Link 
-              to="/resume" 
+            <a 
+              href="https://drive.google.com/file/d/1IC8AQ-YlGLaIRvwjntPes1bw7snDX167/view?usp=drive_link" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="group flex items-center gap-3 text-app-text-secondary hover:text-app-text-primary transition-colors"
             >
               <span>Resume</span>
               <span className="block w-6 h-[1.5px] bg-app-text-secondary group-hover:bg-app-text-primary group-hover:w-10 transition-all duration-300" />
-            </Link>
+            </a>
           </motion.div>
         </div>
 

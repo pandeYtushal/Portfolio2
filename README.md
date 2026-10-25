@@ -21,8 +21,8 @@ Personal portfolio built with React, Vite, and TypeScript. Designed with an Awww
 - **React 18** + **TypeScript** + **Vite 6**
 - **Tailwind CSS 4** — rapid, responsive styling
 - **Framer Motion** — physics engines, layout transitions, drag gestures
-- **Lucide React** & **React Icons** — iconography
-- **Open-Meteo API** — headless weather data
+- **Lucide React** — iconography
+- **Lenis** — smooth momentum scrolling
 
 ---
 
@@ -33,25 +33,21 @@ src/
 ├── components/
 │   ├── About.tsx
 │   ├── Contact.tsx
-│   ├── CustomCursor.tsx
+│   ├── Education.tsx
+│   ├── Engineering.tsx
 │   ├── Footer.tsx
 │   ├── GlobalSpiderManTracker.tsx
 │   ├── Hero.tsx
-│   ├── LiveEnvironment.tsx
-│   ├── Manifesto.tsx
 │   ├── Navbar.tsx
+│   ├── Notebook.tsx
 │   ├── PageTransition.tsx
-│   ├── Positioning.tsx
-│   ├── Preloader.tsx
-│   ├── Projects.tsx
-│   ├── ResumeModal.tsx
-│   ├── Skills.tsx
-│   └── Writing.tsx
+│   └── Projects.tsx
 ├── data/
 │   └── projects.ts
 ├── pages/
 │   ├── Home.tsx
-│   └── ProjectPage.tsx
+│   ├── ProjectPage.tsx
+│   └── ResumePage.tsx
 ├── App.tsx
 ├── main.tsx
 └── index.css

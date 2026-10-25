@@ -22,7 +22,7 @@ const ARTICLES_DATA: Article[] = [
     category: "AI / ENGINEERING",
     date: "JUL 31, 2026",
     readTime: "4 MIN READ",
-    excerpt: "How I built a multi-agent AI system that moves past chat — one that understands a goal, reasons through a live webpage, and actually gets the job done.",
+    excerpt: "How I built a multi-agent AI system that moves past chat, one that understands a goal, reasons through a live webpage, and actually gets the job done.",
     link: "https://medium.com/@tushalpandey/from-chatbots-to-browser-agents-building-hunterr-d33d23266d97",
     featured: true,
   },
@@ -33,7 +33,7 @@ const ARTICLES_DATA: Article[] = [
     category: "CAREER",
     date: "MAY 06, 2026",
     readTime: "5 MIN READ",
-    excerpt: "From skills-based hiring to strategic outplacement, the rules of getting hired — and letting people go — have been quietly rewritten.",
+    excerpt: "From skills-based hiring to strategic outplacement, the rules of getting hired and letting people go have been quietly rewritten.",
     link: "https://medium.com/@tushalpandey/the-job-placement-game-has-changed-most-people-havent-noticed-e8123e5c715a",
   },
   {
@@ -71,15 +71,15 @@ export const Notebook = () => {
   const shouldReduce = useReducedMotion();
 
   return (
-    <section id="notebook" className="relative py-28 md:py-40 px-6 md:px-12 text-app-text-primary z-10">
-      <div className="max-w-6xl mx-auto flex flex-col gap-14 md:gap-20">
+    <section id="notebook" className="relative py-20 sm:py-28 md:py-40 px-5 sm:px-8 md:px-12 text-app-text-primary z-10">
+      <div className="max-w-6xl mx-auto flex flex-col gap-12 md:gap-20">
 
         {/* Section Header */}
         <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}
           className="flex items-center gap-6"
         >
-          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">06</motion.span>
+          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">05</motion.span>
           <motion.span custom={1} variants={fadeUp} className="font-sans text-xs uppercase tracking-widest font-semibold text-app-text-primary">Writings</motion.span>
           <motion.div custom={2} variants={fadeUp} className="h-[1px] flex-1 bg-app-border/70 ml-4" />
         </motion.div>
@@ -109,7 +109,7 @@ export const Notebook = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="group border-b border-app-border/70 py-7 flex flex-col gap-3 hover:translate-x-2 transition-transform duration-300 cursor-pointer"
+                className="group border-b border-app-border/70 py-6 sm:py-7 flex flex-col gap-3 hover:translate-x-2 transition-transform duration-300 cursor-pointer"
               >
                 {/* Meta row */}
                 <div className="flex items-center gap-3 flex-wrap">
@@ -137,12 +137,33 @@ export const Notebook = () => {
                 </div>
 
                 {/* Excerpt */}
-                <p className="font-sans text-sm text-app-text-secondary leading-relaxed pr-12">
+                <p className="font-sans text-sm text-app-text-secondary leading-relaxed pr-4 sm:pr-12">
                   {article.excerpt}
                 </p>
               </motion.a>
             ))}
           </div>
+        </motion.div>
+
+        {/* Seamless trail connector: Notebook -> Contact */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6 mt-4"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-app-text-primary/70" />
+            <span>05 / 06 Writings Completed</span>
+          </div>
+          <a 
+            href="#contact"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors"
+          >
+            <span>Proceed to 06 The Exit</span>
+            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
+          </a>
         </motion.div>
 
       </div>

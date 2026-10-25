@@ -12,9 +12,7 @@ export const App = () => {
 
   useEffect(() => {
     // Force scroll to top on every route change, overcoming Lenis interpolation
-    // @ts-ignore
     if (window.lenis) {
-      // @ts-ignore
       window.lenis.scrollTo(0, { immediate: true });
     } else {
       window.scrollTo(0, 0);

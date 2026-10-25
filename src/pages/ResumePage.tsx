@@ -12,7 +12,7 @@ export const ResumePage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const pdfUrl = "/Tushal Anand_Resume.pdf";
+  const pdfUrl = "https://drive.google.com/file/d/1IC8AQ-YlGLaIRvwjntPes1bw7snDX167/view?usp=drive_link";
 
   return (
     <PageTransition>
@@ -50,7 +50,8 @@ export const ResumePage = () => {
               </a>
               <a 
                 href={pdfUrl} 
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 flex-1 sm:flex-none bg-app-text-primary text-app-surface rounded text-xs sm:text-sm font-semibold hover:bg-app-text-secondary transition-colors"
               >
                 <Download className="w-4 h-4" />

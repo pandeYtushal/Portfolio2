@@ -21,7 +21,6 @@ function raf(time: number) {
 
 requestAnimationFrame(raf);
 
-// @ts-ignore
 window.lenis = lenis;
 
 const rootEl = document.getElementById("root");

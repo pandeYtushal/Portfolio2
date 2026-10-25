@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
-import { dirname } from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -21,7 +20,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           motion: ["framer-motion"],
-          icons: ["lucide-react", "react-icons"],
+          icons: ["lucide-react"],
         },
       },
     },

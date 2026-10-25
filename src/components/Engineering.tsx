@@ -41,9 +41,9 @@ export const Engineering = () => {
   ];
 
   return (
-    <section id="engineering" className="relative py-28 md:py-40 px-6 md:px-12 text-app-text-primary z-10">
+    <section id="engineering" className="relative py-20 sm:py-28 md:py-40 px-5 sm:px-8 md:px-12 text-app-text-primary z-10">
 
-      <div className="max-w-6xl mx-auto flex flex-col gap-14 md:gap-20">
+      <div className="max-w-6xl mx-auto flex flex-col gap-12 md:gap-20">
 
         {/* Section Header */}
         <motion.div
@@ -107,6 +107,27 @@ export const Engineering = () => {
               ))}
             </div>
           </div>
+        </motion.div>
+
+        {/* Seamless trail connector: Engineering -> Projects */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6 mt-4"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-app-text-primary/70" />
+            <span>02 / 06 The Craft Completed</span>
+          </div>
+          <a 
+            href="#projects"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors"
+          >
+            <span>Proceed to 03 Selected Work</span>
+            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
+          </a>
         </motion.div>
 
       </div>

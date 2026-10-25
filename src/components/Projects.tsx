@@ -21,7 +21,7 @@ const PROJECT_QUOTES: Record<string, string> = {
   melody: "MUSIC DESERVES MORE THAN ANOTHER GRID OF RECTANGLES."
 };
 
-const swipeConfidenceThreshold = 10000;
+const swipeConfidenceThreshold = 3500;
 const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
@@ -50,7 +50,6 @@ export const Projects = () => {
   const navigate = useNavigate();
   const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
   const [viewMode, setViewMode] = useState<"showcase" | "grid">("showcase");
-  const [isHoveringImage, setIsHoveringImage] = useState(false);
 
   const projects = PROJECTS_DATA;
   const projectCount = projects.length;
@@ -112,7 +111,7 @@ export const Projects = () => {
       id="projects" 
       tabIndex={0}
       aria-label="Selected Projects"
-      className="relative py-28 md:py-44 px-6 md:px-12 text-app-text-primary focus:outline-none transition-colors"
+      className="relative py-20 sm:py-28 md:py-44 px-5 sm:px-8 md:px-12 text-app-text-primary focus:outline-none transition-colors"
     >
 
       <div className="max-w-6xl mx-auto flex flex-col gap-12 md:gap-16">
@@ -235,9 +234,9 @@ export const Projects = () => {
                 dragElastic={0.2}
                 onDragEnd={(_e, { offset, velocity }) => {
                   const swipe = swipePower(offset.x, velocity.x);
-                  if (swipe < -swipeConfidenceThreshold || offset.x < -40) {
+                  if (swipe < -swipeConfidenceThreshold || offset.x < -30) {
                     paginate(1);
-                  } else if (swipe > swipeConfidenceThreshold || offset.x > 40) {
+                  } else if (swipe > swipeConfidenceThreshold || offset.x > 30) {
                     paginate(-1);
                   }
                 }}
@@ -280,38 +279,61 @@ export const Projects = () => {
                     {(currentProject.metricPills || currentProject.tech).slice(0, 4).join(" · ")}
                   </p>
 
-                  {/* Authentic Editorial Text Links */}
-                  <div className="flex items-center gap-6 pt-3 mt-1 border-t border-app-border">
-                    <button
-                      onClick={() => navigate(`/project/${currentProject.id}`)}
-                      className="text-xs font-bold tracking-widest uppercase border-b border-app-text-primary pb-1 hover:text-app-accent transition-colors flex items-center gap-2"
-                    >
-                      <span>Read Case Study</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-
-                    {currentProject.link && (
-                      <a
-                        href={currentProject.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-mono uppercase tracking-wider text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors flex items-center gap-1"
+                  {/* Action Bar & Next/Prev Controls */}
+                  <div className="flex flex-col gap-3 pt-3 mt-1 border-t border-app-border">
+                    {/* Primary Action Buttons */}
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        onClick={() => navigate(`/project/${currentProject.id}`)}
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-app-text-primary text-app-surface text-xs font-mono font-bold uppercase tracking-wider rounded-lg shadow-xs active:scale-[0.98] transition-all"
                       >
-                        <span>Live Site</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </a>
-                    )}
+                        <span>Project Details</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
 
-                    {currentProject.source && (
-                      <a
-                        href={currentProject.source}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-mono uppercase tracking-wider text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors ml-auto"
+                      {currentProject.link && (
+                        <a
+                          href={currentProject.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-app-border rounded-lg text-xs font-mono uppercase tracking-wider text-app-text-primary hover:bg-app-surface-secondary transition-colors"
+                        >
+                          <span>Live</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+
+                      {currentProject.source && (
+                        <a
+                          href={currentProject.source}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2.5 border border-app-border rounded-lg text-app-text-primary hover:bg-app-surface-secondary transition-colors"
+                          aria-label="View source repository"
+                        >
+                          <Github className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+
+                    {/* Quick Previous / Next Project Buttons for Mobile */}
+                    <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
+                      <button
+                        onClick={() => paginate(-1)}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-app-border rounded-lg bg-app-surface/60 hover:bg-app-surface text-app-text-secondary hover:text-app-text-primary active:scale-95 transition-all"
                       >
-                        <span>Code</span>
-                      </a>
-                    )}
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Prev Project</span>
+                      </button>
+
+                      <button
+                        onClick={() => paginate(1)}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-app-border rounded-lg bg-app-surface/60 hover:bg-app-surface text-app-text-primary font-semibold active:scale-95 transition-all"
+                      >
+                        <span>Next Project</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -426,13 +448,21 @@ export const Projects = () => {
                     </div>
 
                     {/* Primary actions */}
-                    <div className="flex items-center gap-4 pt-3">
+                    <div className="flex flex-wrap items-center gap-3 pt-3">
                       <button
                         onClick={() => navigate(`/project/${currentProject.id}`)}
-                        className="group inline-flex items-center gap-3 px-6 py-3 bg-app-text-primary text-app-bg text-xs font-bold uppercase tracking-widest rounded-lg hover:opacity-90 transition-all shadow-xs active:scale-[0.98]"
+                        className="group inline-flex items-center gap-2.5 px-6 py-3 bg-app-text-primary text-app-surface text-xs font-bold uppercase tracking-widest rounded-lg hover:opacity-90 transition-all shadow-xs active:scale-[0.98]"
                       >
-                        <span>Explore Full Case Study</span>
+                        <span>Project Details</span>
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </button>
+
+                      <button
+                        onClick={() => paginate(1)}
+                        className="inline-flex items-center gap-2 px-5 py-3 border border-app-border rounded-lg text-xs font-mono uppercase tracking-wider text-app-text-primary hover:bg-app-surface transition-colors"
+                      >
+                        <span>Next Project</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </button>
 
                       {currentProject.link && (
@@ -440,7 +470,7 @@ export const Projects = () => {
                           href={currentProject.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-4 py-3 border border-app-border rounded-lg text-xs font-mono uppercase tracking-wider text-app-text-primary hover:bg-app-surface-secondary transition-colors"
+                          className="inline-flex items-center gap-1.5 px-4 py-3 border border-app-border rounded-lg text-xs font-mono uppercase tracking-wider text-app-text-secondary hover:text-app-text-primary hover:bg-app-surface transition-colors"
                         >
                           <span>Live</span>
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -452,7 +482,7 @@ export const Projects = () => {
                           href={currentProject.source}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 border border-app-border rounded-lg text-app-text-primary hover:bg-app-surface-secondary transition-colors"
+                          className="p-3 border border-app-border rounded-lg text-app-text-secondary hover:text-app-text-primary hover:bg-app-surface transition-colors"
                           aria-label="View source repository"
                         >
                           <Github className="w-4 h-4" />
@@ -461,54 +491,35 @@ export const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Right Column: Visual Frame & Mockup (7 cols) */}
+                  {/* Right Column: Visual Frame (7 cols) */}
                   <div className="lg:col-span-7 flex flex-col gap-3">
                     <div
-                      onMouseEnter={() => setIsHoveringImage(true)}
-                      onMouseLeave={() => setIsHoveringImage(false)}
                       onClick={() => navigate(`/project/${currentProject.id}`)}
-                      className="group relative aspect-[16/11] w-full rounded-xl overflow-hidden border border-app-border bg-[#0d0d0d] shadow-lg cursor-pointer transition-all duration-500 hover:shadow-2xl"
+                      className="group relative aspect-[16/11] w-full rounded-xl overflow-hidden border border-app-border bg-app-surface shadow-md cursor-pointer transition-all duration-500 hover:shadow-xl"
                     >
-                      {/* Browser Mockup Chrome Header */}
-                      <div className="h-9 px-4 bg-[#1a1a1a] border-b border-white/10 flex items-center justify-between text-white/90 select-none">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-                        </div>
+                      <img
+                        src={currentProject.image}
+                        alt={currentProject.title}
+                        className="w-full h-full object-cover object-top grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-700 ease-out"
+                      />
 
-                        {/* Search / URL Pill */}
-                        <div className="flex items-center gap-2 px-3 py-1 rounded bg-[#0a0a0a] border border-white/10 text-[11px] font-mono text-white/90 font-medium tracking-wider">
-                          <span className="text-emerald-400 font-bold">https://</span>
-                          <span>{currentProject.urlDomain || `${currentProject.id}.app`}</span>
-                        </div>
-
-                        <div className="font-mono text-[10px] text-white/80 font-bold uppercase tracking-widest">
-                          {currentProject.figNum}
-                        </div>
+                      {/* Figure Badge */}
+                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-app-bg/90 backdrop-blur-md border border-app-border/80 text-[10px] font-mono tracking-widest uppercase text-app-text-primary font-bold rounded">
+                        {currentProject.figNum}
                       </div>
 
-                      {/* Project Image Display */}
-                      <div className="relative w-full h-[calc(100%-36px)] overflow-hidden bg-black flex items-center justify-center p-3">
-                        <img
-                          src={currentProject.image}
-                          alt={currentProject.title}
-                          className="w-full h-full object-cover object-top rounded-sm grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-out"
-                        />
-
-                        {/* Hover Overlay Badge */}
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs font-mono uppercase tracking-widest font-semibold shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                            <Eye className="w-4 h-4" />
-                            <span>Read Full Case Study</span>
-                          </span>
-                        </div>
+                      {/* Hover Overlay Badge */}
+                      <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[1.5px]">
+                        <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs font-mono uppercase tracking-widest font-semibold shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                          <Eye className="w-4 h-4" />
+                          <span>View Project Details</span>
+                        </span>
                       </div>
                     </div>
 
                     {/* Frame Footer Caption */}
                     <div className="flex items-center justify-between text-xs font-mono text-app-text-secondary font-semibold px-1">
-                      <span>Click image to examine case study and architecture breakdown</span>
+                      <span>Click image to examine case study and project details</span>
                       <span>FIG {String(projectIndex + 1).padStart(2, "0")} OF {String(projectCount).padStart(2, "0")}</span>
                     </div>
                   </div>
@@ -651,7 +662,7 @@ export const Projects = () => {
                     onClick={() => navigate(`/project/${project.id}`)}
                     className="text-xs font-bold font-mono uppercase tracking-wider text-app-text-primary flex items-center gap-1.5 group-hover:translate-x-1 transition-transform"
                   >
-                    <span>Read Study</span>
+                    <span>Project Details</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
 
@@ -684,6 +695,27 @@ export const Projects = () => {
             ))}
           </div>
         )}
+
+        {/* Seamless trail connector: Projects -> Experience */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6 mt-4"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-app-text-primary/70" />
+            <span>03 / 06 Selected Work Completed</span>
+          </div>
+          <a 
+            href="#education"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors"
+          >
+            <span>Proceed to 04 Experience</span>
+            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
+          </a>
+        </motion.div>
 
       </div>
     </section>

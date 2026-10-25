@@ -13,7 +13,7 @@ const fadeUp: Variants = {
 
 export const Contact = () => {
   return (
-    <section id="contact" className="relative py-28 md:py-40 px-6 md:px-12 text-app-text-primary z-10">
+    <section id="contact" className="relative py-20 sm:py-28 md:py-40 px-5 sm:px-8 md:px-12 text-app-text-primary z-10">
       <div className="max-w-6xl mx-auto flex flex-col gap-14 md:gap-20">
 
         {/* Section Header */}
@@ -21,7 +21,7 @@ export const Contact = () => {
           initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}
           className="flex items-center gap-6"
         >
-          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">07</motion.span>
+          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">06</motion.span>
           <motion.span custom={1} variants={fadeUp} className="font-sans text-xs uppercase tracking-widest font-semibold text-app-text-primary">The Exit &mdash; The Next Chapter</motion.span>
           <motion.div custom={2} variants={fadeUp} className="h-[1px] flex-1 bg-app-border/70 ml-4" />
         </motion.div>
@@ -76,6 +76,27 @@ export const Contact = () => {
               </a>
             </div>
           </motion.div>
+        </motion.div>
+
+        {/* Journey Completion Trail Connector */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6 mt-4"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+            <span>06 / 06 Journey Completed</span>
+          </div>
+          <a 
+            href="#home"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors"
+          >
+            <span>Return to Overlook</span>
+            <span className="group-hover:-translate-y-0.5 transition-transform">&uarr;</span>
+          </a>
         </motion.div>
 
       </div>

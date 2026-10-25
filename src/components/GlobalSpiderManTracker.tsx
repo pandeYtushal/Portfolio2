@@ -67,7 +67,7 @@ export const GlobalSpiderManTracker: React.FC = () => {
         const dist = Math.hypot(dx, dy);
 
         const rad = Math.atan2(dy, dx);
-        let deg = (rad * 180) / Math.PI;
+        const deg = (rad * 180) / Math.PI;
 
         let relativeAngle = deg - 90;
         while (relativeAngle > 180) relativeAngle -= 360;

@@ -8,7 +8,6 @@ import PageTransition from "../components/PageTransition";
 import About from "../components/About";
 import Engineering from "../components/Engineering";
 import Projects from "../components/Projects";
-import Obsessions from "../components/Obsessions";
 import Education from "../components/Education";
 import Notebook from "../components/Notebook";
 import Contact from "../components/Contact";
@@ -18,7 +17,7 @@ const LANDSCAPES = [
   { id: "about", src: "/landscape-about.jpg", alt: "Great ancient oak & countryside" },
   { id: "engineering", src: "/landscape-skills.jpg", alt: "Stone bridge over mountain stream" },
   { id: "projects", src: "/landscape-projects.jpg", alt: "Explorer overlooking sunlit valley" },
-  { id: "obsessions", src: "/landscape-reflection.jpg", alt: "Reflective mountain lake" },
+  { id: "reflection", src: "/landscape-reflection.jpg", alt: "Reflective mountain lake" },
   { id: "contact", src: "/landscape-contact.jpg", alt: "Tuscan road sunset" },
 ];
 
@@ -38,27 +37,15 @@ export const Home = () => {
       about: "about",
       engineering: "engineering",
       projects: "projects",
-      obsessions: "obsessions",
-      education: "obsessions",
-      notebook: "obsessions",
+      education: "reflection",
+      notebook: "reflection",
       contact: "contact",
     };
-
-    const sectionOrder = [
-      "contact",
-      "notebook",
-      "education",
-      "obsessions",
-      "projects",
-      "engineering",
-      "about",
-      "home",
-    ];
 
     let sectionOffsets: { id: string; top: number; bottom: number }[] = [];
 
     const measureSections = () => {
-      sectionOffsets = ["home", "about", "engineering", "projects", "obsessions", "education", "notebook", "contact"].map((id) => {
+      sectionOffsets = ["home", "about", "engineering", "projects", "education", "notebook", "contact"].map((id) => {
         const el = document.getElementById(id);
         if (!el) return { id, top: 0, bottom: 0 };
         const rect = el.getBoundingClientRect();
@@ -120,9 +107,13 @@ export const Home = () => {
       setTimeout(() => {
         const el = document.querySelector(hash);
         if (el) {
-          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+          if (window.lenis && typeof window.lenis.scrollTo === "function") {
+            window.lenis.scrollTo(el, { offset: -60, duration: 1.1 });
+          } else {
+            window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+          }
         }
-      }, 100);
+      }, 150);
     }
   }, [hash]);
 
@@ -175,7 +166,6 @@ export const Home = () => {
         <About />
         <Engineering />
         <Projects />
-        <Obsessions />
         <Education />
         <Notebook />
         <Contact />

@@ -33,7 +33,7 @@ const experiences: ExperienceItem[] = [
     company: "Freelance",
     type: "Self-Employed",
     description:
-      "Building polished, high-performance web experiences for clients — from interactive portfolios to full-stack applications. Focused on delivering premium UI/UX with modern frameworks and clean, maintainable code.",
+      "Building polished, high-performance web experiences for clients, from interactive portfolios to full-stack applications. Focused on delivering premium UI/UX with modern frameworks and clean, maintainable code.",
     highlights: [
       "React / Next.js / Vite",
       "Motion Design & Animations",
@@ -56,14 +56,14 @@ const experiences: ExperienceItem[] = [
 
 export const Education = () => {
   return (
-    <section id="education" className="relative py-28 md:py-40 px-6 md:px-12 text-app-text-primary z-10">
-      <div className="max-w-6xl mx-auto flex flex-col gap-14 md:gap-20">
+    <section id="education" className="relative py-20 sm:py-28 md:py-40 px-5 sm:px-8 md:px-12 text-app-text-primary z-10">
+      <div className="max-w-6xl mx-auto flex flex-col gap-12 md:gap-20">
 
         <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}
           className="flex items-center gap-6"
         >
-          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">05</motion.span>
+          <motion.span custom={0} variants={fadeUp} className="font-mono text-sm tracking-widest font-bold text-app-text-primary">04</motion.span>
           <motion.span custom={1} variants={fadeUp} className="font-sans text-xs uppercase tracking-widest font-semibold text-app-text-primary">Experience</motion.span>
           <motion.div custom={2} variants={fadeUp} className="h-[1px] flex-1 bg-app-border/70 ml-4" />
         </motion.div>
@@ -78,7 +78,7 @@ export const Education = () => {
               WORK &amp; EXPERIENCE
             </h2>
             <p className="font-sans text-base sm:text-lg text-app-text-secondary leading-relaxed">
-              From blockchain internships to independent client work — a record of professional roles where I shipped real products and sharpened my craft.
+              From blockchain internships to independent client work, a record of professional roles where I shipped real products and sharpened my craft.
             </p>
           </motion.div>
 
@@ -120,6 +120,27 @@ export const Education = () => {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Seamless trail connector: Education -> Notebook */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6 mt-4"
+        >
+          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-app-text-primary/70" />
+            <span>04 / 06 Experience Completed</span>
+          </div>
+          <a 
+            href="#notebook"
+            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors"
+          >
+            <span>Proceed to 05 Writings</span>
+            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
+          </a>
         </motion.div>
 
       </div>
