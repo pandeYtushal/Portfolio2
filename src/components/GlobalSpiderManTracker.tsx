@@ -17,7 +17,7 @@ export const GlobalSpiderManTracker: React.FC = () => {
 
   const prevMouseX = useRef(0);
 
-  // --- Scroll Physics Engine ---
+  // --- Scroll & Drag Physics Engine ---
   const { scrollY } = useScroll();
   const rawVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(rawVelocity, { damping: 40, stiffness: 200, mass: 0.5 });
@@ -25,15 +25,34 @@ export const GlobalSpiderManTracker: React.FC = () => {
   // Y Translation: Drops down when scrolling fast down, pulls up slightly when scrolling up
   const spideyY = useTransform(smoothVelocity, [-2000, 0, 2000], [-40, 0, 250]);
   
-  // Web Tension: Stretches the web based on how far he dropped
-  const webStretch = useTransform(spideyY, [0, 250], [1, 1.8]);
-  
-  // Arm Rotations (Flaring arms out when falling)
+  // Arm Rotations (Flaring arms out when falling or when dragged under tension)
   const armLeftRotate = useTransform(smoothVelocity, [0, 1500], [0, 35]);
   const armRightRotate = useTransform(smoothVelocity, [0, 1500], [0, -35]);
-  
-  // Eye Widen (Panic eyes when falling fast)
+  const dragArmLeft = useTransform(dragY, [0, 450], [0, 26]);
+  const dragArmRight = useTransform(dragY, [0, 450], [0, -26]);
+  const finalArmLeft = useTransform([armLeftRotate, dragArmLeft], ([vel, drag]: number[]) => vel + drag);
+  const finalArmRight = useTransform([armRightRotate, dragArmRight], ([vel, drag]: number[]) => vel + drag);
+
+  // Eye Widen (Panic & tension eyes when falling fast or dragged hard)
   const eyeFallScale = useTransform(smoothVelocity, [0, 1500], [1, 1.5]);
+  const dragEyeScale = useTransform(dragY, [0, 500], [1, 1.25]);
+  const finalEyeScale = useTransform([eyeFallScale, dragEyeScale], ([vel, drag]: number[]) => Math.max(vel, drag));
+
+  // --- Infinite Anchored Tension Web ---
+  // Rope reaches -6000px up into the sky so it never ends no matter how far he is dragged.
+  // The ceiling anchor counter-translates dragX so the top of the rope remains firmly pinned to the sky.
+  const webPath = useTransform([dragX, spideyY], ([x, y]: number[]) => {
+    const anchorX = 110 - x;
+    const handY = 12 + y;
+    const midX = 110 - x * 0.35 + webSway * 1.2;
+    const midY = -2000 + y * 0.4;
+    return `M ${anchorX} -6000 Q ${midX} ${midY}, ${110 + webSway} ${handY}`;
+  });
+
+  // Physical Rope Tension Effects (Line thins slightly under high tension)
+  const webCoreWidth = useTransform(dragY, [0, 600], [2.6, 1.6]);
+  const webOuterWidth = useTransform(dragY, [0, 600], [5.2, 3.4]);
+  const webTensionGlow = useTransform(dragY, [0, 500], [0.85, 1]);
 
   // Automatic eye blinking every 3.6 seconds
   useEffect(() => {
@@ -44,17 +63,17 @@ export const GlobalSpiderManTracker: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Real-time cursor tracking across the entire window
+  // Real-time cursor & touch tracking across the entire window
   useEffect(() => {
     let animId: number | null = null;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (clientX: number, clientY: number) => {
       if (animId) return;
 
       animId = window.requestAnimationFrame(() => {
         animId = null;
-        const deltaX = e.clientX - prevMouseX.current;
-        prevMouseX.current = e.clientX;
+        const deltaX = clientX - prevMouseX.current;
+        prevMouseX.current = clientX;
         setWebSway((prev) => Math.max(-14, Math.min(14, prev * 0.85 + deltaX * 0.12)));
 
         if (isDragging || !headRef.current) return;
@@ -62,8 +81,8 @@ export const GlobalSpiderManTracker: React.FC = () => {
         const headCenterX = rect.left + rect.width / 2;
         const headCenterY = rect.top + rect.height / 2;
 
-        const dx = e.clientX - headCenterX;
-        const dy = e.clientY - headCenterY;
+        const dx = clientX - headCenterX;
+        const dy = clientY - headCenterY;
         const dist = Math.hypot(dx, dy);
 
         const rad = Math.atan2(dy, dx);
@@ -83,10 +102,19 @@ export const GlobalSpiderManTracker: React.FC = () => {
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    const onMouseMove = (e: MouseEvent) => handlePointerMove(e.clientX, e.clientY);
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches[0]) {
+        handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
     return () => {
       if (animId) window.cancelAnimationFrame(animId);
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
     };
   }, [isDragging]);
 
@@ -94,7 +122,7 @@ export const GlobalSpiderManTracker: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasScrolledPastHero(window.scrollY > 600);
+      setHasScrolledPastHero(window.scrollY > 380);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -104,29 +132,29 @@ export const GlobalSpiderManTracker: React.FC = () => {
   if (shouldReduceMotion || !hasScrolledPastHero) return null;
 
   return (
-    <div className="hidden md:block fixed top-[54px] right-4 sm:right-8 md:right-12 z-[90] pointer-events-none select-none">
-      <div className="relative w-32 sm:w-40 md:w-44 h-auto pointer-events-none">
+    <div className="fixed top-14 sm:top-[54px] right-2 sm:right-6 md:right-12 z-[90] pointer-events-none select-none">
+      <div className="relative w-20 sm:w-28 md:w-40 lg:w-44 h-auto pointer-events-none">
         {/* DRAGGABLE HIGH-DEFINITION SPIDER-MAN */}
         <motion.div
           drag
           dragSnapToOrigin={true}
-          dragElastic={0.25}
+          dragElastic={0.42}
           dragConstraints={{
             top: 0,
-            bottom: typeof window !== "undefined" ? window.innerHeight - 250 : 600,
-            left: -180,
-            right: 180,
+            bottom: typeof window !== "undefined" ? window.innerHeight - 80 : 800,
+            left: -220,
+            right: 80,
           }}
           onDragStart={() => setIsDragging(true)}
           onDragEnd={() => setIsDragging(false)}
           style={{ x: dragX, y: dragY }}
           whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 1.15, rotate: [-5, 5, -5] }}
+          whileTap={{ scale: 1.12, rotate: [-4, 4, -4] }}
           transition={{
             type: "spring",
-            stiffness: 380,
-            damping: 18,
-            mass: 0.7,
+            stiffness: 450,
+            damping: 14,
+            mass: 0.6,
           }}
           className="relative w-full h-auto cursor-grab active:cursor-grabbing pointer-events-auto filter drop-shadow-[0_4px_16px_rgba(230,0,38,0.35)] drop-shadow-[0_16px_36px_rgba(0,0,0,0.6)]"
         >
@@ -148,27 +176,30 @@ export const GlobalSpiderManTracker: React.FC = () => {
                 <stop offset="100%" stopColor="#CBD5E1" />
               </radialGradient>
               <linearGradient id="web-line-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
-                <stop offset="70%" stopColor="#FFFFFF" stopOpacity="0.9" />
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.25" />
+                <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.85" />
+                <stop offset="90%" stopColor="#FFFFFF" stopOpacity="1" />
                 <stop offset="100%" stopColor="#F1F5F9" stopOpacity="1" />
               </linearGradient>
             </defs>
 
-            {/* HANGING WEB LINE */}
-            <motion.g style={{ scaleY: webStretch, transformOrigin: "110px -600px" }}>
-              <path
-                d={`M 110 -600 Q ${110 + webSway * 1.2} -200, ${110 + webSway} 12`}
+            {/* HANGING WEB LINE - INFINITE TENSION ROPE */}
+            <g id="spidey-rope">
+              {/* Outer structural tension shadow */}
+              <motion.path
+                d={webPath}
                 stroke="#000000"
-                strokeWidth="5"
+                style={{ strokeWidth: webOuterWidth }}
                 strokeLinecap="round"
               />
-              <path
-                d={`M 110 -600 Q ${110 + webSway * 1.2} -200, ${110 + webSway} 12`}
+              {/* Inner glowing silk thread with tension */}
+              <motion.path
+                d={webPath}
                 stroke="url(#web-line-grad)"
-                strokeWidth="2.5"
+                style={{ strokeWidth: webCoreWidth, opacity: webTensionGlow }}
                 strokeLinecap="round"
               />
-            </motion.g>
+            </g>
 
             {/* SPIDER-MAN BODY & HEAD (Translated by scroll velocity) */}
             <motion.g style={{ y: spideyY }} transform={`translate(${webSway}, 0)`}>
@@ -176,12 +207,12 @@ export const GlobalSpiderManTracker: React.FC = () => {
                 <ellipse cx="110" cy="24" rx="36" ry="24" fill="#000000" />
                 
                 {/* Left Arm */}
-                <motion.g style={{ rotate: armLeftRotate, transformOrigin: "84px 30px" }}>
+                <motion.g style={{ rotate: finalArmLeft, transformOrigin: "84px 30px" }}>
                   <path d="M 76 10 C 70 26, 72 40, 84 46 C 92 50, 98 50, 104 50 C 98 34, 88 18, 76 10 Z" fill="url(#spidey-blue-grad)" stroke="#000000" strokeWidth="3" />
                 </motion.g>
                 
                 {/* Right Arm */}
-                <motion.g style={{ rotate: armRightRotate, transformOrigin: "136px 30px" }}>
+                <motion.g style={{ rotate: finalArmRight, transformOrigin: "136px 30px" }}>
                   <path d="M 144 10 C 150 26, 148 40, 136 46 C 128 50, 122 50, 116 50 C 122 34, 132 18, 144 10 Z" fill="url(#spidey-blue-grad)" stroke="#000000" strokeWidth="3" />
                 </motion.g>
                 <path d="M 84 10 C 82 26, 84 42, 94 48 C 100 52, 120 52, 126 48 C 136 42, 138 26, 136 10 Z" fill="url(#spidey-red-grad)" stroke="#000000" strokeWidth="3.5" />
@@ -233,7 +264,7 @@ export const GlobalSpiderManTracker: React.FC = () => {
                   id="spidey-eyes"
                   style={{
                     scaleY: isBlinking ? 0.08 : 1,
-                    scale: eyeFallScale,
+                    scale: finalEyeScale,
                     transformOrigin: "110px 90px",
                   }}
                   transition={{ duration: 0.12, ease: "easeOut" }}
