@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import ProjectPage from "./pages/ProjectPage";
 import ResumePage from "./pages/ResumePage";
+import NotFoundPage from "./pages/NotFoundPage";
 import GlobalSpiderManTracker from "./components/GlobalSpiderManTracker";
 
 export const App = () => {
@@ -59,6 +60,8 @@ export const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/project/:id" element={<ProjectPage />} />
+          {/* Catch-all: renders custom 404 page for any unknown route */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
     </div>
