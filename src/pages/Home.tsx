@@ -11,6 +11,8 @@ import Projects from "../components/Projects";
 import Education from "../components/Education";
 import Notebook from "../components/Notebook";
 import Contact from "../components/Contact";
+import { useSEO, BASE_URL } from "../hooks/useSEO";
+import { personSchema, websiteSchema } from "../lib/jsonld";
 
 const LANDSCAPES = [
   { id: "home", src: "/landscape-bg.jpg", alt: "Morning hills & open road" },
@@ -21,9 +23,46 @@ const LANDSCAPES = [
   { id: "contact", src: "/landscape-contact.jpg", alt: "Tuscan road sunset" },
 ];
 
+// Inline JSON-LD injection for Home — runs once, server-friendly for static crawlers
+function HomeStructuredData() {
+  useEffect(() => {
+    const ids = ["home-person-schema", "home-website-schema"];
+    const schemas = [personSchema(), websiteSchema()];
+
+    ids.forEach((id, i) => {
+      let el = document.querySelector<HTMLScriptElement>(`script[data-seo-id="${id}"]`);
+      if (!el) {
+        el = document.createElement("script");
+        el.type = "application/ld+json";
+        el.setAttribute("data-seo-id", id);
+        document.head.appendChild(el);
+      }
+      el.textContent = JSON.stringify(schemas[i]);
+    });
+
+    return () => {
+      ids.forEach((id) => {
+        document.querySelector(`script[data-seo-id="${id}"]`)?.remove();
+      });
+    };
+  }, []);
+
+  return null;
+}
+
 export const Home = () => {
   const { hash } = useLocation();
   const [activeBg, setActiveBg] = useState<string>("home");
+
+  // ── Per-page SEO ─────────────────────────────────────────────────────────
+  useSEO({
+    title: "Tushal Anand — Frontend Developer & AI Agent Engineer",
+    description:
+      "Portfolio of Tushal Anand — Computer Science Engineer based in India. Building Pulse, Hunter, Astronomical and other production systems using React, TypeScript, Rust, and AI agents.",
+    canonical: BASE_URL + "/",
+    ogImage: `${BASE_URL}/avtar.png`,
+    ogType: "website",
+  });
 
   useEffect(() => {
     // Preload all high-res landscape backdrops
@@ -119,6 +158,7 @@ export const Home = () => {
 
   return (
     <PageTransition>
+      <HomeStructuredData />
       <Navbar />
 
       {/* Fixed Fullscreen Landscape Canvas (Smooth Crossfading High-Res Artwork) */}

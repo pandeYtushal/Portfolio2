@@ -2,37 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Main / Home -->
+  <!-- Homepage -->
   <url>
-    <loc>https://tushalpandey.vercel.app/</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://tushal.site/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tushalpandey.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/" />
   </url>
 
-  <!-- Projects Section -->
+  <!-- Resume / Curriculum Vitae -->
   <url>
-    <loc>https://tushalpandey.vercel.app/#projects</loc>
-    <lastmod>2026-08-31</lastmod>
+    <loc>https://tushal.site/resume</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/resume" />
   </url>
 
-  <!-- Blog Section -->
+  <!-- Project: Pulse -->
   <url>
-    <loc>https://tushalpandey.vercel.app/#writing</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://tushal.site/project/pulse</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/project/pulse" />
   </url>
 
-  <!-- Contact Section -->
+  <!-- Project: Hunter -->
   <url>
-    <loc>https://tushalpandey.vercel.app/#contact</loc>
-    <lastmod>2026-08-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://tushal.site/project/hunter</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/project/hunter" />
+  </url>
+
+  <!-- Project: Astronomical -->
+  <url>
+    <loc>https://tushal.site/project/astronomical</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/project/astronomical" />
+  </url>
+
+  <!-- Project: Smart Civic Platform -->
+  <url>
+    <loc>https://tushal.site/project/civic</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/project/civic" />
+  </url>
+
+  <!-- Project: Melody -->
+  <url>
+    <loc>https://tushal.site/project/melody</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tushal.site/project/melody" />
   </url>
 
 </urlset>

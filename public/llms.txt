@@ -1,8 +1,8 @@
-# Tushal Pandey
+# Tushal Anand (Pandey)
 
 AI Agent Developer · Browser Automation Engineer · Full Stack Builder
 
-Portfolio: https://tushalpandey.vercel.app/
+Portfolio: https://tushal.site/
 GitHub: https://github.com/pandeYtushal
 LinkedIn: https://www.linkedin.com/in/tushal-anand18/
 Email: tushalanand4@gmail.com
@@ -261,4 +261,4 @@ Email: tushalanand4@gmail.com
 GitHub: https://github.com/pandeYtushal
 LinkedIn: https://www.linkedin.com/in/tushal-anand18/
 Medium: https://medium.com/@tushalpandey
-Website: https://tushalpandey.vercel.app/
+Website: https://tushal.site/

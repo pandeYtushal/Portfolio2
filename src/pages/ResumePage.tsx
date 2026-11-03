@@ -4,9 +4,19 @@ import { useNavigate } from "react-router-dom";
 import PageTransition from "../components/PageTransition";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useSEO, BASE_URL } from "../hooks/useSEO";
 
 export const ResumePage = () => {
   const navigate = useNavigate();
+
+  useSEO({
+    title: "Curriculum Vitae — Tushal Anand",
+    description:
+      "Curriculum Vitae of Tushal Anand — Computer Science Engineer specialising in full-stack web development, AI workflow automation, and decentralized technologies.",
+    canonical: `${BASE_URL}/resume`,
+    ogImage: `${BASE_URL}/avtar.png`,
+    ogType: "profile",
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -205,3 +215,4 @@ export const ResumePage = () => {
 };
 
 export default ResumePage;
+

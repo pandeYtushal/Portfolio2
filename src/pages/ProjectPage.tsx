@@ -4,6 +4,47 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS_DATA } from "../data/projects";
 import PageTransition from "../components/PageTransition";
+import { useSEO, BASE_URL } from "../hooks/useSEO";
+import { softwareApplicationSchema, breadcrumbSchema } from "../lib/jsonld";
+
+// ── Per-project JSON-LD injection ─────────────────────────────────────────
+function ProjectStructuredData({ project }: { project: (typeof PROJECTS_DATA)[number] }) {
+  useEffect(() => {
+    const appId = `project-app-${project.id}`;
+    const bcId = `project-bc-${project.id}`;
+
+    const appSchema = softwareApplicationSchema({
+      title: project.title,
+      description: project.description,
+      url: `${BASE_URL}/project/${project.id}`,
+      image: project.image,
+      tech: project.fullTech,
+      status: project.status,
+      link: project.link,
+      source: project.source,
+    });
+    const bcSchema = breadcrumbSchema(project.title, project.id);
+
+    [[appId, appSchema], [bcId, bcSchema]].forEach(([id, schema]) => {
+      let el = document.querySelector<HTMLScriptElement>(`script[data-seo-id="${id}"]`);
+      if (!el) {
+        el = document.createElement("script");
+        el.type = "application/ld+json";
+        el.setAttribute("data-seo-id", id as string);
+        document.head.appendChild(el);
+      }
+      el.textContent = JSON.stringify(schema);
+    });
+
+    return () => {
+      [appId, bcId].forEach((id) => {
+        document.querySelector(`script[data-seo-id="${id}"]`)?.remove();
+      });
+    };
+  }, [project]);
+
+  return null;
+}
 
 export const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,6 +61,25 @@ export const ProjectPage = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
+  // ── SEO for valid project ───────────────────────────────────────────────
+  // Hook is always called (React rules); noindex is used for missing projects
+  useSEO(
+    project
+      ? {
+          title: `${project.title} — Case Study | Tushal Anand`,
+          description: project.description,
+          canonical: `${BASE_URL}/project/${project.id}`,
+          ogImage: `${BASE_URL}${project.image}`,
+          ogType: "article",
+        }
+      : {
+          title: "Project Not Found | Tushal Anand",
+          description: "The requested project could not be found.",
+          canonical: `${BASE_URL}/project/${id ?? "unknown"}`,
+          noindex: true,
+        }
+  );
+
   if (!project) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-app-bg text-app-text-primary">
@@ -33,6 +93,7 @@ export const ProjectPage = () => {
 
   return (
     <PageTransition>
+      <ProjectStructuredData project={project} />
       <div className="min-h-screen bg-app-bg text-app-text-primary overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
         
         {/* Navbar with Quick Prev / Next Controls */}
@@ -77,12 +138,14 @@ export const ProjectPage = () => {
           <div className="max-w-6xl mx-auto">
 
             {/* Breadcrumb / Category Eyebrow */}
-            <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold mb-4 sm:mb-6">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold mb-4 sm:mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
-              <span>Chapter 03 &bull; Selected Work</span>
+              <Link to="/" className="hover:text-app-text-primary transition-colors">Home</Link>
+              <span className="text-app-border">/</span>
+              <Link to="/#projects" className="hover:text-app-text-primary transition-colors">Work</Link>
               <span className="text-app-border">/</span>
               <span className="text-app-text-primary font-bold">{project.figNum}</span>
-            </div>
+            </nav>
 
             {/* Title Block */}
             <div className="flex flex-col gap-6 sm:gap-8 mb-8 sm:mb-14">
@@ -124,7 +187,7 @@ export const ProjectPage = () => {
             >
               <img
                 src={project.image}
-                alt={project.title}
+                alt={`${project.title} — project screenshot`}
                 className="w-full h-auto object-cover object-top contrast-105"
               />
             </motion.div>
@@ -170,17 +233,17 @@ export const ProjectPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 mb-14 sm:mb-20">
               <div className="md:col-span-7 flex flex-col gap-8 sm:gap-12">
                 <div className="flex flex-col gap-3">
-                  <h3 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
                     Implementation
-                  </h3>
+                  </h2>
                   <p className="font-sans text-sm sm:text-base leading-relaxed text-app-text-secondary">
                     {project.longDescription}
                   </p>
                 </div>
                 <div className="flex flex-col gap-3">
-                  <h3 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
                     Engineering Decisions
-                  </h3>
+                  </h2>
                   <p className="font-sans text-sm sm:text-base leading-relaxed text-app-text-secondary">
                     {project.engineeringDecisions}
                   </p>
@@ -189,9 +252,9 @@ export const ProjectPage = () => {
 
               <div className="md:col-span-5 flex flex-col gap-8 sm:gap-12 border-t md:border-none border-app-border/70 pt-8 md:pt-0">
                 <div className="flex flex-col gap-3">
-                  <h3 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
                     Architecture Flow
-                  </h3>
+                  </h2>
                   <div className="flex flex-col gap-2.5 sm:gap-3">
                     {project.architectureSteps.map((step, i) => (
                       <div 
@@ -208,9 +271,9 @@ export const ProjectPage = () => {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <h3 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
+                  <h2 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
                     Full Tech Stack
-                  </h3>
+                  </h2>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.fullTech.map((tech) => (
                       <span 
@@ -287,9 +350,9 @@ export const ProjectPage = () => {
                     <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">
                       {nextProject.tag}
                     </span>
-                    <h4 className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-app-text-primary group-hover:text-amber-800 transition-colors">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-app-text-primary group-hover:text-amber-800 transition-colors">
                       {nextProject.title}
-                    </h4>
+                    </h3>
                     <p className="font-sans text-xs sm:text-sm text-app-text-secondary leading-relaxed line-clamp-2">
                       {nextProject.description}
                     </p>
@@ -318,9 +381,9 @@ export const ProjectPage = () => {
                     <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">
                       {prevProject.tag}
                     </span>
-                    <h4 className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-app-text-primary group-hover:text-amber-800 transition-colors">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-app-text-primary group-hover:text-amber-800 transition-colors">
                       {prevProject.title}
-                    </h4>
+                    </h3>
                     <p className="font-sans text-xs sm:text-sm text-app-text-secondary leading-relaxed line-clamp-2">
                       {prevProject.description}
                     </p>

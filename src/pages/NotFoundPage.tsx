@@ -2,8 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useSEO, BASE_URL } from "../hooks/useSEO";
 
 export const NotFoundPage: React.FC = () => {
+  useSEO({
+    title: "Page Not Found (404) — Tushal Anand",
+    description: "The page you are looking for does not exist on tushal.site.",
+    canonical: `${BASE_URL}/404`,
+    noindex: true,
+  });
+
   return (
     <div className="relative min-h-screen bg-app-bg text-app-text-primary font-sans antialiased overflow-x-clip selection:bg-app-text-primary selection:text-app-bg flex flex-col">
 
@@ -135,4 +143,3 @@ export const NotFoundPage: React.FC = () => {
 };
 
 export default NotFoundPage;
-
