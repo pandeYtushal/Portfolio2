@@ -15,7 +15,7 @@ export function personSchema() {
     alternateName: "Tushal Pandey",
     url: BASE_URL,
     image: `${BASE_URL}/avtar.png`,
-    jobTitle: "Frontend Developer & AI Agent Engineer",
+    jobTitle: "Software Engineer",
     description:
       "Computer Science Engineer based in India specialising in React, TypeScript, browser automation, and AI agent systems.",
     email: "tushalanand4@gmail.com",

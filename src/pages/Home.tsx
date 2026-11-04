@@ -56,7 +56,7 @@ export const Home = () => {
 
   // ── Per-page SEO ─────────────────────────────────────────────────────────
   useSEO({
-    title: "Tushal Anand — Frontend Developer & AI Agent Engineer",
+    title: "Tushal Anand — Software Engineer",
     description:
       "Portfolio of Tushal Anand — Computer Science Engineer based in India. Building Pulse, Hunter, Astronomical and other production systems using React, TypeScript, Rust, and AI agents.",
     canonical: BASE_URL + "/",
