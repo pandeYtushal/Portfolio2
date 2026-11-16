@@ -1,105 +1,25 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { m, useReducedMotion } from "motion/react";
+import { springs, stagger } from "../motion.theme";
 
-export const Hero = () => {
-  return (
-    <section
-      id="home"
-      className="relative min-h-[95vh] flex flex-col justify-end pb-16 md:pb-24 px-5 sm:px-8 md:px-12 z-10 pt-32 sm:pt-36"
-    >
-      <div className="max-w-6xl w-full mx-auto flex flex-col gap-12 md:gap-20">
-        
-        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] font-serif font-medium leading-[0.95] text-app-text-primary tracking-tight max-w-[90%]">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          >
-            I DON'T MAKE
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-            className="text-app-text-secondary italic font-normal"
-          >
-            THINGS TO FILL
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-          >
-            A SCREEN.
-          </motion.div>
-        </h1>
-
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 border-t border-app-border/70 pt-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="max-w-xl font-sans text-base md:text-lg leading-relaxed text-app-text-secondary"
-          >
-            <p className="mb-4">
-              I make them because something about the way things are could be more interesting. As a Computer Science Engineer, I use code to build systems, interactions, and ideas that actually work, not just things that look correct.
-            </p>
-            <p>
-              I'm interested in what happens when technical rigor meets creative intention, and a concept becomes something you can actually experience.
-            </p>
-            <p className="mt-8 font-mono text-xs font-semibold tracking-widest text-app-text-primary uppercase">
-              LESS NOISE. MORE NERVE.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="flex flex-col gap-4 font-sans text-sm font-semibold tracking-widest uppercase"
-          >
-            <a 
-              href="#projects" 
-              className="group flex items-center gap-3 text-app-text-primary hover:text-amber-800 transition-colors"
-            >
-              <span>Explore the work</span>
-              <span className="block w-6 h-[1.5px] bg-app-text-primary group-hover:w-10 transition-all duration-300" />
-            </a>
-            <a 
-              href="https://drive.google.com/file/d/1IC8AQ-YlGLaIRvwjntPes1bw7snDX167/view?usp=drive_link" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 text-app-text-secondary hover:text-app-text-primary transition-colors"
-            >
-              <span>Resume</span>
-              <span className="block w-6 h-[1.5px] bg-app-text-secondary group-hover:bg-app-text-primary group-hover:w-10 transition-all duration-300" />
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Seamless trail connector leading from Home into About */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 border-t border-app-border/60 pt-6"
-        >
-          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-primary font-semibold whitespace-nowrap">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-            <span>Prologue &mdash; The Overlook</span>
-          </div>
-          <a 
-            href="#about"
-            className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold hover:text-app-text-primary transition-colors whitespace-nowrap"
-          >
-            <span>Follow the path to The Roots</span>
-            <span className="group-hover:translate-y-0.5 transition-transform">&darr;</span>
-          </a>
-        </motion.div>
-
-      </div>
-    </section>
-  );
-};
-
-export default Hero;
+const terminal = "$ whoami -> software engineer / rust / react / ai agents";
+export default function Hero() {
+  const reduce = useReducedMotion();
+  const [typed, setTyped] = useState(reduce ? terminal : "");
+  useEffect(() => {
+    if (reduce) { setTyped(terminal); return; }
+    let i = 0, timer = 0;
+    const tick = () => { i++; setTyped(terminal.slice(0, i)); if (i < terminal.length) timer = window.setTimeout(tick, /[\/>]/.test(terminal[i - 1]) ? 240 : 34 + Math.random() * 45); };
+    timer = window.setTimeout(tick, 450);
+    return () => window.clearTimeout(timer);
+  }, [reduce]);
+  return <section id="home" className="hero section-wrap">
+    <div className="hero-grid" aria-hidden="true" /><m.div className="hero-glow" aria-hidden="true" />
+    <div className="hero-content">
+      <p className="eyebrow"><span className="live-dot" /> AVAILABLE FOR SELECT PROJECTS <span className="eyebrow-meta">INDIA · IST</span></p>
+      <h1 className="hero-name" aria-label="Tushal Anand"><span className="name-line"><m.span initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ ...springs.ui, delay: stagger }}>Tushal</m.span></span><span className="name-line"><m.span initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ ...springs.ui, delay: stagger * 2 }}>Anand<span className="accent">.</span></m.span></span></h1>
+      <div className="hero-bottom"><div className="terminal" aria-label={terminal}><span className="terminal-text">{typed}</span><span className="cursor" aria-hidden="true">▍</span></div><div className="hero-actions"><a className="button button-primary magnetic" href="#projects">View work <span>↘</span></a><a className="button button-quiet magnetic" href="/resume">Resume <span>↗</span></a></div></div>
+    </div>
+    <div className="hero-index"><span>SOFTWARE ENGINEER</span><span>SCROLL TO EXPLORE ↓</span></div>
+  </section>;
+}
