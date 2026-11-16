@@ -93,13 +93,13 @@ export const ProjectPage = () => {
   return (
     <>
       <ProjectStructuredData project={project} />
-      <div className="min-h-screen bg-app-bg text-app-text-primary overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
+      <div className="project-page min-h-screen bg-app-bg text-app-text-primary overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
         
         {/* Navbar with Quick Prev / Next Controls */}
-        <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-12 py-3.5 sm:py-5 flex justify-between items-center bg-[#F4F4F0]/95 backdrop-blur-md border-b border-app-border/60 transition-colors shadow-xs">
+        <header className="project-page-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-12 py-3.5 sm:py-5 flex justify-between items-center backdrop-blur-md border-b border-app-border/60 transition-colors">
           <button
             onClick={() => navigate("/#projects")}
-            className="group flex items-center gap-2 text-xs font-mono uppercase tracking-widest font-bold text-app-text-primary hover:text-amber-800 transition-colors"
+            className="action-link action-link-back"
           >
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             <span className="hidden sm:inline">Back to Work</span>
@@ -109,7 +109,7 @@ export const ProjectPage = () => {
           <div className="flex items-center gap-1.5 sm:gap-3">
             <Link
               to={`/project/${prevProject.id}`}
-              className="p-1.5 sm:px-2.5 sm:py-1 rounded-md border border-app-border/80 hover:bg-app-surface text-app-text-secondary hover:text-app-text-primary font-mono text-[11px] uppercase tracking-wider flex items-center gap-1 transition-all active:scale-95"
+              className="action-link action-link-compact"
               title={`Previous: ${prevProject.title}`}
               aria-label="Previous Project"
             >
@@ -117,13 +117,13 @@ export const ProjectPage = () => {
               <span className="hidden md:inline">Prev</span>
             </Link>
 
-            <div className="px-2 py-0.5 rounded bg-app-surface border border-app-border/60 font-mono text-[10px] sm:text-xs font-bold text-app-text-primary uppercase tracking-widest">
+            <div className="case-id">
               {project.figNum}
             </div>
 
             <Link
               to={`/project/${nextProject.id}`}
-              className="p-1.5 sm:px-2.5 sm:py-1 rounded-md border border-app-text-primary/70 bg-app-text-primary text-app-surface sm:bg-transparent sm:text-app-text-primary sm:border-app-border/80 hover:bg-app-surface sm:hover:text-app-text-primary font-mono text-[11px] uppercase tracking-wider font-semibold flex items-center gap-1 transition-all active:scale-95"
+              className="action-link action-link-compact"
               title={`Next: ${nextProject.title}`}
               aria-label="Next Project"
             >
@@ -288,13 +288,13 @@ export const ProjectPage = () => {
             </div>
 
             {/* Primary Action Links */}
-            <div className="flex flex-row items-center gap-3 sm:gap-4 border-t border-app-border/70 pt-8 sm:pt-12">
+            <div className="detail-actions">
               {project.link && (
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-app-text-primary text-app-surface px-4 sm:px-8 h-12 font-mono text-xs font-bold uppercase tracking-wider rounded-lg shadow-xs hover:opacity-90 active:scale-98 transition-all whitespace-nowrap"
+                  className="action-link action-link-emphasis"
                 >
                   <span>Live Site</span>
                   <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -305,7 +305,7 @@ export const ProjectPage = () => {
                   href={project.source}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 sm:gap-2.5 border border-app-border/90 bg-app-surface hover:bg-app-surface-secondary text-app-text-primary px-4 sm:px-8 h-12 font-mono text-xs font-bold uppercase tracking-wider rounded-lg shadow-xs active:scale-98 transition-all whitespace-nowrap"
+                  className="action-link"
                 >
                   <span>Source Code</span>
                   <Github className="w-3.5 h-3.5 shrink-0" />
@@ -323,7 +323,7 @@ export const ProjectPage = () => {
                 </div>
                 <button
                   onClick={() => navigate("/#projects")}
-                  className="hover:text-app-text-primary transition-colors flex items-center gap-1"
+                  className="action-link"
                 >
                   <span>Index</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -335,7 +335,7 @@ export const ProjectPage = () => {
                 {/* Next Project (Primary on Mobile) */}
                 <Link
                   to={`/project/${nextProject.id}`}
-                  className="order-1 md:order-2 group flex flex-col justify-between p-5 sm:p-7 bg-app-surface border-2 border-app-text-primary/70 hover:border-app-text-primary rounded-xl transition-all duration-300 shadow-sm hover:shadow-lg relative overflow-hidden"
+                  className="case-study-link order-1 md:order-2 group"
                 >
                   <div className="flex items-center justify-between text-xs font-mono pb-3 border-b border-app-border/60">
                     <span className="font-semibold text-app-text-primary">{nextProject.figNum}</span>
@@ -366,7 +366,7 @@ export const ProjectPage = () => {
                 {/* Previous Project */}
                 <Link
                   to={`/project/${prevProject.id}`}
-                  className="order-2 md:order-1 group flex flex-col justify-between p-5 sm:p-7 bg-app-surface/60 hover:bg-app-surface border border-app-border hover:border-app-text-primary/60 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md"
+                  className="case-study-link order-2 md:order-1 group"
                 >
                   <div className="flex items-center justify-between text-xs font-mono text-app-text-secondary pb-3 border-b border-app-border/60">
                     <span className="flex items-center gap-1.5 text-app-text-secondary group-hover:text-app-text-primary group-hover:-translate-x-1 transition-all">

@@ -28,7 +28,7 @@ export const ResumePage = () => {
       <div className="print:hidden">
         <Navbar />
       </div>
-      <div className="min-h-screen bg-app-surface text-app-text-primary pt-24 pb-12 px-4 sm:px-6 md:px-12 flex flex-col">
+      <div className="resume-page min-h-screen bg-app-surface text-app-text-primary pt-24 pb-12 px-4 sm:px-6 md:px-12 flex flex-col">
         <div className="max-w-4xl w-full mx-auto flex-1 flex flex-col gap-8 sm:gap-12">
           
           {/* Header & Controls */}
@@ -36,7 +36,7 @@ export const ResumePage = () => {
             <div className="flex flex-col gap-4 sm:gap-6">
               <button 
                 onClick={() => navigate(-1)}
-                className="self-start flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-app-text-primary hover:text-app-accent transition-colors"
+                className="action-link action-link-back"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back
@@ -47,12 +47,12 @@ export const ResumePage = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="resume-actions">
               <a 
                 href={pdfUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 flex-1 sm:flex-none bg-app-surface border border-app-border rounded text-xs sm:text-sm font-semibold hover:bg-app-surface-secondary transition-colors"
+                className="action-link"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span>View PDF</span>
@@ -61,7 +61,7 @@ export const ResumePage = () => {
                 href={pdfUrl} 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 flex-1 sm:flex-none bg-app-text-primary text-app-surface rounded text-xs sm:text-sm font-semibold hover:bg-app-text-secondary transition-colors"
+                className="action-link action-link-emphasis"
               >
                 <Download className="w-4 h-4" />
                 <span>Download</span>
