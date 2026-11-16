@@ -95,7 +95,9 @@ body { background-color:#090909; background-image:linear-gradient(90deg,transpar
 .project-facts>div:last-child { border-right:0!important; }
 .project-facts span:first-child { color:#797974!important; font-size:.6rem!important; letter-spacing:.1em!important; }
 .project-facts span:last-child { margin-top:.25rem; font-family:"JetBrains Mono",monospace!important; font-size:.72rem!important; font-weight:500!important; }
-.project-facts .text-emerald-700,.project-facts .bg-emerald-600 { color:var(--accent)!important; background-color:var(--accent)!important; }
+.project-facts .text-emerald-700 { color:var(--accent)!important; background-color:transparent!important; }
+.project-facts .text-emerald-700 .bg-emerald-600 { background-color:var(--accent)!important; }
+.project-facts .text-emerald-700 span:last-child { color:var(--accent)!important; }
 .project-hero-visual { position:relative; border-radius:0!important; border-color:var(--line)!important; background:#101010!important; box-shadow:none!important; }
 .project-hero-visual::after { position:absolute; inset:0; pointer-events:none; border:1px solid rgba(255,220,24,.25); content:""; opacity:.4; }
 .project-hero-visual img { aspect-ratio:16 / 9; object-fit:cover; filter:saturate(.82) contrast(1.05); }
