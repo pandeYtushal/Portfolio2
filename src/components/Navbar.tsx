@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, m, useReducedMotion, useScroll } from "motion/react";
 import { springs, stagger } from "../motion.theme";
-const links = [{ label: "Work", href: "#projects" }, { label: "Tools", href: "#tools" }, { label: "Experience", href: "#experience" }, { label: "About", href: "#about" }];
+const links = [{ label: "Work", href: "#projects" }, { label: "Tools", href: "#tools" }, { label: "Experience", href: "#experience" }, { label: "About", href: "#about" }, { label: "Contact", href: "#contact" }];
 export default function Navbar() {
   const [hidden, setHidden] = useState(false), [menu, setMenu] = useState(false), [active, setActive] = useState("home");
   const { scrollYProgress } = useScroll();
