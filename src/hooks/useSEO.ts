@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 const BASE_URL = "https://tushal.site";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/avtar.png`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/avtar.webp`;
 const TWITTER_HANDLE = "@pandeYtushal";
 const SITE_NAME = "Tushal Anand — Portfolio";
 
@@ -51,18 +51,6 @@ export function useSEO({
         document.head.appendChild(el);
       }
       el.setAttribute("href", href);
-    };
-
-    // ── Helper: upsert a JSON-LD <script> ─────────────────
-    const setJsonLd = (id: string, data: object) => {
-      let el = document.querySelector<HTMLScriptElement>(`script[data-seo-id="${id}"]`);
-      if (!el) {
-        el = document.createElement("script");
-        el.setAttribute("type", "application/ld+json");
-        el.setAttribute("data-seo-id", id);
-        document.head.appendChild(el);
-      }
-      el.textContent = JSON.stringify(data);
     };
 
     // ── Standard meta ─────────────────────────────────────

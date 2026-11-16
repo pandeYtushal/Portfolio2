@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Download, ExternalLink, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import PageTransition from "../components/PageTransition";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
@@ -14,7 +13,7 @@ export const ResumePage = () => {
     description:
       "Curriculum Vitae of Tushal Anand — Computer Science Engineer specialising in full-stack web development, AI workflow automation, and decentralized technologies.",
     canonical: `${BASE_URL}/resume`,
-    ogImage: `${BASE_URL}/avtar.png`,
+    ogImage: `${BASE_URL}/avtar.webp`,
     ogType: "profile",
   });
 
@@ -25,7 +24,7 @@ export const ResumePage = () => {
   const pdfUrl = "https://drive.google.com/file/d/1IC8AQ-YlGLaIRvwjntPes1bw7snDX167/view?usp=drive_link";
 
   return (
-    <PageTransition>
+    <>
       <div className="print:hidden">
         <Navbar />
       </div>
@@ -44,7 +43,7 @@ export const ResumePage = () => {
               </button>
               <div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight mb-2">Curriculum Vitae</h1>
-                <p className="font-mono text-xs sm:text-sm text-app-text-secondary font-semibold">Tushal Anand Pandey</p>
+                <p className="font-mono text-xs sm:text-sm text-app-text-secondary font-semibold">Tushal Anand</p>
               </div>
             </div>
 
@@ -210,7 +209,7 @@ export const ResumePage = () => {
       <div className="print:hidden">
         <Footer />
       </div>
-    </PageTransition>
+    </>
   );
 };
 

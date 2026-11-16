@@ -1,74 +1,20 @@
-# Tushal Pandey — Portfolio
+# Tushal Anand — Portfolio
 
-Personal portfolio built with React, Vite, and TypeScript. Designed with an Awwwards-winning aesthetic focusing on fluid motion, micro-interactions, and premium typography.
+A dark, responsive portfolio built with React 18, TypeScript, Vite, Tailwind CSS 4, Motion, and Lenis.
 
-**Live**: [tushalpandey.vercel.app](https://tushalpandey.vercel.app)
+## Commands
 
----
+- `npm run dev` — local development server
+- `npm run build` — type check and production build
+- `npm run lint` — ESLint
 
-## Key Features
+## Routes
 
-- **Interactive Spider-Man Physics Engine**: A custom draggable SVG Spider-Man that tracks the cursor and reacts to scroll velocity with physical momentum (web stretching, arm flaring, eye widening).
-- **Live Environment Sync**: Real-time Heads-Up Display (HUD) showing the current time (IST) and dynamic local weather conditions using the Open-Meteo API.
-- **Fluid Page Transitions**: Seamless, Awwwards-style yellow curtain sweeps when navigating between the Home and Project pages.
-- **Magnetic UI Elements**: Custom cursor and magnetic buttons that attract to the mouse for a tactile feel.
-- **Scroll-Driven Storytelling**: Cinematic reveals and parallax effects powered by Framer Motion and Lenis smooth scrolling.
+- `/` — selected work and profile
+- `/project/:id` — project details sourced from `src/data/projects.ts`
+- `/resume` — resume and education
+- `*` — not found
 
----
+## Motion
 
-## Stack
-
-- **React 18** + **TypeScript** + **Vite 6**
-- **Tailwind CSS 4** — rapid, responsive styling
-- **Framer Motion** — physics engines, layout transitions, drag gestures
-- **Lucide React** — iconography
-- **Lenis** — smooth momentum scrolling
-
----
-
-## Structure
-
-```
-src/
-├── components/
-│   ├── About.tsx
-│   ├── Contact.tsx
-│   ├── Education.tsx
-│   ├── Engineering.tsx
-│   ├── Footer.tsx
-│   ├── GlobalSpiderManTracker.tsx
-│   ├── Hero.tsx
-│   ├── Navbar.tsx
-│   ├── Notebook.tsx
-│   ├── PageTransition.tsx
-│   └── Projects.tsx
-├── data/
-│   └── projects.ts
-├── pages/
-│   ├── Home.tsx
-│   ├── ProjectPage.tsx
-│   └── ResumePage.tsx
-├── App.tsx
-├── main.tsx
-└── index.css
-```
-
----
-
-## Running locally
-
-```bash
-git clone https://github.com/pandeYtushal/Portfolio2.git
-cd Portfolio2
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173`.
-
-| Command | What it does |
-|---|---|
-| `npm run dev` | Dev server |
-| `npm run build` | Typecheck + production build |
-| `npm run preview` | Preview production build |
-| `npm run lint` | ESLint |
+Spring settings and the shared non-spring easing are defined in `src/motion.theme.ts`. Reduced-motion preferences disable the marquee and hero typing sequence.
