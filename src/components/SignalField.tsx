@@ -13,7 +13,7 @@ export default function SignalField() {
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
 
-    const points: Point[] = Array.from({ length: reduce ? 72 : 180 }, (_, index) => ({
+    const points: Point[] = Array.from({ length: reduce ? 96 : 240 }, (_, index) => ({
       phase: index * 2.399963229728653,
       orbit: 0.12 + ((index * 37) % 100) / 125,
       speed: 0.32 + ((index * 17) % 100) / 200,
@@ -48,6 +48,25 @@ export default function SignalField() {
       context.fillStyle = glow;
       context.fillRect(0, 0, width, height);
 
+      // Field lines create the magnetic structure around the signal core.
+      for (let layer = 0; layer < 13; layer += 1) {
+        const progress = layer / 12;
+        const horizontal = radius * (0.32 + progress * 1.22);
+        const vertical = radius * (0.12 + progress * 0.44);
+        context.beginPath();
+        for (let point = 0; point <= 96; point += 1) {
+          const angle = (point / 96) * Math.PI * 2;
+          const pull = Math.sin(angle * 3 + tick * (0.4 + progress * 0.3)) * radius * (0.018 + progress * 0.018);
+          const x = centerX + Math.cos(angle) * horizontal;
+          const y = centerY + Math.sin(angle) * vertical + pull;
+          if (point === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        }
+        context.strokeStyle = `rgba(255, 220, 24, ${0.028 + (1 - progress) * 0.06})`;
+        context.lineWidth = progress < 0.25 ? 0.85 : 0.55;
+        context.stroke();
+      }
+
       points.forEach((point) => {
         const angle = point.phase + tick * point.speed;
         const pulse = 0.82 + Math.sin(tick * 1.7 + point.phase) * 0.14;
@@ -61,7 +80,7 @@ export default function SignalField() {
       });
       context.beginPath();
       context.fillStyle = "#fff4b3";
-      context.arc(centerX, centerY, 2.2, 0, Math.PI * 2);
+      context.arc(centerX, centerY, 3, 0, Math.PI * 2);
       context.fill();
       if (!reduce) frame = requestAnimationFrame(draw);
     };
