@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { LenisProvider } from "./lib/LenisContext";
 import { useLenis } from "./hooks/useLenis";
 import CommandPalette from "./components/CommandPalette";
+import BackToTop from "./components/BackToTop";
 
 const Home = lazy(() => import("./pages/Home"));
 const ProjectPage = lazy(() => import("./pages/ProjectPage"));
@@ -18,5 +19,5 @@ function RouteContent() {
 }
 
 export default function App() {
-  return <MotionConfig reducedMotion="user"><LazyMotion features={domAnimation}><LenisProvider><div className="site-shell bg-grain"><a href="#main-content" className="skip-link">Skip to main content</a><RouteContent /><CommandPalette /></div></LenisProvider></LazyMotion></MotionConfig>;
+  return <MotionConfig reducedMotion="user"><LazyMotion features={domAnimation}><LenisProvider><div className="site-shell bg-grain"><a href="#main-content" className="skip-link">Skip to main content</a><RouteContent /><BackToTop /><CommandPalette /></div></LenisProvider></LazyMotion></MotionConfig>;
 }

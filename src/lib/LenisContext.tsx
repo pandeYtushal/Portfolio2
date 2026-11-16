@@ -4,7 +4,7 @@ import { LenisContext } from "./LenisStore";
 export function LenisProvider({ children }: { children: ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
   useEffect(() => {
-    const instance = new Lenis({ lerp: 0.09, wheelMultiplier: 1, syncTouch: false });
+    const instance = new Lenis({ lerp: 0.16, wheelMultiplier: 1, syncTouch: false });
     setLenis(instance);
     let frame = 0;
     const raf = (time: number) => { instance.raf(time); frame = requestAnimationFrame(raf); };
