@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { m, useReducedMotion } from "motion/react";
-import { springs, stagger } from "../motion.theme";
+import { springs } from "../motion.theme";
 
 const groups = [
   { number: "01", title: "Languages", detail: "Foundations for systems and interfaces.", tools: ["TypeScript", "JavaScript", "Rust", "Python", "SQL"] },
