@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import { ExternalLink, Github, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS_DATA } from "../data/projects";
-import PageTransition from "../components/PageTransition";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
 import { softwareApplicationSchema, breadcrumbSchema } from "../lib/jsonld";
 
@@ -92,7 +91,7 @@ export const ProjectPage = () => {
   }
 
   return (
-    <PageTransition>
+    <>
       <ProjectStructuredData project={project} />
       <div className="min-h-screen bg-app-bg text-app-text-primary overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
         
@@ -149,12 +148,12 @@ export const ProjectPage = () => {
 
             {/* Title Block */}
             <div className="flex flex-col gap-6 sm:gap-8 mb-8 sm:mb-14">
-              <motion.h1
+              <m.h1
                 layoutId={`project-title-${project.id}`}
                 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-medium leading-[1.04] sm:leading-[0.98] tracking-tight uppercase text-app-text-primary"
               >
                 {project.title}
-              </motion.h1>
+              </m.h1>
 
               <p className="font-sans text-base sm:text-xl md:text-2xl text-app-text-secondary leading-relaxed max-w-3xl font-medium">
                 {project.description}
@@ -181,7 +180,7 @@ export const ProjectPage = () => {
             </div>
 
             {/* Project Image Display (Clean Direct Image) */}
-            <motion.div
+            <m.div
               layoutId={`project-image-${project.id}`}
               className="mb-10 sm:mb-16 w-full rounded-xl sm:rounded-2xl overflow-hidden border border-app-border/80 bg-app-surface shadow-sm"
             >
@@ -190,7 +189,7 @@ export const ProjectPage = () => {
                 alt={`${project.title} — project screenshot`}
                 className="w-full h-auto object-cover object-top contrast-105"
               />
-            </motion.div>
+            </m.div>
 
             {/* The Challenge & Solution */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-14 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-app-border/70">
@@ -400,7 +399,7 @@ export const ProjectPage = () => {
           </div>
         </main>
       </div>
-    </PageTransition>
+    </>
   );
 };
 
