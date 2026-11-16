@@ -93,7 +93,7 @@ export const ProjectPage = () => {
   return (
     <>
       <ProjectStructuredData project={project} />
-      <div className="project-page min-h-screen bg-app-bg text-app-text-primary overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
+      <div className="project-page project-detail-shell min-h-screen bg-app-bg text-app-text-primary overflow-x-clip selection:bg-app-text-primary selection:text-app-bg">
         
         {/* Navbar with Quick Prev / Next Controls */}
         <header className="project-page-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-12 py-3.5 sm:py-5 flex justify-between items-center backdrop-blur-md border-b border-app-border/60 transition-colors">
@@ -134,7 +134,7 @@ export const ProjectPage = () => {
         </header>
 
         <main className="pt-24 sm:pt-36 pb-28 sm:pb-40 px-4 sm:px-8 md:px-12">
-          <div className="max-w-6xl mx-auto">
+          <div className="project-detail max-w-6xl mx-auto">
 
             {/* Breadcrumb / Category Eyebrow */}
             <nav aria-label="Breadcrumb" className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-app-text-secondary font-semibold mb-4 sm:mb-6">
@@ -150,17 +150,17 @@ export const ProjectPage = () => {
             <div className="flex flex-col gap-6 sm:gap-8 mb-8 sm:mb-14">
               <m.h1
                 layoutId={`project-title-${project.id}`}
-                className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-medium leading-[1.04] sm:leading-[0.98] tracking-tight uppercase text-app-text-primary"
+                className="project-detail-title text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.04] sm:leading-[0.98] tracking-tight uppercase text-app-text-primary"
               >
                 {project.title}
               </m.h1>
 
-              <p className="font-sans text-base sm:text-xl md:text-2xl text-app-text-secondary leading-relaxed max-w-3xl font-medium">
+              <p className="project-detail-lede font-sans text-base sm:text-xl md:text-2xl text-app-text-secondary leading-relaxed max-w-3xl font-medium">
                 {project.description}
               </p>
 
               {/* Responsive Metadata Grid */}
-              <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-4 sm:pt-6 border-t border-app-border/70">
+              <div className="project-facts grid grid-cols-3 gap-2 sm:gap-6 pt-4 sm:pt-6 border-t border-app-border/70">
                 <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-lg sm:rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
                   <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">Domain</span>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-app-text-primary truncate">{project.tag.split("&")[0].trim()}</span>
@@ -182,7 +182,7 @@ export const ProjectPage = () => {
             {/* Project Image Display (Clean Direct Image) */}
             <m.div
               layoutId={`project-image-${project.id}`}
-              className="mb-10 sm:mb-16 w-full rounded-xl sm:rounded-2xl overflow-hidden border border-app-border/80 bg-app-surface shadow-sm"
+              className="project-hero-visual mb-10 sm:mb-16 w-full rounded-xl sm:rounded-2xl overflow-hidden border border-app-border/80 bg-app-surface shadow-sm"
             >
               <img
                 src={project.image}
@@ -192,7 +192,7 @@ export const ProjectPage = () => {
             </m.div>
 
             {/* The Challenge & Solution */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-14 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-app-border/70">
+            <div className="project-brief grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-14 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-app-border/70">
               <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-xl sm:rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
                 <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-800 font-bold">
                   <span className="w-2 h-0.5 bg-amber-700" />
@@ -215,7 +215,7 @@ export const ProjectPage = () => {
             </div>
 
             {/* Symmetrical Metrics Strip */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-8 mb-12 sm:mb-20 border-y border-app-border/70 py-6 sm:py-12">
+            <div className="project-metrics grid grid-cols-3 gap-2 sm:gap-8 mb-12 sm:mb-20 border-y border-app-border/70 py-6 sm:py-12">
               {project.metrics.map((metric, i) => (
                 <div key={i} className="flex flex-col gap-1 border-l sm:border-l-2 border-app-border/80 pl-2.5 sm:pl-6">
                   <span className="text-xl sm:text-4xl md:text-5xl font-serif font-medium text-app-text-primary leading-tight">
@@ -229,7 +229,7 @@ export const ProjectPage = () => {
             </div>
 
             {/* Deep Dive & Architecture */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 mb-14 sm:mb-20">
+            <div className="project-deep-dive grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 mb-14 sm:mb-20">
               <div className="md:col-span-7 flex flex-col gap-8 sm:gap-12">
                 <div className="flex flex-col gap-3">
                   <h2 className="font-mono text-xs uppercase tracking-widest text-app-text-primary font-bold">
@@ -258,7 +258,7 @@ export const ProjectPage = () => {
                     {project.architectureSteps.map((step, i) => (
                       <div 
                         key={i} 
-                        className="flex items-center gap-3 p-3 rounded-lg bg-app-surface/50 border border-app-border/70 font-sans text-xs sm:text-sm font-medium text-app-text-primary"
+                        className="architecture-step flex items-center gap-3 p-3 rounded-lg bg-app-surface/50 border border-app-border/70 font-sans text-xs sm:text-sm font-medium text-app-text-primary"
                       >
                         <span className="font-mono text-[11px] font-bold text-app-text-secondary shrink-0">
                           0{i + 1}
@@ -277,7 +277,7 @@ export const ProjectPage = () => {
                     {project.fullTech.map((tech) => (
                       <span 
                         key={tech} 
-                        className="px-2.5 py-1 bg-app-surface border border-app-border rounded-md font-mono text-[11px] text-app-text-secondary font-medium"
+                        className="tech-chip px-2.5 py-1 bg-app-surface border border-app-border rounded-md font-mono text-[11px] text-app-text-secondary font-medium"
                       >
                         {tech}
                       </span>
@@ -314,7 +314,7 @@ export const ProjectPage = () => {
             </div>
 
             {/* Sequential Case Study Trail: Next & Previous Project Modules */}
-            <div className="mt-14 sm:mt-24 pt-8 sm:pt-12 border-t border-app-border/70 flex flex-col gap-6 sm:gap-8">
+            <div className="project-trail mt-14 sm:mt-24 pt-8 sm:pt-12 border-t border-app-border/70 flex flex-col gap-6 sm:gap-8">
               {/* Chapter Indicator Bar */}
               <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-app-text-secondary font-semibold">
                 <div className="flex items-center gap-2">
