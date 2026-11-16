@@ -7,6 +7,7 @@ import Contact from "../components/Contact";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
 import { personSchema, websiteSchema } from "../lib/jsonld";
 import StackMarquee from "../components/StackMarquee";
+import Experience from "../components/Experience";
 const Projects = lazy(() => import("../components/Projects"));
 
 function StructuredData() {
@@ -24,5 +25,5 @@ function StructuredData() {
 
 export default function Home() {
   useSEO({ title: "Tushal Anand — Software Engineer", description: "Software engineer building useful systems with Rust, React, and AI agents.", canonical: `${BASE_URL}/`, ogImage: `${BASE_URL}/avtar.webp` });
-  return <><StructuredData /><Navbar /><main id="main-content"><Hero /><Suspense fallback={<section id="projects" className="section-wrap work-section" />}><Projects /></Suspense><StackMarquee /><About /><Contact /><Footer /></main></>;
+  return <><StructuredData /><Navbar /><main id="main-content"><Hero /><Suspense fallback={<section id="projects" className="section-wrap work-section" />}><Projects /></Suspense><StackMarquee /><Experience /><About /><Contact /><Footer /></main></>;
 }
