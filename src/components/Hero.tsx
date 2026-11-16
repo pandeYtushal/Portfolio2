@@ -9,7 +9,6 @@ export default function Hero() {
       <p className="eyebrow"><span className="live-dot" /> AVAILABLE FOR SELECT PROJECTS <span className="eyebrow-meta">INDIA · IST</span></p>
       <h1 className="hero-name" aria-label="Tushal Anand"><span className="name-line"><m.span initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ ...springs.ui, delay: stagger }}>Tushal</m.span></span><span className="name-line"><m.span initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ ...springs.ui, delay: stagger * 2 }}>Anand<span className="accent">.</span></m.span></span></h1>
       <div className="hero-bottom"><div className="hero-actions"><a className="button button-primary magnetic" href="#projects">View work <span>↘</span></a><a className="button button-quiet magnetic" href="/resume">Resume <span>↗</span></a></div></div>
-      <div className="hero-specs" aria-label="Portfolio overview"><div><span>FOCUS</span><strong>Systems</strong></div><div><span>STACK</span><strong>React / Rust</strong></div><div><span>WORK</span><strong>05 projects</strong></div><div><span>BASED</span><strong>India</strong></div></div>
     </div>
     <div className="hero-index"><span>SOFTWARE ENGINEER</span><span>SCROLL TO EXPLORE ↓</span></div>
   </section>;
