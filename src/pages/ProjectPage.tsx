@@ -133,7 +133,7 @@ export const ProjectPage = () => {
           </div>
         </header>
 
-        <main className="pt-24 sm:pt-36 pb-28 sm:pb-40 px-4 sm:px-8 md:px-12">
+        <main id="main-content" className="pt-24 sm:pt-36 pb-28 sm:pb-40 px-4 sm:px-8 md:px-12">
           <div className="project-detail max-w-6xl mx-auto">
 
             {/* Breadcrumb / Category Eyebrow */}
@@ -179,35 +179,85 @@ export const ProjectPage = () => {
               </div>
             </div>
 
-            {/* Project Image Display (Clean Direct Image) */}
-            <m.div
-              layoutId={`project-image-${project.id}`}
+            {/* Project Image Display */}
+            <div
               className="project-hero-visual mb-10 sm:mb-16 w-full rounded-xl sm:rounded-2xl overflow-hidden border border-app-border/80 bg-app-surface shadow-sm"
             >
-              <img
-                src={project.image}
-                alt={`${project.title} — project screenshot`}
-                className="w-full h-auto object-cover object-top contrast-105"
-              />
-            </m.div>
+              {project.id === "civic" ? (
+                <div className="civic-preview-full p-6 sm:p-12 bg-[#0c0c0b] text-zinc-100 flex flex-col gap-6" aria-label="Smart Civic Platform Interface">
+                  <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+                    <div className="flex items-center gap-3">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-bold">MUNICIPAL OPERATIONS BOARD · LIVE DISPATCH</span>
+                    </div>
+                    <span className="font-mono text-xs text-zinc-500">REALTIME TICKET PIPELINE</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
+                      <div>
+                        <span className="font-mono text-[10px] uppercase text-zinc-500 font-bold">TICKET #CW-8924</span>
+                        <h4 className="text-base font-semibold mt-1 text-zinc-100">Street Light Grid Failure</h4>
+                        <p className="text-xs text-zinc-400 mt-1">Ward 04 · Central Colony</p>
+                      </div>
+                      <div className="mt-4 flex items-center justify-between text-xs font-mono">
+                        <span className="text-amber-400 font-medium">● In Review</span>
+                        <span className="text-zinc-500">Canvas 72% compressed</span>
+                      </div>
+                    </div>
+                    <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
+                      <div>
+                        <span className="font-mono text-[10px] uppercase text-zinc-500 font-bold">TICKET #CW-8925</span>
+                        <h4 className="text-base font-semibold mt-1 text-zinc-100">Mainline Water Pressure Drop</h4>
+                        <p className="text-xs text-zinc-400 mt-1">Ward 02 · Sector 9 Junction</p>
+                      </div>
+                      <div className="mt-4 flex items-center justify-between text-xs font-mono">
+                        <span className="text-emerald-400 font-medium">● Resolved</span>
+                        <span className="text-zinc-500">Firestore sync &lt;50ms</span>
+                      </div>
+                    </div>
+                    <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
+                      <div>
+                        <span className="font-mono text-[10px] uppercase text-zinc-500 font-bold">TICKET #CW-8926</span>
+                        <h4 className="text-base font-semibold mt-1 text-zinc-100">Pothole Repair Work Order</h4>
+                        <p className="text-xs text-zinc-400 mt-1">Ward 07 · Metro Corridor</p>
+                      </div>
+                      <div className="mt-4 flex items-center justify-between text-xs font-mono">
+                        <span className="text-sky-400 font-medium">● Submitted</span>
+                        <span className="text-zinc-500">PWA Offline Queued</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-zinc-400">
+                    <span>IMAGE PIPELINE: CLIENT-SIDE HTML5 CANVAS ENCODING</span>
+                    <span className="text-emerald-400 font-semibold">ALL CITIZEN REPORTS ENCRYPTED &amp; SYNCED</span>
+                  </div>
+                </div>
+              ) : (
+                <img
+                  src={project.image}
+                  alt={`${project.title} — project screenshot`}
+                  className="w-full h-auto object-cover object-top contrast-105"
+                />
+              )}
+            </div>
 
             {/* The Challenge & Solution */}
             <div className="project-brief grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-14 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-app-border/70">
               <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-xl sm:rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
-                <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-800 font-bold">
+                <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-800 font-bold">
                   <span className="w-2 h-0.5 bg-amber-700" />
                   <span>The Problem</span>
-                </div>
+                </h2>
                 <p className="font-sans text-sm sm:text-lg leading-relaxed text-app-text-secondary">
                   {project.problemStatement}
                 </p>
               </div>
 
               <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-xl sm:rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
-                <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald-800 font-bold">
+                <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald-800 font-bold">
                   <span className="w-2 h-0.5 bg-emerald-700" />
                   <span>The Intention</span>
-                </div>
+                </h2>
                 <p className="font-sans text-sm sm:text-lg leading-relaxed text-app-text-secondary">
                   {project.solution}
                 </p>
@@ -330,43 +380,13 @@ export const ProjectPage = () => {
                 </button>
               </div>
 
-              {/* Cards: Next Project takes priority on mobile */}
+              {/* Cards: Previous and Next Project Cards (DOM matches visual order) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                {/* Next Project (Primary on Mobile) */}
-                <Link
-                  to={`/project/${nextProject.id}`}
-                  className="case-study-link order-1 md:order-2 group"
-                >
-                  <div className="flex items-center justify-between text-xs font-mono pb-3 border-b border-app-border/60">
-                    <span className="font-semibold text-app-text-primary">{nextProject.figNum}</span>
-                    <span className="flex items-center gap-1.5 text-app-text-primary font-bold group-hover:translate-x-1 transition-transform">
-                      <span>Next Project</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-
-                  <div className="py-4 sm:py-6 flex flex-col gap-1.5 sm:gap-2">
-                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">
-                      {nextProject.tag}
-                    </span>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-app-text-primary group-hover:text-amber-800 transition-colors">
-                      {nextProject.title}
-                    </h3>
-                    <p className="font-sans text-xs sm:text-sm text-app-text-secondary leading-relaxed line-clamp-2">
-                      {nextProject.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-app-border/50 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-app-text-primary font-bold">
-                    <span>Explore Next Case Study</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                  </div>
-                </Link>
-
-                {/* Previous Project */}
+                {/* Previous Project (Left) */}
                 <Link
                   to={`/project/${prevProject.id}`}
-                  className="case-study-link order-2 md:order-1 group"
+                  className="case-study-link group"
+                  aria-label={`Previous Project: ${prevProject.title}`}
                 >
                   <div className="flex items-center justify-between text-xs font-mono text-app-text-secondary pb-3 border-b border-app-border/60">
                     <span className="flex items-center gap-1.5 text-app-text-secondary group-hover:text-app-text-primary group-hover:-translate-x-1 transition-all">
@@ -391,6 +411,38 @@ export const ProjectPage = () => {
                   <div className="pt-3 border-t border-app-border/50 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-app-text-primary font-bold">
                     <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
                     <span>Read Previous Study</span>
+                  </div>
+                </Link>
+
+                {/* Next Project (Right) */}
+                <Link
+                  to={`/project/${nextProject.id}`}
+                  className="case-study-link group"
+                  aria-label={`Next Project: ${nextProject.title}`}
+                >
+                  <div className="flex items-center justify-between text-xs font-mono pb-3 border-b border-app-border/60">
+                    <span className="font-semibold text-app-text-primary">{nextProject.figNum}</span>
+                    <span className="flex items-center gap-1.5 text-app-text-primary font-bold group-hover:translate-x-1 transition-transform">
+                      <span>Next Project</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+
+                  <div className="py-4 sm:py-6 flex flex-col gap-1.5 sm:gap-2">
+                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">
+                      {nextProject.tag}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-app-text-primary group-hover:text-amber-800 transition-colors">
+                      {nextProject.title}
+                    </h3>
+                    <p className="font-sans text-xs sm:text-sm text-app-text-secondary leading-relaxed line-clamp-2">
+                      {nextProject.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-app-border/50 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-app-text-primary font-bold">
+                    <span>Explore Next Case Study</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                   </div>
                 </Link>
               </div>

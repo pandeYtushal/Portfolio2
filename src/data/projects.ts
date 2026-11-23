@@ -121,7 +121,7 @@ export const PROJECTS_DATA: Project[] = [
       { title: "Autofill Engine", desc: "Maps form questions to custom profiles instantly.", iconName: "Cpu" }
     ],
     link: "https://huntterr.vercel.app/",
-    source: "https://github.com/pandeYtushal"
+    source: "https://github.com/pandeYtushal/Hunter"
   },
   {
     id: "astronomical",
@@ -178,7 +178,7 @@ export const PROJECTS_DATA: Project[] = [
     image: "/urban.webp",
     description: "A localized complaint logging platform bridging public residents with municipal administrators.",
     status: "Live",
-    urlDomain: "urban-utiliy-report.vercel.app",
+    urlDomain: "urbanreport.vercel.app",
     highlight: "HTML5 Canvas pre-processing shrinking image payloads by 70% to prevent connection failures.",
     timeline: "2026",
     impact: "70% size compression",
@@ -213,8 +213,8 @@ export const PROJECTS_DATA: Project[] = [
       { title: "Firestore Sync", desc: "Real-time sync ensures issues show up on the dashboard instantly.", iconName: "Layers" },
       { title: "Status Tracking", desc: "Visual timeline for issue lifecycles from submission to resolution.", iconName: "CheckCircle" }
     ],
-    link: "https://urban-utiliy-report.vercel.app/",
-    source: "https://github.com/pandeYtushal"
+    link: "https://urbanreport.vercel.app/",
+    source: "https://github.com/pandeYtushal/Urban-Utility-Report"
   },
   {
     id: "melody",

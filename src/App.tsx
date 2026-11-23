@@ -14,10 +14,42 @@ const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 function RouteContent() {
   const location = useLocation();
   const lenis = useLenis();
-  useEffect(() => { lenis?.scrollTo(0, { immediate: true }); }, [location.pathname, lenis]);
-  return <Suspense fallback={<div className="route-loading" aria-label="Loading page" />}><Routes><Route path="/" element={<Home />} /><Route path="/resume" element={<ResumePage />} /><Route path="/project/:id" element={<ProjectPage />} /><Route path="*" element={<NotFoundPage />} /></Routes></Suspense>;
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        lenis?.scrollTo(el as HTMLElement, { offset: -70 });
+      }
+    } else {
+      lenis?.scrollTo(0, { immediate: true });
+    }
+  }, [location.pathname, location.hash, lenis]);
+
+  return (
+    <Suspense fallback={<div className="route-loading" aria-label="Loading page" />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/resume" element={<ResumePage />} />
+        <Route path="/project/:id" element={<ProjectPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
+  );
 }
 
 export default function App() {
-  return <MotionConfig reducedMotion="user"><LazyMotion features={domAnimation}><LenisProvider><div className="site-shell bg-grain"><a href="#main-content" className="skip-link">Skip to main content</a><RouteContent /><BackToTop /><CommandPalette /></div></LenisProvider></LazyMotion></MotionConfig>;
+  return (
+    <MotionConfig reducedMotion="user">
+      <LazyMotion features={domAnimation}>
+        <LenisProvider>
+          <div className="site-shell bg-grain">
+            <RouteContent />
+            <BackToTop />
+            <CommandPalette />
+          </div>
+        </LenisProvider>
+      </LazyMotion>
+    </MotionConfig>
+  );
 }

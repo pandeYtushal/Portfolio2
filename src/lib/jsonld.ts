@@ -34,17 +34,16 @@ export function personSchema() {
       },
     },
     knowsAbout: [
+      "C",
+      "C++",
       "React",
       "TypeScript",
       "JavaScript",
       "Tailwind CSS",
       "Motion",
-      "Vite",
       "Firebase",
       "AI Agents",
       "Browser Automation",
-      "Rust",
-      "Tauri",
     ],
   };
 }

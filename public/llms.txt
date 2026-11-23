@@ -120,7 +120,7 @@ Metrics: 70% size compression, <50ms alert latency, Realtime sync engine
 
 Technologies: React.js, Tailwind CSS, Firebase Authentication, Firestore, Firebase Storage, JavaScript (ES6+)
 
-URL: https://urban-utiliy-report.vercel.app/
+URL: https://urbanreport.vercel.app/
 Source: https://github.com/pandeYtushal
 
 ---
