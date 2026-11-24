@@ -145,7 +145,7 @@ export function StackRolodex({
                 setActive((s) => ({ active: s.active + d, previous: s.active }))
               }
               className={cn(
-                "absolute left-0 right-0 flex items-center gap-2.5 rounded-full px-4 border select-none whitespace-nowrap cursor-pointer transition-colors duration-300",
+                "absolute left-0 right-0 flex items-center gap-2.5 rounded-none px-4 border select-none whitespace-nowrap cursor-pointer transition-colors duration-300",
                 isActive
                   ? "text-white shadow-sm"
                   : "text-neutral-400 hover:text-white/80"

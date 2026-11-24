@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Download, ExternalLink, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
+import { Button, Typography } from "@cred/neopop-web/lib/components";
+import { fontNameSpaces } from "@cred/neopop-web/lib/primitives";
 
 export default function ResumePage() {
   const navigate = useNavigate();
@@ -34,41 +35,43 @@ export default function ResumePage() {
           {/* Header & Controls */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-app-border pb-6 sm:pb-8 print:hidden">
             <div className="flex flex-col gap-4 sm:gap-6">
-              <button 
+              <Button 
+                variant="secondary"
+                kind="flat"
+                size="small"
+                colorMode="dark"
                 onClick={() => navigate(-1)}
-                className="action-link action-link-back flex items-center gap-2"
                 aria-label="Back to previous page"
               >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back</span>
-              </button>
+                ← Back
+              </Button>
               <div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium tracking-tight mb-2">Curriculum Vitae</h1>
-                <p className="font-mono text-xs sm:text-sm text-app-text-secondary font-semibold">Tushal Anand</p>
+                <Typography {...fontNameSpaces.tc12b} color="#9e9e9b">
+                  TUSHAL ANAND
+                </Typography>
               </div>
             </div>
 
-            <div className="resume-actions flex items-center gap-3">
-              <a 
-                href={pdfUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="action-link flex items-center gap-2"
-                aria-label="View original PDF in Google Drive"
+            <div className="resume-actions flex items-center gap-3 flex-wrap">
+              <Button
+                variant="primary"
+                kind="elevated"
+                size="medium"
+                colorMode="dark"
+                onClick={() => window.open(pdfUrl, "_blank")}
               >
-                <ExternalLink className="w-4 h-4" />
-                <span>View PDF</span>
-              </a>
-              <a 
-                href={pdfUrl} 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="action-link action-link-emphasis flex items-center gap-2"
-                aria-label="Download resume PDF"
+                Download PDF ↗
+              </Button>
+              <Button
+                variant="secondary"
+                kind="elevated"
+                size="medium"
+                colorMode="dark"
+                onClick={() => window.open(pdfUrl, "_blank")}
               >
-                <Download className="w-4 h-4" />
-                <span>Download</span>
-              </a>
+                View PDF ↗
+              </Button>
             </div>
           </div>
 

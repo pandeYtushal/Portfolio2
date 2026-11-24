@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { m } from "motion/react";
-import { ExternalLink, Github, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS_DATA } from "../data/projects";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
 import { softwareApplicationSchema, breadcrumbSchema } from "../lib/jsonld";
+import { Button } from "@cred/neopop-web/lib/components";
 
 // ── Per-project JSON-LD injection ─────────────────────────────────────────
 function ProjectStructuredData({ project }: { project: (typeof PROJECTS_DATA)[number] }) {
@@ -97,14 +98,15 @@ export const ProjectPage = () => {
         
         {/* Navbar with Quick Prev / Next Controls */}
         <header className="project-page-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 md:px-12 py-3.5 sm:py-5 flex justify-between items-center backdrop-blur-md border-b border-app-border/60 transition-colors">
-          <button
+          <Button
+            variant="secondary"
+            kind="flat"
+            size="small"
+            colorMode="dark"
             onClick={() => navigate("/#projects")}
-            className="action-link action-link-back"
           >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
-            <span className="hidden sm:inline">Back to Work</span>
-            <span className="sm:hidden">Work</span>
-          </button>
+            ← Back to Work
+          </Button>
 
           <div className="flex items-center gap-1.5 sm:gap-3">
             <Link
@@ -161,15 +163,15 @@ export const ProjectPage = () => {
 
               {/* Responsive Metadata Grid */}
               <div className="project-facts grid grid-cols-3 gap-2 sm:gap-6 pt-4 sm:pt-6 border-t border-app-border/70">
-                <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-lg sm:rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
+                <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
                   <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">Domain</span>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-app-text-primary truncate">{project.tag.split("&")[0].trim()}</span>
                 </div>
-                <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-lg sm:rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
+                <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
                   <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">Timeline</span>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-app-text-primary">{project.timeline}</span>
                 </div>
-                <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-lg sm:rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
+                <div className="flex flex-col gap-1 p-2.5 sm:p-0 rounded-none bg-app-surface/60 sm:bg-transparent border sm:border-none border-app-border/60">
                   <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-app-text-secondary font-bold">Status</span>
                   <span className="font-sans text-xs sm:text-sm font-semibold text-emerald-700 flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
@@ -181,7 +183,7 @@ export const ProjectPage = () => {
 
             {/* Project Image Display */}
             <div
-              className="project-hero-visual mb-10 sm:mb-16 w-full rounded-xl sm:rounded-2xl overflow-hidden border border-app-border/80 bg-app-surface shadow-sm"
+              className="project-hero-visual mb-10 sm:mb-16 w-full rounded-none overflow-hidden border border-app-border/80 bg-app-surface shadow-sm"
             >
               {project.id === "civic" ? (
                 <div className="civic-preview-full p-6 sm:p-12 bg-[#0c0c0b] text-zinc-100 flex flex-col gap-6" aria-label="Smart Civic Platform Interface">
@@ -193,7 +195,7 @@ export const ProjectPage = () => {
                     <span className="font-mono text-xs text-zinc-500">REALTIME TICKET PIPELINE</span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
+                    <div className="p-4 rounded-none bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
                       <div>
                         <span className="font-mono text-[10px] uppercase text-zinc-500 font-bold">TICKET #CW-8924</span>
                         <h4 className="text-base font-semibold mt-1 text-zinc-100">Street Light Grid Failure</h4>
@@ -204,7 +206,7 @@ export const ProjectPage = () => {
                         <span className="text-zinc-500">Canvas 72% compressed</span>
                       </div>
                     </div>
-                    <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
+                    <div className="p-4 rounded-none bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
                       <div>
                         <span className="font-mono text-[10px] uppercase text-zinc-500 font-bold">TICKET #CW-8925</span>
                         <h4 className="text-base font-semibold mt-1 text-zinc-100">Mainline Water Pressure Drop</h4>
@@ -215,7 +217,7 @@ export const ProjectPage = () => {
                         <span className="text-zinc-500">Firestore sync &lt;50ms</span>
                       </div>
                     </div>
-                    <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
+                    <div className="p-4 rounded-none bg-zinc-900/90 border border-zinc-800 flex flex-col justify-between min-h-[140px]">
                       <div>
                         <span className="font-mono text-[10px] uppercase text-zinc-500 font-bold">TICKET #CW-8926</span>
                         <h4 className="text-base font-semibold mt-1 text-zinc-100">Pothole Repair Work Order</h4>
@@ -243,7 +245,7 @@ export const ProjectPage = () => {
 
             {/* The Challenge & Solution */}
             <div className="project-brief grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-14 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-app-border/70">
-              <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-xl sm:rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
+              <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
                 <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-800 font-bold">
                   <span className="w-2 h-0.5 bg-amber-700" />
                   <span>The Problem</span>
@@ -253,7 +255,7 @@ export const ProjectPage = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-xl sm:rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
+              <div className="flex flex-col gap-3 p-5 sm:p-0 rounded-none bg-app-surface/50 sm:bg-transparent border sm:border-none border-app-border/60">
                 <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-emerald-800 font-bold">
                   <span className="w-2 h-0.5 bg-emerald-700" />
                   <span>The Intention</span>
@@ -308,7 +310,7 @@ export const ProjectPage = () => {
                     {project.architectureSteps.map((step, i) => (
                       <div 
                         key={i} 
-                        className="architecture-step flex items-center gap-3 p-3 rounded-lg bg-app-surface/50 border border-app-border/70 font-sans text-xs sm:text-sm font-medium text-app-text-primary"
+                        className="architecture-step flex items-center gap-3 p-3 rounded-none bg-app-surface/50 border border-app-border/70 font-sans text-xs sm:text-sm font-medium text-app-text-primary"
                       >
                         <span className="font-mono text-[11px] font-bold text-app-text-secondary shrink-0">
                           0{i + 1}
@@ -327,7 +329,7 @@ export const ProjectPage = () => {
                     {project.fullTech.map((tech) => (
                       <span 
                         key={tech} 
-                        className="tech-chip px-2.5 py-1 bg-app-surface border border-app-border rounded-md font-mono text-[11px] text-app-text-secondary font-medium"
+                        className="tech-chip px-2.5 py-1 bg-app-surface border border-app-border rounded-none font-mono text-[11px] text-app-text-secondary font-medium"
                       >
                         {tech}
                       </span>
@@ -338,28 +340,28 @@ export const ProjectPage = () => {
             </div>
 
             {/* Primary Action Links */}
-            <div className="detail-actions">
+            <div className="detail-actions flex items-center gap-3 sm:gap-4 flex-wrap">
               {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="action-link action-link-emphasis"
+                <Button
+                  variant="primary"
+                  kind="elevated"
+                  size="medium"
+                  colorMode="dark"
+                  onClick={() => window.open(project.link, "_blank")}
                 >
-                  <span>Live Site</span>
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                </a>
+                  Live Production System ↗
+                </Button>
               )}
               {project.source && (
-                <a
-                  href={project.source}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="action-link"
+                <Button
+                  variant="secondary"
+                  kind="elevated"
+                  size="medium"
+                  colorMode="dark"
+                  onClick={() => window.open(project.source, "_blank")}
                 >
-                  <span>Source Code</span>
-                  <Github className="w-3.5 h-3.5 shrink-0" />
-                </a>
+                  Source Code ↗
+                </Button>
               )}
             </div>
 

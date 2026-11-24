@@ -19,7 +19,7 @@ function RouteContent() {
     if (location.hash) {
       const el = document.querySelector(location.hash);
       if (el) {
-        lenis?.scrollTo(el as HTMLElement, { offset: -70 });
+        lenis?.scrollTo(el as HTMLElement, { offset: 0 });
       }
     } else {
       lenis?.scrollTo(0, { immediate: true });

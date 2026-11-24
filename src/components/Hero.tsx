@@ -1,13 +1,16 @@
 import { m, useReducedMotion } from "motion/react";
 import { springs, stagger } from "../motion.theme";
 import { useLenis } from "../hooks/useLenis";
+import { Button, Typography } from '@cred/neopop-web/lib/components';
+import { fontNameSpaces } from '@cred/neopop-web/lib/primitives';
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
   const reduce = useReducedMotion();
   const lenis = useLenis();
+  const navigate = useNavigate();
 
-  const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleScrollToProjects = () => {
     const target = document.querySelector("#projects");
     if (target) {
       if (lenis) {
@@ -26,9 +29,12 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-axis" aria-hidden="true" />
       <div className="hero-content">
-        <p className="eyebrow">
-          <span className="live-dot" /> AVAILABLE FOR SELECT PROJECTS <span className="eyebrow-meta">INDIA · IST</span>
-        </p>
+        <div className="eyebrow flex items-center gap-2 flex-wrap">
+          <span className="live-dot shrink-0" />
+          <Typography {...fontNameSpaces.tc10b} color="#9e9e9b">
+            AVAILABLE FOR SELECT PROJECTS <span className="opacity-40">INDIA · IST</span>
+          </Typography>
+        </div>
         <h1 id="hero-title" className="hero-name" aria-label="Tushal Anand">
           <span className="name-line">
             <m.span initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ ...springs.ui, delay: stagger }}>
@@ -42,27 +48,42 @@ export default function Hero() {
           </span>
         </h1>
         <div className="hero-intro">
-          <p>
+          <Typography
+            {...fontNameSpaces.tb14m}
+            color="#b2b2ad"
+            style={{ maxWidth: "48ch", lineHeight: 1.6, marginBottom: "1.25rem" }}
+          >
             I’m Tushal, a software engineer in India. I build thoughtful web and desktop products, from the first interface to the systems behind it.
-          </p>
-          <div className="hero-actions">
-            <a
-              className="button button-primary magnetic"
-              href="#projects"
+          </Typography>
+          <div className="hero-actions flex items-center gap-3 sm:gap-4 flex-wrap">
+            <Button
+              variant="primary"
+              kind="elevated"
+              size="medium"
+              colorMode="dark"
               onClick={handleScrollToProjects}
-              aria-label="View work"
             >
-              View work <span>↘</span>
-            </a>
-            <a className="button button-quiet magnetic" href="/resume" aria-label="View resume">
-              Resume <span>↗</span>
-            </a>
+              View work ↘
+            </Button>
+            <Button
+              variant="secondary"
+              kind="elevated"
+              size="medium"
+              colorMode="dark"
+              onClick={() => navigate("/resume")}
+            >
+              Resume ↗
+            </Button>
           </div>
         </div>
       </div>
       <div className="hero-index">
-        <span>SOFTWARE ENGINEER</span>
-        <span>SCROLL TO EXPLORE ↓</span>
+        <Typography {...fontNameSpaces.tc10b} color="#64645f">
+          SOFTWARE ENGINEER
+        </Typography>
+        <Typography {...fontNameSpaces.tc10b} color="#64645f">
+          SCROLL TO EXPLORE ↓
+        </Typography>
       </div>
     </section>
   );
