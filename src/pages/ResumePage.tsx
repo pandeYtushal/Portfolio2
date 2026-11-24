@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -8,6 +8,28 @@ import { fontNameSpaces } from "@cred/neopop-web/lib/primitives";
 
 export default function ResumePage() {
   const navigate = useNavigate();
+  const [frameStyle, setFrameStyle] = useState<"metallic" | "neopop">("metallic");
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!frameRef.current) return;
+    const rect = frameRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!frameRef.current || !e.touches[0]) return;
+    const rect = frameRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top,
+    });
+  };
 
   useSEO({
     title: "Curriculum Vitae — Tushal Anand",
@@ -54,6 +76,34 @@ export default function ResumePage() {
             </div>
 
             <div className="resume-actions flex items-center gap-3 flex-wrap">
+              {/* Style Switcher: Metallic Glass vs NeoPOP 3D Offset */}
+              <div className="inline-flex items-center p-1 rounded-full bg-[#121212] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md">
+                <button
+                  type="button"
+                  onClick={() => setFrameStyle("metallic")}
+                  className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-mono tracking-wide transition-all duration-200 ${
+                    frameStyle === "metallic"
+                      ? "bg-white text-black font-semibold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                  aria-pressed={frameStyle === "metallic"}
+                >
+                  Metallic Glass
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFrameStyle("neopop")}
+                  className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-mono tracking-wide transition-all duration-200 ${
+                    frameStyle === "neopop"
+                      ? "bg-white text-black font-semibold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                  aria-pressed={frameStyle === "neopop"}
+                >
+                  NeoPOP 3D
+                </button>
+              </div>
+
               <Button
                 variant="primary"
                 kind="elevated"
@@ -75,8 +125,58 @@ export default function ResumePage() {
             </div>
           </div>
 
-          {/* Resume Content */}
-          <div className="bg-app-bg border border-app-border shadow-sm p-5 sm:p-8 md:p-12 flex flex-col gap-8 sm:gap-12 font-sans selection:bg-app-text-primary selection:text-app-bg print:bg-transparent print:border-none print:shadow-none print:p-0">
+          {/* Obsidian Metallic & NeoPOP Frame Container */}
+          <div
+            ref={frameRef}
+            onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={`relative w-full transition-all duration-300 print:m-0 print:p-0 print:border-none print:shadow-none print:bg-transparent ${
+              frameStyle === "metallic"
+                ? "metallic-wrapper rounded-2xl p-[1.5px] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95)]"
+                : "neopop-wrapper"
+            }`}
+          >
+            {/* Dynamic Mouse-Tracking Spotlight */}
+            {frameStyle === "metallic" && (
+              <div
+                className="metallic-spotlight pointer-events-none absolute inset-0 z-10 print:hidden"
+                style={{
+                  opacity: isHovered ? 1 : 0,
+                  background: `radial-gradient(420px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.12) 40%, transparent 75%)`,
+                }}
+              />
+            )}
+
+            {/* Top Specular Light Glint */}
+            {frameStyle === "metallic" && (
+              <div className="pointer-events-none absolute -top-[1px] left-10 sm:left-14 right-10 sm:right-14 h-[1.5px] bg-gradient-to-r from-transparent via-white/90 to-transparent z-20 print:hidden" />
+            )}
+
+            {/* Bottom Subtle Reflection Glint */}
+            {frameStyle === "metallic" && (
+              <div className="pointer-events-none absolute -bottom-[1px] left-16 sm:left-24 right-16 sm:right-24 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent z-20 print:hidden" />
+            )}
+
+            {/* Inner Matte Obsidian Canvas (The Resume Content) */}
+            <div
+              className={`matte-surface relative w-full h-full overflow-hidden flex flex-col gap-8 sm:gap-12 font-sans selection:bg-app-text-primary selection:text-app-bg p-5 sm:p-8 md:p-12 transition-all duration-300 print:bg-transparent print:border-none print:shadow-none print:p-0 ${
+                frameStyle === "metallic"
+                  ? "rounded-[14.5px] border border-white/[0.08]"
+                  : "neopop-inner bg-app-bg border border-app-border"
+              }`}
+            >
+              {/* Precision Corner L-Marks */}
+              <span className="pointer-events-none absolute top-3 left-3 sm:top-4 sm:left-4 w-3 h-3 border-t border-l border-white/35 z-20 print:hidden" />
+              <span className="pointer-events-none absolute top-3 right-3 sm:top-4 sm:right-4 w-3 h-3 border-t border-r border-white/35 z-20 print:hidden" />
+              <span className="pointer-events-none absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-3 h-3 border-b border-l border-white/35 z-20 print:hidden" />
+              <span className="pointer-events-none absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-3 h-3 border-b border-r border-white/35 z-20 print:hidden" />
+
+              {/* Faint Radial Ambient Sheen */}
+              {frameStyle === "metallic" && (
+                <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/[0.035] blur-3xl z-0 print:hidden" />
+              )}
             
             {/* Header / Contact */}
             <header className="flex flex-col items-center justify-center text-center gap-2 pb-8 border-b border-app-border">
