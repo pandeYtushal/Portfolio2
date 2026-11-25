@@ -107,52 +107,13 @@ body { background-color:#090909; background-image:linear-gradient(90deg,transpar
 .resume-page .font-serif { font-style:normal!important; }
 
 /* Case study pages use the same product-interface language as home. */
-.project-detail-shell { --detail-width:1120px; background:#090909; }
-.project-page-nav { min-height:68px; background:rgba(9,9,9,.72); border-color:rgba(255,255,255,.1); }
-.project-detail { max-width:var(--detail-width)!important; }
-.project-detail-title { max-width:12ch; font-family:"Space Grotesk",sans-serif!important; font-size:clamp(3.4rem,9vw,8.4rem)!important; font-weight:500!important; line-height:.82!important; letter-spacing:-.09em!important; text-transform:none!important; }
-.project-detail-lede { max-width:43ch!important; color:#a9a9a4!important; font-size:clamp(1rem,1.45vw,1.3rem)!important; font-weight:400!important; line-height:1.45!important; }
-.project-detail .font-serif { font-family:"Space Grotesk",sans-serif!important; }
-.project-detail nav span:first-child { background:var(--accent)!important; box-shadow:0 0 0 4px rgba(255,220,24,.1); }
-.project-facts { gap:0!important; border-color:var(--line)!important; }
-.project-facts>div { min-height:88px; justify-content:center; padding:1rem 1.25rem!important; border-right:1px solid var(--line)!important; border-radius:0!important; background:transparent!important; }
-.project-facts>div:first-child { padding-left:0!important; }
-.project-facts>div:last-child { border-right:0!important; }
-.project-facts span:first-child { color:#797974!important; font-size:.6rem!important; letter-spacing:.1em!important; }
-.project-facts span:last-child { margin-top:.25rem; font-family:"JetBrains Mono",monospace!important; font-size:.72rem!important; font-weight:500!important; }
-.project-facts .text-emerald-700 { color:var(--accent)!important; background-color:transparent!important; }
-.project-facts .text-emerald-700 .bg-emerald-600 { background-color:var(--accent)!important; }
-.project-facts .text-emerald-700 span:last-child { color:var(--accent)!important; }
-.project-hero-visual { position:relative; border-radius:0!important; border-color:var(--line)!important; background:#101010!important; box-shadow:none!important; }
-.project-hero-visual::after { position:absolute; inset:0; pointer-events:none; border:1px solid rgba(255,220,24,.25); content:""; opacity:.4; }
-.project-hero-visual img { aspect-ratio:16 / 9; object-fit:cover; filter:saturate(.82) contrast(1.05); }
-.project-brief { position:relative; gap:0!important; border-top:1px solid var(--line)!important; padding-top:0!important; }
-.project-brief>div { min-height:230px; padding:2rem 2rem 2rem 0!important; border-right:1px solid var(--line)!important; border-radius:0!important; background:transparent!important; }
-.project-brief>div+div { padding-left:2rem!important; border-right:0!important; }
-.project-brief .text-amber-800,.project-brief .text-emerald-800 { color:var(--accent)!important; }
-.project-brief .bg-amber-700,.project-brief .bg-emerald-700 { background:var(--accent)!important; }
-.project-brief p { max-width:38ch; color:#aaa9a4!important; }
-.project-metrics { gap:0!important; border-color:var(--line)!important; }
-.project-metrics>div { min-height:112px; justify-content:center; padding-left:1.25rem!important; border-color:var(--line)!important; }
-.project-metrics span:first-child { font-family:"Space Grotesk",sans-serif!important; font-size:clamp(2.1rem,4vw,4.2rem)!important; font-weight:500!important; letter-spacing:-.085em!important; }
-.project-metrics span:last-child { margin-top:.25rem; color:#85857f!important; font-size:.58rem!important; }
-.project-deep-dive { border-top:1px solid var(--line); padding-top:3rem; }
-.project-deep-dive h2 { color:var(--accent)!important; font-size:.62rem!important; letter-spacing:.11em!important; }
-.project-deep-dive p { max-width:64ch; color:#aaa9a4!important; line-height:1.7!important; }
-.architecture-step { min-height:48px; border-radius:0!important; border-inline:0!important; background:transparent!important; transition:background .2s ease,color .2s ease,transform .2s ease; }
-.architecture-step span:first-child { color:var(--accent)!important; }
-.tech-chip { border-radius:0!important; background:transparent!important; color:#d4d4ce!important; transition:border-color .2s ease,color .2s ease,background .2s ease; }
-.detail-actions { margin-top:1rem; padding:1.25rem 0; border-block:1px solid var(--line); }
-.detail-actions .action-link { min-height:44px; padding:.4rem 0; color:#b9b9b4; }
-.detail-actions .action-link-emphasis { color:var(--accent)!important; }
-.case-study-link { min-height:290px; border:1px solid var(--line); background:#0d0d0d; }
-.case-study-link::before { background:var(--accent); }
-.case-study-link h3 { font-family:"Space Grotesk",sans-serif!important; font-size:clamp(1.8rem,3vw,3.1rem)!important; line-height:.9!important; }
-.case-study-link .text-amber-800 { color:inherit!important; }
-.project-trail>div:first-child { color:#8c8c86!important; }
-.project-trail .bg-emerald-600 { background:var(--accent)!important; }
-@media (hover:hover) and (pointer:fine) { .project-hero-visual img { transition:transform .6s cubic-bezier(.22,1,.36,1),filter .4s ease; } .project-hero-visual:hover img { transform:scale(1.018); filter:saturate(1) contrast(1.08); } .architecture-step:hover { transform:translateX(4px); background:rgba(255,255,255,.04)!important; color:var(--accent)!important; } .tech-chip:hover { border-color:var(--accent)!important; color:var(--accent)!important; } .case-study-link:hover { background:var(--accent); color:#090909; } }
-@media (max-width:640px) { .project-page-nav { min-height:60px; } .project-detail-title { font-size:clamp(3rem,15vw,5.4rem)!important; } .project-facts>div { min-height:74px; padding:.75rem!important; } .project-facts>div:first-child { padding-left:.75rem!important; } .project-brief>div,.project-brief>div+div { min-height:0; padding:1.35rem 0!important; border-right:0!important; border-bottom:1px solid var(--line)!important; } .project-brief>div:last-child { border-bottom:0!important; } .project-metrics>div { min-height:86px; padding-left:.75rem!important; } .project-deep-dive { padding-top:2rem; } .case-study-link { min-height:245px; } }
+/* Project Details Case Study Polish */
+.project-page {
+  background-color: #090909;
+}
+.project-page img {
+  border-radius: 0;
+}
 
 /* Mobile navigation stays compact without sacrificing a 44px control target. */
 .menu-label { display:none; }
