@@ -125,9 +125,7 @@ export const ProjectPage = () => {
           {/* Center Case Index Badge */}
           <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-none bg-white/[0.03] border border-white/10 font-mono text-[11px] uppercase tracking-wider text-neutral-300">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-neutral-400 font-semibold">{project.figNum}</span>
-            <span className="text-neutral-600">/</span>
-            <span className="text-white font-medium truncate max-w-[180px]">{project.title}</span>
+            <span className="text-white font-medium truncate max-w-[200px]">{project.title}</span>
           </div>
 
           {/* Quick Prev / Next Switchers */}
@@ -143,7 +141,7 @@ export const ProjectPage = () => {
             </Link>
 
             <span className="font-mono text-xs text-neutral-500 font-semibold px-1">
-              {currentIndex + 1} / {totalProjects}
+              {currentIndex + 1} of {totalProjects}
             </span>
 
             <Link
@@ -166,12 +164,12 @@ export const ProjectPage = () => {
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 sm:gap-2.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400 font-semibold flex-wrap">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <Link to="/" className="hover:text-white transition-colors">HOME</Link>
-              <span className="text-neutral-600">/</span>
-              <Link to="/#projects" className="hover:text-white transition-colors">WORK</Link>
-              <span className="text-neutral-600">/</span>
-              <span className="text-white font-bold">{project.figNum}</span>
+              <span className="text-neutral-600">·</span>
+              <Link to="/#projects" className="hover:text-white transition-colors">PROJECTS</Link>
+              <span className="text-neutral-600">·</span>
+              <span className="text-white font-medium">{project.title}</span>
               <span className="text-neutral-600 hidden sm:inline">·</span>
-              <span className="text-neutral-500 hidden sm:inline">{project.tag}</span>
+              <span className="text-neutral-400 hidden sm:inline">{project.tag}</span>
             </nav>
 
             {/* Title & Narrative Lead */}
@@ -274,7 +272,7 @@ export const ProjectPage = () => {
                   </span>
                 </div>
                 <span className="text-neutral-500 hidden sm:inline tracking-widest">
-                  FIG. {project.figNum} · 1920 × 1080 ENCODED
+                  SYSTEM ARCHITECTURE
                 </span>
               </div>
 
@@ -581,7 +579,7 @@ export const ProjectPage = () => {
               <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-neutral-500 font-semibold">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Case Study Complete · {project.figNum}</span>
+                  <span>Case Study Complete</span>
                 </div>
                 <button
                   type="button"
@@ -614,9 +612,6 @@ export const ProjectPage = () => {
                       </span>
                     </div>
                   </div>
-                  <span className="font-mono text-[10px] sm:text-xs text-neutral-500 shrink-0">
-                    {prevProject.figNum}
-                  </span>
                 </button>
 
                 {/* Next Project Button */}
@@ -626,10 +621,7 @@ export const ProjectPage = () => {
                   className="w-full flex items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-none bg-[#0e0e11] hover:bg-[#141418] border border-white/10 hover:border-white/30 shadow-[3px_3px_0px_#18181b] hover:shadow-[4px_4px_0px_#26262a] active:translate-x-[2px] active:translate-y-[2px] transition-all text-right group"
                   aria-label={`Next Project: ${nextProject.title}`}
                 >
-                  <span className="font-mono text-[10px] sm:text-xs text-neutral-500 shrink-0">
-                    {nextProject.figNum}
-                  </span>
-                  <div className="flex items-center justify-end gap-3 min-w-0">
+                  <div className="flex items-center justify-end gap-3 min-w-0 ml-auto">
                     <div className="flex flex-col min-w-0">
                       <span className="font-mono text-[9px] uppercase tracking-widest text-emerald-400 font-semibold">
                         Next Project

@@ -37,7 +37,7 @@ export interface Project {
 export const PROJECTS_DATA: Project[] = [
   {
     id: "pulse",
-    figNum: "FIG.01",
+    figNum: "01",
     title: "Pulse",
     tag: "SYSTEM LAYER & TAURI",
     image: "/Pulse.webp",
@@ -83,7 +83,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "hunter",
-    figNum: "FIG.02",
+    figNum: "02",
     title: "Hunter",
     tag: "INDEPENDENT TRANSFORMS & AUTOFULL",
     image: "/hunter.webp",
@@ -125,7 +125,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "astronomical",
-    figNum: "FIG.03",
+    figNum: "03",
     title: "Astronomical",
     tag: "SCROLL-VELOCITY PHYSICS & D3 MAP",
     image: "/astronomical.webp",
@@ -172,7 +172,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "civic",
-    figNum: "FIG.04",
+    figNum: "04",
     title: "Smart Civic Platform",
     tag: "CANVAS COMPRESSION & FIRESTORE",
     image: "/urban.webp",
@@ -218,7 +218,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "melody",
-    figNum: "FIG.05",
+    figNum: "05",
     title: "Melody Premium",
     tag: "HOISTED PLAYBACK STATE & PWA",
     image: "/music.webp",

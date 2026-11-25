@@ -166,7 +166,7 @@ const ALL_TECH: TechCardItem[] = [
   {
     id: "github",
     name: "GitHub",
-    category: "CI / CD",
+    category: "CI & CD",
     tagline: "Actions & Automations",
     projects: ["Workflow"],
     color: "#f4f4f5",
@@ -221,7 +221,7 @@ export default function StackMarquee() {
       <div className="tools-heading mb-4 md:mb-6">
         <div>
           <p className="eyebrow">
-            CAPABILITIES <span className="eyebrow-meta">TOOLS / METHODS</span>
+            CAPABILITIES <span className="eyebrow-meta">TOOLS &amp; METHODS</span>
           </p>
           <h2 id="tools-heading">
             Built with<br />depth<span className="accent">.</span>

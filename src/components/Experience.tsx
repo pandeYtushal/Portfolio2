@@ -4,8 +4,8 @@ import { Typography } from "@cred/neopop-web/lib/components";
 import { fontNameSpaces } from "@cred/neopop-web/lib/primitives";
 
 const experience = [
-  { period: "Jan 2026 — Present", company: "Freelance", type: "Self-employed", description: "Building polished, high-performance web experiences from interactive portfolios to full-stack applications.", highlights: ["React / Next.js / TypeScript", "Motion design", "Full-stack integrations"] },
-  { period: "Jun 2024 — Aug 2024", company: "Metacrafters", type: "Internship", description: "Developed and deployed smart contracts, decentralized frontends, and on-chain data flows during an intensive summer program.", highlights: ["Solidity & EVM", "Web3.js / Ethers.js", "DApp frontend"] },
+  { period: "Jan 2026 — Present", company: "Freelance", type: "Self-employed", description: "Building polished, high-performance web experiences from interactive portfolios to full-stack applications.", highlights: ["React, Next.js, TypeScript", "Motion design", "Full-stack integrations"] },
+  { period: "Jun 2024 — Aug 2024", company: "Metacrafters", type: "Internship", description: "Developed and deployed smart contracts, decentralized frontends, and on-chain data flows during an intensive summer program.", highlights: ["Solidity & EVM", "Web3.js & Ethers.js", "DApp frontend"] },
 ] as const;
 
 export default function Experience() {

@@ -147,14 +147,11 @@ export default function Projects() {
               {isActive ? (
                 /* Active Expanded Content — Instant rendering without blocking wait */
                 <div className="p-6 lg:p-8 flex flex-col justify-between h-full text-white animate-in fade-in duration-200">
-                  {/* Top: Category Number & Project Title */}
+                  {/* Top: Category & Project Title */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span
-                        className="text-[11px] font-mono tracking-widest uppercase font-semibold"
-                        style={{ color: project.accentColor }}
-                      >
-                        {project.num} / {project.category}
+                      <span className="text-[11px] font-mono tracking-widest uppercase font-semibold text-neutral-400">
+                        {project.category}
                       </span>
                     </div>
                     <h3 className="text-2xl lg:text-3xl font-semibold tracking-tight text-white">
@@ -264,11 +261,8 @@ export default function Projects() {
                 /* Mobile Active Content */
                 <div className="flex flex-col justify-between h-full gap-5">
                   <div>
-                    <span
-                      className="text-[10px] font-mono tracking-widest uppercase font-semibold"
-                      style={{ color: project.accentColor }}
-                    >
-                      {project.num} / {project.category}
+                    <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-neutral-400">
+                      {project.category}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">
                       {project.title}

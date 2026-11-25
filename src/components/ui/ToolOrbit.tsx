@@ -371,7 +371,7 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
             TECH + STACK
           </span>
           <span className="font-mono text-xs text-neutral-400 hidden md:inline-block">
-            {String(activeIndex + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+            {activeIndex + 1} of {count}
           </span>
         </div>
 

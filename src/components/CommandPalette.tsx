@@ -19,7 +19,7 @@ export default function CommandPalette() {
     { label: "Go to tools", hint: "#tools", run: () => go("#tools") },
     { label: "Go to experience", hint: "#experience", run: () => go("#experience") },
     { label: "Go to contact", hint: "#contact", run: () => go("#contact") },
-    ...PROJECTS_DATA.map(project => ({ label: `Open ${project.title}`, hint: project.figNum, run: () => { navigate(`/project/${project.id}`); close(); } })),
+    ...PROJECTS_DATA.map(project => ({ label: `Open ${project.title}`, hint: "Case study", run: () => { navigate(`/project/${project.id}`); close(); } })),
   ];
   const results = commands.filter(command => command.label.toLowerCase().includes(query.toLowerCase()) || command.hint.toLowerCase().includes(query.toLowerCase()));
 
