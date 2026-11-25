@@ -24,6 +24,6 @@ function StructuredData() {
 }
 
 export default function Home() {
-  useSEO({ title: "Tushal Anand — Software Engineer", description: "Software engineer building useful systems with C++, React, and AI agents.", canonical: `${BASE_URL}/`, ogImage: `${BASE_URL}/avtar.webp` });
+  useSEO({ title: "Tushal Anand", description: "Software engineer building useful systems with C++, React, and AI agents.", canonical: `${BASE_URL}/`, ogImage: `${BASE_URL}/avtar.webp` });
   return <><StructuredData /><Navbar /><main id="main-content" tabIndex={-1}><Hero /><Projects /><StackMarquee /><Experience /><About /><Contact /><Footer /></main></>;
 }
