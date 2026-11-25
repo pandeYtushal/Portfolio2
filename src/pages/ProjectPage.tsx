@@ -4,7 +4,6 @@ import { m } from "motion/react";
 import {
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   CheckCircle2,
   Zap
 } from "lucide-react";
@@ -583,43 +582,90 @@ export const ProjectPage = () => {
               )}
             </div>
 
-            {/* Sequential Case Study Trail: Previous & Next Project Cards */}
-            <div className="mt-8 sm:mt-16 pt-8 sm:pt-12 border-t border-white/[0.1] flex flex-col gap-6 sm:gap-8">
-              <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-neutral-400 font-semibold">
-                <div className="flex items-center gap-2">
+            {/* Sequential Case Study Trail: Redesigned as The Architectural Vault / Visual System Cycler */}
+            <div className="mt-12 sm:mt-20 pt-8 sm:pt-12 border-t border-white/[0.12] flex flex-col gap-6 sm:gap-8">
+              
+              {/* Header Bar with Quick Index Cycler */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-white/[0.08]">
+                <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-neutral-400 font-semibold">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span>CASE STUDY COMPLETE · {project.figNum}</span>
                 </div>
-                <button
-                  onClick={() => navigate("/#projects")}
-                  className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
-                >
-                  <span>RETURN TO INDEX</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </button>
+
+                {/* All Systems Fast Cycler Tabs */}
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {PROJECTS_DATA.map((p, idx) => {
+                    const isCurrent = p.id === project.id;
+                    return (
+                      <Link
+                        key={p.id}
+                        to={`/project/${p.id}`}
+                        className={`px-2.5 py-1 rounded-none font-mono text-[10px] tracking-wider uppercase transition-all border ${
+                          isCurrent
+                            ? "bg-white text-black font-bold border-white shadow-sm"
+                            : "bg-[#111114] text-neutral-400 hover:text-white border-white/10 hover:border-white/20"
+                        }`}
+                        title={p.title}
+                      >
+                        0{idx + 1} {p.title.split(" ")[0]}
+                      </Link>
+                    );
+                  })}
+                  <button
+                    onClick={() => navigate("/#projects")}
+                    className="ml-2 inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
+                  >
+                    <span>INDEX ↗</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Dual Tactile NeoPOP Trail Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                {/* Previous Project Card */}
+              {/* Dual Visual Viewport Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-7">
+                
+                {/* Previous Project Visual Card */}
                 <Link
                   to={`/project/${prevProject.id}`}
-                  className="group p-5 sm:p-7 rounded-none bg-[#0e0e11] hover:bg-[#121216] border border-white/[0.09] hover:border-white/25 shadow-[5px_5px_0px_#18181b] hover:shadow-[7px_7px_0px_#26262a] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex flex-col justify-between gap-5 min-h-[220px]"
+                  className="group relative flex flex-col justify-between rounded-none bg-[#0c0c0e] border border-white/[0.1] hover:border-white/30 shadow-[4px_4px_0px_#18181b] hover:shadow-[7px_7px_0px_#222] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
                   aria-label={`Previous Project: ${prevProject.title}`}
                 >
-                  <div className="flex items-center justify-between text-xs font-mono pb-3 border-b border-white/[0.07]">
-                    <span className="flex items-center gap-1.5 text-neutral-400 group-hover:text-white group-hover:-translate-x-1 transition-all">
-                      <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>PREVIOUS STUDY</span>
+                  {/* Top Bar HUD */}
+                  <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.08] bg-[#0f0f13] flex items-center justify-between font-mono text-[10px] sm:text-[11px] text-neutral-400">
+                    <span className="flex items-center gap-1.5 text-neutral-400 group-hover:text-white transition-colors">
+                      <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                      <span className="font-semibold uppercase tracking-wider">PREVIOUS SYSTEM</span>
                     </span>
-                    <span className="font-semibold text-neutral-400">{prevProject.figNum}</span>
+                    <span className="font-bold text-neutral-300">{prevProject.figNum}</span>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  {/* Thumbnail Visual Viewport with HUD Overlay */}
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-black border-b border-white/[0.08]">
+                    <img
+                      src={prevProject.image}
+                      alt={prevProject.title}
+                      className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 contrast-105 opacity-80 group-hover:opacity-100"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e] via-transparent to-transparent opacity-90 pointer-events-none" />
+                    
+                    {/* Viewport Corner Brackets */}
+                    <span className="pointer-events-none absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-white/40" />
+                    <span className="pointer-events-none absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-white/40" />
+                    <span className="pointer-events-none absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-white/40" />
+                    <span className="pointer-events-none absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-white/40" />
+
+                    {/* Floating Metric Pill */}
+                    <div className="absolute bottom-2.5 left-3 px-2 py-0.5 bg-black/80 backdrop-blur-sm border border-white/20 font-mono text-[9px] uppercase tracking-wider text-neutral-300">
+                      {prevProject.impact}
+                    </div>
+                  </div>
+
+                  {/* Narrative Body */}
+                  <div className="p-4 sm:p-6 flex flex-col gap-2">
                     <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-500 font-bold">
                       {prevProject.tag}
                     </span>
-                    <h4 className="text-xl sm:text-2xl font-medium text-white group-hover:text-amber-300 transition-colors">
+                    <h4 className="text-xl sm:text-2xl font-medium text-white group-hover:text-amber-300 transition-colors tracking-tight">
                       {prevProject.title}
                     </h4>
                     <p className="font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed line-clamp-2">
@@ -627,31 +673,63 @@ export const ProjectPage = () => {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-white/[0.07] flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-neutral-300 group-hover:text-white font-bold">
-                    <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-                    <span>Inspect {prevProject.title}</span>
+                  {/* Bottom Action Footer */}
+                  <div className="px-4 py-3 sm:px-6 sm:py-3.5 border-t border-white/[0.07] bg-[#0e0e12] flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-neutral-300 group-hover:text-white font-bold">
+                    <span className="flex items-center gap-1.5">
+                      <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1.5 transition-transform" />
+                      <span>Explore {prevProject.title}</span>
+                    </span>
+                    <span className="text-neutral-500 group-hover:text-neutral-300">FIG. {prevProject.figNum}</span>
                   </div>
                 </Link>
 
-                {/* Next Project Card */}
+                {/* Next Project Visual Card (Flagship Next Focus) */}
                 <Link
                   to={`/project/${nextProject.id}`}
-                  className="group p-5 sm:p-7 rounded-none bg-[#0e0e11] hover:bg-[#121216] border border-white/[0.09] hover:border-white/25 shadow-[5px_5px_0px_#18181b] hover:shadow-[7px_7px_0px_#26262a] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all flex flex-col justify-between gap-5 min-h-[220px]"
+                  className="group relative flex flex-col justify-between rounded-none bg-[#0c0c0e] border border-white/[0.15] hover:border-white/40 shadow-[5px_5px_0px_#18181b] hover:shadow-[8px_8px_0px_#fff]/10 hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
                   aria-label={`Next Project: ${nextProject.title}`}
                 >
-                  <div className="flex items-center justify-between text-xs font-mono pb-3 border-b border-white/[0.07]">
-                    <span className="font-semibold text-neutral-400">{nextProject.figNum}</span>
-                    <span className="flex items-center gap-1.5 text-neutral-400 group-hover:text-white group-hover:translate-x-1 transition-all">
-                      <span>NEXT STUDY</span>
+                  {/* Top Specular Accent Glint for Up Next */}
+                  <div className="pointer-events-none absolute -top-[1px] left-8 right-8 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent z-20" />
+
+                  {/* Top Bar HUD */}
+                  <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-b border-white/[0.08] bg-[#0f0f13] flex items-center justify-between font-mono text-[10px] sm:text-[11px]">
+                    <span className="font-bold text-neutral-400">{nextProject.figNum}</span>
+                    <span className="flex items-center gap-1.5 text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">
+                      <span className="uppercase tracking-wider">UP NEXT // ADVANCE</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  {/* Thumbnail Visual Viewport with HUD Overlay */}
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-black border-b border-white/[0.08]">
+                    <img
+                      src={nextProject.image}
+                      alt={nextProject.title}
+                      className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 contrast-105 opacity-80 group-hover:opacity-100"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e] via-transparent to-transparent opacity-90 pointer-events-none" />
+                    
+                    {/* Viewport Corner Brackets */}
+                    <span className="pointer-events-none absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-white/40" />
+                    <span className="pointer-events-none absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-white/40" />
+                    <span className="pointer-events-none absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-white/40" />
+                    <span className="pointer-events-none absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-white/40" />
+
+                    {/* Floating Metric Pill */}
+                    <div className="absolute bottom-2.5 left-3 px-2 py-0.5 bg-black/80 backdrop-blur-sm border border-emerald-500/40 font-mono text-[9px] uppercase tracking-wider text-emerald-400 font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>{nextProject.impact}</span>
+                    </div>
+                  </div>
+
+                  {/* Narrative Body */}
+                  <div className="p-4 sm:p-6 flex flex-col gap-2">
                     <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-500 font-bold">
                       {nextProject.tag}
                     </span>
-                    <h4 className="text-xl sm:text-2xl font-medium text-white group-hover:text-emerald-400 transition-colors">
+                    <h4 className="text-xl sm:text-2xl font-medium text-white group-hover:text-emerald-400 transition-colors tracking-tight">
                       {nextProject.title}
                     </h4>
                     <p className="font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed line-clamp-2">
@@ -659,11 +737,13 @@ export const ProjectPage = () => {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-white/[0.07] flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-neutral-300 group-hover:text-white font-bold">
-                    <span>Inspect {nextProject.title}</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
+                  {/* Bottom Action Footer */}
+                  <div className="px-4 py-3 sm:px-6 sm:py-3.5 border-t border-white/[0.07] bg-[#0e0e12] flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-white font-bold group-hover:text-emerald-400 transition-colors">
+                    <span>Inspect {nextProject.title} Case Study</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform text-emerald-400" />
                   </div>
                 </Link>
+
               </div>
             </div>
 
