@@ -81,7 +81,7 @@ export default function Navbar() {
       <m.div className="page-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />
       <header className="nav-wrap">
         <nav className="nav-pill" aria-label="Main navigation">
-          <a className="nav-brand" href="/#home" onClick={handleBrandClick}>
+          <a className="nav-brand hidden md:inline-block" href="/#home" onClick={handleBrandClick}>
             TA<span className="accent">.</span>
           </a>
           <div className="nav-links">
