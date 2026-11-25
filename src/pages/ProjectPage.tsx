@@ -3,8 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { m } from "motion/react";
 import {
   ArrowLeft,
-  ArrowRight,
-  CheckCircle2
+  ArrowRight
 } from "lucide-react";
 import { PROJECTS_DATA, Project } from "../data/projects";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
@@ -87,7 +86,7 @@ export const ProjectPage = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-app-bg text-app-text-primary px-4 text-center">
-        <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-2">404 // ROUTE EXCEPTION</span>
+        <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-2">404 · Project Not Found</span>
         <h1 className="text-3xl sm:text-5xl font-medium tracking-tight mb-4">Project Not Found</h1>
         <p className="text-neutral-400 text-sm max-w-md mb-6">
           The requested engineering case study does not exist or has been relocated in the portfolio index.
@@ -378,11 +377,10 @@ export const ProjectPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* Problem Statement Card */}
               <div className="p-5 sm:p-7 rounded-none bg-[#0e0e11] border border-white/[0.09] shadow-[5px_5px_0px_#18181b] flex flex-col justify-between gap-4">
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-bold">
-                    <span className="w-2 h-0.5 bg-amber-400" />
-                    <span>01 // THE CHALLENGE</span>
-                  </div>
+                <div className="flex flex-col gap-2.5">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-neutral-500 font-semibold">
+                    The Problem
+                  </span>
                   <h3 className="text-lg sm:text-xl font-medium text-white tracking-tight">
                     Friction &amp; Constraints
                   </h3>
@@ -402,11 +400,10 @@ export const ProjectPage = () => {
 
               {/* Solution Card */}
               <div className="p-5 sm:p-7 rounded-none bg-[#0e0e11] border border-white/[0.09] shadow-[5px_5px_0px_#18181b] flex flex-col justify-between gap-4">
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs uppercase tracking-widest text-emerald-400 font-bold">
-                    <span className="w-2 h-0.5 bg-emerald-400" />
-                    <span>02 // ARCHITECTURAL SOLUTION</span>
-                  </div>
+                <div className="flex flex-col gap-2.5">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-neutral-500 font-semibold">
+                    The Solution
+                  </span>
                   <h3 className="text-lg sm:text-xl font-medium text-white tracking-tight">
                     Implementation Strategy
                   </h3>
@@ -446,7 +443,6 @@ export const ProjectPage = () => {
                     >
                       <div className="flex items-center justify-between text-neutral-500 font-mono text-xs">
                         <span className="font-bold text-neutral-400">0{i + 1}</span>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       </div>
                       <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-medium">
                         {item}
