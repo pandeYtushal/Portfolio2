@@ -4,8 +4,7 @@ import { m } from "motion/react";
 import {
   ArrowLeft,
   ArrowRight,
-  CheckCircle2,
-  Zap
+  CheckCircle2
 } from "lucide-react";
 import { PROJECTS_DATA, Project } from "../data/projects";
 import { useSEO, BASE_URL } from "../hooks/useSEO";
@@ -488,8 +487,7 @@ export const ProjectPage = () => {
 
                 {project.futureImprovements && (
                   <div className="p-4 sm:p-5 rounded-none bg-[#0d0d10] border border-white/[0.07] flex flex-col gap-2">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 font-bold flex items-center gap-1.5">
-                      <Zap className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
                       SCALABILITY &amp; ROADMAP
                     </span>
                     <p className="font-sans text-xs sm:text-sm text-neutral-300 leading-relaxed">
