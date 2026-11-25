@@ -19,22 +19,35 @@ export default function Navbar() {
   const lenis = useLenis();
 
   useEffect(() => {
-    const ids = ["home", "projects", "tools", "experience", "about", "contact"];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
+    const handleScroll = () => {
+      // When at the top of the page, strictly mark home active and clear any lingering hash
+      if (window.scrollY < 160) {
+        setActive("home");
+        if (window.location.hash) {
+          window.history.replaceState(null, "", window.location.pathname);
+        }
+        return;
+      }
+
+      const sections = ["projects", "tools", "experience", "about", "contact"];
+      const scrollPos = window.scrollY + 220;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            setActive(sections[i]);
+            return;
           }
-        });
-      },
-      { rootMargin: "-30% 0px -40%" }
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+        }
+      }
+      setActive("home");
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -59,7 +72,6 @@ export default function Navbar() {
           const top = (target as HTMLElement).getBoundingClientRect().top + window.scrollY + navOffset;
           window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
         }
-        window.history.pushState(null, "", href);
       }
     }
   };
@@ -73,7 +85,9 @@ export default function Navbar() {
     } else {
       window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     }
-    window.history.pushState(null, "", "/#home");
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
   };
 
   return (

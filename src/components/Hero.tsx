@@ -20,7 +20,6 @@ export default function Hero() {
         const top = (target as HTMLElement).getBoundingClientRect().top + window.scrollY + navOffset;
         window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
       }
-      window.history.pushState(null, "", "#projects");
     }
   };
 
