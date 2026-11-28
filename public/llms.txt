@@ -31,6 +31,11 @@ Relevant coursework: DSA, OS, DBMS, CN, AI/ML
 
 ### Experience
 
+Freelance — Self-employed  
+January 2026 – Present  
+- Private Practice & Patient Care Portal: Architected a full-stack clinical practice web platform featuring dedicated patient and physician workspaces, secure consultation scheduling, medical record tracking, and responsive care management workflows.  
+- Technologies: React, TypeScript, Tailwind CSS, Portal Architecture, Full-Stack Integration.  
+
 Apprenticeship — Metacrafters  
 June 2024 – August 2024  
 - Built JavaScript modules covering async patterns, closures & DOM APIs.  

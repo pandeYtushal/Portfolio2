@@ -3,10 +3,40 @@ import { springs, stagger } from "../motion.theme";
 import { Typography } from "@cred/neopop-web/lib/components";
 import { fontNameSpaces } from "@cred/neopop-web/lib/primitives";
 
-const experience = [
-  { period: "Jan 2026 — Present", company: "Freelance", type: "Self-employed", description: "Building polished, high-performance web experiences from interactive portfolios to full-stack applications.", highlights: ["React, Next.js, TypeScript", "Motion design", "Full-stack integrations"] },
-  { period: "Jun 2024 — Aug 2024", company: "Metacrafters", type: "Internship", description: "Developed and deployed smart contracts, decentralized frontends, and on-chain data flows during an intensive summer program.", highlights: ["Solidity & EVM", "Web3.js & Ethers.js", "DApp frontend"] },
-] as const;
+interface ExperienceItem {
+  period: string;
+  company: string;
+  type: string;
+  description: string;
+  project?: {
+    title: string;
+    description: string;
+  };
+  highlights: string[];
+}
+
+const experience: ExperienceItem[] = [
+  {
+    period: "Jan 2026 — Present",
+    company: "Freelance",
+    type: "Self-employed",
+    description: "Independent engineering for production client applications and specialized platforms.",
+    project: {
+      title: "Private Practice & Patient Care Portal",
+      description:
+        "Architected a full-stack clinical practice web platform featuring dedicated patient and physician workspaces, secure consultation scheduling, medical record tracking, and responsive care management workflows.",
+    },
+    highlights: ["Patient & Doctor Portals", "Consultation Scheduling", "React & TypeScript", "Full-stack integration"],
+  },
+  {
+    period: "Jun 2024 — Aug 2024",
+    company: "Metacrafters",
+    type: "Internship",
+    description:
+      "Developed and deployed smart contracts, decentralized frontends, and on-chain data flows during an intensive summer program.",
+    highlights: ["Solidity & EVM", "Web3.js & Ethers.js", "DApp frontend"],
+  },
+];
 
 export default function Experience() {
   const reduce = useReducedMotion();
@@ -55,6 +85,21 @@ export default function Experience() {
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-[48ch]">
                 {item.description}
               </p>
+              {item.project && (
+                <div className="mt-3 p-3 sm:p-3.5 bg-white/[0.03] border border-white/[0.08] rounded-none">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-400 font-semibold">
+                      Featured Project:
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium text-white">
+                      {item.project.title}
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-400 leading-relaxed">
+                    {item.project.description}
+                  </p>
+                </div>
+              )}
               <div className="flex flex-wrap gap-2 mt-4">
                 {item.highlights.map(highlight => (
                   <span key={highlight} className="px-2.5 py-1 text-[11px] font-mono rounded-none bg-white/[0.08] border border-white/10 text-neutral-200">
