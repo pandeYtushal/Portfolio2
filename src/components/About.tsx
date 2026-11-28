@@ -27,7 +27,7 @@ export default function About() {
 
   return (
     <section id="about" className="about-section section-wrap" aria-labelledby="about-heading">
-      {/* Section Header */}
+      {/* Section landmark header */}
       <div className="section-heading mb-6 md:mb-10">
         <div>
           <p className="eyebrow">
@@ -42,9 +42,9 @@ export default function About() {
         </p>
       </div>
 
-      {/* Editorial Split Layout */}
+      {/* Asymmetric editorial layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
-        {/* Left Column: Portrait & Identity Spec */}
+        {/* Identity spec and visual portrait */}
         <m.div
           initial={reduce ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export default function About() {
           </div>
         </m.div>
 
-        {/* Right Column: Narrative Bio & Core Principles */}
+        {/* Engineering philosophy and core operating principles */}
         <m.div
           initial={reduce ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

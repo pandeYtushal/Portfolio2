@@ -42,14 +42,14 @@ export default function Hero() {
           const chroma = max - min;
           const lum = 0.299 * r + 0.587 * g + 0.114 * b;
 
-          // 1. Chromatic iridescent trail (high color saturation)
+          // 1. Iridescent dispersion mask: boost high-chroma spectrum
           if (chroma >= 25) {
             d[i] = Math.min(255, Math.round(r * 1.35));
             d[i + 1] = Math.min(255, Math.round(g * 1.35));
             d[i + 2] = Math.min(255, Math.round(b * 1.35));
             d[i + 3] = 255;
           }
-          // 2. Light studio background (high luminance, low chroma)
+          // 2. Alpha thresholding: blend high-luminance background into root canvas
           else if (lum > 125 && chroma < 38) {
             const t = Math.min(1, Math.max(0, (lum - 125) / 50));
             d[i + 3] = Math.round(255 * (1 - t) * (chroma / 38));
@@ -57,7 +57,7 @@ export default function Hero() {
             d[i + 1] = 9;
             d[i + 2] = 9;
           }
-          // 3. Cat silhouette (low luminance, dark obsidian tone)
+          // 3. Silhouette quantization: map subject mass to deep obsidian colorway
           else {
             d[i] = 18;
             d[i + 1] = 18;
@@ -69,7 +69,7 @@ export default function Hero() {
         ctx.putImageData(imgData, 0, 0);
         setIsArtworkReady(true);
       } catch {
-        // Fallback gracefully if canvas context has security restriction
+        // Fallback for strict cross-origin security context
         setIsArtworkReady(true);
       }
     };
@@ -93,7 +93,7 @@ export default function Hero() {
 
   return (
     <section id="home" className="hero section-wrap relative overflow-hidden" aria-labelledby="hero-title">
-      {/* Ambient Artwork Layer: Dark Silhouette with Glowing Iridescent Motion Trail */}
+      {/* Ambient display: subject silhouette with chromatic dispersion trail */}
       <div
         className="pointer-events-none absolute -right-[15%] sm:right-[-5%] lg:right-[0%] top-1/2 -translate-y-1/2 w-[100vw] sm:w-[70vw] md:w-[58vw] max-w-[880px] z-0 select-none overflow-hidden opacity-90 sm:opacity-100"
         aria-hidden="true"
@@ -108,7 +108,7 @@ export default function Hero() {
             ref={canvasRef}
             className="w-full h-full object-contain filter drop-shadow-[0_0_35px_rgba(168,85,247,0.22)]"
           />
-          {/* Subtle perimeter feathering so the edges naturally dissolve into #090909 */}
+          {/* Spatial boundary feathering: dissolve canvas perimeter into root background */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#090909] via-transparent to-[#090909]/40 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent pointer-events-none" />
         </m.div>

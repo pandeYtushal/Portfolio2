@@ -119,7 +119,7 @@ export default function Projects() {
         </p>
       </div>
 
-      {/* Desktop Showcase: Ultra-smooth Hardware-Accelerated Flex Accordion */}
+      {/* Desktop layout: hardware-accelerated flexible accordion manifold */}
       <div className="hidden md:flex gap-3 h-[460px] md:h-[480px] w-full select-none">
         {PROJECTS.map((project, idx) => {
           const isActive = idx === activeIndex;
@@ -145,7 +145,7 @@ export default function Projects() {
               aria-label={`Project ${project.title}`}
             >
               {isActive ? (
-                /* Active Expanded Content — Instant rendering without blocking wait */
+                /* Primary expanded node: architectural dossier and telemetry */
                 <div className="p-6 lg:p-8 flex flex-col justify-between h-full text-white animate-in fade-in duration-200">
                   {/* Top: Category & Project Title */}
                   <div>
@@ -213,7 +213,7 @@ export default function Projects() {
                   </div>
                 </div>
               ) : (
-                /* Inactive Collapsed Column — Minimal, Typographic & Clean */
+                /* Collapsed vertical landmark tab */
                 <div className="flex flex-col items-center justify-between h-full py-8 px-2 text-white/70">
                   {/* Top: Project Number */}
                   <span className="font-mono text-xs font-medium text-neutral-400">
@@ -239,7 +239,7 @@ export default function Projects() {
         })}
       </div>
 
-      {/* Mobile Showcase: Smooth Vertical Expanding Stack */}
+      {/* Mobile viewport: vertical expanding accordion stack */}
       <div className="md:hidden flex flex-col gap-3 w-full">
         {PROJECTS.map((project, idx) => {
           const isActive = idx === activeIndex;

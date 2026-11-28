@@ -11,7 +11,7 @@ import { softwareApplicationSchema, breadcrumbSchema } from "../lib/jsonld";
 import { Button } from "@cred/neopop-web/lib/components";
 import Footer from "../components/Footer";
 
-// ── Per-project JSON-LD injection ─────────────────────────────────────────
+// Structured JSON-LD metadata for software entities and breadcrumbs
 function ProjectStructuredData({ project }: { project: Project }) {
   useEffect(() => {
     const appId = `project-app-${project.id}`;
@@ -109,7 +109,7 @@ export const ProjectPage = () => {
       <ProjectStructuredData project={project} />
       <div className="project-page min-h-screen bg-[#090909] text-app-text-primary overflow-x-clip selection:bg-white selection:text-black">
         
-        {/* Fixed Navigation Bar */}
+        {/* Header navigation bar */}
         <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-12 py-3 sm:py-4 flex justify-between items-center bg-[#090909]/85 backdrop-blur-md border-b border-white/[0.08] transition-colors">
           <Button
             variant="secondary"
@@ -191,7 +191,7 @@ export const ProjectPage = () => {
                 {project.description}
               </p>
 
-              {/* NeoPOP Technical Specification Strip */}
+              {/* Technical specification matrix */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-2">
                 <div className="p-3 sm:p-4 rounded-none bg-[#111114] border border-white/[0.08] shadow-[3px_3px_0px_#18181b] flex flex-col justify-between gap-1">
                   <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-500 font-bold">
@@ -258,7 +258,7 @@ export const ProjectPage = () => {
               </div>
             </div>
 
-            {/* Obsidian Metallic Showcase Visual Frame */}
+            {/* Primary architectural showcase viewport */}
             <div className="relative w-full rounded-none overflow-hidden bg-[#101012] border border-white/[0.12] shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
               {/* Precision Specular Top Glint */}
               <div className="pointer-events-none absolute -top-[1px] left-10 sm:left-16 right-10 sm:right-16 h-[1.5px] bg-gradient-to-r from-transparent via-white/80 to-transparent z-20" />

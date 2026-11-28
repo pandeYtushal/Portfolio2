@@ -51,7 +51,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact-section section-wrap" aria-labelledby="contact-heading">
-      {/* Section Heading matching portfolio design system */}
+      {/* Inquiries landmark header */}
       <div className="section-heading mb-4 md:mb-6">
         <div>
           <div className="eyebrow flex items-center gap-2">
@@ -97,6 +97,11 @@ export default function Contact() {
           <a href="https://www.linkedin.com/in/tushal-anand18/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
             <Typography {...fontNameSpaces.tc12b} color="#d4d4ce">
               LINKEDIN ↗
+            </Typography>
+          </a>
+          <a href="https://medium.com/@tushalpandey" target="_blank" rel="noreferrer" aria-label="Medium publication">
+            <Typography {...fontNameSpaces.tc12b} color="#d4d4ce">
+              MEDIUM ↗
             </Typography>
           </a>
           <a href={`mailto:${email}`} aria-label="Send direct email">

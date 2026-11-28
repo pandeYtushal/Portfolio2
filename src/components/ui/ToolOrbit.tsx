@@ -35,7 +35,7 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
   const count = items.length;
   const activeItem = items[activeIndex] || items[0];
 
-  // Screen size detection
+  // Viewport dimension telemetry
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -45,7 +45,7 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Continuous anticlockwise rotation: cards arc from right through apex and down to the left
+  // Orbital step: advance active node along circumferential arc
   const rotateAntiClockwise = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % count);
   }, [count]);
@@ -54,14 +54,14 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
     setActiveIndex((prev) => (prev - 1 + count) % count);
   }, [count]);
 
-  // Uninterrupted continuous circular rotation (runs constantly anticlockwise every 2.5s)
+  // Continuous orbital cadence: automatic rotation loop
   useEffect(() => {
     if (count <= 1 || isDragging) return;
     const timer = setInterval(rotateAntiClockwise, 2500);
     return () => clearInterval(timer);
   }, [count, isDragging, rotateAntiClockwise]);
 
-  // Pointer / Drag interactions for scrubbing the 3D ring
+  // Pointer capture and kinetic drag scrub
   const handlePointerDown = (e: React.PointerEvent) => {
     setIsDragging(true);
     dragStartRef.current = e.clientX;
@@ -80,12 +80,10 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
     setIsDragging(false);
     if (dragStartRef.current !== null) {
       const diff = e.clientX - dragStartRef.current;
-      const threshold = isMobile ? 35 : 55;
+      const threshold = isMobile ? 28 : 45;
       if (diff > threshold) {
-        // Dragged right -> rotate clockwise
         rotateClockwise();
       } else if (diff < -threshold) {
-        // Dragged left -> rotate anticlockwise
         rotateAntiClockwise();
       }
     }
@@ -94,11 +92,11 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
     try {
       (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
     } catch {
-      // Ignore pointer release if target lost
+      // Ignore lost pointer capture target
     }
   };
 
-  // Keyboard navigation
+  // Keyboard navigation dispatch
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") {
       rotateClockwise();
@@ -107,76 +105,76 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
     }
   };
 
-  // 3D Geometry calculations per card based on offset and selected layout mode
+  // Projective geometry transformations for radial and helical topologies
   const getCardTransform = (offset: number) => {
     const absOffset = Math.abs(offset);
     const sign = Math.sign(offset) || 1;
 
-    // Responsive spacing
-    const spacingX = isMobile ? 120 : 190;
+    // Compact proportional card spacing
+    const spacingX = isMobile ? 104 : 158;
 
     switch (mode) {
       case "HELIX": {
-        // Helix: Ascending spiral curve
-        const angle = offset * (isMobile ? 26 : 22);
+        // Helical coordinate manifold
+        const angle = offset * (isMobile ? 24 : 20);
         const rad = (angle * Math.PI) / 180;
-        const radius = isMobile ? 260 : 420;
+        const radius = isMobile ? 230 : 370;
         const x = Math.sin(rad) * radius;
-        const y = -offset * (isMobile ? 32 : 44);
-        const z = -absOffset * (isMobile ? 65 : 95);
-        const rotateY = -angle * 0.75;
-        const rotateZ = -offset * 8;
-        const scale = Math.max(0.68, 1 - absOffset * 0.08);
+        const y = -offset * (isMobile ? 28 : 38);
+        const z = -absOffset * (isMobile ? 55 : 85);
+        const rotateY = -angle * 0.72;
+        const rotateZ = -offset * 7;
+        const scale = Math.max(0.7, 1 - absOffset * 0.075);
         return { x, y, z, rotateX: 0, rotateY, rotateZ, scale };
       }
 
       case "RING":
       default: {
-        // RING: Sweeping arch with tangential rotateZ and depth curvature (from Motion+ Exclusive screenshot)
+        // Circumferential arch with tangential pitch and depth perspective
         if (absOffset === 0) {
-          return { x: 0, y: 0, z: 0, rotateX: 0, rotateY: 0, rotateZ: 0, scale: 1.05 };
+          return { x: 0, y: 0, z: 0, rotateX: 0, rotateY: 0, rotateZ: 0, scale: 1.04 };
         }
         if (absOffset <= 1) {
           const x = sign * (spacingX * 0.95);
-          const y = isMobile ? 32 : 46;
-          const z = isMobile ? -50 : -80;
-          const rotateZ = sign * (isMobile ? 16 : 18);
-          const rotateY = sign * -12;
+          const y = isMobile ? 26 : 38;
+          const z = isMobile ? -45 : -70;
+          const rotateZ = sign * (isMobile ? 14 : 16);
+          const rotateY = sign * -11;
           return { x, y, z, rotateX: 0, rotateY, rotateZ, scale: 0.92 };
         }
         if (absOffset <= 2) {
-          const x = sign * (spacingX * 1.88);
-          const y = isMobile ? 98 : 142;
-          const z = isMobile ? -140 : -200;
-          const rotateZ = sign * (isMobile ? 32 : 36);
-          const rotateY = sign * -24;
-          return { x, y, z, rotateX: 0, rotateY, rotateZ, scale: 0.78 };
+          const x = sign * (spacingX * 1.86);
+          const y = isMobile ? 80 : 118;
+          const z = isMobile ? -120 : -175;
+          const rotateZ = sign * (isMobile ? 28 : 32);
+          const rotateY = sign * -22;
+          return { x, y, z, rotateX: 0, rotateY, rotateZ, scale: 0.79 };
         }
-        // Offsets > 2 fade out along the perimeter
-        const x = sign * (spacingX * 2.7);
-        const y = isMobile ? 180 : 260;
-        const z = isMobile ? -240 : -340;
-        const rotateZ = sign * (isMobile ? 46 : 52);
-        const rotateY = sign * -32;
-        return { x, y, z, rotateX: 0, rotateY, rotateZ, scale: 0.62 };
+        // Peripheral horizon nodes
+        const x = sign * (spacingX * 2.65);
+        const y = isMobile ? 150 : 215;
+        const z = isMobile ? -200 : -290;
+        const rotateZ = sign * (isMobile ? 42 : 46);
+        const rotateY = sign * -28;
+        return { x, y, z, rotateX: 0, rotateY, rotateZ, scale: 0.64 };
       }
     }
   };
 
-  // Compute depth blur for FX mode
+  // Spatial depth-of-field convolution
   const getBlurAmount = (absOffset: number) => {
     if (!fxEnabled || reduce) return "blur(0px)";
     if (absOffset === 0) return "blur(0px)";
-    if (absOffset <= 1) return "blur(2px)";
-    if (absOffset <= 2) return "blur(5.5px)";
-    return "blur(10px)";
+    if (absOffset <= 1) return "blur(1.5px)";
+    if (absOffset <= 2) return "blur(4.5px)";
+    return "blur(8px)";
   };
 
-  // Card opacity
+  // Opacity attenuation along projective depth
   const getOpacity = (absOffset: number) => {
     if (absOffset === 0) return 1;
-    if (absOffset <= 1) return 0.92;
-    if (absOffset <= 2) return 0.62;
+    if (absOffset <= 1) return 0.94;
+    if (absOffset <= 2) return 0.64;
     return 0;
   };
 
@@ -188,36 +186,36 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
       tabIndex={0}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative w-full select-none outline-none flex flex-col items-center justify-center pt-2 pb-6",
+        "relative w-full select-none outline-none flex flex-col items-center justify-center pt-2 pb-4",
         className
       )}
       role="region"
-      aria-label="3D Capabilities Carousel"
+      aria-label="Interactive capabilities carousel"
     >
-      {/* Dynamic ambient backlight matching active tool */}
+      {/* Ambient chromatic back-illumination mapped to active node */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-700 opacity-20"
         style={{
           background: activeItem?.color
-            ? `radial-gradient(circle 560px at 50% 120px, ${activeItem.color}35 0%, transparent 70%)`
-            : "radial-gradient(circle 560px at 50% 120px, rgba(255,255,255,0.06) 0%, transparent 70%)",
+            ? `radial-gradient(circle 480px at 50% 110px, ${activeItem.color}30 0%, transparent 70%)`
+            : "radial-gradient(circle 480px at 50% 110px, rgba(255,255,255,0.05) 0%, transparent 70%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Main 3D Stage with Perspective */}
+      {/* Primary 3D stage with geometric perspective */}
       <div
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full max-w-[1180px] h-[330px] md:h-[396px] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
+        className="relative w-full max-w-[1140px] h-[285px] md:h-[345px] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
         style={{
-          perspective: isMobile ? 850 : 1300,
-          perspectiveOrigin: "50% 45%",
+          perspective: isMobile ? 800 : 1200,
+          perspectiveOrigin: "50% 46%",
         }}
       >
-        {/* Render visible cards along the 3D ring arch */}
+        {/* Spatial card manifold */}
         <div
           className="relative w-full h-full flex items-center justify-center"
           style={{ transformStyle: "preserve-3d" }}
@@ -231,8 +229,8 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
             const absOffset = Math.abs(offset);
             const isVisible = absOffset <= 2.5;
 
-            // Include real-time drag offset for smooth gesture scrub
-            const normalizedDrag = isDragging ? dragOffset / (isMobile ? 160 : 240) : 0;
+            // Normalized drag scrub displacement
+            const normalizedDrag = isDragging ? dragOffset / (isMobile ? 140 : 210) : 0;
             const effectiveOffset = offset + normalizedDrag;
 
             const transform = getCardTransform(effectiveOffset);
@@ -267,15 +265,15 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
                     ? { duration: 0 }
                     : {
                       type: "spring",
-                      stiffness: 150,
-                      damping: 22,
-                      mass: 0.9,
+                      stiffness: 160,
+                      damping: 24,
+                      mass: 0.85,
                     }
                 }
                 style={{
                   position: "absolute",
-                  width: isMobile ? "154px" : "210px",
-                  height: isMobile ? "210px" : "276px",
+                  width: isMobile ? "134px" : "180px",
+                  height: isMobile ? "184px" : "244px",
                   zIndex: Math.round(30 - Math.abs(effectiveOffset) * 10),
                   pointerEvents: isVisible ? "auto" : "none",
                   transformStyle: "preserve-3d",
@@ -283,75 +281,89 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
                 }}
                 className="group cursor-pointer select-none"
               >
-                {/* Portrait Card Body */}
+                {/*
+                  Cardboard / Cardstock Paper Body:
+                  Tactile kraft paper substrate with fiber grain, scored rim,
+                  and authentic punched specimen hole.
+                */}
                 <div
                   style={{
-                    background: item.bgGradient,
+                    backgroundColor: "#161311",
+                    backgroundImage: `
+                      linear-gradient(165deg, rgba(34, 29, 25, 0.94) 0%, rgba(22, 19, 17, 0.98) 55%, rgba(13, 11, 10, 1) 100%),
+                      repeating-linear-gradient(0deg, rgba(255, 245, 230, 0.015) 0px, rgba(255, 245, 230, 0.015) 1px, transparent 1px, transparent 3px)
+                    `,
                     boxShadow: isActive
-                      ? `0 0 36px ${item.color}35, 0 20px 45px -10px rgba(0,0,0,0.85)`
-                      : "0 14px 30px -10px rgba(0,0,0,0.6)",
+                      ? `0 0 0 1px ${item.color}75, 0 8px 24px -4px rgba(0,0,0,0.85), 0 0 28px ${item.color}22, inset 0 1px 0 rgba(255,240,225,0.18), inset 0 -1px 0 rgba(0,0,0,0.5)`
+                      : "0 2px 4px rgba(0,0,0,0.45), 0 8px 18px -3px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,240,225,0.08), inset 0 -1px 0 rgba(0,0,0,0.4)",
                     borderColor: isActive
                       ? `${item.color}90`
-                      : "rgba(255, 255, 255, 0.12)",
+                      : "rgba(235, 215, 195, 0.14)",
                   }}
                   className={cn(
-                    "w-full h-full rounded-none border p-4 md:p-5 flex flex-col justify-between overflow-hidden relative transition-all duration-300",
+                    "w-full h-full rounded-none border p-3.5 md:p-4 flex flex-col justify-between overflow-hidden relative transition-all duration-300",
                     isActive
-                      ? "ring-1 ring-inset ring-white/30"
-                      : "hover:border-white/30 hover:brightness-110"
+                      ? "ring-1 ring-inset ring-white/20"
+                      : "hover:border-stone-400/40 hover:brightness-105"
                   )}
                 >
-                  {/* Subtle Card Ambient Specular Sheen */}
+                  {/* Subtle paper grain texture and specular accent */}
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay"
+                    className="pointer-events-none absolute inset-0 opacity-25 mix-blend-screen"
                     style={{
-                      background: `radial-gradient(circle at 50% 0%, ${item.color}60 0%, transparent 70%)`,
+                      background: `radial-gradient(circle at 50% 0%, ${item.color}45 0%, transparent 70%)`,
                     }}
                     aria-hidden="true"
                   />
 
-                  {/* Top Card Eyebrow */}
+                  {/* Header: Monospace Specimen Stamp & Punch Hole */}
                   <div className="flex items-center justify-between z-10">
-                    <span className="font-mono text-[10px] md:text-[11px] font-semibold tracking-wider uppercase text-white/80">
+                    <span className="font-mono text-[9px] md:text-[10px] font-semibold tracking-widest uppercase text-stone-300">
                       {item.category}
                     </span>
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{
-                        backgroundColor: item.color,
-                        boxShadow: `0 0 8px ${item.color}`,
-                      }}
-                    />
+                    {/* Stamped paper punch hole */}
+                    <div
+                      className="w-2 md:w-2.5 h-2 md:h-2.5 rounded-full border border-stone-600/70 bg-[#0a0a0a] shadow-[inset_0_1px_2px_rgba(0,0,0,0.9)] flex items-center justify-center shrink-0"
+                      title="Specimen punchhole"
+                    >
+                      <span
+                        className="w-1 h-1 rounded-full"
+                        style={{
+                          backgroundColor: item.color,
+                          boxShadow: isActive ? `0 0 6px ${item.color}` : "none",
+                        }}
+                      />
+                    </div>
                   </div>
 
-                  {/* Center Hero Icon */}
-                  <div className="my-auto flex items-center justify-center z-10 py-3">
+                  {/* Center Hero Icon: Stamped screen-print badge */}
+                  <div className="my-auto flex items-center justify-center z-10 py-2">
                     {Icon && (
                       <div
-                        className="w-14 h-14 md:w-20 md:h-20 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                        className="w-11 h-11 md:w-14 md:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
                         style={{ color: item.color }}
                       >
-                        <Icon className="w-full h-full drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)]" />
+                        <Icon className="w-full h-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]" />
                       </div>
                     )}
                   </div>
 
-                  {/* Bottom Info: Tech Name & Role / Projects */}
+                  {/* Bottom: Typography and Specimen Metadata */}
                   <div className="z-10 mt-auto">
-                    <h3 className="text-lg md:text-xl font-bold tracking-tight text-white leading-tight">
+                    <h3 className="text-sm md:text-base font-semibold tracking-tight text-stone-100 leading-tight">
                       {item.name}
                     </h3>
-                    <p className="text-[11px] md:text-xs text-white/70 font-medium line-clamp-1 mt-0.5">
+                    <p className="text-[10px] md:text-[11px] text-stone-400 font-medium line-clamp-1 mt-0.5">
                       {item.tagline}
                     </p>
 
                     {item.projects && item.projects.length > 0 && (
-                      <div className="flex items-center gap-1 mt-2 pt-2 border-t border-white/10 overflow-hidden">
-                        <span className="font-mono text-[9px] text-white/50 uppercase">
-                          IN:
-                        </span>
-                        <span className="font-mono text-[9px] md:text-[10px] text-white/90 truncate">
+                      <div className="flex items-center justify-between gap-1 mt-2 pt-1.5 border-t border-dashed border-stone-700/60 overflow-hidden">
+                        <span className="font-mono text-[8.5px] md:text-[9px] text-stone-300 truncate">
                           {item.projects.join(" · ")}
+                        </span>
+                        <span className="font-mono text-[8px] text-stone-500 shrink-0">
+                          #{String(idx + 1).padStart(2, "0")}
                         </span>
                       </div>
                     )}
@@ -363,20 +375,20 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
         </div>
       </div>
 
-      {/* Bottom Control Bar */}
-      <div className="w-full max-w-[1040px] px-2 sm:px-4 mt-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 sm:gap-4 border-t border-white/[0.08] pt-3 sm:pt-4 z-20">
-        {/* Left Badge: TECH + STACK */}
+      {/* Control Surface */}
+      <div className="w-full max-w-[1040px] px-2 sm:px-4 mt-1 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 sm:gap-4 border-t border-white/[0.08] pt-3 z-20">
+        {/* Category Registry Badge */}
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-[#34d399] text-black font-mono text-[11px] font-bold tracking-wider uppercase shadow-sm">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-none bg-[#ffdc18] text-black font-mono text-[10px] font-bold tracking-wider uppercase shadow-sm">
             TECH + STACK
           </span>
-          <span className="font-mono text-xs text-neutral-400 hidden md:inline-block">
-            {activeIndex + 1} of {count}
+          <span className="font-mono text-[11px] text-neutral-400 hidden md:inline-block">
+            {activeIndex + 1} / {count}
           </span>
         </div>
 
-        {/* Center: Layout Mode Switchers (RING | HELIX) */}
-        <div className="flex items-center gap-1 bg-[#141418] border border-white/10 rounded-none p-1">
+        {/* Projection Mode Switcher: RING vs HELIX */}
+        <div className="flex items-center gap-1 bg-[#141418] border border-white/10 rounded-none p-0.5">
           {MODES.map((mItem) => {
             const isSelected = mode === mItem;
             return (
@@ -389,7 +401,7 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
                   color: isSelected ? "#000000" : "#a3a3a3",
                 }}
                 className={cn(
-                  "px-3 py-1 font-mono text-xs uppercase tracking-wider transition-all duration-200 rounded-none font-semibold",
+                  "px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 rounded-none font-semibold",
                   isSelected
                     ? "!text-black shadow"
                     : "hover:!text-white"
@@ -402,50 +414,62 @@ export function ToolOrbit({ items, className }: ToolOrbitProps) {
           })}
         </div>
 
-        {/* Right: Depth FX Toggle & Stepper Navigation */}
+        {/* Navigation Step Dispatchers & Depth Field Blur */}
         <div className="flex items-center gap-3">
-          {/* Stepper buttons (Clockwise / Anticlockwise) */}
           <div className="flex items-center border border-white/10 rounded-none overflow-hidden bg-[#141418]">
             <button
               type="button"
               onClick={rotateClockwise}
-              className="px-2.5 py-1 text-xs text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
-              aria-label="Rotate clockwise"
+              className="px-2 py-0.5 text-xs text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+              aria-label="Previous capability"
             >
               ←
             </button>
             <button
               type="button"
               onClick={rotateAntiClockwise}
-              className="px-2.5 py-1 text-xs text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
-              aria-label="Rotate anticlockwise"
+              className="px-2 py-0.5 text-xs text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+              aria-label="Next capability"
             >
               →
             </button>
           </div>
 
-          {/* FX Toggle (Depth of Field Blur) */}
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-neutral-400 font-medium">FX</span>
-            <button
-              type="button"
-              onClick={() => setFxEnabled(!fxEnabled)}
+          {/* Depth of Field (FX) Tactile Hardware Switch */}
+          <button
+            type="button"
+            onClick={() => setFxEnabled(!fxEnabled)}
+            className={cn(
+              "group inline-flex items-center gap-2 px-2.5 py-1 rounded-none border transition-all select-none cursor-pointer",
+              fxEnabled
+                ? "bg-[#181512] border-[#ffdc18]/60 text-white shadow-sm"
+                : "bg-[#141418] border-white/10 text-neutral-400 hover:border-white/20 hover:text-white"
+            )}
+            role="switch"
+            aria-checked={fxEnabled}
+            aria-label="Toggle depth-of-field lens blur"
+          >
+            <span className="font-mono text-[10px] font-semibold tracking-wider shrink-0 text-neutral-300 group-hover:text-white transition-colors">
+              FX
+            </span>
+            <div
               className={cn(
-                "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none",
-                fxEnabled ? "bg-[#34d399]" : "bg-neutral-700"
+                "relative inline-flex h-3.5 w-6 shrink-0 rounded-none border p-[1px] transition-colors duration-200",
+                fxEnabled
+                  ? "bg-[#ffdc18]/20 border-[#ffdc18]"
+                  : "bg-neutral-900 border-neutral-700"
               )}
-              role="switch"
-              aria-checked={fxEnabled}
-              aria-label="Toggle depth of field lens blur"
             >
               <span
                 className={cn(
-                  "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
-                  fxEnabled ? "translate-x-4" : "translate-x-0"
+                  "inline-block h-full w-2.5 rounded-none transition-transform duration-200 ease-out",
+                  fxEnabled
+                    ? "translate-x-2.5 bg-[#ffdc18] shadow-[0_0_6px_rgba(255,220,24,0.6)]"
+                    : "translate-x-0 bg-neutral-500 group-hover:bg-neutral-400"
                 )}
               />
-            </button>
-          </div>
+            </div>
+          </button>
         </div>
       </div>
     </div>

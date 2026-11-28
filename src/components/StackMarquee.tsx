@@ -21,7 +21,7 @@ import {
   AwsIcon,
 } from "./ui/tech-icons";
 
-// Complete technology stack represented as 3D ring cards with rich palettes and domain metadata
+// Capabilities catalog and runtime architecture toolchain registry
 const ALL_TECH: TechCardItem[] = [
   {
     id: "ts",
@@ -232,7 +232,7 @@ export default function StackMarquee() {
         </p>
       </div>
 
-      {/* 3D Ring Carousel (Motion+ Exclusive Design Pattern) */}
+      {/* Interactive 3D capability manifold */}
       <div className="w-full">
         <ToolOrbit items={ALL_TECH} />
       </div>

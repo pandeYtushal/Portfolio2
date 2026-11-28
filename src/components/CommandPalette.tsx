@@ -14,10 +14,13 @@ export default function CommandPalette() {
   const reduce = useReducedMotion();
   const close = () => { setOpen(false); setQuery(""); };
   const go = (hash: string) => { navigate({ pathname: "/", hash }); close(); };
+  // Command registry: section landmarks and project deep links
   const commands: Command[] = [
     { label: "Go to work", hint: "#projects", run: () => go("#projects") },
     { label: "Go to tools", hint: "#tools", run: () => go("#tools") },
     { label: "Go to experience", hint: "#experience", run: () => go("#experience") },
+    { label: "Go to about", hint: "#about", run: () => go("#about") },
+    { label: "Go to blog", hint: "#blog", run: () => go("#blog") },
     { label: "Go to contact", hint: "#contact", run: () => go("#contact") },
     ...PROJECTS_DATA.map(project => ({ label: `Open ${project.title}`, hint: "Case study", run: () => { navigate(`/project/${project.id}`); close(); } })),
   ];

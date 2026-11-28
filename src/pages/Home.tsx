@@ -9,6 +9,7 @@ import { personSchema, websiteSchema } from "../lib/jsonld";
 import StackMarquee from "../components/StackMarquee";
 import Experience from "../components/Experience";
 import Projects from "../components/Projects";
+import Blog from "../components/Blog";
 
 function StructuredData() {
   useEffect(() => {
@@ -25,5 +26,5 @@ function StructuredData() {
 
 export default function Home() {
   useSEO({ title: "Tushal Anand", description: "Software engineer building useful systems with C++, React, and AI agents.", canonical: `${BASE_URL}/`, ogImage: `${BASE_URL}/avtar.webp` });
-  return <><StructuredData /><Navbar /><main id="main-content" tabIndex={-1}><Hero /><Projects /><StackMarquee /><Experience /><About /><Contact /><Footer /></main></>;
+  return <><StructuredData /><Navbar /><main id="main-content" tabIndex={-1}><Hero /><Projects /><StackMarquee /><Experience /><About /><Blog /><Contact /><Footer /></main></>;
 }

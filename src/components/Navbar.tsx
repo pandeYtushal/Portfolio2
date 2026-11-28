@@ -8,6 +8,7 @@ const links = [
   { label: "Tools", href: "#tools" },
   { label: "Experience", href: "#experience" },
   { label: "About", href: "#about" },
+  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" }
 ];
 
@@ -20,7 +21,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // When at the top of the page, strictly mark home active and clear any lingering hash
+      // Scroll origin threshold: reset active landmark and normalize URI state
       if (window.scrollY < 160) {
         setActive("home");
         if (window.location.hash) {
@@ -29,7 +30,7 @@ export default function Navbar() {
         return;
       }
 
-      const sections = ["projects", "tools", "experience", "about", "contact"];
+      const sections = ["projects", "tools", "experience", "about", "blog", "contact"];
       const scrollPos = window.scrollY + 220;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -65,7 +66,7 @@ export default function Navbar() {
       const target = document.querySelector(href);
       if (target) {
         if (lenis) {
-          // Lenis automatically respects and subtracts targetStyle.scrollMarginTop (72px)
+          // Kinetic scroll dispatcher with automatic scroll-margin compensation
           lenis.scrollTo(target as HTMLElement, { offset: 0 });
         } else {
           const navOffset = window.innerWidth <= 768 ? -60 : -72;

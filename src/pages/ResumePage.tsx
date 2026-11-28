@@ -35,7 +35,7 @@ export default function ResumePage() {
       frameRef.current.style.setProperty("--mouse-x", `${x}px`);
       frameRef.current.style.setProperty("--mouse-y", `${y}px`);
 
-      // Keep spotlight active when cursor is within or hovering near the frame
+      // Proximity detector: maintain spotlight illumination within boundary threshold
       const isNear =
         e.clientX >= rect.left - 60 &&
         e.clientX <= rect.right + 60 &&
@@ -97,7 +97,7 @@ export default function ResumePage() {
             </div>
 
             <div className="resume-actions flex items-center gap-3 flex-wrap">
-              {/* Style Switcher: Metallic Glass vs NeoPOP 3D Offset */}
+              {/* Presentation mode selector: specular metallic glass vs neopop structural */}
               <div className="inline-flex items-center p-1 rounded-full bg-[#121212] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md">
                 <button
                   type="button"
@@ -139,7 +139,7 @@ export default function ResumePage() {
             </div>
           </div>
 
-          {/* Obsidian Metallic & NeoPOP Frame Container */}
+          {/* Structural presentation viewport: specular metallic vs neopop frame */}
           <div
             ref={frameRef}
             className={`relative w-full max-w-[850px] h-[78vh] min-h-[580px] max-h-[1050px] transition-all duration-300 print:m-0 print:p-0 print:border-none print:shadow-none print:bg-transparent ${
@@ -148,7 +148,7 @@ export default function ResumePage() {
                 : "neopop-wrapper"
             }`}
           >
-            {/* Dynamic Mouse-Tracking Spotlight */}
+            {/* Interactive cursor spotlight projection */}
             {frameStyle === "metallic" && (
               <div
                 className="metallic-spotlight pointer-events-none absolute inset-0 z-10 print:hidden"

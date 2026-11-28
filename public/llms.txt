@@ -278,6 +278,28 @@ Building Hunter: Flagship Autonomous Browser Automation Agent
 
 ---
 
+## Technical Writing & Articles
+
+Selected essays and guides published on Medium (https://medium.com/@tushalpandey):
+
+- **From Chatbots to Browser Agents: Building Hunterr** (July 2026)  
+  URL: https://medium.com/@tushalpandey/from-chatbots-to-browser-agents-building-hunterr-d33d23266d97  
+  Deep dive into constructing multi-agent execution loops with visual coordinates, DOM heuristics, and self-healing error recovery.
+
+- **The Placement Game Has Changed. Most People Haven’t Noticed** (May 2026)  
+  URL: https://medium.com/@tushalpandey/the-job-placement-game-has-changed-most-people-havent-noticed-e8123e5c715a  
+  Analysis of skills-first engineering evaluations, outbound hiring dynamics, and surviving campus and industry hiring shifts.
+
+- **5 CSS Mistakes Every Beginner Makes (And How to Fix Them)** (February 2026)  
+  URL: https://medium.com/@tushalpandey/5-css-mistakes-every-beginner-makes-and-how-to-fix-them-0dd1063e7659  
+  Visual breakdown of Flexbox alignment, overflow clipping, unit scaling, and responsive layout anti-patterns.
+
+- **From Tutorial Hell to Building Real Projects** (December 2025)  
+  URL: https://medium.com/@tushalpandey/from-tutorial-hell-to-building-real-projects-1a29da0da735  
+  Actionable strategies for transitioning from passive video watching to self-directed software development.
+
+---
+
 ## Contact
 
 Email: tushalanand4@gmail.com
