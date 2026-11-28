@@ -95,7 +95,7 @@ export default function Hero() {
     <section id="home" className="hero section-wrap relative overflow-hidden" aria-labelledby="hero-title">
       {/* Ambient Artwork Layer: Dark Silhouette with Glowing Iridescent Motion Trail */}
       <div
-        className="pointer-events-none absolute right-[-5%] lg:right-[0%] top-1/2 -translate-y-1/2 w-[90vw] sm:w-[70vw] md:w-[58vw] max-w-[880px] z-0 select-none overflow-hidden"
+        className="pointer-events-none absolute -right-[15%] sm:right-[-5%] lg:right-[0%] top-1/2 -translate-y-1/2 w-[100vw] sm:w-[70vw] md:w-[58vw] max-w-[880px] z-0 select-none overflow-hidden opacity-90 sm:opacity-100"
         aria-hidden="true"
       >
         <m.div
@@ -115,6 +115,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-grid" aria-hidden="true" />
+      <div className="hero-axis" aria-hidden="true" />
 
       <div className="hero-content relative z-10">
         <div className="eyebrow flex items-center gap-2 flex-wrap">
