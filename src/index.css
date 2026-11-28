@@ -242,3 +242,71 @@ body { background-color:#090909; background-image:linear-gradient(90deg,transpar
   background-size: 24px 24px;
 }
 
+/* ==========================================================================
+   Diagonal Sweep Hover Effect on Buttons
+   A single vibrant accent color sweeps in from top-left to bottom-right
+   ========================================================================== */
+
+.button-face,
+.button,
+.copy-button {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+.button-face > *,
+.button > *,
+.copy-button > * {
+  position: relative !important;
+  z-index: 2 !important;
+  transition: color 0.28s ease, stroke 0.28s ease, fill 0.28s ease !important;
+}
+
+.button-face::before,
+.button::before,
+.copy-button::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -2px !important;
+  background-color: var(--accent, #ffdc18) !important;
+  clip-path: polygon(0 0, 0 0, 0 0);
+  transition: clip-path 0.38s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Hover & active: diagonal wave sweeps from left-top (0,0) down to right-bottom */
+button:hover .button-face::before,
+button:active .button-face::before,
+.button:hover::before,
+.button:active::before,
+.copy-button:hover::before,
+.copy-button:active::before {
+  clip-path: polygon(0 0, 360% 0, 0 360%) !important;
+}
+
+/* Text and icons invert to sharp obsidian black on hover for high contrast */
+button:hover .button-face *,
+button:active .button-face *,
+.button:hover *,
+.button:active *,
+.copy-button:hover *,
+.copy-button:active * {
+  color: #0a0a0a !important;
+}
+
+button:hover .button-face svg,
+button:active .button-face svg,
+.button:hover svg,
+.button:active svg,
+.copy-button:hover svg,
+.copy-button:active svg,
+button:hover .button-face svg path,
+button:active .button-face svg path,
+.button:hover svg path,
+.button:active svg path {
+  stroke: #0a0a0a !important;
+  fill: #0a0a0a !important;
+}
+
