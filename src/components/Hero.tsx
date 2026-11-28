@@ -13,11 +13,6 @@ export default function Hero() {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isArtworkReady, setIsArtworkReady] = useState(false);
-
-  // Dynamic True Dark-Mode Canvas Processor:
-  // Converts white studio background to pure transparency,
-  // preserves sleek dark obsidian cat silhouette,
-  // and makes iridescent chromatic trail glow vividly against #090909.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;

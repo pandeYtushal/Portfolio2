@@ -70,6 +70,24 @@ Browser Automation, LLM Orchestration, Prompt Engineering, Multi-Agent Systems, 
 
 ## Projects
 
+### Pulse
+
+A quiet, native Windows HUD layer built with Tauri 2 and Rust IPC. Unifies system notifications, hardware state, and playback into a single unobtrusive surface at the top of your screen.
+
+Status: Live  
+Timeline: 2026  
+
+Problem: System telemetry and media controls shouldn't require switching contexts.  
+
+Solution: Unifies notifications, hardware state, and playback into a single unobtrusive surface at the top of your screen using Tauri 2 and Rust IPC.  
+
+Technologies: Tauri 2, Rust, React, TypeScript, Windows API  
+Case Study: https://tushal.site/project/pulse  
+URL: https://pulse-website-nine.vercel.app/  
+Source: https://github.com/pandeYtushal/Pulse  
+
+---
+
 ### Hunter
 
 An autonomous AI browser agent that translates natural language goals into self-healing browser execution scripts.

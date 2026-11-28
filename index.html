@@ -49,106 +49,78 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-  <!-- Static JSON-LD Structured Data for Crawlers without JS Execution -->
+  <!-- Schema.org Person JSON-LD for AI Agents and Search Engines -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://tushal.site/#website",
-        "url": "https://tushal.site/",
-        "name": "Tushal Anand — Portfolio",
-        "description": "Personal portfolio of Tushal Anand — Computer Science Engineer and software developer.",
-        "inLanguage": "en-IN",
-        "publisher": {
-          "@id": "https://tushal.site/#person"
-        }
-      },
-      {
-        "@type": "Person",
-        "@id": "https://tushal.site/#person",
-        "name": "Tushal Anand",
-        "url": "https://tushal.site/",
-        "image": "https://tushal.site/avtar.webp",
-        "jobTitle": "Software Engineer",
-        "description": "Computer Science Engineer based in India specialising in React, TypeScript, Rust, browser automation, and AI agent architectures.",
-        "email": "tushalanand4@gmail.com",
-        "sameAs": [
-          "https://github.com/pandeYtushal",
-          "https://www.linkedin.com/in/tushal-anand18/",
-          "https://medium.com/@tushalpandey"
-        ],
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Chandigarh University"
-        }
-      }
+    "@type": "Person",
+    "name": "Tushal Anand",
+    "url": "https://tushal.site/",
+    "description": "I’m Tushal, a software engineer building thoughtful web and desktop products, from the first interface to the systems behind it.",
+    "sameAs": [
+      "https://github.com/pandeYtushal",
+      "https://www.linkedin.com/in/tushal-anand18/",
+      "https://medium.com/@tushalpandey"
     ]
   }
   </script>
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <div id="root">
+    <main style="max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #f1f1ee; line-height: 1.6;">
+      <header>
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: -0.04em;">Tushal Anand</h1>
+        <p style="font-size: 1.15rem; color: #b2b2ad; margin-bottom: 2rem; max-width: 60ch;">
+          I’m Tushal, a software engineer building thoughtful web and desktop products, from the first interface to the systems behind it.
+        </p>
+      </header>
 
-  <!-- Static noscript fallback for web crawlers and users without JS -->
-  <noscript>
-    <style>
-      .noscript-portfolio {
-        font-family: system-ui, -apple-system, sans-serif;
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 2.5rem 1.5rem;
-        color: #111;
-        line-height: 1.6;
-      }
+      <section>
+        <h2 style="font-size: 1.35rem; margin: 2rem 0 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem;">
+          Main Work &amp; Systems
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.25rem;">
+          <li>
+            <strong style="color: #fff;"><a href="https://tushal.site/project/pulse" style="color: #ffdc18; text-decoration: none;">Pulse</a></strong> &mdash;
+            A quiet, native Windows HUD layer built with Tauri 2 and Rust IPC. Unifies system notifications, hardware state, and playback into a single unobtrusive surface at the top of your screen.
+            (<a href="https://pulse-website-nine.vercel.app/" style="color: #b2b2ad;">Live preview</a>)
+          </li>
+          <li>
+            <strong style="color: #fff;"><a href="https://tushal.site/project/hunter" style="color: #ffdc18; text-decoration: none;">Hunter</a></strong> &mdash;
+            Autonomous AI browser agent with visual coordinates and self-healing DOM routers. Pairs multimodal vision with local semantic caching to navigate dynamic single-page applications.
+            (<a href="https://huntterr.vercel.app/" style="color: #b2b2ad;">Live preview</a>)
+          </li>
+          <li>
+            <strong style="color: #fff;"><a href="https://tushal.site/project/astronomical" style="color: #ffdc18; text-decoration: none;">Astronomical</a></strong> &mdash;
+            1,500 years of Indian mathematical astronomy catalogued in interactive 3D. Merges physics-based scroll velocity with abstract d3-geo projections of ancient observatories.
+            (<a href="https://astronomical-chi.vercel.app/" style="color: #b2b2ad;">Live preview</a>)
+          </li>
+          <li>
+            <strong style="color: #fff;"><a href="https://tushal.site/project/civic" style="color: #ffdc18; text-decoration: none;">Smart Civic Platform</a></strong> &mdash;
+            Localized civic reporting platform bridging public residents with municipal administrators. Implements local pre-processing with HTML5 Canvas to downscale and compress images before upload.
+            (<a href="https://urbanreport.vercel.app/" style="color: #b2b2ad;">Live preview</a>)
+          </li>
+          <li>
+            <strong style="color: #fff;"><a href="https://tushal.site/project/melody" style="color: #ffdc18; text-decoration: none;">Melody</a></strong> &mdash;
+            High-fidelity music streaming application with Zustand state synchronization and PWA support for mobile-first experience.
+            (<a href="https://meldmusic.vercel.app/" style="color: #b2b2ad;">Live preview</a>)
+          </li>
+        </ul>
+      </section>
 
-      .noscript-portfolio h1 {
-        font-size: 2.25rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .noscript-portfolio ul {
-        padding-left: 1.25rem;
-        margin: 1rem 0;
-      }
-
-      .noscript-portfolio li {
-        margin-bottom: 0.5rem;
-      }
-    </style>
-    <main class="noscript-portfolio">
-      <h1>Tushal Anand — Portfolio & Systems</h1>
-      <p>I build systems, interactions, and ideas that actually work. Computer Science Engineer specializing in React,
-        TypeScript, Rust, and autonomous AI agents.</p>
-
-      <h2>Public Index & Project Case Studies</h2>
-      <ul>
-        <li><a href="https://tushal.site/">Home — Portfolio Overview</a></li>
-        <li><a href="https://tushal.site/project/pulse">Pulse — Quiet Windows system layer built with Tauri 2, React,
-            and Rust</a></li>
-        <li><a href="https://tushal.site/project/hunter">Hunter — Autonomous AI browser copilot with self-healing DOM
-            selectors</a></li>
-        <li><a href="https://tushal.site/project/astronomical">Astronomical — Multimedia web archive of Indian
-            mathematical astronomy</a></li>
-        <li><a href="https://tushal.site/project/civic">Smart Civic Platform — Localized civic reporting with canvas
-            compression and Firestore</a></li>
-        <li><a href="https://tushal.site/project/melody">Melody — High-fidelity music streaming application with Zustand
-            state synchronization</a></li>
-        <li><a href="https://tushal.site/resume">Curriculum Vitae — Academic credentials, publications, and
-            experience</a></li>
-      </ul>
-
-      <h2>Contact & Profiles</h2>
-      <p>
-        <a href="https://github.com/pandeYtushal">GitHub</a> &bull;
-        <a href="https://www.linkedin.com/in/tushal-anand18/">LinkedIn</a> &bull;
-        <a href="mailto:tushalanand4@gmail.com">tushalanand4@gmail.com</a>
-      </p>
+      <section style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <h2 style="font-size: 1.15rem; margin-bottom: 0.75rem;">Contact &amp; Profiles</h2>
+        <p style="color: #b2b2ad;">
+          <a href="https://github.com/pandeYtushal" style="color: #f1f1ee;">GitHub</a> &bull;
+          <a href="https://www.linkedin.com/in/tushal-anand18/" style="color: #f1f1ee;">LinkedIn</a> &bull;
+          <a href="https://medium.com/@tushalpandey" style="color: #f1f1ee;">Medium</a> &bull;
+          <a href="mailto:tushalanand4@gmail.com" style="color: #f1f1ee;">tushalanand4@gmail.com</a>
+        </p>
+      </section>
     </main>
-  </noscript>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
